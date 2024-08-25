@@ -1,0 +1,22 @@
+---
+import Layout from '../layouts/Layout.astro'
+import { Hero } from '../components/Hero.jsx'
+import { Navbar } from '../components/Navbar.jsx'
+import { TypinksBanner } from '../components/TypinksBanner.jsx'
+import { KroengerBanner } from '../components/KroengerBanner.jsx'
+import { ServerSideEventsBanner } from '../components/ServerSideEventsBanner.jsx'
+import { Brands } from '../components/Brands.jsx'
+import { ScrollUpButton } from '../components/ScrollUpButton'
+import '../styles/Theme.css'
+import '../styles/Diagonals.css'
+---
+
+<Layout title="Test Free Online">
+  <Navbar client:load />
+  <Hero client:load />
+  <TypinksBanner client:load />
+  <KroengerBanner client:load />
+  <ServerSideEventsBanner client:load />
+  <Brands client:load />
+  <ScrollUpButton client:load />
+</Layout>
