@@ -1,0 +1,154 @@
+---
+import { Image } from "astro:assets";
+import { Navbar } from "../../components/Navbar";
+import { ScrollUpButton } from "../../components/ScrollUpButton";
+import { ListItem } from "../../components/blog/ListItem";
+import Layout from "../../layouts/Layout.astro";
+import sseBannerImage from "../../assets/images/blog/sse-tester.png";
+---
+
+<Layout title="How to test SSE online" ogImage="test-sse-online.png" description="SSE allows a server to send real-time updates to the browser without the browser asking for them">
+  <Navbar client:load />
+  <div class="flex justify-center bg-bgDark2 relative pt-2">
+    <div class="px-2 sm:px-4">
+      <article
+        class="p-8 text-center rounded-3xl w-full lg:w-[1200px] 2xl:w-[1400px] mb-24 mt-16 sm:mt-24"
+      >
+        <header class="mb-12">
+          <div class="text-sm text-secondaryText my-4">29 August 2024</div>
+          <h1
+            class="text-[2rem] xs:text-[2.8rem] lg:text-[3.5rem] font-bold text-primaryText mb-4"
+          >
+            How to test SSE Online
+          </h1>
+          <p class="text-lg text-secondaryText mb-4">
+            SSE (Server-Sent Events) allows a server to send real-time updates
+            to the browser without the browser asking for them
+          </p>
+        </header>
+        <Image
+          src={sseBannerImage}
+          alt="hah ha"
+          class="rounded-xl mb-8 w-1/2 md:w-2/4 mx-auto mt-8"
+        />
+        <section
+          class="text-secondaryText !leading-8 sm:!leading-10 sm:text-xl text-left sm:text-justify mx-auto w-full md:w-10/12 lg:w-2/3 mt-16"
+        >
+          The SSE Tester app is designed to help you test Server-Sent Events
+          (SSE) in a simple and effective way. In this guide, I'll show you how
+          to use the app step by step. Don't worry if you're new to SSE; this
+          guide will walk you through everything easily.
+
+          <h3 class="text-white text-2xl my-4">What Is SSE?</h3>
+
+          SSE (Server-Sent Events) allows a server to send real-time updates to
+          the browser without the browser asking for them. It's useful for
+          things like notifications, live updates, or streaming data. The SSE
+          Tester app lets you test how your server sends these events.
+
+          <h2 class="text-white text-3xl my-4">Getting Started</h2>
+
+          <h3 class="text-white text-2xl my-4">Step 1: Open the App</h3>
+          When you open the app, you'll see a simple interface with a few input fields
+          and buttons.
+
+          <h3 class="text-white text-2xl my-4">Step 2: Enter the SSE URL</h3>
+          At the top of the app, there's a text box that says "Enter SSE URL." This
+          is where you'll put the URL of the SSE stream you want to test. If you're
+          unsure, a good starting URL might be <span
+            class="text-primaryColor font-bold"
+            >https://sse.test-free.online/api/story</span
+          >, which is the default one in the app.
+
+          <h3 class="text-white text-2xl my-4">
+            Step 3: Connect to the SSE Stream
+          </h3>
+          Once you've entered the URL, click the "Connect" button. The app will try
+          to connect to the server and start receiving messages. If the connection
+          is successful, you'll see a "Connected" status. If there are any issues
+          with the connection, the app will show an error message.
+
+          <h3 class="text-white text-2xl my-4">Step 4: View the Messages</h3>
+          Once connected, you'll see the messages from the server displayed in the
+          message box. The messages will appear in real-time as the server sends
+          them.
+
+          <br />
+          You can choose how to view the messages:
+          <ListItem
+            list={[
+              {
+                title: "Normal Mode",
+                description:
+                  "This will display the messages one by one as they arrive.",
+              },
+              {
+                title: "Story Mode",
+                description:
+                  "This option combines all the messages into a single story-like text. You can turn this mode on or off by checking the 'Story Mode' checkbox.",
+              },
+            ]}
+            client:visible
+          />
+
+          <h3 class="text-white text-2xl my-4">Step 5: Disconnect</h3>
+          When Done When you're done testing, simply click the "Disconnect" button.
+          This will close the connection to the server.
+
+          <h4 class="text-white text-xl my-4">Troubleshooting</h4>
+
+          <ListItem
+            list={[
+              {
+                title: "No Connection",
+                description:
+                  "If the app fails to connect, double-check the URL you entered. Make sure it's a valid SSE stream.",
+              },
+              {
+                title: "Connection Issues",
+                description:
+                  "Sometimes, the app might try to reconnect if the connection is unstable. The status will update accordingly.",
+              },
+            ]}
+            client:visible
+          />
+
+          <h3 class="text-white text-2xl my-4">Features Recap</h3>
+          <ListItem
+            list={[
+              {
+                title: "Connect/Disconnect Buttons",
+                description:
+                  "These let you start and stop the connection to the SSE server.",
+              },
+              {
+                title: "Story Mode",
+                description:
+                  "A toggle that allows you to view messages in a combined format.",
+              },
+              {
+                title: "Real-Time Updates",
+                description:
+                  "Messages appear instantly as they are received from the server.",
+              },
+              {
+                title: "Status and Error Messages",
+                description:
+                  "You'll always know if you're connected or if something goes wrong.",
+              },
+            ]}
+            client:visible
+          />
+
+          <h4 class="text-white text-xl my-4">Conclusion</h4>
+
+          The SSE Tester app makes it easy to test your SSE streams. Whether
+          you're debugging, testing new features, or just curious, this tool
+          provides a straightforward way to see SSE in action. Just enter your
+          URL, connect, and watch the data flow in!
+        </section>
+      </article>
+    </div>
+  </div>
+  <ScrollUpButton client:load />
+</Layout>
