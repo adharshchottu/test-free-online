@@ -8,7 +8,7 @@ const navbarLinks = [
   { label: "Home", href: "/#home", ariaLabel: "Home" },
   { label: "Typinks", href: "/#typinks", ariaLabel: "Typinks" },
   { label: "Kroenger", href: "/#kroenger", ariaLabel: "Kroenger" },
-  { label: "SSE", href: "/#sse", ariaLabel: "SSE" },
+  { label: "SSE", href: "/sse", ariaLabel: "SSE" },
 ];
 
 export const Navbar = () => {
