@@ -1,0 +1,13 @@
+---
+import Layout from '../layouts/Layout.astro'
+import { Navbar } from '../components/Navbar.jsx'
+import { ScrollUpButton } from '../components/ScrollUpButton.jsx'
+import '../styles/Theme.css'
+import Typinks from '../components/typinks/Typinks'
+---
+
+<Layout title="Typinks Poster Generator Online" description='generate image using canvas API' key='typinks' ogImage=''>
+  <Navbar client:load />
+  <Typinks client:only />
+  <ScrollUpButton client:load />
+</Layout>
