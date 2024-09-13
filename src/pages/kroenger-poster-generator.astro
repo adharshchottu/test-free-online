@@ -1,0 +1,13 @@
+---
+import Layout from '../layouts/Layout.astro'
+import { Navbar } from '../components/Navbar.jsx'
+import { ScrollUpButton } from '../components/ScrollUpButton.jsx'
+import '../styles/Theme.css'
+import Kroenger from '../components/kroenger/Kroenger.jsx'
+---
+
+<Layout title="Kroenger Poster Generator Online" description='generate image using canvas API and unsplash' ogImage=''>
+  <Navbar client:load />
+  <Kroenger client:load />
+  <ScrollUpButton client:load />
+</Layout>
