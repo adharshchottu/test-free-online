@@ -9,6 +9,7 @@ const navbarLinks = [
   { label: "Typinks", href: "/typinks-poster-generator", ariaLabel: "Typinks" },
   { label: "Kroenger", href: "/kroenger-poster-generator", ariaLabel: "Kroenger" },
   { label: "SSE", href: "/sse", ariaLabel: "SSE" },
+  { label: "Slide Puzzle", href: "/slide-puzzle", ariaLabel: "Slide Puzzle" },
 ];
 
 export const Navbar = () => {

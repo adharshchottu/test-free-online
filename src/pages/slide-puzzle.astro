@@ -1,0 +1,13 @@
+---
+import Layout from '../layouts/Layout.astro'
+import { Navbar } from '../components/Navbar.jsx'
+import { ScrollUpButton } from '../components/ScrollUpButton.jsx'
+import '../styles/Theme.css'
+import Puzzle from '../components/puzzle/Puzzle.svelte'
+---
+
+<Layout title="Slide Puzzle Online" description='solve 3x3 slide puzzle online with custom images' ogImage=''>
+  <Navbar client:load />
+  <Puzzle client:only />
+  <ScrollUpButton client:load />
+</Layout>
