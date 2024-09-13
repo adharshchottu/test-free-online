@@ -8,6 +8,6 @@ import Kroenger from '../components/kroenger/Kroenger.jsx'
 
 <Layout title="Kroenger Poster Generator Online" description='generate image using canvas API and unsplash' ogImage=''>
   <Navbar client:load />
-  <Kroenger client:load />
+  <Kroenger client:only="react" />
   <ScrollUpButton client:load />
 </Layout>

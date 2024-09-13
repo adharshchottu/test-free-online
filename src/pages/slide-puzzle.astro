@@ -8,6 +8,6 @@ import Puzzle from '../components/puzzle/Puzzle.svelte'
 
 <Layout title="Slide Puzzle Online" description='solve 3x3 slide puzzle online with custom images' ogImage=''>
   <Navbar client:load />
-  <Puzzle client:only />
+  <Puzzle client:only="svelte" />
   <ScrollUpButton client:load />
 </Layout>
