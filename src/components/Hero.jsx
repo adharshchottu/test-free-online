@@ -49,7 +49,7 @@ export const Hero = () => {
           <div className="flex flex-col gap-2 sm:flex-row mt-14 mb-24 sm:mb-40 justify-center">
             <button
               className="contained-button w-64 sm:w-52 h-12 mr-0 sm:mr-4 lg:mr-6 mb-2 sm:mb-0"
-              onClick={() => navigate('/typinks-image-generator')}
+              onClick={() => navigate('/typinks-poster-generator')}
               aria-label="Generage Image"
             >
               Generage Image

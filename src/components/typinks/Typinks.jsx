@@ -234,7 +234,7 @@ const Typinks = () => {
                             </Stage>
                         </div>
                     </div>
-                    <div className='absolute p-8 flex flex-col overflow-y-auto
+                    <div className='absolute p-8 flex flex-col overflow-y-auto max-h-screen
                     w-1/2 right-0 top-96
                     md:w-full md:lesft-0 md:top-[45rem]
                     lg:w-1/2 lg:right-0 lg:top-24
@@ -337,7 +337,7 @@ const Typinks = () => {
                                     <div className="relative mt-2 rounded-md shadow-sm">
                                         <input
                                             type="file"
-                                            className="block w-full rounded-md border-0 p-2 text-gray-900 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                                            className="block w-full rounded-md border-0 p-2 text-white ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                                             onChange={(e) => setUploadedImage(e.target.files[0])}
                                         />
                                     </div>

@@ -17,6 +17,7 @@
     "@astrojs/tailwind": "^5.1.0",
     "@fontsource/inter": "^5.0.18",
     "@headlessui/react": "^2.1.5",
+    "@heroicons/react": "^2.1.5",
     "astro": "^4.15.4",
     "canvas": "^2.11.2",
     "framer-motion": "^11.2.10",
