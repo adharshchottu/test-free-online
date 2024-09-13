@@ -19,7 +19,6 @@ const Unsplash = ({ setSelectedImage, orientation = 'landscape' }) => {
                     );
                     const data = await response.json();
                     setImages(data.results);
-                    console.log(data.results)
                 } catch (error) {
                     console.error('Error fetching images:', error);
                 }
@@ -33,9 +32,9 @@ const Unsplash = ({ setSelectedImage, orientation = 'landscape' }) => {
     }
 
     return <>
-        <div className="bg-white mx-auto p-4 max-h-screen overflow-y-scroll">
+        <div className="mx-auto">
             <div>
-                <label htmlFor="Font Size" className="block text-sm font-medium leading-6 text-gray-900">
+                <label htmlFor="Font Size" className="block text-sm font-medium leading-6 text-white">
                     Image Search
                 </label>
                 <div className="relative mt-2 rounded-md shadow-sm">
@@ -50,7 +49,7 @@ const Unsplash = ({ setSelectedImage, orientation = 'landscape' }) => {
                 <button className="bg-violet-700 text-white p-2 rounded-md my-4" onClick={searchButton}>Search</button>
             </div>
             <div className="mt-4">
-                <h2 className="text-2xl font-bold tracking-tight text-gray-900">Select image</h2>
+                <h2 className="text-2xl font-bold tracking-tight text-white">Select image</h2>
 
                 <div className="mt-6 grid grid-cols-1 gap-x-6 gap-y-10 sm:grid-cols-2 lg:grid-cols-2 xl:gap-x-8">
                     {images.map((image) => (
@@ -64,7 +63,7 @@ const Unsplash = ({ setSelectedImage, orientation = 'landscape' }) => {
                             </div>
                             <div className="mt-4 flex justify-between">
                                 <div>
-                                    <h3 className="text-sm text-gray-700">
+                                    <h3 className="text-sm text-white">
                                         <span aria-hidden="true" className="absolute inset-0" />
                                         {image.description && image.description.slice(0, 10)}
                                     </h3>
