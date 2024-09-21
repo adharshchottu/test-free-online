@@ -3,6 +3,7 @@ import { motion } from "framer-motion";
 import kroengerBannerImage1 from "../assets/images/kroenger/World-Plant-Milk-Day.png";
 import kroengerBannerImage2 from "../assets/images/kroenger/Shark-awarness-day.jpg";
 import { CheckArrowIcon } from "../assets/icons/CheckArrowIcon";
+import { navigate } from "astro:transitions/client";
 
 export const KroengerBanner = () => (
   <section className="w-full bg-bgDark2 mt-12 sm:mt-24 mb-12 lg:my-20 lg:mb-24 pt-4" id="kroenger">
@@ -57,8 +58,8 @@ export const KroengerBanner = () => (
             </ul>
             <button
                 className="contained-button w-64 sm:w-52 h-12"
-                // onClick={() => setIsModalOpen(true)}
-                aria-label="Generage Poster for Typinks"
+                onClick={() => navigate('/kroenger-poster-generator')}
+                aria-label="Generage Poster for Kroenger"
               >
                 Generage Poster
               </button>

@@ -5,6 +5,7 @@ import typinksBannerImage2 from "../assets/images/typinks/Vesuvius-Day.png";
 import typinksBannerImage3 from "../assets/images/typinks/World-Folklore-Day.png";
 import typinksBannerImage4 from "../assets/images/typinks/World-Photography-Day.png";
 import { CheckArrowIcon } from "../assets/icons/CheckArrowIcon";
+import { navigate } from "astro:transitions/client";
 
 export const TypinksBanner = () => {
   return (
@@ -44,7 +45,7 @@ export const TypinksBanner = () => {
               </ul>
               <button
                 className="contained-button w-64 sm:w-52 h-12"
-                // onClick={() => setIsModalOpen(true)}
+                onClick={() => navigate('/typinks-poster-generator')}
                 aria-label="Generage Image for Typinks"
               >
                 Generage Image
