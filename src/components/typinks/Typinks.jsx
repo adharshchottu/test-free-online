@@ -3,6 +3,7 @@ import { Stage, Layer, Text, Image, Group, Rect } from 'react-konva';
 import background from '../../assets/typinks_bg.png';
 import { Textarea } from '@headlessui/react'
 import Unsplash from '../Unsplash';
+import '../../styles/typinks.css'
 
 const Typinks = () => {
     // today date
@@ -154,7 +155,7 @@ const Typinks = () => {
                 <div className='flex flex-col'>
                     <div className=''>
                         <div className='max-w-full xl:overflow-hidden transform 
-                        scale-[0.25] -translate-x-28 -translate-y-[28rem]
+                        scale-[0.25] -translate-x-28 -translate-y-[26rem]
                         md:scale-[0.45] md:-translate-x-28 md:-translate-y-[18rem]
                         lg:scale-[0.35] lg:-translate-x-72 lg:-translate-y-[24rem]
                         xl:scale-50 xl:-translate-x-72 xl:-translate-y-72'>
@@ -234,18 +235,18 @@ const Typinks = () => {
                             </Stage>
                         </div>
                     </div>
-                    <div className='absolute p-8 flex flex-col overflow-y-auto max-h-screen
-                    w-1/2 right-0 top-96
-                    md:w-full md:lesft-0 md:top-[45rem]
+                    <div className='absolute px-4 md:p-8 flex flex-col overflow-y-auto max-h-screen
+                    w-auto left-auto top-[26rem]
+                    md:w-full md:right-0 md:top-[45rem]
                     lg:w-1/2 lg:right-0 lg:top-24
                     '>
                         <div>
                             <button className='p-2 bg-green-500 text-white rounded-xl m-2' onClick={handleDownload}>Download</button>
                         </div>
                         <div className='flex flex-col space-y-5'>
-                            <div className='flex flex-row gap-3'>
+                            <div className='flex flex-col md:flex-row gap-3'>
                                 <div>
-                                    <label htmlFor="price" className="block text-sm font-medium leading-6 text-white">
+                                    <label htmlFor="price" className="block text-sm font-medium leading-6 text-white haha">
                                         Day
                                     </label>
                                     <div className="relative mt-2 rounded-md shadow-sm w-96">
@@ -272,7 +273,7 @@ const Typinks = () => {
                                     </div>
                                 </div>
                             </div>
-                            <div className='flex flex-row gap-3'>
+                            <div className='flex flex-col md:flex-row gap-3'>
                                 <div>
                                     <label htmlFor="price" className="block text-sm font-medium leading-6 text-white">
                                         Definition
@@ -314,7 +315,7 @@ const Typinks = () => {
                                     </div>
                                 </div>
                             </div>
-                            <div className="flex flex-row">
+                            <div className="flex flex-col md:flex-row">
                                 <div>
                                     <label htmlFor="Font Size" className="block text-sm font-medium leading-6 text-white">
                                         Date
@@ -329,7 +330,7 @@ const Typinks = () => {
                                     </div>
                                 </div>
                             </div>
-                            <div className="flex flex-row">
+                            <div className="flex flex-col md:flex-row">
                                 <div>
                                     <label htmlFor="Upload Image" className="block text-sm font-medium leading-6 text-white">
                                         Upload Image

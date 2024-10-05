@@ -118,12 +118,12 @@
     }
 </script>
 
-<center class="pt-16 md:pt-16 lg:pt-28">
+<center class="pt-24 md:pt-16 lg:pt-28">
     <h1 style:color={"white"}>Slide Puzzle</h1>
 
 {#if !completed}
-    <div style:color={"white"} style:padding-block={"1rem"}>
-        Select custom image:
+    <div style:color={"white"} style:padding-block={"1rem"} class="space-y-5">
+        <span class="py-2">Select custom image:</span>
         <input
             type="file"
             id="fileInput"
@@ -161,7 +161,7 @@
         Slide Puzzle made with Svelte 🤍
     </div>
     <div>
-        <a href="https://github.com/adharshchottu/slidepuzzle.git" style="text-decoration:none; color:white;">
+        <a href="https://github.com/adharshchottu/slidepuzzle.git" style="text-decoration:none; color:wheat;">
             GitHub repo
         </a>
     </div>
