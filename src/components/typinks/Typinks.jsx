@@ -21,7 +21,9 @@ const Typinks = () => {
         descriptionFontSize: 36,
         displayMonth: 'JUN',
         displayDate: '02',
-        descriptionY: 950
+        descriptionY: 950,
+        imageWidth: 1100,
+        imageHeight: 900
     });
 
     const stageRef = useRef(null);
@@ -120,6 +122,20 @@ const Typinks = () => {
         }));
     };
 
+    const handleImageWidthChange = (event) => {
+        setCelebration(prevState => ({
+            ...prevState,
+            imageWidth: event.target.value
+        }));
+    };
+
+    const handleImageHeightChange = (event) => {
+        setCelebration(prevState => ({
+            ...prevState,
+            imageHeight: Number(event.target.value)
+        }));
+    };
+
     const clipSquare = (ctx, x, y, width, height) => {
         ctx.beginPath();
         ctx.moveTo(x, y);
@@ -168,14 +184,15 @@ const Typinks = () => {
                                         width={1200}
                                         height={1200}
                                     />
-                                    <Group clipFunc={(ctx) => clipSquare(ctx, 90, 205, 1020, 490)}>
+                                    <Group clipFunc={(ctx) => clipSquare(ctx, 90, 180, 1025, 590)}>
                                         <Image
                                             image={image}
                                             x={80}
-                                            y={200}
-                                            height={500}
-                                            width={1100}
+                                            y={175}
+                                            height={celebration.imageHeight}
+                                            width={celebration.imageWidth}
                                             offsetY={0}
+                                            draggable
                                         />
                                     </Group>
                                     <Group clipFunc={(ctx) => clipSquare(ctx, 210, 72, 228, 140)}>
@@ -206,12 +223,12 @@ const Typinks = () => {
                                             fill={'#fff'}
                                         />
                                     </Group>
-                                    <Group clipFunc={(ctx) => clipSquare(ctx, 90, 730, 1025, 200)}>
-                                        <Rect fill='#000' width={1200} height={400} x={0} y={730} visible={true} opacity={1} />
+                                    <Group clipFunc={(ctx) => clipSquare(ctx, 90, 770, 1025, 200)}>
+                                        <Rect fill='#000' width={1200} height={400} x={0} y={770} visible={true} opacity={1} />
                                         <Text
                                             text={celebration.day}
                                             x={100}
-                                            y={750}
+                                            y={800}
                                             fontSize={celebration.dayFontSize}
                                             width={1100}
                                             fontFamily='Poppins, sans-serif'
@@ -241,7 +258,7 @@ const Typinks = () => {
                     lg:w-1/2 lg:right-0 lg:top-24
                     '>
                         <div>
-                            <button className='p-2 bg-green-500 text-white rounded-xl m-2' onClick={handleDownload}>Download</button>
+                            <button className='p-2 bg-green-500 text-white rounded-xl my-4' onClick={handleDownload}>Download</button>
                         </div>
                         <div className='flex flex-col space-y-5'>
                             <div className='flex flex-col md:flex-row gap-3'>
@@ -340,6 +357,36 @@ const Typinks = () => {
                                             type="file"
                                             className="block w-full rounded-md border-0 p-2 text-white ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                                             onChange={(e) => setUploadedImage(e.target.files[0])}
+                                        />
+                                    </div>
+                                </div>
+                            </div>
+                            <div className='flex flex-col md:flex-row gap-3'>
+                                <div>
+                                    <label htmlFor="Image Height" className="block text-sm font-medium leading-6 text-white">
+                                        Image Height
+                                    </label>
+                                    <div className="relative mt-2 rounded-md shadow-sm">
+                                        <input
+                                            value={celebration.imageHeight}
+                                            type="number"
+                                            className="block w-full rounded-md border-0 p-2 text-gray-900 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                                            placeholder="0.00"
+                                            onChange={handleImageHeightChange}
+                                        />
+                                    </div>
+                                </div>
+                                <div>
+                                    <label htmlFor="Image Width" className="block text-sm font-medium leading-6 text-white">
+                                        Image Width
+                                    </label>
+                                    <div className="relative mt-2 rounded-md shadow-sm">
+                                        <input
+                                            value={celebration.imageWidth}
+                                            type="number"
+                                            className="block w-full rounded-md border-0 p-2 text-gray-900 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                                            placeholder="0.00"
+                                            onChange={handleImageWidthChange}
                                         />
                                     </div>
                                 </div>
