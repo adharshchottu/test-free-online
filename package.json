@@ -6,7 +6,7 @@
   "description": "Test free online tools",
   "private": true,
   "scripts": {
-    "dev": "astro dev",
+    "dev": "astro dev --host",
     "start": "astro dev",
     "build": "astro build",
     "preview": "astro preview",
@@ -19,13 +19,19 @@
     "@fontsource/inter": "^5.0.18",
     "@headlessui/react": "^2.1.5",
     "@heroicons/react": "^2.1.5",
+    "@monaco-editor/react": "^4.6.0",
+    "@radix-ui/react-slot": "^1.1.0",
     "astro": "^4.15.4",
     "canvas": "^2.11.2",
+    "class-variance-authority": "^0.7.0",
+    "clsx": "^2.1.1",
     "framer-motion": "^11.2.10",
     "lucide-react": "^0.435.0",
     "react-konva": "^18.2.10",
     "svelte": "^4.2.19",
+    "tailwind-merge": "^2.5.4",
     "tailwindcss": "^3.4.3",
+    "tailwindcss-animate": "^1.0.7",
     "typescript": "^5.6.2"
   },
   "devDependencies": {
