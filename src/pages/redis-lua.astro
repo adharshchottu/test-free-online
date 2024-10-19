@@ -1,0 +1,14 @@
+---
+import Layout from '../layouts/Layout.astro'
+import { Navbar } from '../components/Navbar.jsx'
+import { ScrollUpButton } from '../components/ScrollUpButton'
+import '../styles/Theme.css'
+import '../styles/redis-lua.css'
+import  LuaScriptExecutor  from '../components/redis-lua/RedisLua'
+---
+
+<Layout title="Redis Lua Script Test Online" ogImage="blog/redis-lua-script-online.png">
+  <Navbar client:load />
+  <LuaScriptExecutor client:load />
+  <ScrollUpButton client:load />
+</Layout>
