@@ -18,7 +18,7 @@ const {
   description = "Test online tools for free",
 } = Astro.props;
 
-const modifiedOgImage = `${Astro.url.origin}/${ogImage}`
+const modifiedOgImage = `${Astro.url.origin}/${ogImage}`;
 ---
 
 <!doctype html>
@@ -33,31 +33,23 @@ const modifiedOgImage = `${Astro.url.origin}/${ogImage}`
       defer
       src="https://cloud.umami.is/script.js"
       data-website-id="6d4ae6af-6325-42b8-9ae9-7230b0ed9ca4"></script>
+    <script
+      async
+      src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6958244450331063"
+      crossorigin="anonymous"></script>
     <link rel="sitemap" href="/sitemap-index.xml" />
     <title>{title}</title>
 
     <meta property="og:title" content={title} />
-    <meta
-      property="og:description"
-      content={description}
-    />
-    <meta
-      property="og:image"
-      content={modifiedOgImage}
-    />
+    <meta property="og:description" content={description} />
+    <meta property="og:image" content={modifiedOgImage} />
     <meta property="og:url" content={Astro.url.toString()} />
     <meta property="og:type" content="website" />
 
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content={title} />
-    <meta
-      name="twitter:description"
-      content={description}
-    />
-    <meta
-      name="twitter:image"
-      content={modifiedOgImage}
-    />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={modifiedOgImage} />
   </head>
   <body class="bg-bgDark2">
     <main aria-label="Main content">
