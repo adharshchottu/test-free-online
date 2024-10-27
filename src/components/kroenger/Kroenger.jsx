@@ -1,20 +1,9 @@
 import { useEffect, useRef, useState } from 'react'
 import { Stage, Layer, Text, Image, Group, Rect } from 'react-konva';
 import background from '../../assets/kroenger_bg.png';
+import kroengerImage from '../../assets/images/kroenger/kroenger.png';
 import { Label, Listbox, ListboxButton, ListboxOption, ListboxOptions, Textarea, Transition } from '@headlessui/react'
 import { CheckIcon, ChevronUpDownIcon } from '@heroicons/react/20/solid'
-// import { april } from "../data/observanceDaysData/april";
-// import { august } from "../data/observanceDaysData/august";
-// import { december } from "../data/observanceDaysData/december";
-// import { february } from "../data/observanceDaysData/february";
-// import { january } from "../data/observanceDaysData/january";
-// import { july } from "../data/observanceDaysData/july";
-// import { june } from "../data/observanceDaysData/june";
-// import { march } from "../data/observanceDaysData/march";
-// import { may } from "../data/observanceDaysData/may";
-// import { november } from "../data/observanceDaysData/november";
-// import { october } from "../data/observanceDaysData/october";
-// import { september } from "../data/observanceDaysData/september";
 import Unsplash from '../Unsplash';
 
 const datas = []
@@ -45,7 +34,9 @@ const Kroenger = () => {
         dayFontSize: 70,
         descriptionFontSize: 36,
         dayBarWidth: 900,
-        dayBarHeight: 700
+        dayBarHeight: 700,
+        imageHeight:900,
+        imageWidth:1200
     });
     const stageRef = useRef(null);
     const [bgImage, setBgImage] = useState(null);
@@ -78,6 +69,18 @@ const Kroenger = () => {
             setBgImage(img);
         };
     }, [background]);
+
+    // set a default image
+    useEffect(() => {
+        const img = new window.Image();
+        img.src = kroengerImage.src;
+        img.crossOrigin = 'Anonymous';
+        img.onload = () => {
+            // Set the image to state once it is loaded
+            setImage(img);
+        };
+    }, [kroengerImage]);
+
 
     useEffect(() => {
         if (selectSvgIcon) {
@@ -162,6 +165,20 @@ const Kroenger = () => {
         }));
     };
 
+    const handleImageWidth = (event) => {
+        setObservanceDay(prevState => ({
+            ...prevState,
+            imageWidth: Number(event.target.value)
+        }));
+    };
+
+    const handleImageHeight = (event) => {
+        setObservanceDay(prevState => ({
+            ...prevState,
+            imageHeight: Number(event.target.value)
+        }));
+    };
+
     const clipSquare = (ctx, x, y, width, height) => {
         ctx.beginPath();
         ctx.moveTo(x, y);
@@ -215,8 +232,9 @@ const Kroenger = () => {
                                             image={image}
                                             x={0}
                                             y={0}
-                                            width={1200}
-                                            height={900}
+                                            width={ObservanceDay.imageWidth}
+                                            height={ObservanceDay.imageHeight}
+                                            draggable
                                         />
                                     </Group>
                                     <Image
@@ -277,7 +295,7 @@ const Kroenger = () => {
                     lg:w-1/2 lg:right-0 lg:top-24
                     '>
                         <div>
-                            <button className='p-2 bg-green-500 text-white rounded-xl m-2 my-4' onClick={handleDownload}>Download</button>
+                            <button className='p-2 bg-green-500 text-white rounded-xl my-4' onClick={handleDownload}>Download</button>
                         </div>
                         {RearrangedDataObjects.length > 0 && <div className="flex flex-col space-y-1 mb-4">
                             <Listbox value={selected} onChange={setSelected}>
@@ -455,8 +473,36 @@ const Kroenger = () => {
                                     </div>
                                 </div>
                             </div>
+                            <div className="flex flex-col md:flex-row space-x-2">
+                                <div>
+                                    <label htmlFor="Image Width" className="block text-sm font-medium leading-6 text-white">
+                                        Image Width
+                                    </label>
+                                    <div className="relative mt-2 rounded-md shadow-sm">
+                                        <input
+                                            value={ObservanceDay.imageWidth}
+                                            type="number"
+                                            className="block w-full rounded-md border-0 p-2 text-gray-900 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                                            onChange={handleImageWidth}
+                                        />
+                                    </div>
+                                </div>
+                                <div>
+                                    <label htmlFor="Image Height" className="block text-sm font-medium leading-6 text-white">
+                                        Image Height
+                                    </label>
+                                    <div className="relative mt-2 rounded-md shadow-sm">
+                                        <input
+                                            value={ObservanceDay.imageHeight}
+                                            type="number"
+                                            className="block w-full rounded-md border-0 p-2 text-gray-900 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                                            onChange={handleImageHeight}
+                                        />
+                                    </div>
+                                </div>
+                            </div>
                         </div>
-                        <div>
+                        <div className='my-2'>
                             <Unsplash setSelectedImage={setSelectedImage} />
                         </div>
                     </div>
