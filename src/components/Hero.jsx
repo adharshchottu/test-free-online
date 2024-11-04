@@ -28,9 +28,9 @@ export const Hero = () => {
             <h1 className="inline md:hidden">Free tools</h1>
             <h1 className="hidden md:inline">Free online tools</h1>
           </div>
-          <h1 className="mt-2 sm:mt-2 text-4xl sm:text-6xl lg:text-7xl xl:text-7xl font-bold tracking-wide  text-primaryText  px-8 sm:px-20 md:px-24 lg:px-24">
+          <p className="mt-2 sm:mt-2 text-4xl sm:text-6xl lg:text-7xl xl:text-7xl font-bold tracking-wide  text-primaryText  px-8 sm:px-20 md:px-24 lg:px-24">
             for everyone
-          </h1>
+          </p>
         </motion.div>
         <motion.div
           initial={{ opacity: 0, y: 10 }}

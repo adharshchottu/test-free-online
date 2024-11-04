@@ -119,7 +119,7 @@
 </script>
 
 <center class="pt-24 md:pt-16 lg:pt-28">
-    <h1 style:color={"white"}>Slide Puzzle</h1>
+    <h1 style:color={"white"} class="text-3xl font-bold">Slide Puzzle</h1>
 
 {#if !completed}
     <div style:color={"white"} style:padding-block={"1rem"} class="space-y-5">

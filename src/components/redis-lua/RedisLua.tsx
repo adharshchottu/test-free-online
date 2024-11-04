@@ -70,7 +70,7 @@ const LuaScriptExecutor: React.FC = () => {
     return (
         <Card className="pt-16 md:pt-16 lg:pt-24 bg-bgDark3 text-white border-mainBorderDarker">
             <CardHeader>
-                <CardTitle>Lua Script Executor</CardTitle>
+                <CardTitle><h1>Lua Script Executor</h1></CardTitle>
             </CardHeader>
             <CardContent>
                 <div className="flex flex-col md:flex-row gap-8">

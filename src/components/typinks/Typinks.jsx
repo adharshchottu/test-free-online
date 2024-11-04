@@ -168,6 +168,7 @@ const Typinks = () => {
     return (
         <>
             <section className='pt-16 md:pt-16 lg:pt-24'>
+                <h1 className='text-white text-4xl font-bold text-center my-4'>Typinks Poster Generator Online</h1>
                 <div className='flex flex-col'>
                     <div className=''>
                         <div className='max-w-full xl:overflow-hidden transform 
@@ -253,9 +254,9 @@ const Typinks = () => {
                         </div>
                     </div>
                     <div className='absolute px-4 md:p-8 flex flex-col overflow-y-auto max-h-screen
-                    w-auto left-auto top-[26rem]
-                    md:w-full md:right-0 md:top-[45rem]
-                    lg:w-1/2 lg:right-0 lg:top-24
+                    w-auto left-auto top-[34rem]
+                    md:w-full md:right-0 md:top-[48rem]
+                    lg:w-1/2 lg:right-0 lg:top-32
                     '>
                         <div>
                             <button className='p-2 bg-green-500 text-white rounded-xl my-4' onClick={handleDownload}>Download</button>

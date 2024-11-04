@@ -108,7 +108,7 @@ export const SSETester = () => {
   return (
     <section className='pt-16 md:pt-16 lg:pt-24'>
       <div className="bg-bgDark3 shadow-md rounded-lg p-6 w-full max-w-2xl mx-auto">
-        <h2 className="block-title mb-4">SSE Tester</h2>
+        <h1 className="block-title mb-4">Server Side Events Tester</h1>
         <div className="space-y-4">
           <input
             type="text"
