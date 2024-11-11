@@ -1,0 +1,155 @@
+---
+import { Image } from "astro:assets";
+import { Navbar } from "../../components/Navbar";
+import { ScrollUpButton } from "../../components/ScrollUpButton";
+import { ListItem } from "../../components/blog/ListItem";
+import Layout from "../../layouts/Layout.astro";
+import sseBannerImage from "../../assets/images/blog/sse-tester.png";
+---
+
+<Layout
+  title="Comment tester SSE en ligne"
+  ogImage="blog/test-sse-online.png"
+  description="SSE permet à un serveur d'envoyer des mises à jour en temps réel au navigateur sans que celui-ci les demande."
+  lang="fr"
+>
+  <Navbar client:load />
+  <div class="flex justify-center bg-bgDark2 relative pt-2">
+    <div class="px-2 sm:px-4">
+      <article
+        class="p-8 text-center rounded-3xl w-full lg:w-[1200px] 2xl:w-[1400px] mb-24 mt-16 sm:mt-24"
+      >
+        <header class="mb-12">
+          <div class="text-sm text-secondaryText my-4">29 août 2024</div>
+          <h1
+            class="text-[2rem] xs:text-[2.8rem] lg:text-[3.5rem] font-bold text-primaryText mb-4"
+          >
+            Comment tester SSE en ligne
+          </h1>
+          <p class="text-lg text-secondaryText mb-4">
+            SSE (Server-Sent Events) permet à un serveur d'envoyer des mises à jour en temps réel
+            au navigateur sans que celui-ci les demande.
+          </p>
+        </header>
+        <Image
+          src={sseBannerImage}
+          alt="hah ha"
+          class="rounded-xl mb-8 w-1/2 md:w-2/4 mx-auto mt-8"
+        />
+        <section
+          class="text-secondaryText !leading-8 sm:!leading-10 sm:text-xl text-left sm:text-justify mx-auto w-full md:w-10/12 lg:w-2/3 mt-16"
+        >
+          <a
+            href="https://test-free.online/sse/"
+            target="_blank"
+            class="text-primaryColor font-bold">L'application SSE Tester</a
+          > est conçue pour vous aider à tester les événements SSE (Server-Sent Events) de manière simple et efficace. Dans ce guide, je vous montrerai comment utiliser l'application étape par étape. Pas de souci si vous débutez avec SSE ; ce guide vous accompagnera facilement dans toutes les étapes.
+
+          <h3 class="text-white text-2xl my-4">Qu'est-ce que le SSE ?</h3>
+
+          SSE (Server-Sent Events) permet à un serveur d'envoyer des mises à jour en temps réel
+          au navigateur sans que celui-ci les demande. Il est utile pour des notifications, des mises à jour en direct ou des données de streaming. L'application SSE Tester vous permet de tester comment votre serveur envoie ces événements.
+
+          <h2 class="text-white text-3xl my-4">Commencer</h2>
+
+          <h3 class="text-white text-2xl my-4">
+            Étape 1 : Ouvrir <a
+              href="https://test-free.online/sse/"
+              target="_blank"
+              class="text-primaryColor font-bold">l'application</a>
+          </h3>
+          Lorsque vous ouvrez l'application, vous verrez une interface simple avec quelques champs de saisie et des boutons.
+
+          <h3 class="text-white text-2xl my-4">Étape 2 : Saisir l'URL SSE</h3>
+          En haut de l'application, il y a une zone de texte qui dit "Entrer l'URL SSE". C'est là que vous allez insérer l'URL du flux SSE que vous souhaitez tester. Si vous n'êtes pas sûr, une bonne URL de départ pourrait être <span
+            class="text-primaryColor font-bold"
+            >https://sse.test-free.online/api/story</span
+          >, qui est l'URL par défaut dans l'application.
+
+          <h3 class="text-white text-2xl my-4">
+            Étape 3 : Se connecter au flux SSE
+          </h3>
+          Une fois que vous avez entré l'URL, cliquez sur le bouton "Connecter". L'application essaiera de se connecter au serveur et de commencer à recevoir les messages. Si la connexion est réussie, vous verrez un statut "Connecté". S'il y a des problèmes de connexion, l'application affichera un message d'erreur.
+
+          <h3 class="text-white text-2xl my-4">Étape 4 : Voir les messages</h3>
+          Une fois connecté, vous verrez les messages du serveur affichés dans la boîte de message. Les messages apparaîtront en temps réel au fur et à mesure qu'ils sont envoyés par le serveur.
+
+          <br />
+          Vous pouvez choisir comment visualiser les messages :
+          <ListItem
+            list={[
+              {
+                title: "Mode normal",
+                description:
+                  "Cela affichera les messages un par un à leur arrivée.",
+              },
+              {
+                title: "Mode histoire",
+                description:
+                  "Cette option combine tous les messages en un seul texte de type histoire. Vous pouvez activer ou désactiver ce mode en cochant la case 'Mode histoire'.",
+              },
+            ]}
+            client:visible
+          />
+
+          <h3 class="text-white text-2xl my-4">Étape 5 : Déconnecter</h3>
+          Lorsque vous avez terminé, cliquez simplement sur le bouton "Déconnecter". Cela fermera la connexion au serveur.
+
+          <h4 class="text-white text-xl my-4">Dépannage</h4>
+
+          <ListItem
+            list={[
+              {
+                title: "Pas de connexion",
+                description:
+                  "Si l'application ne parvient pas à se connecter, vérifiez l'URL que vous avez saisie. Assurez-vous qu'il s'agit d'un flux SSE valide.",
+              },
+              {
+                title: "Problèmes de connexion",
+                description:
+                  "Parfois, l'application peut essayer de se reconnecter si la connexion est instable. Le statut sera mis à jour en conséquence.",
+              },
+            ]}
+            client:visible
+          />
+
+          <h3 class="text-white text-2xl my-4">Récapitulatif des fonctionnalités</h3>
+          <ListItem
+            list={[
+              {
+                title: "Boutons Connecter/Déconnecter",
+                description:
+                  "Ces boutons vous permettent de démarrer et d'arrêter la connexion au serveur SSE.",
+              },
+              {
+                title: "Mode histoire",
+                description:
+                  "Un bouton bascule qui vous permet de voir les messages dans un format combiné.",
+              },
+              {
+                title: "Mises à jour en temps réel",
+                description:
+                  "Les messages apparaissent instantanément lorsqu'ils sont reçus du serveur.",
+              },
+              {
+                title: "Messages de statut et d'erreur",
+                description:
+                  "Vous saurez toujours si vous êtes connecté ou si quelque chose ne va pas.",
+              },
+            ]}
+            client:visible
+          />
+
+          <h4 class="text-white text-xl my-4">Conclusion</h4>
+
+          L'<a
+            href="https://test-free.online/sse/"
+            target="_blank"
+            class="text-primaryColor font-bold">application SSE Tester</a
+          > simplifie le test de vos flux SSE. Que vous soyez en train de déboguer, de tester de nouvelles fonctionnalités ou simplement curieux, cet outil fournit une manière simple de voir le SSE en action. Il suffit de saisir votre URL, de vous connecter et de regarder les données arriver !
+        </section>
+      </article>
+    </div>
+  </div>
+  <ScrollUpButton client:load />
+</Layout>
