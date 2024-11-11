@@ -30,7 +30,7 @@ export const Navbar = () => {
           <a href="/#home" aria-label="Home">
             <div className="flex justify-start items-center grow basis-0">
               <div className="text-white mr-2 text-6xl">
-                <Logo />
+                <img src="/logo.png" alt="test free online" className="w-8 h-8"/>
               </div>
               <div className="text-white font-['Inter'] font-bold text-xl">
                 Free Online
