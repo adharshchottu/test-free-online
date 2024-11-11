@@ -1,7 +1,6 @@
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 
-import { Logo } from "../assets/logos/Logo";
 import { GithubIcon } from "../assets/icons/GithubIcon";
 
 const navbarLinks = [
