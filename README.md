@@ -2,8 +2,6 @@
 
 Test online tools for free.
 
-**Fun Motivation: I am trying to use every UI frameworks that Astro can integrate**
-
 ## Typinks Poster Generator
 
 A social media poster generator built with React, designed to create customizable images for observance days. It allows users to generate images with customizable text, date, background, and more for social media sharing. Try [Typinks Poster Generator](https://test-free.online/typinks-poster-generator/) online now.

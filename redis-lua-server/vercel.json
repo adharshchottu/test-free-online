@@ -1,0 +1,16 @@
+{
+	"version": 2,
+	"builds": [
+	  {
+		"src": "api/**/*.go",
+		"use": "@vercel/go"
+	  }
+	],
+	"routes": [
+	  {
+		"src": "/api/redis-lua",
+		"dest": "/api/redis-lua.go"
+	  }
+	]
+  }
+  
