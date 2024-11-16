@@ -7,12 +7,20 @@ import (
 	"net"
 	"net/http"
 	"os"
+	"strings"
 
 	"github.com/gomodule/redigo/redis"
 )
 
 var allowedURLs = []string{
-	"http://localhost:4321/sse",
+	"https://test-free.online",
+	"https://test-free.online/blog/comment-tester-sse-en-ligne",
+	"https://test-free.online/blog/how-to-test-sse-online",
+	"https://test-free.online/kroenger-poster-generator",
+	"https://test-free.online/redis-lua",
+	"https://test-free.online/slide-puzzle",
+	"https://test-free.online/sse",
+	"https://test-free.online/typinks-poster-generator",
 }
 
 func incrementUserCount(conn redis.Conn, url string, ip string) {
@@ -52,6 +60,18 @@ func sendResponse(w http.ResponseWriter, message string, statusCode int) {
 }
 
 func getClientIP(r *http.Request) string {
+	// Check the X-Forwarded-For header for the client IP
+	xForwardedFor := r.Header.Get("X-Forwarded-For")
+	if xForwardedFor != "" {
+		// Extract the first IP address in the list
+		ip := xForwardedFor
+		if idx := strings.Index(ip, ","); idx != -1 {
+			ip = ip[:idx]
+		}
+		return strings.TrimSpace(ip)
+	}
+
+	// Fallback to RemoteAddr if X-Forwarded-For is not present
 	ip, _, err := net.SplitHostPort(r.RemoteAddr)
 	if err != nil {
 		return ""
@@ -59,18 +79,26 @@ func getClientIP(r *http.Request) string {
 	return ip
 }
 
-func setPreflighHeader(w http.ResponseWriter, r *http.Request) {
+func setPreflighHeader(w http.ResponseWriter, r *http.Request) bool {
 	origin := r.Header.Get("Origin")
-	if origin == "https://test-free.online" {
-		w.Header().Set("Access-Control-Allow-Origin", origin)
+	referer := r.Header.Get("Referer")
+
+	allowedOrigin := "https://test-free.online"
+	if origin != allowedOrigin && (referer == "" || !strings.HasPrefix(referer, allowedOrigin)) {
+		sendResponse(w, "Theobroma cacao", http.StatusForbidden)
+		return false
 	}
+
+	w.Header().Set("Access-Control-Allow-Origin", allowedOrigin)
 	w.Header().Set("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS")
 	w.Header().Set("Access-Control-Allow-Headers", "Content-Type, Authorization")
+	return true
 }
 
+// Function to check if a URL is allowed
 func isURLAllowed(url string) bool {
 	for _, allowedURL := range allowedURLs {
-		if url == allowedURL {
+		if url == allowedURL || url == allowedURL+"/" {
 			return true
 		}
 	}
@@ -78,7 +106,9 @@ func isURLAllowed(url string) bool {
 }
 
 func Handler(w http.ResponseWriter, r *http.Request) {
-	setPreflighHeader(w, r)
+	if !setPreflighHeader(w, r) {
+		return
+	}
 
 	if r.Method == http.MethodOptions {
 		w.WriteHeader(http.StatusNoContent)
