@@ -1,0 +1,15 @@
+{
+    "version": 2,
+    "builds": [
+        {
+            "src": "api/**/*.go",
+            "use": "@vercel/go"
+        }
+    ],
+    "routes": [
+        {
+            "src": "/api/count-user",
+            "dest": "/api/count-user.go"
+        }
+    ]
+}
