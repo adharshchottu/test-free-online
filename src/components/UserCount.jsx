@@ -11,7 +11,7 @@ const UserCount = () => {
           throw new Error('Network response was not ok');
         }
         const data = await response.json();
-        setUserCount((data.data).json);
+        setUserCount(JSON.parse(data.data).count);
       } catch (error) {
         console.error('Error fetching user count:', error);
       }
