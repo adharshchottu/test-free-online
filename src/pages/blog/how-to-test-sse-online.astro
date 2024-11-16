@@ -5,6 +5,7 @@ import { ScrollUpButton } from "../../components/ScrollUpButton";
 import { ListItem } from "../../components/blog/ListItem";
 import Layout from "../../layouts/Layout.astro";
 import sseBannerImage from "../../assets/images/blog/sse-tester.png";
+import UserCount from "@/components/UserCount";
 ---
 
 <Layout
@@ -168,4 +169,5 @@ import sseBannerImage from "../../assets/images/blog/sse-tester.png";
     </div>
   </div>
   <ScrollUpButton client:load />
+  <UserCount client:only="react" />
 </Layout>

@@ -9,6 +9,7 @@ import { Brands } from '../components/Brands.jsx'
 import { ScrollUpButton } from '../components/ScrollUpButton'
 import '../styles/Theme.css'
 import '../styles/Diagonals.css'
+import UserCount from '@/components/UserCount'
 ---
 
 <Layout title="Test Free Online" description='Access online tools like a poster generator, Redis Lua script tester, and server-sent events tester. Test and create easily, all in one place!'>
@@ -19,4 +20,5 @@ import '../styles/Diagonals.css'
   <ServerSideEventsBanner client:load />
   <Brands client:load />
   <ScrollUpButton client:load />
+  <UserCount client:only="react" />
 </Layout>

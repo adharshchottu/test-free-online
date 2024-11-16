@@ -4,10 +4,12 @@ import { Navbar } from '../components/Navbar.jsx'
 import { ScrollUpButton } from '../components/ScrollUpButton.jsx'
 import '../styles/Theme.css'
 import Kroenger from '../components/kroenger/Kroenger.jsx'
+import UserCount from '@/components/UserCount'
 ---
 
 <Layout title="Kroenger Poster Generator Online" description='Create environment-themed posters for awareness days using text and images. Design impactful visuals with our Canvas API and Unsplash-powered app!' ogImage='kroenger.png'>
   <Navbar client:load />
   <Kroenger client:only="react" />
   <ScrollUpButton client:load />
+  <UserCount client:only="react" />
 </Layout>

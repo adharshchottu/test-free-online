@@ -4,10 +4,12 @@ import { Navbar } from '../components/Navbar.jsx'
 import { ScrollUpButton } from '../components/ScrollUpButton.jsx'
 import '../styles/Theme.css'
 import Puzzle from '../components/puzzle/Puzzle.svelte'
+import UserCount from '@/components/UserCount'
 ---
 
 <Layout title="Slide Puzzle Online" description='Solve 3x3 slide puzzles online using custom images. Upload your own photos and enjoy a fun, interactive puzzle experience directly in your browser!' ogImage='slide-puzzle.jpg'>
   <Navbar client:load />
   <Puzzle client:only="svelte" />
   <ScrollUpButton client:load />
+  <UserCount client:only="react" />
 </Layout>

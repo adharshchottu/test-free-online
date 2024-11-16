@@ -5,10 +5,12 @@ import { ScrollUpButton } from '../components/ScrollUpButton'
 import '../styles/Theme.css'
 import '../styles/redis-lua.css'
 import  LuaScriptExecutor  from '../components/redis-lua/RedisLua'
+import UserCount from '@/components/UserCount'
 ---
 
 <Layout title="Redis Lua Script Test Online" description="Test and debug Redis Lua scripts online with ease. Our web app provides a convenient platform to run, edit, and optimize your Redis scripts instantly" ogImage="blog/redis-lua-script-online.png">
   <Navbar client:load />
   <LuaScriptExecutor client:load />
   <ScrollUpButton client:load />
+  <UserCount client:only="react" />
 </Layout>
