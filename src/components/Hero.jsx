@@ -1,5 +1,3 @@
-import { motion } from "framer-motion";
-
 import { navigate } from "astro/virtual-modules/transitions-router.js";
 
 export const Hero = () => {
@@ -10,16 +8,12 @@ export const Hero = () => {
       id="home"
     >
       <div className="w-full md:w-[800px] xl:w-[900px] flex flex-col justify-center items-center pt-16 md:pt-16 lg:pt-20 text-center">
-        <motion.div
-          initial={{ opacity: 0, y: 10 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5 }}
-        >
+        <div>
           <h3 className="text-secondaryColor text-sm sm:text-base  mb-6 sm:mt-32 mt-16  font-bold">
             Simply free and online
           </h3>
-        </motion.div>
-        <motion.div
+        </div>
+        <div
           initial={{ opacity: 0, y: 10 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5, delay: 0.05 }}
@@ -31,8 +25,8 @@ export const Hero = () => {
           <p className="mt-2 sm:mt-2 text-4xl sm:text-6xl lg:text-7xl xl:text-7xl font-bold tracking-wide  text-primaryText  px-8 sm:px-20 md:px-24 lg:px-24">
             for everyone
           </p>
-        </motion.div>
-        <motion.div
+        </div>
+        <div
           initial={{ opacity: 0, y: 10 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5, delay: 0.1 }}
@@ -40,8 +34,8 @@ export const Hero = () => {
           <h2 className="text-secondaryText text-sm lg:text-base xl:text-lg sm:text-base mt-10 px-12 sm:px-48 ">
             From image generation to test web request seamlessly
           </h2>
-        </motion.div>
-        <motion.div
+        </div>
+        <div
           initial={{ opacity: 0, y: 10 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5, delay: 0.15 }}
@@ -62,7 +56,7 @@ export const Hero = () => {
               Test SSE Online
             </button>
           </div>
-        </motion.div>
+        </div>
       </div>
     </section>
   );
