@@ -1,16 +1,55 @@
 ---
-import Layout from '../layouts/Layout.astro'
-import { Navbar } from '../components/Navbar.jsx'
-import { ScrollUpButton } from '../components/ScrollUpButton'
-import '../styles/Theme.css'
-import '../styles/redis-lua.css'
-import  LuaScriptExecutor  from '../components/redis-lua/RedisLua'
-import UserCount from '@/components/UserCount'
+import Layout from "../layouts/Layout.astro";
+import { Navbar } from "../components/Navbar.jsx";
+import { ScrollUpButton } from "../components/ScrollUpButton";
+import "../styles/Theme.css";
+import "../styles/redis-lua.css";
+import LuaScriptExecutor from "../components/redis-lua/RedisLua";
+import UserCount from "@/components/UserCount";
+import { ListItem } from "@/components/blog/ListItem";
 ---
 
-<Layout title="Redis Lua Script Test Online" description="Test and debug Redis Lua scripts online with ease. Our web app provides a convenient platform to run, edit, and optimize your Redis scripts instantly" ogImage="blog/redis-lua-script-online.png">
+<Layout
+  title="Redis Lua Script Test Online"
+  description="Test and debug Redis Lua scripts online with ease. Our web app provides a convenient platform to run, edit, and optimize your Redis scripts instantly"
+  ogImage="blog/redis-lua-script-online.png"
+>
   <Navbar client:load />
   <LuaScriptExecutor client:load />
   <ScrollUpButton client:load />
+
+  <section
+    class="text-secondaryText !leading-8 sm:!leading-10 sm:text-xl text-left sm:text-justify mx-auto w-full md:w-10/12 lg:w-2/3 mt-16"
+  >
+    <div class="text-white text-2xl mb-4">Using Lua in Redis</div>
+    <p>
+      Lua is a powerful, lightweight, and efficient scripting language that is
+      well-suited for embedding within applications. Redis, the high-performance
+      in-memory data structure store, leverages Lua to provide advanced
+      scripting capabilities. This integration allows users to execute custom
+      scripts directly within the Redis server, offering several advantages:
+    </p>
+    <div class="text-white text-2xl mb-4">Why Use Lua in Redis?</div>
+    <ListItem
+      list={[
+        {
+          title: "Atomic Operations",
+          description:
+            "Lua scripts in Redis execute atomically. This means that the operations within the script are executed as a single, uninterrupted sequence, ensuring data integrity.",
+        },
+        {
+          title: "Efficiency",
+          description:
+            "By executing scripts server-side, Lua reduces the need for multiple round trips between the client and the server, enhancing performance.",
+        },
+        {
+          title: "Flexibility",
+          description:
+            "Lua allows for complex logic to be executed within Redis, enabling sophisticated data manipulations and custom commands.",
+        },
+      ]}
+      client:visible
+    />
+  </section>
   <UserCount client:only="react" />
 </Layout>

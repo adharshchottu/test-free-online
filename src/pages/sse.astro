@@ -1,16 +1,49 @@
 ---
-import Layout from '../layouts/Layout.astro'
-import { Navbar } from '../components/Navbar.jsx'
-import { ScrollUpButton } from '../components/ScrollUpButton'
-import '../styles/Theme.css'
-import '../styles/sse.css'
-import { SSETester } from '../components/tools/SSE'
-import UserCount from '@/components/UserCount'
+import Layout from "../layouts/Layout.astro";
+import { Navbar } from "../components/Navbar.jsx";
+import { ScrollUpButton } from "../components/ScrollUpButton";
+import "../styles/Theme.css";
+import "../styles/sse.css";
+import { SSETester } from "../components/tools/SSE";
+import UserCount from "@/components/UserCount";
 ---
 
-<Layout title="Server Side Events Test Online" description="Test Server-Sent Events online with interactive story and normal modes. Simulate real-time data streaming and enhance your development experience seamlessly!" ogImage="blog/test-sse-online.png">
+<Layout
+  title="Server Side Events Test Online"
+  description="Test Server-Sent Events online with interactive story and normal modes. Simulate real-time data streaming and enhance your development experience seamlessly!"
+  ogImage="blog/test-sse-online.png"
+>
   <Navbar client:load />
   <SSETester client:load />
   <ScrollUpButton client:load />
+  <section
+    class="text-secondaryText !leading-8 sm:!leading-10 sm:text-xl text-left sm:text-justify mx-auto w-full md:w-10/12 lg:w-2/3 mt-16"
+  >
+    <div class="text-white text-2xl mb-4">
+      Understanding Server-Sent Events (SSE)
+    </div>
+    <p>
+      Server-Sent Events (SSE) is a standard for continuously streaming data
+      updates from a server to a web client over a single HTTP connection.
+      Unlike WebSockets, SSE is unidirectional, meaning data flows from the
+      server to the client only. It's ideal for applications requiring real-time
+      updates, such as stock price updates, social media feeds, or live sports
+      scores.
+    </p>
+    <div class="text-white text-2xl mb-4">Introducing the SSE Tester Tool</div>
+    <p>
+      For developers and testers working with SSE, this <a
+        href="https://test-free.online/sse/"
+        class="text-primaryColor font-bold">SSE Tester</a
+      > is an excellent, free online tool. It allows you to easily monitor and debug
+      your SSE streams in real-time. Simply enter your SSE stream URL, connect, and
+      watch the data flow seamlessly. This tool is perfect for ensuring your SSE
+      implementations are working correctly and efficiently.
+    </p>
+    <p>Read more about this Server Side Events tester on our <a
+      href="https://test-free.online/blog/how-to-test-sse-online/"
+      class="text-primaryColor font-bold">blog</a
+    >.</p>
+  </section>
   <UserCount client:only="react" />
 </Layout>
