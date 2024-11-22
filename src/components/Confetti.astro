@@ -1,0 +1,28 @@
+<script>
+  import confetti from "canvas-confetti";
+
+  function randomInRange(min, max) {
+    return Math.random() * (max - min) + min;
+  }
+
+  (function frame() {
+    confetti({
+      particleCount: 1,
+      startVelocity: 0,
+      ticks: 100,
+      origin: {
+        x: Math.random(),
+        // Snowflakes fall from slightly above the top
+        y: Math.random() - 0.2,
+      },
+      colors: ["#ffffff"],
+      shapes: ["circle"],
+      gravity: randomInRange(0.2, 0.3),
+      scalar: randomInRange(0.6, 0.9),
+      drift: randomInRange(-0.2, 0.2),
+    });
+
+    // Continuously call the frame function to create an infinite loop
+    requestAnimationFrame(frame);
+  })();
+</script>
