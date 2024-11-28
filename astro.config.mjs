@@ -5,7 +5,9 @@ import sitemap from "@astrojs/sitemap";
 
 import svelte from '@astrojs/svelte';
 
+import vue from '@astrojs/vue';
+
 export default defineConfig({
   site: 'https://test-free.online',
-  integrations: [react(), tailwind(), sitemap(), svelte()]
+  integrations: [react(), tailwind(), sitemap(), svelte(), vue()]
 });

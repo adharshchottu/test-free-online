@@ -10,6 +10,7 @@ const navbarLinks = [
   { label: "SSE", href: "/sse", ariaLabel: "SSE" },
   { label: "Slide Puzzle", href: "/slide-puzzle", ariaLabel: "Slide Puzzle" },
   { label: "Redis Lua", href: "/redis-lua", ariaLabel: "Redis Lua" },
+  { label: "Sudoku", href: "/sudoku", ariaLabel: "Sudoku" },
 ];
 
 export const Navbar = () => {

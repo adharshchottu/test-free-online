@@ -16,6 +16,7 @@
     "@astrojs/sitemap": "^3.1.6",
     "@astrojs/svelte": "^5.7.0",
     "@astrojs/tailwind": "^5.1.0",
+    "@astrojs/vue": "^4.5.2",
     "@fontsource/inter": "^5.0.18",
     "@headlessui/react": "^2.1.5",
     "@heroicons/react": "^2.1.5",
@@ -33,7 +34,8 @@
     "tailwind-merge": "^2.5.4",
     "tailwindcss": "^3.4.3",
     "tailwindcss-animate": "^1.0.7",
-    "typescript": "^5.6.2"
+    "typescript": "^5.6.2",
+    "vue": "^3.5.12"
   },
   "devDependencies": {
     "@astrojs/react": "^3.6.2",

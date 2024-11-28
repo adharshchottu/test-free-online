@@ -1,0 +1,11 @@
+---
+import Layout from '../layouts/Layout.astro'
+import { Navbar } from '../components/Navbar.jsx'
+import '../styles/Theme.css'
+import SudokuApp from '../components/sudoku/sudokuApp.vue'
+---
+
+<Layout title="Free Unlimited Sudoku Online" description='solve unlimited sudoku online for free' ogImage='slide-puzzle.jpg'>
+  <Navbar client:load />
+  <SudokuApp client:only="vue" />
+</Layout>
