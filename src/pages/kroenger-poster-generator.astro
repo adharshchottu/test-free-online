@@ -1,15 +1,51 @@
 ---
-import Layout from '../layouts/Layout.astro'
-import { Navbar } from '../components/Navbar.jsx'
-import { ScrollUpButton } from '../components/ScrollUpButton.jsx'
-import '../styles/Theme.css'
-import Kroenger from '../components/kroenger/Kroenger.jsx'
-import UserCount from '@/components/UserCount'
+import Layout from "../layouts/Layout.astro";
+import { Navbar } from "../components/Navbar.jsx";
+import { ScrollUpButton } from "../components/ScrollUpButton.jsx";
+import "../styles/Theme.css";
+import Kroenger from "../components/kroenger/Kroenger.jsx";
+import UserCount from "@/components/UserCount";
 ---
 
-<Layout title="Kroenger Poster Generator Online" description='Create environment-themed posters for awareness days using text and images. Design impactful visuals with our Canvas API and Unsplash-powered app!' ogImage='kroenger.png'>
+<Layout
+  title="Kroenger Poster Generator Online"
+  description="Create environment-themed posters for awareness days using text and images. Design impactful visuals with our Canvas API and Unsplash-powered app!"
+  ogImage="kroenger.png"
+>
   <Navbar client:load />
   <Kroenger client:only="react" />
+  <section
+    class="text-secondaryText !leading-8 sm:!leading-10 sm:text-xl text-left sm:text-justify mx-auto w-full md:w-10/12 lg:w-2/3 mt-16"
+  >
+    <div class="text-white text-2xl mb-4">A little about Kroenger</div>
+    <p>
+      <a href="https://kroenger.org/" class="text-primaryColor font-bold"
+        >Kroenger</a
+      > is a not-for-profit organization dedicated to promoting recycling, reusing,
+      and sustainable development. Their mission is to create an alert community
+      that strives for a sustainable and eco-friendly future. They emphasize the
+      importance of reducing consumption, reusing items, and recycling to mitigate
+      the adverse effects of climate change and population growth on our ecosystems.
+    </p>
+    <div class="text-white text-2xl my-4">
+      Kroenger Observance Days Calendar
+    </div>
+    <p>
+      Kroenger's website features a comprehensive <a
+        href="https://kroenger.org/calendar/"
+        class="text-primaryColor font-bold">calendar</a
+      > of environmental observance days, making it a valuable resource for staying
+      informed about key dates dedicated to environmental awareness and sustainability.
+      From World Vegan Day to International Day for Preventing the Exploitation of
+      the Environment in War and Armed Conflicts, this calendar highlights significant
+      events that encourage sustainable practices and promote global environmental
+      protection. You can explore more about Kroenger and their environmental observance
+      days calendar on their website: <a
+        href="https://kroenger.org/"
+        class="text-green-400 font-bold">kroenger.org</a
+      >
+    </p>
+  </section>
   <ScrollUpButton client:load />
   <UserCount client:only="react" />
 </Layout>
