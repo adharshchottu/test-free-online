@@ -6,6 +6,7 @@ import { ListItem } from "../../components/blog/ListItem";
 import Layout from "../../layouts/Layout.astro";
 import sseBannerImage from "../../assets/images/blog/sse-tester.png";
 import UserCount from "@/components/UserCount";
+import Confetti from "@/components/Confetti.astro";
 ---
 
 <Layout
@@ -168,6 +169,7 @@ import UserCount from "@/components/UserCount";
       </article>
     </div>
   </div>
+  <Confetti />
   <ScrollUpButton client:load />
   <UserCount client:only="react" />
 </Layout>

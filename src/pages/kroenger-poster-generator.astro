@@ -5,6 +5,7 @@ import { ScrollUpButton } from "../components/ScrollUpButton.jsx";
 import "../styles/Theme.css";
 import Kroenger from "../components/kroenger/Kroenger.jsx";
 import UserCount from "@/components/UserCount";
+import Confetti from "@/components/Confetti.astro";
 ---
 
 <Layout
@@ -47,5 +48,6 @@ import UserCount from "@/components/UserCount";
     </p>
   </section>
   <ScrollUpButton client:load />
+  <Confetti />
   <UserCount client:only="react" />
 </Layout>

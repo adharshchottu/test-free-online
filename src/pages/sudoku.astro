@@ -3,9 +3,13 @@ import Layout from '../layouts/Layout.astro'
 import { Navbar } from '../components/Navbar.jsx'
 import '../styles/Theme.css'
 import SudokuApp from '../components/sudoku/sudokuApp.vue'
+import UserCount from '@/components/UserCount'
+import Confetti from '@/components/Confetti.astro'
 ---
 
 <Layout title="Free Unlimited Sudoku Online" description='solve unlimited sudoku online for free' ogImage='slide-puzzle.jpg'>
   <Navbar client:load />
   <SudokuApp client:only="vue" />
+  <Confetti />
+  <UserCount client:only="react" />
 </Layout>

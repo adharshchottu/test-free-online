@@ -10,10 +10,12 @@ import { ScrollUpButton } from '../components/ScrollUpButton'
 import '../styles/Theme.css'
 import '../styles/Diagonals.css'
 import UserCount from '@/components/UserCount'
+import Confetti from '@/components/Confetti.astro'
 ---
 
 <Layout title="Test Free Online" description='Access online tools like a poster generator, Redis Lua script tester, and server-sent events tester. Test and create easily, all in one place!'>
   <Navbar client:load />
+  <Confetti />
   <Hero client:load />
   <TypinksBanner client:load />
   <KroengerBanner client:load />

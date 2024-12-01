@@ -6,6 +6,7 @@ import "../styles/Theme.css";
 import "../styles/sse.css";
 import { SSETester } from "../components/tools/SSE";
 import UserCount from "@/components/UserCount";
+import Confetti from "@/components/Confetti.astro";
 ---
 
 <Layout
@@ -16,6 +17,7 @@ import UserCount from "@/components/UserCount";
   <Navbar client:load />
   <SSETester client:load />
   <ScrollUpButton client:load />
+  <Confetti />
   <section
     class="text-secondaryText !leading-8 sm:!leading-10 sm:text-xl text-left sm:text-justify mx-auto w-full md:w-10/12 lg:w-2/3 mt-16"
   >
@@ -40,10 +42,12 @@ import UserCount from "@/components/UserCount";
       watch the data flow seamlessly. This tool is perfect for ensuring your SSE
       implementations are working correctly and efficiently.
     </p>
-    <p>Read more about this Server Side Events tester on our <a
-      href="https://test-free.online/blog/how-to-test-sse-online/"
-      class="text-primaryColor font-bold">blog</a
-    >.</p>
+    <p>
+      Read more about this Server Side Events tester on our <a
+        href="https://test-free.online/blog/how-to-test-sse-online/"
+        class="text-primaryColor font-bold">blog</a
+      >.
+    </p>
   </section>
   <UserCount client:only="react" />
 </Layout>

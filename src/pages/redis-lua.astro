@@ -7,6 +7,7 @@ import "../styles/redis-lua.css";
 import LuaScriptExecutor from "../components/redis-lua/RedisLua";
 import UserCount from "@/components/UserCount";
 import { ListItem } from "@/components/blog/ListItem";
+import Confetti from "@/components/Confetti.astro";
 ---
 
 <Layout
@@ -51,5 +52,6 @@ import { ListItem } from "@/components/blog/ListItem";
       client:visible
     />
   </section>
+  <Confetti />
   <UserCount client:only="react" />
 </Layout>

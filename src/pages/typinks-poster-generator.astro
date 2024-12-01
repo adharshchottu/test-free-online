@@ -5,11 +5,13 @@ import { ScrollUpButton } from '../components/ScrollUpButton.jsx'
 import '../styles/Theme.css'
 import Typinks from '../components/typinks/Typinks'
 import UserCount from '@/components/UserCount'
+import Confetti from '@/components/Confetti.astro'
 ---
 
 <Layout title="Typinks Poster Generator Online" description="Create custom posters for observance days with our easy-to-use generator. Add your own text and images to design meaningful visuals for any occasion!" ogImage='typinks.jpg'>
   <Navbar client:load />
   <Typinks client:only="react" />
+  <Confetti />
   <ScrollUpButton client:load />
   <UserCount client:only="react" />
 </Layout>

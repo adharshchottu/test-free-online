@@ -6,6 +6,7 @@ import { ListItem } from "../../components/blog/ListItem";
 import Layout from "../../layouts/Layout.astro";
 import sseBannerImage from "../../assets/images/blog/sse-tester.png";
 import UserCount from "@/components/UserCount";
+import Confetti from "@/components/Confetti.astro";
 ---
 
 <Layout
@@ -15,6 +16,7 @@ import UserCount from "@/components/UserCount";
   lang="fr"
 >
   <Navbar client:load />
+  <Confetti />
   <div class="flex justify-center bg-bgDark2 relative pt-2">
     <div class="px-2 sm:px-4">
       <article
@@ -28,8 +30,8 @@ import UserCount from "@/components/UserCount";
             Comment tester SSE en ligne
           </h1>
           <p class="text-lg text-secondaryText mb-4">
-            SSE (Server-Sent Events) permet à un serveur d'envoyer des mises à jour en temps réel
-            au navigateur sans que celui-ci les demande.
+            SSE (Server-Sent Events) permet à un serveur d'envoyer des mises à
+            jour en temps réel au navigateur sans que celui-ci les demande.
           </p>
         </header>
         <Image
@@ -44,12 +46,18 @@ import UserCount from "@/components/UserCount";
             href="https://test-free.online/sse/"
             target="_blank"
             class="text-primaryColor font-bold">L'application SSE Tester</a
-          > est conçue pour vous aider à tester les événements SSE (Server-Sent Events) de manière simple et efficace. Dans ce guide, je vous montrerai comment utiliser l'application étape par étape. Pas de souci si vous débutez avec SSE ; ce guide vous accompagnera facilement dans toutes les étapes.
+          > est conçue pour vous aider à tester les événements SSE (Server-Sent Events)
+          de manière simple et efficace. Dans ce guide, je vous montrerai comment
+          utiliser l'application étape par étape. Pas de souci si vous débutez avec
+          SSE ; ce guide vous accompagnera facilement dans toutes les étapes.
 
           <h3 class="text-white text-2xl my-4">Qu'est-ce que le SSE ?</h3>
 
-          SSE (Server-Sent Events) permet à un serveur d'envoyer des mises à jour en temps réel
-          au navigateur sans que celui-ci les demande. Il est utile pour des notifications, des mises à jour en direct ou des données de streaming. L'application SSE Tester vous permet de tester comment votre serveur envoie ces événements.
+          SSE (Server-Sent Events) permet à un serveur d'envoyer des mises à
+          jour en temps réel au navigateur sans que celui-ci les demande. Il est
+          utile pour des notifications, des mises à jour en direct ou des
+          données de streaming. L'application SSE Tester vous permet de tester
+          comment votre serveur envoie ces événements.
 
           <h2 class="text-white text-3xl my-4">Commencer</h2>
 
@@ -57,12 +65,16 @@ import UserCount from "@/components/UserCount";
             Étape 1 : Ouvrir <a
               href="https://test-free.online/sse/"
               target="_blank"
-              class="text-primaryColor font-bold">l'application</a>
+              class="text-primaryColor font-bold">l'application</a
+            >
           </h3>
-          Lorsque vous ouvrez l'application, vous verrez une interface simple avec quelques champs de saisie et des boutons.
+          Lorsque vous ouvrez l'application, vous verrez une interface simple avec
+          quelques champs de saisie et des boutons.
 
           <h3 class="text-white text-2xl my-4">Étape 2 : Saisir l'URL SSE</h3>
-          En haut de l'application, il y a une zone de texte qui dit "Entrer l'URL SSE". C'est là que vous allez insérer l'URL du flux SSE que vous souhaitez tester. Si vous n'êtes pas sûr, une bonne URL de départ pourrait être <span
+          En haut de l'application, il y a une zone de texte qui dit "Entrer l'URL
+          SSE". C'est là que vous allez insérer l'URL du flux SSE que vous souhaitez
+          tester. Si vous n'êtes pas sûr, une bonne URL de départ pourrait être <span
             class="text-primaryColor font-bold"
             >https://sse.test-free.online/api/story</span
           >, qui est l'URL par défaut dans l'application.
@@ -70,10 +82,16 @@ import UserCount from "@/components/UserCount";
           <h3 class="text-white text-2xl my-4">
             Étape 3 : Se connecter au flux SSE
           </h3>
-          Une fois que vous avez entré l'URL, cliquez sur le bouton "Connecter". L'application essaiera de se connecter au serveur et de commencer à recevoir les messages. Si la connexion est réussie, vous verrez un statut "Connecté". S'il y a des problèmes de connexion, l'application affichera un message d'erreur.
+          Une fois que vous avez entré l'URL, cliquez sur le bouton "Connecter".
+          L'application essaiera de se connecter au serveur et de commencer à recevoir
+          les messages. Si la connexion est réussie, vous verrez un statut "Connecté".
+          S'il y a des problèmes de connexion, l'application affichera un message
+          d'erreur.
 
           <h3 class="text-white text-2xl my-4">Étape 4 : Voir les messages</h3>
-          Une fois connecté, vous verrez les messages du serveur affichés dans la boîte de message. Les messages apparaîtront en temps réel au fur et à mesure qu'ils sont envoyés par le serveur.
+          Une fois connecté, vous verrez les messages du serveur affichés dans la
+          boîte de message. Les messages apparaîtront en temps réel au fur et à mesure
+          qu'ils sont envoyés par le serveur.
 
           <br />
           Vous pouvez choisir comment visualiser les messages :
@@ -94,7 +112,8 @@ import UserCount from "@/components/UserCount";
           />
 
           <h3 class="text-white text-2xl my-4">Étape 5 : Déconnecter</h3>
-          Lorsque vous avez terminé, cliquez simplement sur le bouton "Déconnecter". Cela fermera la connexion au serveur.
+          Lorsque vous avez terminé, cliquez simplement sur le bouton "Déconnecter".
+          Cela fermera la connexion au serveur.
 
           <h4 class="text-white text-xl my-4">Dépannage</h4>
 
@@ -114,7 +133,9 @@ import UserCount from "@/components/UserCount";
             client:visible
           />
 
-          <h3 class="text-white text-2xl my-4">Récapitulatif des fonctionnalités</h3>
+          <h3 class="text-white text-2xl my-4">
+            Récapitulatif des fonctionnalités
+          </h3>
           <ListItem
             list={[
               {
@@ -147,7 +168,10 @@ import UserCount from "@/components/UserCount";
             href="https://test-free.online/sse/"
             target="_blank"
             class="text-primaryColor font-bold">application SSE Tester</a
-          > simplifie le test de vos flux SSE. Que vous soyez en train de déboguer, de tester de nouvelles fonctionnalités ou simplement curieux, cet outil fournit une manière simple de voir le SSE en action. Il suffit de saisir votre URL, de vous connecter et de regarder les données arriver !
+          > simplifie le test de vos flux SSE. Que vous soyez en train de déboguer,
+          de tester de nouvelles fonctionnalités ou simplement curieux, cet outil
+          fournit une manière simple de voir le SSE en action. Il suffit de saisir
+          votre URL, de vous connecter et de regarder les données arriver !
         </section>
       </article>
     </div>
