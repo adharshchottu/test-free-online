@@ -5,9 +5,9 @@ import { ScrollUpButton } from "../components/ScrollUpButton";
 import "../styles/Theme.css";
 import "../styles/redis-lua.css";
 import LuaScriptExecutor from "../components/redis-lua/RedisLua";
-import UserCount from "@/components/UserCount";
 import { ListItem } from "@/components/blog/ListItem";
 import Confetti from "@/components/Confetti.astro";
+import Footer from "@/components/Footer.vue";
 ---
 
 <Layout
@@ -20,7 +20,7 @@ import Confetti from "@/components/Confetti.astro";
   <ScrollUpButton client:load />
 
   <section
-    class="text-secondaryText !leading-8 sm:!leading-10 sm:text-xl text-left sm:text-justify mx-auto w-full md:w-10/12 lg:w-2/3 mt-16"
+    class="text-secondaryText !leading-8 sm:!leading-10 sm:text-xl text-left sm:text-justify mx-auto w-full md:w-10/12 lg:w-2/3 my-16"
   >
     <div class="text-white text-2xl mb-4">Using Lua in Redis</div>
     <p>
@@ -53,5 +53,5 @@ import Confetti from "@/components/Confetti.astro";
     />
   </section>
   <Confetti />
-  <UserCount client:only="react" />
+  <Footer client:only="vue" />
 </Layout>

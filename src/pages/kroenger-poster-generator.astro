@@ -4,8 +4,8 @@ import { Navbar } from "../components/Navbar.jsx";
 import { ScrollUpButton } from "../components/ScrollUpButton.jsx";
 import "../styles/Theme.css";
 import Kroenger from "../components/kroenger/Kroenger.jsx";
-import UserCount from "@/components/UserCount";
 import Confetti from "@/components/Confetti.astro";
+import Footer from "@/components/Footer.vue";
 ---
 
 <Layout
@@ -16,7 +16,7 @@ import Confetti from "@/components/Confetti.astro";
   <Navbar client:load />
   <Kroenger client:only="react" />
   <section
-    class="text-secondaryText !leading-8 sm:!leading-10 sm:text-xl text-left sm:text-justify mx-auto w-full md:w-10/12 lg:w-2/3 mt-16"
+    class="text-secondaryText !leading-8 sm:!leading-10 sm:text-xl text-left sm:text-justify mx-auto w-full md:w-10/12 lg:w-2/3 my-16"
   >
     <div class="text-white text-2xl mb-4">A little about Kroenger</div>
     <p>
@@ -49,5 +49,5 @@ import Confetti from "@/components/Confetti.astro";
   </section>
   <ScrollUpButton client:load />
   <Confetti />
-  <UserCount client:only="react" />
+  <Footer client:only="vue" />
 </Layout>

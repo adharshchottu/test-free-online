@@ -1,5 +1,5 @@
 <template>
-    <div class="w-full md:w-1/3 lg:w-auto mb-16 md:mb-0">
+    <div class="w-full md:w-1/3 lg:w-auto mb-16">
         <h3 class="mb-6 text-2xl font-bold text-primaryText">{{ title }}</h3>
         <ul>
             <li v-for="(item, index) in items" :key="index" class="mb-4">

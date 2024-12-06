@@ -1,6 +1,7 @@
 ---
 import Layout from "@/layouts/Layout.astro";
 import Confetti from "../components/Confetti.astro";
+import Footer from "@/components/Footer.vue";
 ---
 
 <Layout
@@ -8,4 +9,5 @@ import Confetti from "../components/Confetti.astro";
   description="wash hand with soap everyday."
 >
   <Confetti />
+  <Footer client:only="vue" />
 </Layout>
