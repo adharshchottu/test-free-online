@@ -2,6 +2,7 @@
 import Layout from '../layouts/Layout.astro'
 import { Hero } from '../components/Hero.jsx'
 import { Navbar } from '../components/Navbar.jsx'
+import Footer  from '../components/Footer.vue'
 import { TypinksBanner } from '../components/TypinksBanner.jsx'
 import { KroengerBanner } from '../components/KroengerBanner.jsx'
 import { ServerSideEventsBanner } from '../components/ServerSideEventsBanner.jsx'
@@ -23,4 +24,5 @@ import Confetti from '@/components/Confetti.astro'
   <Brands client:load />
   <ScrollUpButton client:load />
   <UserCount client:only="react" />
+  <Footer client:only="vue" />
 </Layout>
