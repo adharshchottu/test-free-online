@@ -15,7 +15,7 @@ export interface Props {
 
 const {
   title,
-  ogImage = "",
+  ogImage = "og_image.png",
   description = "Test online tools for free",
   lang="en"
 } = Astro.props;
@@ -33,7 +33,7 @@ const modifiedOgImage = `${Astro.url.origin}/${ogImage}`;
     <meta name="description" content={description} />
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-T0TTMCQ05W"
     ></script>
-    <script>
+    <script lang="js">
       window.dataLayer = window.dataLayer || [];
       function gtag() {
         dataLayer.push(arguments);
