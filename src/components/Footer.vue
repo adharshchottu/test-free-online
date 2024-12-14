@@ -36,7 +36,7 @@
                             </a>
                         </div>
                     </div>
-                    <div class="w-full lg:w-2/3 lg:pl-16 hidden lg:flex flex-wrap justify-center items-startś gap-8">
+                    <div class="w-full lg:w-2/3 lg:pl-16 flex flex-wrap justify-center items-start gap-8">
                         <FooterSection v-for="(section, index) in footerData" :key="index" :title="section.title"
                             :items="section.items" />
                     </div>
@@ -102,6 +102,10 @@ export default {
                         {
                             label: "Sudoku",
                             value: "https://www.test-free.online/sudoku"
+                        },
+                        {
+                            label: "Life Time Calculator",
+                            value: "https://www.test-free.online/life-time-calculator"
                         }
                     ],
                 },
