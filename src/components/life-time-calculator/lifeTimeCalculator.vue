@@ -2,7 +2,7 @@
   <div class="max-w-2xl mx-auto pt-16 md:pt-16 lg:pt-24">
     <div class="bg-bgDark3 shadow-md rounded px-8 pt-6 pb-8 mb-4">
       <h1 class="text-2xl mb-4 text-center text-white">Life Time Calculator</h1>
-      <div class="mb-4">
+      <div class="mb-4" v-if="!isShared">
         <label class="block text-white text-sm font-bold mb-2"
           >Enter your Date of Birth:</label
         >
@@ -17,7 +17,11 @@
       </div>
 
       <h2 class="text-center text-lg text-white mt-8 md:mt-16 mb-4">
-        Wow {{ name }}! You have lived for
+        {{
+          !isShared
+            ? `wow ${name ? name : ""}! You have lived for`
+            : `${name} has lived for`
+        }}
       </h2>
       <div
         class="grid grid-flow-row md:grid-flow-col gap-6 text-center auto-cols-max justify-center text-white"
@@ -38,6 +42,14 @@
 
       <div class="mt-8 text-center">
         <button
+          v-if="isShared"
+          @click="reset"
+          class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+        >
+          Check Yours
+        </button>
+        <button
+          v-else
           @click="open = true"
           class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
         >
@@ -177,6 +189,7 @@ const getCurrentDateTime = () => {
 const birthDate = ref(getCurrentDateTime());
 const name = ref(null);
 const lifetime = ref("");
+const isShared = ref(false);
 let countdownInterval;
 
 const currentYear = new Date().getFullYear();
@@ -209,7 +222,10 @@ const decrypt = (encryptedText) => {
 
 // Function to calculate hash
 const calculateHash = () => {
-  const data = JSON.stringify({ username: name.value, userBirthDate: birthDate.value });
+  const data = JSON.stringify({
+    username: name.value,
+    userBirthDate: birthDate.value,
+  });
   const hash = encrypt(data); // Encode as Base64url
   return hash;
 };
@@ -288,8 +304,8 @@ const share = async () => {
   if (navigator.share) {
     try {
       await navigator.share({
-        title: "Check out this link!",
-        text: "Sharing a cool link",
+        title: "Life Time Calculator",
+        text: `Checkout how long ${name} have lived!`,
         url: shareUrl,
       });
     } catch (error) {
@@ -325,10 +341,19 @@ onMounted(() => {
       const { username, userBirthDate } = JSON.parse(decoded);
       name.value = username;
       birthDate.value = userBirthDate;
+      isShared.value = true;
       updateCountdown();
     } catch (error) {
       console.error("Error decoding hash:", error);
     }
   }
 });
+
+// reset name, birthdata and shared
+const reset = () => {
+  name.value = null;
+  birthDate.value = getCurrentDateTime();
+  isShared.value = false;
+  updateCountdown();
+};
 </script>
