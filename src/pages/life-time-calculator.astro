@@ -5,9 +5,13 @@ import '../styles/Theme.css'
 import LifeTimeCalculatosComponent from '@/components/life-time-calculator/lifeTimeCalculator.vue'
 import Confetti from '@/components/Confetti.astro'
 import Footer from '@/components/Footer.vue'
+
+// fetch url params
+let urlParams = new URLSearchParams(Astro.url.search);
+let gente = urlParams.get('gente');
 ---
 
-<Layout title="Life Time Calculator" description='find out how long you have lived for?' ogImage='life-time-calculator.png'>
+<Layout title="Life Time Calculator" description='find out how long you have lived for?' ogImage=`https://sse.test-free.online/api/life-time?gente=${gente}` ogImageCustom={true}>
   <Navbar client:load />
   <LifeTimeCalculatosComponent client:only="vue" />
   <Confetti />

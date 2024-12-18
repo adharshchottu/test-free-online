@@ -10,6 +10,7 @@ export interface Props {
   title: string;
   description?: string;
   ogImage?: string;
+  ogImageCustom?: boolean;
   lang?: string;
 }
 
@@ -17,10 +18,11 @@ const {
   title,
   ogImage = "test-free-online.png",
   description = "Test online tools for free",
+  ogImageCustom = false,
   lang="en"
 } = Astro.props;
 
-const modifiedOgImage = `${Astro.url.origin}/${ogImage}`;
+const modifiedOgImage = ogImageCustom ? ogImage : `${Astro.url.origin}/${ogImage}`;
 ---
 
 <!doctype html>
