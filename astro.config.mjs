@@ -13,4 +13,10 @@ export default defineConfig({
   site: 'https://www.test-free.online',
   integrations: [react(), tailwind(), sitemap(), svelte(), vue()],
   adapter: vercel(),
+  routes: [
+    {
+      path: '/sitemap.xml',
+      entry: './src/components/sitemap.astro',
+    },
+  ],
 });
