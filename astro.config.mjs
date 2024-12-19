@@ -7,7 +7,10 @@ import svelte from '@astrojs/svelte';
 
 import vue from '@astrojs/vue';
 
+import vercel from '@astrojs/vercel';
+
 export default defineConfig({
   site: 'https://www.test-free.online',
   integrations: [react(), tailwind(), sitemap(), svelte(), vue()],
+  adapter: vercel(),
 });
