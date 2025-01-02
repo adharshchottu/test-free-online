@@ -6,7 +6,6 @@ import "../styles/Theme.css";
 import "../styles/redis-lua.css";
 import LuaScriptExecutor from "../components/redis-lua/RedisLua";
 import { ListItem } from "@/components/blog/ListItem";
-import Confetti from "@/components/Confetti.astro";
 import Footer from "@/components/Footer.vue";
 ---
 
@@ -52,6 +51,5 @@ import Footer from "@/components/Footer.vue";
       client:visible
     />
   </section>
-  <Confetti />
   <Footer client:only="vue" />
 </Layout>

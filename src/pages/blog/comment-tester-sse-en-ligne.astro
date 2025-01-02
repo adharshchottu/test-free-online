@@ -5,7 +5,6 @@ import { ScrollUpButton } from "../../components/ScrollUpButton";
 import { ListItem } from "../../components/blog/ListItem";
 import Layout from "../../layouts/Layout.astro";
 import sseBannerImage from "../../assets/images/blog/sse-tester.png";
-import Confetti from "@/components/Confetti.astro";
 import Footer from "@/components/Footer.vue";
 ---
 
@@ -16,7 +15,6 @@ import Footer from "@/components/Footer.vue";
   lang="fr"
 >
   <Navbar client:load />
-  <Confetti />
   <div class="flex justify-center bg-bgDark2 relative pt-2">
     <div class="px-2 sm:px-4">
       <article

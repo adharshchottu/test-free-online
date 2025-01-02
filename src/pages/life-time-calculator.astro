@@ -5,13 +5,11 @@ import Layout from '../layouts/Layout.astro'
 import { Navbar } from '../components/Navbar.jsx'
 import '../styles/Theme.css'
 import LifeTimeCalculatorComponent from '@/components/life-time-calculator/lifeTimeCalculator.vue'
-import Confetti from '@/components/Confetti.astro'
 import Footer from '@/components/Footer.vue'
 ---
 
 <Layout title="Life Time Calculator" description='find out how long you have lived for?' ogImage={`https://sse.test-free.online/api/life-time?gente=${Astro.url.toString().match(/gente=([^&]*)/)?.[1]}`} ogImageCustom={true}>
   <Navbar client:load />
   <LifeTimeCalculatorComponent client:only="vue" />
-  <Confetti />
   <Footer client:only="vue" />
 </Layout>
