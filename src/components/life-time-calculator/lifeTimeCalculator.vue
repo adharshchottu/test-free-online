@@ -305,7 +305,7 @@ const share = async () => {
     try {
       await navigator.share({
         title: "Life Time Calculator",
-        text: `Checkout how long ${name.value} have lived!`,
+        text: `Checkout how long ${name.value} has lived!`,
         url: shareUrl,
       });
     } catch (error) {
