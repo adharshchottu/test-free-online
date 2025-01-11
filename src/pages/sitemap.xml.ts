@@ -26,6 +26,8 @@ export const GET: APIRoute = ({ site }) => {
             loc: "https://www.test-free.online/blog/how-to-test-sse-online/",
             changefreq: "daily",
         },
+        { loc: "https://www.test-free.online/blog/how-to-test-redis-lua-script-online", changefreq: "daily" },
+        { loc: "https://www.test-free.online/blog/comment-utiliser-le-testeur-en-ligne-de-script-lua-redis", changefreq: "daily" },
         {
             loc: "https://www.test-free.online/kroenger-poster-generator/",
             changefreq: "daily",
