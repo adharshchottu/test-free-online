@@ -1,0 +1,170 @@
+---
+import { Image } from "astro:assets";
+import { Navbar } from "../../components/Navbar";
+import { ScrollUpButton } from "../../components/ScrollUpButton";
+import { ListItem } from "../../components/blog/ListItem";
+import Layout from "../../layouts/Layout.astro";
+import redisBannerImage from "../../assets/images/blog/redis-lua-script-online.png";
+import Footer from "@/components/Footer.vue";
+---
+
+<Layout
+  title="How to Use Redis Lua Script Online Tester"
+  ogImage="blog/redis-lua-script-online.png"
+  description="Learn how to test and debug Redis Lua scripts easily with this interactive online tool."
+>
+  <Navbar client:load />
+  <div class="flex justify-center bg-bgDark2 relative pt-2">
+    <div class="px-2 sm:px-4">
+      <article
+        class="p-8 text-center rounded-3xl w-full lg:w-[1200px] 2xl:w-[1400px] mb-24 mt-16 sm:mt-24"
+      >
+        <header class="mb-12">
+          <div class="text-sm text-secondaryText my-4">11 January 2025</div>
+          <h1
+            class="text-[2rem] xs:text-[2.8rem] lg:text-[3.5rem] font-bold text-primaryText mb-4"
+          >
+            How to Use Redis Lua Script Online Tester
+          </h1>
+          <p class="text-lg text-secondaryText mb-4">
+            This tool simplifies testing and debugging Redis Lua scripts by
+            providing a seamless, interactive online environment.
+          </p>
+        </header>
+        <Image
+          src={redisBannerImage}
+          alt="Redis Lua Script Online Tester"
+          class="rounded-xl mb-8 w-full md:w-2/4 mx-auto mt-8"
+        />
+        <section
+          class="text-secondaryText !leading-8 sm:!leading-10 sm:text-xl text-left sm:text-justify mx-auto w-full md:w-10/12 lg:w-2/3 mt-16"
+        >
+          <a
+            href="https://www.test-free.online/redis-lua/"
+            target="_blank"
+            class="text-primaryColor font-bold"
+            >Redis Lua Script Online Tester</a
+          > is a handy web app that allows you to test and debug Redis Lua scripts
+          in real-time. This guide walks you through how to use the app and addresses
+          potential edge cases to watch out for.
+
+          <h3 class="text-white text-2xl my-4">Step-by-Step Guide</h3>
+
+          <h3 class="text-white text-2xl my-4">Step 1: Open the Tester App</h3>
+          Visit the <a
+            href="https://www.test-free.online/redis-lua/"
+            target="_blank"
+            class="text-primaryColor font-bold"
+            >Redis Lua Script Online Tester</a
+          > to start. You'll see an interface with a Lua script editor, an arguments
+          input field, and a result display panel.
+
+          <h3 class="text-white text-2xl my-4">
+            Step 2: Write Your Lua Script
+          </h3>
+          Use the built-in editor to write your Redis Lua script. The editor supports
+          syntax highlighting, making it easier to identify errors in your code.
+          For example:
+          <pre
+            class="bg-bgDark3 text-white p-2 rounded-xl my-4">
+            return ARGV[1]
+          </pre>
+
+          <h3 class="text-white text-2xl my-4">Step 3: Enter Arguments</h3>
+          In the <b>Arguments</b> input field, add your script's arguments as a comma-separated
+          list. For example:
+
+          <pre
+            class="bg-bgDark3 text-white p-2 rounded-xl my-4">
+            Hello, World
+          </pre>
+          These arguments will be passed as the <code>`ARGV`</code> array to your script.
+
+          <h3 class="text-white text-2xl my-4">Step 4: Execute the Script</h3>
+          Click the <b>Execute Script</b> button to run the Lua script. The app sends
+          your script and arguments to a Redis server and retrieves the results.
+
+          <h3 class="text-white text-2xl my-4">Step 5: View the Results</h3>
+          Check the output in the <b>Result Panel</b>:
+          <ListItem
+            list={[
+              {
+                title: "Successful Execution",
+                description:
+                  "The result will be displayed as either a string, JSON object, or a list, depending on the script's output.",
+              },
+              {
+                title: "Errors",
+                description:
+                  "If an error occurs (e.g., syntax errors or invalid arguments), it will be shown in a red alert box with a descriptive message.",
+              },
+            ]}
+            client:visible
+          />
+
+          <h3 class="text-white text-2xl my-4">Technical Edge Cases</h3>
+          <ListItem
+            list={[
+              {
+                title: "Empty Arguments",
+                description:
+                  "If your script expects `ARGV` but no arguments are provided, it may throw an error. Always ensure valid inputs are given.",
+              },
+              {
+                title: "Script Size Limit",
+                description:
+                  "Redis has a Lua script size limit (typically 64 KB). Ensure your script does not exceed this size.",
+              },
+              {
+                title: "Timeouts",
+                description:
+                  "Scripts running longer than Redis's execution limit (usually 5 seconds) will be terminated. Optimize your scripts for performance.",
+              },
+              {
+                title: "Unsupported Commands",
+                description:
+                  "Redis does not allow certain commands in Lua (e.g., `BLPOP`). Verify your script complies with Redis Lua scripting rules.",
+              },
+            ]}
+            client:visible
+          />
+
+          <h3 class="text-white text-2xl my-4">Features Recap</h3>
+          <ListItem
+            list={[
+              {
+                title: "Interactive Lua Editor",
+                description:
+                  "Write and edit Lua scripts with syntax highlighting in a responsive, user-friendly interface.",
+              },
+              {
+                title: "Real-Time Results",
+                description:
+                  "View script output or errors instantly after execution.",
+              },
+              {
+                title: "Error Feedback",
+                description:
+                  "Get clear error messages for debugging issues with your script or input.",
+              },
+            ]}
+            client:visible
+          />
+
+          <h4 class="text-white text-xl my-4">Conclusion</h4>
+          The <a
+            href="https://www.test-free.online/redis-lua/"
+            target="_blank"
+            class="text-primaryColor font-bold"
+            >Redis Lua Script Online Tester</a
+          > is a valuable tool for Redis developers. Whether you're learning Lua
+          scripting or debugging advanced Redis scripts, this app offers a quick
+          and efficient way to test your code. Simply write your script, input arguments,
+          and execute to see results instantly!
+        </section>
+      </article>
+    </div>
+  </div>
+  <ScrollUpButton client:load />
+  <Footer client:only="vue" />
+</Layout>

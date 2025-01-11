@@ -1,0 +1,180 @@
+---
+import { Image } from "astro:assets";
+import { Navbar } from "../../components/Navbar";
+import { ScrollUpButton } from "../../components/ScrollUpButton";
+import { ListItem } from "../../components/blog/ListItem";
+import Layout from "../../layouts/Layout.astro";
+import redisBannerImage from "../../assets/images/blog/redis-lua-script-online.png";
+import Footer from "@/components/Footer.vue";
+---
+
+<Layout
+  title="Comment utiliser le testeur en ligne de script Lua Redis"
+  ogImage="blog/redis-lua-script-online.png"
+  description="Apprenez à tester et déboguer facilement les scripts Lua Redis avec cet outil interactif en ligne."
+  lang="fr"
+>
+  <Navbar client:load />
+  <div class="flex justify-center bg-bgDark2 relative pt-2">
+    <div class="px-2 sm:px-4">
+      <article
+        class="p-8 text-center rounded-3xl w-full lg:w-[1200px] 2xl:w-[1400px] mb-24 mt-16 sm:mt-24"
+      >
+        <header class="mb-12">
+          <div class="text-sm text-secondaryText my-4">11 janvier 2025</div>
+          <h1
+            class="text-[2rem] xs:text-[2.8rem] lg:text-[3.5rem] font-bold text-primaryText mb-4"
+          >
+            Comment utiliser le testeur en ligne de script Lua Redis
+          </h1>
+          <p class="text-lg text-secondaryText mb-4">
+            Cet outil simplifie le test et le débogage des scripts Lua Redis en
+            fournissant un environnement interactif et fluide en ligne.
+          </p>
+        </header>
+        <Image
+          src={redisBannerImage}
+          alt="Testeur en ligne de script Lua Redis"
+          class="rounded-xl mb-8 w-full md:w-2/4 mx-auto mt-8"
+        />
+        <section
+          class="text-secondaryText !leading-8 sm:!leading-10 sm:text-xl text-left sm:text-justify mx-auto w-full md:w-10/12 lg:w-2/3 mt-16"
+        >
+          <a
+            href="https://www.test-free.online/redis-lua/"
+            target="_blank"
+            class="text-primaryColor font-bold"
+            >Testeur en ligne de script Lua Redis</a
+          > est une application web pratique qui vous permet de tester et déboguer
+          des scripts Lua Redis en temps réel. Ce guide vous explique comment utiliser
+          l'application et aborde les cas limites à surveiller.
+
+          <h3 class="text-white text-2xl my-4">Guide étape par étape</h3>
+
+          <h3 class="text-white text-2xl my-4">
+            Étape 1 : Ouvrir l'application
+          </h3>
+          Rendez-vous sur le <a
+            href="https://www.test-free.online/redis-lua/"
+            target="_blank"
+            class="text-primaryColor font-bold"
+            >Testeur en ligne de script Lua Redis</a
+          > pour commencer. Vous verrez une interface avec un éditeur de script Lua,
+          un champ de saisie pour les arguments et un panneau d'affichage des résultats.
+
+          <h3 class="text-white text-2xl my-4">
+            Étape 2 : Rédiger votre script Lua
+          </h3>
+          Utilisez l'éditeur intégré pour écrire votre script Lua Redis. L'éditeur
+          prend en charge la mise en évidence de la syntaxe, ce qui facilite l'identification
+          des erreurs dans votre code. Par exemple :
+          <pre
+            class="bg-bgDark3 text-white p-2 rounded-xl my-4">
+            return ARGV[1]
+          </pre>
+
+          <h3 class="text-white text-2xl my-4">
+            Étape 3 : Saisir les arguments
+          </h3>
+          Dans le champ de saisie <b>Arguments</b>, ajoutez les arguments de
+          votre script sous forme de liste séparée par des virgules. Par
+          exemple :
+
+          <pre
+            class="bg-bgDark3 text-white p-2 rounded-xl my-4">
+            Bonjour, Monde
+          </pre>
+          Ces arguments seront passés comme tableau <code>`ARGV`</code> à votre script.
+
+          <h3 class="text-white text-2xl my-4">Étape 4 : Exécuter le script</h3>
+          Cliquez sur le bouton <b>Exécuter le script</b> pour lancer le script Lua.
+          L'application envoie votre script et vos arguments à un serveur Redis et
+          récupère les résultats.
+
+          <h3 class="text-white text-2xl my-4">Étape 5 : Voir les résultats</h3>
+          Consultez la sortie dans le <b>Panneau des résultats</b> :
+          <ListItem
+            list={[
+              {
+                title: "Exécution réussie",
+                description:
+                  "Le résultat s'affichera sous forme de chaîne, d'objet JSON ou de liste, selon la sortie du script.",
+              },
+              {
+                title: "Erreurs",
+                description:
+                  "Si une erreur se produit (par exemple, erreurs de syntaxe ou arguments invalides), elle sera affichée dans une boîte d'alerte rouge avec un message descriptif.",
+              },
+            ]}
+            client:visible
+          />
+
+          <h3 class="text-white text-2xl my-4">Cas limites techniques</h3>
+          <ListItem
+            list={[
+              {
+                title: "Arguments vides",
+                description:
+                  "Si votre script attend `ARGV` mais qu'aucun argument n'est fourni, une erreur peut se produire. Assurez-vous de toujours fournir des entrées valides.",
+              },
+              {
+                title: "Limite de taille des scripts",
+                description:
+                  "Redis impose une limite de taille pour les scripts Lua (généralement 64 Ko). Assurez-vous que votre script ne dépasse pas cette taille.",
+              },
+              {
+                title: "Dépassements de délai",
+                description:
+                  "Les scripts exécutés au-delà de la limite d'exécution de Redis (généralement 5 secondes) seront interrompus. Optimisez vos scripts pour la performance.",
+              },
+              {
+                title: "Commandes non prises en charge",
+                description:
+                  "Redis n'autorise pas certaines commandes dans Lua (par exemple, `BLPOP`). Vérifiez que votre script respecte les règles de script Lua de Redis.",
+              },
+            ]}
+            client:visible
+          />
+
+          <h3 class="text-white text-2xl my-4">
+            Récapitulatif des fonctionnalités
+          </h3>
+          <ListItem
+            list={[
+              {
+                title: "Éditeur Lua interactif",
+                description:
+                  "Écrivez et modifiez des scripts Lua avec mise en évidence de la syntaxe dans une interface intuitive et réactive.",
+              },
+              {
+                title: "Résultats en temps réel",
+                description:
+                  "Affichez instantanément la sortie du script ou les erreurs après l'exécution.",
+              },
+              {
+                title: "Retour d'erreur",
+                description:
+                  "Recevez des messages d'erreur clairs pour déboguer les problèmes avec votre script ou vos entrées.",
+              },
+            ]}
+            client:visible
+          />
+
+          <h4 class="text-white text-xl my-4">Conclusion</h4>
+          Le <a
+            href="https://www.test-free.online/redis-lua/"
+            target="_blank"
+            class="text-primaryColor font-bold"
+            >Testeur en ligne de script Lua Redis</a
+          > est un outil précieux pour les développeurs Redis. Que vous appreniez
+          le script Lua ou que vous déboguiez des scripts Redis avancés, cette application
+          offre un moyen rapide et efficace de tester votre code. Rédigez simplement
+          votre script, saisissez les arguments et exécutez pour voir les résultats
+          instantanément !
+        </section>
+      </article>
+    </div>
+  </div>
+  <ScrollUpButton client:load />
+  <Footer client:only="vue" />
+</Layout>

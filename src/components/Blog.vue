@@ -36,6 +36,7 @@
 <script>
 import { motion } from "framer-motion";
 import testSSEOnline from "../assets/images/blog/test-sse-online.png";
+import redisLuaScript from "../assets/images/blog/redis-lua-script-test-online.png";
 
 export default {
     name: "Blog",
@@ -57,6 +58,20 @@ export default {
                     image: testSSEOnline,
                     link: 'comment-tester-sse-en-ligne'
                 },
+                {
+                    title: "How to test redis lua script online",
+                    subtitle:
+                        "Lua in Redis allows developers to execute custom, atomic scripts directly on the server for efficient and complex data manipulations.",
+                    image: redisLuaScript,
+                    link: 'how-to-test-redis-lua-script-online'
+                },
+                {
+                    title: "Comment utiliser le testeur en ligne de script Lua Redis",
+                    subtitle:
+                        "Lua dans Redis permet aux développeurs d'exécuter des scripts personnalisés et atomiques directement sur le serveur pour des manipulations de données efficaces et complexes.",
+                    image: redisLuaScript,
+                    link: 'comment-utiliser-le-testeur-en-ligne-de-script-lua-redis'
+                }
             ],
         };
     },
