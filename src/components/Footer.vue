@@ -67,19 +67,23 @@ export default {
                     items: [
                         {
                             label: "Redis Lua Script Test",
-                            value: "https://www.test-free.online/redis-lua"
+                            value: "/redis-lua"
                         },
                         {
                             label: "Server Side Events Test",
-                            value: "https://www.test-free.online/sse"
+                            value: "/sse"
                         },
                         {
                             label: "Typinks Poster Generator",
-                            value: "https://www.test-free.online/typinks-poster-generator"
+                            value: "/typinks-poster-generator"
                         },
                         {
                             label: "Kroenger Poster Generator",
-                            value: "https://www.test-free.online/kroenger-poster-generator"
+                            value: "/kroenger-poster-generator"
+                        },
+                        {
+                            label: "Prelims Marks Calculator",
+                            value: "/prelims-marks-calculator"
                         }
                     ],
                 },
@@ -88,7 +92,7 @@ export default {
                     items: [
                         {
                             label: "Blog",
-                            value: "https://www.test-free.online/blog"
+                            value: "/blog"
                         }
                     ],
                 },
@@ -97,15 +101,15 @@ export default {
                     items: [
                         {
                             label: "Slide Puzzle",
-                            value: "https://www.test-free.online/slide-puzzle"
+                            value: "/slide-puzzle"
                         },
                         {
                             label: "Sudoku",
-                            value: "https://www.test-free.online/sudoku"
+                            value: "/sudoku"
                         },
                         {
                             label: "Life Time Calculator",
-                            value: "https://www.test-free.online/life-time-calculator"
+                            value: "/life-time-calculator"
                         }
                     ],
                 },

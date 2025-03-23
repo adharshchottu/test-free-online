@@ -1,0 +1,56 @@
+---
+import Layout from "../layouts/Layout.astro";
+import { Navbar } from "../components/Navbar.jsx";
+import { ScrollUpButton } from "../components/ScrollUpButton";
+import "../styles/Theme.css";
+import "../styles/sse.css";
+import PrelimsMarksCalculatorComponent from '../components/prelims-marks-calculator/PrelimsMarksCalculator.svelte';
+import Footer from "@/components/Footer.vue";
+---
+
+<Layout
+  title="Prelims Marks Calculator | Calculate Your Exam Score"
+  description="Calculate your prelims exam score with our free online marks calculator. Account for negative marking and find out your final score instantly!"
+  ogImage="blog/prelims-marks-calculator.png"
+>
+  <Navbar client:load />
+  <PrelimsMarksCalculatorComponent client:idle/>
+  <ScrollUpButton client:load />
+  <section
+    class="text-secondaryText !leading-8 sm:!leading-10 sm:text-xl text-left sm:text-justify mx-3 md:mx-auto w-full md:w-10/12 lg:w-2/3 my-16"
+  >
+    <div class="text-white text-2xl mb-4">
+      Understanding Prelims Exam Scoring
+    </div>
+    <p>
+      Competitive exams often use a complex scoring system that includes negative marking. 
+      The final score calculation considers not just the correct answers, but also penalizes for incorrect attempts.
+      This system helps to discourage random guessing and rewards precise knowledge and careful answering strategies.
+    </p>
+    <div class="text-white text-2xl mb-4">How to Use This Calculator</div>
+    <p>
+      Our Prelims Marks Calculator makes it easy to determine your score without complex calculations. Simply input your exam parameters:
+    </p>
+    <ul class="list-disc pl-6 my-4">
+      <li>Total number of questions in the exam</li>
+      <li>Total maximum marks available</li>
+      <li>Negative marking ratio (1/2, 1/3, 1/4, or 2/3)</li>
+      <li>Number of questions you attempted</li>
+      <li>Number of questions you answered incorrectly</li>
+    </ul>
+    <p>
+      The calculator will instantly provide your score, showing both the raw marks and the percentage. 
+      You'll also see a breakdown of marks per question, correct answers count, and total negative marks deducted.
+    </p>
+    <div class="text-white text-2xl mb-4">Strategic Exam Preparation</div>
+    <p>
+      Understanding how negative marking affects your score can help shape your exam strategy. 
+      For exams with significant negative marking (like 1/2 or 2/3), it's often better to attempt only questions you're confident about. 
+      With milder negative marking (like 1/4), you might take more calculated risks on questions where you can eliminate some options.
+    </p>
+    <p>
+      Use this calculator during your practice tests to find your optimal answering strategy and maximize your final score!
+    </p>
+  </section>
+  <Footer client:only="vue" />
+</Layout>
