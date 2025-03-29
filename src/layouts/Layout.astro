@@ -23,6 +23,7 @@ const {
 } = Astro.props;
 
 const modifiedOgImage = ogImageCustom ? ogImage : `${Astro.url.origin}/${ogImage}`;
+import  SpeedInsights  from "@vercel/speed-insights/astro"
 ---
 
 <!doctype html>
@@ -70,5 +71,6 @@ const modifiedOgImage = ogImageCustom ? ogImage : `${Astro.url.origin}/${ogImage
         scroll-behavior: smooth !important;
       }
     </style>
+    <SpeedInsights />
   </body>
 </html>
