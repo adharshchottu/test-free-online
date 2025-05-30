@@ -1,0 +1,236 @@
+---
+import { Image } from "astro:assets";
+import { Navbar } from "../../components/Navbar";
+import { ScrollUpButton } from "../../components/ScrollUpButton";
+import { ListItem } from "../../components/blog/ListItem";
+import Layout from "../../layouts/Layout.astro";
+import Footer from "@/components/Footer.vue";
+import lifeTimeCalculatorBannerImage from "../../assets/images/blog/life-time-calculator.png";
+---
+
+<Layout
+  title="Comment utiliser le calculateur de temps de vie en ligne"
+  ogImage="blog/life-time-calculator.png"
+  description="Calculez votre âge exact, les jours vécus, les heures, minutes et secondes avec notre calculateur de temps de vie complet. Découvrez des informations fascinantes sur votre temps sur Terre."
+  lang="fr"
+>
+  <Navbar client:load />
+  <div class="flex justify-center bg-bgDark2 relative pt-2">
+    <div class="px-2 sm:px-4">
+      <article
+        class="p-8 text-center rounded-3xl w-full lg:w-[1200px] 2xl:w-[1400px] mb-24 mt-16 sm:mt-24"
+      >
+        <header class="mb-12">
+          <div class="text-sm text-secondaryText my-4">30 Mai 2025</div>
+          <h1
+            class="text-6xl lg:text-7xl xl:text-8xl font-bold tracking-tight leading-none mb-6 bg-gradient-to-r from-white via-blue-200 to-purple-400 bg-clip-text text-transparent"
+          >
+            Calculateur de Temps de Vie
+          </h1>
+          <h2 class="text-2xl text-gray-300">
+            Découvrez exactement depuis combien de temps vous êtes en vie avec
+            des calculs précis
+          </h2>
+        </header>
+
+        <Image
+          src={lifeTimeCalculatorBannerImage}
+          alt="Life Time Calculator"
+          class="rounded-xl mb-8 md:w-2/4 mx-auto mt-8"
+        />
+
+        <section
+          class="text-secondaryText !leading-8 sm:!leading-10 sm:text-xl text-left sm:text-justify mx-auto w-full md:w-10/12 lg:w-2/3 mt-16"
+        >
+          <a
+            href="https://tools.typinks.com/life-time-calculator/"
+            target="_blank"
+            class="text-purple-400 font-bold"
+            >Le calculateur de temps de vie</a
+          > est un outil fascinant qui calcule exactement depuis combien de temps
+          vous êtes en vie dans diverses unités de temps. Dès que vous entrez votre
+          date et heure de naissance, il fournit des calculs en temps réel montrant
+          votre âge en années, mois, jours, heures, minutes et même secondes, vous
+          donnant une perspective unique sur votre voyage à travers le temps.
+
+          <h3 class="text-white text-2xl my-4">
+            Qu'est-ce que le calculateur de temps de vie ?
+          </h3>
+          <p>
+            Le calculateur de temps de vie est une application web complète qui
+            transforme votre date de naissance en calculs temporels détaillés.
+            Il fournit des mises à jour en temps réel montrant exactement
+            combien de temps s'est écoulé depuis votre naissance, offrant des
+            insights qui vont bien au-delà du simple calcul d'âge. Construit
+            avec Vue.js, il offre une expérience fluide et interactive avec un
+            comptage en direct.
+          </p>
+
+          <h3 class="text-white text-2xl my-4">Fonctionnalités principales</h3>
+          <ul class="list-disc list-inside space-y-2 my-4">
+            <li>
+              <strong>Calcul d'âge précis :</strong> Obtenez votre âge exact en années,
+              mois et jours
+            </li>
+            <li>
+              <strong>Multiples unités de temps :</strong> Voyez votre durée de vie
+              en heures, minutes et secondes
+            </li>
+            <li>
+              <strong>Mises à jour en temps réel :</strong> Regardez vos compteurs
+              de temps augmenter en direct
+            </li>
+            <li>
+              <strong>Support de l'heure de naissance :</strong> Incluez l'heure
+              exacte de naissance pour une précision maximale
+            </li>
+            <li>
+              <strong>Design responsive :</strong> Fonctionne parfaitement sur tous
+              les appareils
+            </li>
+            <li>
+              <strong>Partage social :</strong> Générez des images partageables de
+              vos statistiques de vie
+            </li>
+            <li>
+              <strong>Conscience des fuseaux horaires :</strong> Calculs précis quel
+              que soit l'emplacement
+            </li>
+          </ul>
+
+          <h3 class="text-white text-2xl my-4">
+            Comment utiliser le calculateur de temps de vie
+          </h3>
+
+          <ListItem
+            list={[
+              {
+                title: "Entrez votre date de naissance",
+                description:
+                  "Commencez par sélectionner votre date de naissance en utilisant le sélecteur de date. L'outil supporte tous les formats de date modernes et calendriers.",
+              },
+              {
+                title: "Ajoutez l'heure de naissance (Optionnel)",
+                description:
+                  "Pour les calculs les plus précis, entrez votre heure exacte de naissance. Cela permet des calculs à la seconde près.",
+              },
+              {
+                title: "Visualisez vos statistiques de vie",
+                description:
+                  "Voyez instantanément votre âge décomposé en années, mois, jours, heures, minutes et secondes avec des mises à jour en temps réel.",
+              },
+              {
+                title: "Explorez des insights supplémentaires",
+                description:
+                  "Découvrez des faits intéressants comme combien de week-ends vous avez vécus, de saisons traversées, et plus encore.",
+              },
+              {
+                title: "Partagez vos résultats",
+                description:
+                  "Générez et partagez de beaux graphiques montrant vos statistiques de vie sur les médias sociaux ou sauvegardez-les pour référence personnelle.",
+              },
+            ]}
+            client:visible
+          />
+
+          <h3 class="text-white text-2xl my-4">Comprendre vos résultats</h3>
+          <p>
+            Le calculateur de temps de vie fournit plusieurs perspectives
+            fascinantes sur votre existence :
+          </p>
+          <ul class="list-disc list-inside space-y-2 my-4">
+            <li>
+              <strong>Âge traditionnel :</strong> Votre âge en années, mois et jours
+              comme habituellement calculé
+            </li>
+            <li>
+              <strong>Total de jours :</strong> Le nombre complet de jours que vous
+              avez vécu
+            </li>
+            <li>
+              <strong>Heures vécues :</strong> Total d'heures depuis la naissance,
+              donnant une perspective sur l'investissement temporel majeur
+            </li>
+            <li>
+              <strong>Minutes et secondes :</strong> Jusqu'au moment exact, avec
+              des compteurs mis à jour en direct
+            </li>
+            <li>
+              <strong>Suivi des jalons :</strong> Marqueurs spéciaux pour les réalisations
+              significatives de la vie
+            </li>
+          </ul>
+
+          <h3 class="text-white text-2xl my-4">Utilisations fascinantes</h3>
+          <ul class="list-disc list-inside space-y-2 my-4">
+            <li>
+              <strong>Réflexion personnelle :</strong> Gagner en perspective sur
+              le temps et les moments précieux de la vie
+            </li>
+            <li>
+              <strong>Célébrations de jalons :</strong> Célébrer l'atteinte de jalons
+              spécifiques en jours ou heures
+            </li>
+            <li>
+              <strong>Outil éducatif :</strong> Aider les étudiants à comprendre
+              le temps, les mathématiques et les calculs de calendrier
+            </li>
+            <li>
+              <strong>Partage social :</strong> Créer du contenu intéressant pour
+              anniversaires et occasions spéciales
+            </li>
+            <li>
+              <strong>Conscience du temps :</strong> Développer une appréciation
+              plus profonde du passage du temps
+            </li>
+          </ul>
+
+          <h3 class="text-white text-2xl my-4">Fonctionnalités techniques</h3>
+          <p>
+            Construit avec Vue.js pour des mises à jour réactives en temps réel,
+            le calculateur de temps de vie utilise des calculs de date
+            JavaScript précis pour assurer l'exactitude. L'application gère
+            automatiquement les années bissextiles, les différentes longueurs de
+            mois et les fuseaux horaires, fournissant des résultats fiables peu
+            importe quand ou où vous êtes né.
+          </p>
+
+          <h3 class="text-white text-2xl my-4">Parfait pour</h3>
+          <ul class="list-disc list-inside space-y-2 my-4">
+            <li>Célébrations d'anniversaires et suivi de jalons</li>
+            <li>Développement personnel et réflexion sur la vie</li>
+            <li>Démonstrations éducatives sur le temps et les mathématiques</li>
+            <li>Création de contenu pour les médias sociaux</li>
+            <li>Planification d'anniversaires et d'occasions spéciales</li>
+            <li>Motivation et sensibilisation à la gestion du temps</li>
+          </ul>
+
+          <h3 class="text-white text-2xl my-4">
+            Pourquoi utiliser notre calculateur de temps de vie ?
+          </h3>
+          <p>
+            Notre calculateur de temps de vie va au-delà du simple calcul d'âge
+            pour fournir une vue complète de votre temps sur Terre. Avec des
+            mises à jour en temps réel, des calculs précis et une belle
+            présentation visuelle, il offre à la fois du divertissement et des
+            insights significatifs sur le passage du temps et la valeur de
+            chaque moment.
+          </p>
+
+          <p class="mt-8">
+            Que vous célébriez un jalon, enseigniez des concepts de temps, ou
+            soyez simplement curieux de vos statistiques de vie, le calculateur
+            de temps de vie fournit des calculs précis en temps réel qui vous
+            aident à apprécier la nature précieuse du temps. <a
+              href="https://tools.typinks.com/life-time-calculator/"
+              target="_blank"
+              class="text-purple-400 font-bold">Commencez à explorer</a
+            > la chronologie de votre vie aujourd'hui !
+          </p>
+        </section>
+      </article>
+    </div>
+  </div>
+  <ScrollUpButton client:load />
+  <Footer client:only="vue" />
+</Layout>

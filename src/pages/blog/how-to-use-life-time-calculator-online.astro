@@ -1,0 +1,230 @@
+---
+import { Image } from "astro:assets";
+import { Navbar } from "../../components/Navbar";
+import { ScrollUpButton } from "../../components/ScrollUpButton";
+import { ListItem } from "../../components/blog/ListItem";
+import Layout from "../../layouts/Layout.astro";
+import Footer from "@/components/Footer.vue";
+import lifeTimeCalculatorBannerImage from "../../assets/images/blog/life-time-calculator.png";
+---
+
+<Layout
+  title="How to use Life Time Calculator Online"
+  ogImage="blog/life-time-calculator.png"
+  description="Calculate your exact age, days lived, hours, minutes, and seconds with our comprehensive Life Time Calculator. Discover fascinating insights about your time on Earth."
+>
+  <Navbar client:load />
+  <div class="flex justify-center bg-bgDark2 relative pt-2">
+    <div class="px-2 sm:px-4">
+      <article
+        class="p-8 text-center rounded-3xl w-full lg:w-[1200px] 2xl:w-[1400px] mb-24 mt-16 sm:mt-24"
+      >
+        <header class="mb-12">
+          <div class="text-sm text-secondaryText my-4">30 May 2025</div>
+          <h1
+            class="text-6xl lg:text-7xl xl:text-8xl font-bold tracking-tight leading-none mb-6 bg-gradient-to-r from-white via-blue-200 to-purple-400 bg-clip-text text-transparent"
+          >
+            Life Time Calculator
+          </h1>
+          <h2 class="text-2xl text-gray-300">
+            Discover exactly how long you've been alive with precise
+            calculations
+          </h2>
+        </header>
+
+        <Image
+          src={lifeTimeCalculatorBannerImage}
+          alt="Life Time Calculator"
+          class="rounded-xl mb-8 md:w-2/4 mx-auto mt-8"
+        />
+
+        <section
+          class="text-secondaryText !leading-8 sm:!leading-10 sm:text-xl text-left sm:text-justify mx-auto w-full md:w-10/12 lg:w-2/3 mt-16"
+        >
+          <a
+            href="https://tools.typinks.com/life-time-calculator/"
+            target="_blank"
+            class="text-purple-400 font-bold">The Life Time Calculator</a
+          > is a fascinating tool that calculates exactly how long you've been alive
+          in various time units. From the moment you enter your birth date and time,
+          it provides real-time calculations showing your age in years, months, days,
+          hours, minutes, and even seconds, giving you a unique perspective on your
+          journey through time.
+
+          <h3 class="text-white text-2xl my-4">
+            What Is the Life Time Calculator?
+          </h3>
+          <p>
+            The Life Time Calculator is a comprehensive web application that
+            transforms your birth date into detailed time calculations. It
+            provides real-time updates showing exactly how much time has passed
+            since your birth, offering insights that go far beyond simple age
+            calculation. Built with Vue.js, it delivers a smooth, interactive
+            experience with live counting.
+          </p>
+
+          <h3 class="text-white text-2xl my-4">Key Features</h3>
+          <ul class="list-disc list-inside space-y-2 my-4">
+            <li>
+              <strong>Precise Age Calculation:</strong> Get your exact age in years,
+              months, and days
+            </li>
+            <li>
+              <strong>Multiple Time Units:</strong> See your lifetime in hours, minutes,
+              and seconds
+            </li>
+            <li>
+              <strong>Real-Time Updates:</strong> Watch your time counters increase
+              live
+            </li>
+            <li>
+              <strong>Birth Time Support:</strong> Include exact birth time for maximum
+              precision
+            </li>
+            <li>
+              <strong>Responsive Design:</strong> Works perfectly on all devices
+            </li>
+            <li>
+              <strong>Social Sharing:</strong> Generate shareable images of your
+              life statistics
+            </li>
+            <li>
+              <strong>Time Zone Awareness:</strong> Accurate calculations regardless
+              of location
+            </li>
+          </ul>
+
+          <h3 class="text-white text-2xl my-4">
+            How to Use the Life Time Calculator
+          </h3>
+
+          <ListItem
+            list={[
+              {
+                title: "Enter Your Birth Date",
+                description:
+                  "Start by selecting your birth date using the date picker. The tool supports all modern date formats and calendars.",
+              },
+              {
+                title: "Add Birth Time (Optional)",
+                description:
+                  "For the most precise calculations, enter your exact birth time. This allows for calculations down to the second.",
+              },
+              {
+                title: "View Your Life Statistics",
+                description:
+                  "Instantly see your age broken down into years, months, days, hours, minutes, and seconds with real-time updates.",
+              },
+              {
+                title: "Explore Additional Insights",
+                description:
+                  "Discover interesting facts like how many weekends you've experienced, seasons you've lived through, and more.",
+              },
+              {
+                title: "Share Your Results",
+                description:
+                  "Generate and share beautiful graphics showing your life statistics on social media or save them for personal reference.",
+              },
+            ]}
+            client:visible
+          />
+
+          <h3 class="text-white text-2xl my-4">Understanding Your Results</h3>
+          <p>
+            The Life Time Calculator provides several fascinating perspectives
+            on your existence:
+          </p>
+          <ul class="list-disc list-inside space-y-2 my-4">
+            <li>
+              <strong>Traditional Age:</strong> Your age in years, months, and days
+              as typically calculated
+            </li>
+            <li>
+              <strong>Total Days:</strong> The complete number of days you've been
+              alive
+            </li>
+            <li>
+              <strong>Hours Lived:</strong> Total hours since birth, giving perspective
+              on major time investment
+            </li>
+            <li>
+              <strong>Minutes & Seconds:</strong> Down to the exact moment, with
+              live updating counters
+            </li>
+            <li>
+              <strong>Milestone Tracking:</strong> Special markers for significant
+              lifetime achievements
+            </li>
+          </ul>
+
+          <h3 class="text-white text-2xl my-4">Fascinating Uses</h3>
+          <ul class="list-disc list-inside space-y-2 my-4">
+            <li>
+              <strong>Personal Reflection:</strong> Gain perspective on time and
+              life's precious moments
+            </li>
+            <li>
+              <strong>Milestone Celebrations:</strong> Celebrate reaching specific
+              day or hour milestones
+            </li>
+            <li>
+              <strong>Educational Tool:</strong> Help students understand time, math,
+              and calendar calculations
+            </li>
+            <li>
+              <strong>Social Sharing:</strong> Create interesting content for birthdays
+              and special occasions
+            </li>
+            <li>
+              <strong>Time Awareness:</strong> Develop a deeper appreciation for
+              the passage of time
+            </li>
+          </ul>
+
+          <h3 class="text-white text-2xl my-4">Technical Features</h3>
+          <p>
+            Built with Vue.js for reactive real-time updates, the Life Time
+            Calculator uses precise JavaScript date calculations to ensure
+            accuracy. The application handles leap years, different month
+            lengths, and time zones automatically, providing reliable results
+            regardless of when or where you were born.
+          </p>
+
+          <h3 class="text-white text-2xl my-4">Perfect For</h3>
+          <ul class="list-disc list-inside space-y-2 my-4">
+            <li>Birthday celebrations and milestone tracking</li>
+            <li>Personal development and life reflection</li>
+            <li>Educational demonstrations about time and mathematics</li>
+            <li>Social media content creation</li>
+            <li>Anniversary and special occasion planning</li>
+            <li>Time management motivation and awareness</li>
+          </ul>
+
+          <h3 class="text-white text-2xl my-4">
+            Why Use Our Life Time Calculator?
+          </h3>
+          <p>
+            Our Life Time Calculator goes beyond simple age calculation to
+            provide a comprehensive view of your time on Earth. With real-time
+            updates, precise calculations, and beautiful visual presentation, it
+            offers both entertainment and meaningful insights into the passage
+            of time and the value of each moment.
+          </p>
+
+          <p class="mt-8">
+            Whether you're celebrating a milestone, teaching about time
+            concepts, or simply curious about your life statistics, the Life
+            Time Calculator provides accurate, real-time calculations that help
+            you appreciate the precious nature of time. <a
+              href="https://tools.typinks.com/life-time-calculator/"
+              target="_blank"
+              class="text-purple-400 font-bold">Start exploring</a
+            > your life's timeline today!
+          </p>
+        </section>
+      </article>
+    </div>
+  </div>
+  <ScrollUpButton client:load />
+  <Footer client:only="vue" />
+</Layout>
