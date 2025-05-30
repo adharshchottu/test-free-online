@@ -16,32 +16,32 @@ interface SiteMapItem {
 
 export const GET: APIRoute = ({ site }) => {
     const sitemapItems: SiteMapItem[] = [
-        { loc: "https://www.test-free.online/", changefreq: "daily" },
-        { loc: "https://www.test-free.online/blog/", changefreq: "daily" },
+        { loc: "https://tools.typinks.com/", changefreq: "daily" },
+        { loc: "https://tools.typinks.com/blog/", changefreq: "daily" },
         {
-            loc: "https://www.test-free.online/blog/comment-tester-sse-en-ligne/",
+            loc: "https://tools.typinks.com/blog/comment-tester-sse-en-ligne/",
             changefreq: "daily",
         },
         {
-            loc: "https://www.test-free.online/blog/how-to-test-sse-online/",
+            loc: "https://tools.typinks.com/blog/how-to-test-sse-online/",
             changefreq: "daily",
         },
-        { loc: "https://www.test-free.online/blog/how-to-test-redis-lua-script-online", changefreq: "daily" },
-        { loc: "https://www.test-free.online/blog/comment-utiliser-le-testeur-en-ligne-de-script-lua-redis", changefreq: "daily" },
+        { loc: "https://tools.typinks.com/blog/how-to-test-redis-lua-script-online", changefreq: "daily" },
+        { loc: "https://tools.typinks.com/blog/comment-utiliser-le-testeur-en-ligne-de-script-lua-redis", changefreq: "daily" },
         {
-            loc: "https://www.test-free.online/kroenger-poster-generator/",
+            loc: "https://tools.typinks.com/kroenger-poster-generator/",
             changefreq: "daily",
         },
         {
-            loc: "https://www.test-free.online/life-time-calculator/",
+            loc: "https://tools.typinks.com/life-time-calculator/",
             changefreq: "daily",
         },
-        { loc: "https://www.test-free.online/redis-lua/", changefreq: "daily" },
-        { loc: "https://www.test-free.online/slide-puzzle/", changefreq: "daily" },
-        { loc: "https://www.test-free.online/sse/", changefreq: "daily" },
-        { loc: "https://www.test-free.online/sudoku/", changefreq: "daily" },
+        { loc: "https://tools.typinks.com/redis-lua/", changefreq: "daily" },
+        { loc: "https://tools.typinks.com/slide-puzzle/", changefreq: "daily" },
+        { loc: "https://tools.typinks.com/sse/", changefreq: "daily" },
+        { loc: "https://tools.typinks.com/sudoku/", changefreq: "daily" },
         {
-            loc: "https://www.test-free.online/typinks-poster-generator/",
+            loc: "https://tools.typinks.com/typinks-poster-generator/",
             changefreq: "daily",
         },
     ];

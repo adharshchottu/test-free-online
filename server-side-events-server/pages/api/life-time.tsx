@@ -63,7 +63,7 @@ export default async function GET(request: NextRequest) {
     return new ImageResponse(
         <div tw="h-full w-full flex flex-col items-center bg-white text-2xl font-bold text-[#fff]"
             style={{
-                backgroundImage: `url("https://www.test-free.online/og-bg.png")`,
+                backgroundImage: `url("https://tools.typinks.com/og-bg.png")`,
                 backgroundSize: "100%"
             }}
         >

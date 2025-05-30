@@ -9,7 +9,7 @@ import vue from '@astrojs/vue';
 import vercel from '@astrojs/vercel';
 
 export default defineConfig({
-  site: 'https://www.test-free.online',
+  site: 'https://tools.typinks.com',
   integrations: [react(), tailwind(), svelte(), vue()],
   adapter: vercel()
 });

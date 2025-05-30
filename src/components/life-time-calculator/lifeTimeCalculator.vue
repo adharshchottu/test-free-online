@@ -232,7 +232,7 @@ const calculateHash = () => {
 
 // generate share url
 const generateShareUrl = () => {
-  return `https://www.test-free.online/life-time-calculator?gente=${calculateHash()}`;
+  return `https://tools.typinks.com/life-time-calculator?gente=${calculateHash()}`;
 };
 
 const updateCountdown = () => {
