@@ -1,0 +1,156 @@
+---
+import { Image } from "astro:assets";
+import { Navbar } from "../../components/Navbar";
+import { ScrollUpButton } from "../../components/ScrollUpButton";
+import Layout from "../../layouts/Layout.astro";
+import Footer from "@/components/Footer.vue";
+import kroengerPosterGeneratorBannerImage from "../../assets/images/blog/kroenger-poster-generator.png";
+---
+
+<Layout
+  title="How to use Kroenger Poster Generator Online"
+  ogImage="blog/kroenger-poster-generator.png"
+  description="Create environmental awareness posters with the Kroenger Poster Generator. Customize backgrounds, text, and layouts for impactful designs."
+>
+  <Navbar client:load />
+  <div class="flex justify-center bg-bgDark2 relative pt-2">
+    <div class="px-2 sm:px-4">
+      <article
+        class="p-8 text-center rounded-3xl w-full lg:w-[1200px] 2xl:w-[1400px] mb-24 mt-16 sm:mt-24"
+      >
+        <header class="mb-12">
+          <div class="text-sm text-secondaryText my-4">30 May 2025</div>
+          <h1
+            class="text-[2rem] xs:text-[2.8rem] lg:text-[3.5rem] font-bold text-primaryText mb-4 bg-gradient-to-r from-white via-green-200 to-green-400 bg-clip-text text-transparent"
+          >
+            How to use Kroenger Poster Generator Online
+          </h1>
+          <p class="text-lg text-secondaryText mb-4">
+            Create environmental awareness posters with the Kroenger Poster Generator. Customize backgrounds, text, and layouts for impactful designs.
+          </p>
+        </header>
+        
+        <Image
+          src={kroengerPosterGeneratorBannerImage}
+          alt="Kroenger Poster Generator"
+          class="rounded-xl mb-8 md:w-2/4 mx-auto mt-8"
+        />
+        
+        <section
+          class="text-secondaryText !leading-8 sm:!leading-10 sm:text-xl text-left sm:text-justify mx-auto w-full md:w-10/12 lg:w-2/3 mt-16"
+        >
+          <a
+            href="https://tools.typinks.com/kroenger-poster-generator/"
+            target="_blank"
+            class="text-green-400 font-bold">The Kroenger Poster Generator</a
+          > is a specialized React application designed for creating environmental awareness posters and observance day materials. Built with react-konva for powerful canvas rendering, this tool is perfect for environmental campaigns, awareness initiatives, and educational content creation.
+
+          <h3 class="text-white text-2xl my-4">What Is Kroenger Poster Generator?</h3>
+          <p>
+            Kroenger Poster Generator is a web-based design tool focused on environmental themes and awareness campaigns. It provides an intuitive interface for creating professional posters with customizable backgrounds, text elements, and environmental-friendly color schemes. The tool is particularly suited for Earth Day, environmental awareness days, and green initiatives.
+          </p>
+
+          <h3 class="text-white text-2xl my-4">Key Features</h3>
+          <ul class="list-disc list-inside space-y-2 my-4">
+            <li><strong>Environmental Focus:</strong> Pre-designed for environmental and awareness campaigns</li>
+            <li><strong>Custom Backgrounds:</strong> Upload your own images or select from environmental themes</li>
+            <li><strong>Flexible Text Styling:</strong> Customize day names, dates, and descriptions</li>
+            <li><strong>Layout Controls:</strong> Adjust bar sizes, colors, and positioning</li>
+            <li><strong>Observance Day Templates:</strong> Built-in support for environmental awareness days</li>
+            <li><strong>Professional Export:</strong> Download high-quality PNG files</li>
+          </ul>
+
+          <h3 class="text-white text-2xl my-4">How to Use the Tool</h3>
+          
+          <h4 class="text-white text-xl my-3">Step 1: Access the Generator</h4>
+          <p>
+            Navigate to the <a href="https://tools.typinks.com/kroenger-poster-generator/" target="_blank" class="text-green-400 font-bold">Kroenger Poster Generator</a> in your web browser. The tool loads with a default environmental background and canvas ready for customization.
+          </p>
+
+          <h4 class="text-white text-xl my-3">Step 2: Select Your Observance Day</h4>
+          <p>
+            The tool features a dropdown menu with various environmental awareness days and observances. You can select from pre-configured days or create your own custom observance. Each selection automatically adjusts the date and provides relevant context for your poster.
+          </p>
+
+          <h4 class="text-white text-xl my-3">Step 3: Customize the Date</h4>
+          <p>
+            The date selector defaults to today's date but can be customized to match your specific observance day. The date appears prominently in your design, formatted as "DD MMM YYYY" for clear readability.
+          </p>
+
+          <h4 class="text-white text-xl my-3">Step 4: Edit Text Elements</h4>
+          <p>
+            Customize your poster's text content:
+          </p>
+          <ul class="list-disc list-inside space-y-1 my-2 ml-4">
+            <li><strong>Day Name:</strong> Enter the name of your observance or awareness day</li>
+            <li><strong>Description:</strong> Add detailed information or call-to-action text</li>
+            <li><strong>Font Sizes:</strong> Adjust text sizes for optimal impact and readability</li>
+          </ul>
+
+          <h4 class="text-white text-xl my-3">Step 5: Configure Background and Layout</h4>
+          <p>
+            Personalize your poster's visual elements:
+          </p>
+          <ul class="list-disc list-inside space-y-1 my-2 ml-4">
+            <li><strong>Background Image:</strong> Upload custom images or use Unsplash integration</li>
+            <li><strong>Bar Dimensions:</strong> Adjust the width and height of colored bars</li>
+            <li><strong>Color Schemes:</strong> Work with environment-friendly green and natural tones</li>
+            <li><strong>Image Scaling:</strong> Control image dimensions and positioning</li>
+          </ul>
+
+          <h4 class="text-white text-xl my-3">Step 6: Fine-tune Your Design</h4>
+          <p>
+            Use the advanced controls to perfect your poster:
+          </p>
+          <ul class="list-disc list-inside space-y-1 my-2 ml-4">
+            <li>Adjust bar heights for visual balance</li>
+            <li>Modify font sizes for hierarchy</li>
+            <li>Position text elements for optimal layout</li>
+            <li>Preview your design in real-time</li>
+          </ul>
+
+          <h4 class="text-white text-xl my-3">Step 7: Download Your Poster</h4>
+          <p>
+            Once your design is complete, click the "Download" button to save your poster as a high-resolution PNG file, perfect for sharing on social media, printing, or including in presentations.
+          </p>
+
+          <h3 class="text-white text-2xl my-4">Design Best Practices</h3>
+          <ul class="list-disc list-inside space-y-2 my-4">
+            <li><strong>Use high-contrast colors:</strong> Ensure text stands out against backgrounds</li>
+            <li><strong>Keep messages focused:</strong> Environmental awareness benefits from clear, direct messaging</li>
+            <li><strong>Choose relevant imagery:</strong> Select backgrounds that support your environmental message</li>
+            <li><strong>Balance text and visuals:</strong> Don't overcrowd your design with too much text</li>
+            <li><strong>Consider your audience:</strong> Tailor messaging for your specific audience and platform</li>
+          </ul>
+
+          <h3 class="text-white text-2xl my-4">Technical Capabilities</h3>
+          <p>
+            Built with React and react-konva for smooth canvas rendering, the tool includes Headless UI components for accessibility and professional user experience. The application supports responsive design, working seamlessly across desktop and mobile devices.
+          </p>
+
+          <h3 class="text-white text-2xl my-4">Ideal Use Cases</h3>
+          <ul class="list-disc list-inside space-y-2 my-4">
+            <li>Earth Day campaigns and promotions</li>
+            <li>Environmental awareness initiatives</li>
+            <li>Green business marketing materials</li>
+            <li>Educational environmental content</li>
+            <li>Non-profit organization campaigns</li>
+            <li>Corporate sustainability communications</li>
+            <li>Community environmental events</li>
+          </ul>
+
+          <h3 class="text-white text-2xl my-4">Why Choose Kroenger?</h3>
+          <p>
+            The Kroenger Poster Generator stands out for its environmental focus and specialized features for awareness campaigns. Unlike generic poster tools, Kroenger provides environmental-specific templates, color schemes, and layout options that align with green messaging and sustainability themes.
+          </p>
+
+          <p class="mt-8">
+            Whether you're organizing an environmental campaign, promoting sustainability initiatives, or creating educational materials about environmental awareness, the Kroenger Poster Generator provides the tools you need for professional, impactful designs. <a href="https://tools.typinks.com/kroenger-poster-generator/" target="_blank" class="text-green-400 font-bold">Start creating</a> your environmental awareness posters today!
+          </p>
+        </section>
+      </article>
+    </div>
+  </div>
+  <ScrollUpButton client:load />
+  <Footer client:only="vue" />
+</Layout>

@@ -1,0 +1,137 @@
+---
+import { Image } from "astro:assets";
+import { Navbar } from "../../components/Navbar";
+import { ScrollUpButton } from "../../components/ScrollUpButton";
+import { ListItem } from "../../components/blog/ListItem";
+import Layout from "../../layouts/Layout.astro";
+import Footer from "@/components/Footer.vue";
+import kroengerPosterGeneratorBannerImage from "../../assets/images/blog/kroenger-poster-generator.png";
+---
+
+<Layout
+  title="Comment utiliser le générateur d'affiches Kroenger en ligne"
+  ogImage="blog/kroenger-poster-generator.png"
+  description="Créez des affiches de sensibilisation environnementale avec le générateur d'affiches Kroenger. Personnalisez les arrière-plans, le texte et les mises en page pour des designs percutants."
+  lang="fr"
+>
+  <Navbar client:load />
+  <div class="flex justify-center bg-bgDark2 relative pt-2">
+    <div class="px-2 sm:px-4">
+      <article
+        class="p-8 text-center rounded-3xl w-full lg:w-[1200px] 2xl:w-[1400px] mb-24 mt-16 sm:mt-24"
+      >
+        <header class="mb-12">
+          <h1
+            class="text-6xl lg:text-7xl xl:text-8xl font-bold tracking-tight leading-none mb-6 bg-gradient-to-r from-white via-green-200 to-green-400 bg-clip-text text-transparent"
+          >
+            Générateur d'affiches Kroenger
+          </h1>
+          <h2 class="text-2xl text-gray-300">
+            Créez des affiches de sensibilisation environnementale percutantes avec des designs personnalisables
+          </h2>
+        </header>
+
+        <Image
+          src={kroengerPosterGeneratorBannerImage}
+          alt="Kroenger Poster Generator"
+          class="rounded-xl mb-8 md:w-2/4 mx-auto mt-8"
+        />
+
+        <section
+          class="text-secondaryText !leading-8 sm:!leading-10 sm:text-xl text-left sm:text-justify mx-auto w-full md:w-10/12 lg:w-2/3 mt-16"
+        >
+          <a
+            href="https://tools.typinks.com/kroenger-poster-generator/"
+            target="_blank"
+            class="text-green-400 font-bold">Le générateur d'affiches Kroenger</a
+          > est un outil puissant spécialement conçu pour créer des affiches de sensibilisation environnementale. Que vous organisiez une campagne pour la Journée de la Terre, fassiez la promotion d'initiatives de durabilité ou créiez du matériel éducatif sur l'environnement, cet outil rend la création d'affiches professionnelles simple et accessible.
+
+          <h3 class="text-white text-2xl my-4">Qu'est-ce que le générateur d'affiches Kroenger ?</h3>
+          <p>
+            Le générateur d'affiches Kroenger est une application web spécialisée qui vous permet de créer des affiches prêtes pour les médias sociaux avec un focus sur les thèmes environnementaux. Construit avec React et react-konva, il offre une approche basée sur le canevas pour la création de designs environnementaux percutants avec des fichiers PNG de haute qualité.
+          </p>
+
+          <h3 class="text-white text-2xl my-4">Fonctionnalités principales</h3>
+          <ul class="list-disc list-inside space-y-2 my-4">
+            <li><strong>Thèmes environnementaux :</strong> Templates et palettes de couleurs spécialement conçus pour la sensibilisation environnementale</li>
+            <li><strong>Arrière-plans personnalisables :</strong> Téléchargez vos propres images ou utilisez des arrière-plans prédéfinis</li>
+            <li><strong>Contrôles de texte avancés :</strong> Ajustez la taille, la couleur, la position et le style de la police</li>
+            <li><strong>Mises en page flexibles :</strong> Repositionnez facilement les éléments pour créer le design parfait</li>
+            <li><strong>Export PNG de haute qualité :</strong> Téléchargez vos créations en résolution élevée</li>
+            <li><strong>Interface responsive :</strong> Fonctionne parfaitement sur ordinateur et mobile</li>
+          </ul>
+
+          <h3 class="text-white text-2xl my-4">Comment utiliser le générateur d'affiches Kroenger</h3>
+          
+          <ListItem
+            list={[
+              {
+                title: "Accéder à l'outil",
+                description:
+                  "Visitez le générateur d'affiches Kroenger et commencez immédiatement - aucune inscription requise.",
+              },
+              {
+                title: "Choisir votre arrière-plan",
+                description:
+                  "Sélectionnez parmi des arrière-plans environnementaux prédéfinis ou téléchargez votre propre image pour un design personnalisé.",
+              },
+              {
+                title: "Ajouter et personnaliser le texte",
+                description:
+                  "Entrez votre message, slogan ou informations sur l'événement. Utilisez les contrôles pour ajuster la taille, la couleur et la position de la police.",
+              },
+              {
+                title: "Ajuster la mise en page",
+                description:
+                  "Repositionnez vos éléments texte et ajustez l'espacement pour créer une composition équilibrée et visuellement attrayante.",
+              },
+              {
+                title: "Prévisualiser et télécharger",
+                description:
+                  "Prévisualisez votre design final et téléchargez votre affiche en format PNG de haute qualité prête pour le partage.",
+              },
+            ]}
+            client:visible
+          />
+
+
+          <h3 class="text-white text-2xl my-4">Conseils pour de meilleures affiches</h3>
+          <ul class="list-disc list-inside space-y-2 my-4">
+            <li><strong>Gardez votre message clair :</strong> Utilisez un texte concis et percutant qui communique votre message environnemental efficacement</li>
+            <li><strong>Utilisez des couleurs contrastées :</strong> Assurez-vous que votre texte se détache de l'arrière-plan pour une meilleure lisibilité</li>
+            <li><strong>Considérez votre audience :</strong> Adaptez votre ton et votre style à votre public cible</li>
+            <li><strong>Utilisez des images de haute qualité :</strong> De meilleurs arrière-plans créent des résultats plus professionnels</li>
+            <li><strong>Pensez aux médias sociaux :</strong> Gardez à l'esprit les dimensions et exigences de vos plateformes cibles</li>
+          </ul>
+
+          <h3 class="text-white text-2xl my-4">Fonctionnalités techniques</h3>
+          <p>
+            Construit avec React et react-konva pour un rendu de canevas fluide, l'outil inclut des composants Headless UI pour l'accessibilité et une expérience utilisateur professionnelle. L'application prend en charge un design responsive, fonctionnant parfaitement sur les appareils de bureau et mobiles.
+          </p>
+
+          <h3 class="text-white text-2xl my-4">Cas d'usage idéaux</h3>
+          <ul class="list-disc list-inside space-y-2 my-4">
+            <li>Campagnes et promotions pour la Journée de la Terre</li>
+            <li>Initiatives de sensibilisation environnementale</li>
+            <li>Matériaux marketing d'entreprises vertes</li>
+            <li>Contenu éducatif environnemental</li>
+            <li>Campagnes d'organisations à but non lucratif</li>
+            <li>Communications de durabilité d'entreprise</li>
+            <li>Événements environnementaux communautaires</li>
+          </ul>
+
+          <h3 class="text-white text-2xl my-4">Pourquoi choisir Kroenger ?</h3>
+          <p>
+            Le générateur d'affiches Kroenger se distingue par son focus environnemental et ses fonctionnalités spécialisées pour les campagnes de sensibilisation. Contrairement aux outils d'affiches génériques, Kroenger fournit des templates spécifiques à l'environnement, des palettes de couleurs et des options de mise en page qui s'alignent avec les messages verts et les thèmes de durabilité.
+          </p>
+
+          <p class="mt-8">
+            Que vous organisiez une campagne environnementale, fassiez la promotion d'initiatives de durabilité ou créiez du matériel éducatif sur la sensibilisation environnementale, le générateur d'affiches Kroenger fournit les outils dont vous avez besoin pour des designs professionnels et percutants. <a href="https://tools.typinks.com/kroenger-poster-generator/" target="_blank" class="text-green-400 font-bold">Commencez à créer</a> vos affiches de sensibilisation environnementale aujourd'hui !
+          </p>
+        </section>
+      </article>
+    </div>
+  </div>
+  <ScrollUpButton client:load />
+  <Footer client:only="vue" />
+</Layout>
