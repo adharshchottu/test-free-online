@@ -1,0 +1,158 @@
+---
+import { Image } from "astro:assets";
+import { Navbar } from "../../components/Navbar";
+import { ScrollUpButton } from "../../components/ScrollUpButton";
+import { ListItem } from "../../components/blog/ListItem";
+import Layout from "../../layouts/Layout.astro";
+import Footer from "@/components/Footer.vue";
+import prelimsMarksCalculatorBannerImage from "../../assets/images/blog/prelims-marks-calculator.png";
+---
+
+<Layout
+  title="How to use Prelims Marks Calculator Online"
+  ogImage="blog/prelims-marks-calculator.png"
+  description="Calculate your prelims exam score with our free online marks calculator. Account for negative marking and find out your final score instantly with detailed breakdowns."
+>
+  <Navbar client:load />
+  <div class="flex justify-center bg-bgDark2 relative pt-2">
+    <div class="px-2 sm:px-4">
+      <article
+        class="p-8 text-center rounded-3xl w-full lg:w-[1200px] 2xl:w-[1400px] mb-24 mt-16 sm:mt-24"
+      >
+        <header class="mb-12">
+            <div class="text-sm text-secondaryText my-4">30 May 2025</div>
+          <h1
+            class="text-6xl lg:text-7xl xl:text-8xl font-bold tracking-tight leading-none mb-6 bg-gradient-to-r from-white via-green-200 to-yellow-400 bg-clip-text text-transparent"
+          >
+            Prelims Marks Calculator
+          </h1>
+          <h2 class="text-2xl text-gray-300">
+            Calculate your exam scores with precision, including negative marking
+          </h2>
+        </header>
+
+        <Image
+          src={prelimsMarksCalculatorBannerImage}
+          alt="Prelims Marks Calculator"
+          class="rounded-xl mb-8 md:w-2/4 mx-auto mt-8"
+        />
+
+        <section
+          class="text-secondaryText !leading-8 sm:!leading-10 sm:text-xl text-left sm:text-justify mx-auto w-full md:w-10/12 lg:w-2/3 mt-16"
+        >
+          <a
+            href="https://tools.typinks.com/prelims-marks-calculator/"
+            target="_blank"
+            class="text-yellow-400 font-bold">The Prelims Marks Calculator</a
+          > is an essential tool for students and exam takers who need to calculate their preliminary examination scores accurately. Whether you're preparing for competitive exams, standardized tests, or academic assessments that include negative marking, this calculator provides instant, precise score calculations with detailed breakdowns.
+
+          <h3 class="text-white text-2xl my-4">What Is the Prelims Marks Calculator?</h3>
+          <p>
+            The Prelims Marks Calculator is a comprehensive web application designed to help students calculate their exam scores quickly and accurately. It accounts for correct answers, incorrect answers, unattempted questions, and negative marking schemes commonly used in competitive examinations. Built with Svelte for optimal performance, it provides real-time calculations as you input your exam results.
+          </p>
+
+          <h3 class="text-white text-2xl my-4">Key Features</h3>
+          <ul class="list-disc list-inside space-y-2 my-4">
+            <li><strong>Comprehensive Score Calculation:</strong> Calculate total marks with positive and negative marking</li>
+            <li><strong>Flexible Marking Schemes:</strong> Support for various marking patterns and negative marking ratios</li>
+            <li><strong>Real-Time Results:</strong> Instant calculations as you enter your answers</li>
+            <li><strong>Detailed Breakdown:</strong> See scores broken down by correct, incorrect, and unattempted questions</li>
+            <li><strong>Percentage Calculation:</strong> Get your percentage score alongside raw marks</li>
+            <li><strong>Multiple Exam Formats:</strong> Support for different question types and marking schemes</li>
+            <li><strong>Export Results:</strong> Save or share your calculated scores</li>
+          </ul>
+
+          <h3 class="text-white text-2xl my-4">How to Use the Prelims Marks Calculator</h3>
+          
+          <ListItem
+            list={[
+              {
+                title: "Enter Exam Details",
+                description:
+                  "Start by entering the total number of questions, marks per correct answer, and negative marking scheme if applicable.",
+              },
+              {
+                title: "Input Your Answers",
+                description:
+                  "Enter the number of correct answers, incorrect answers, and unattempted questions from your exam.",
+              },
+              {
+                title: "Review Calculations",
+                description:
+                  "See your total score calculated instantly, including the impact of negative marking on your final result.",
+              },
+              {
+                title: "Analyze Performance",
+                description:
+                  "Review the detailed breakdown showing marks gained, marks lost, and overall percentage performance.",
+              },
+              {
+                title: "Save or Share Results",
+                description:
+                  "Export your results for record-keeping or share them with teachers, mentors, or study groups.",
+              },
+            ]}
+            client:visible
+          />
+
+          <h3 class="text-white text-2xl my-4">Understanding Negative Marking</h3>
+          <p>
+            Many competitive exams use negative marking to discourage guessing. Our calculator helps you understand how this affects your score:
+          </p>
+          <ul class="list-disc list-inside space-y-2 my-4">
+            <li><strong>Common Ratios:</strong> Support for 1/4, 1/3, and custom negative marking ratios</li>
+            <li><strong>Impact Analysis:</strong> See exactly how many marks you lose due to incorrect answers</li>
+            <li><strong>Strategy Planning:</strong> Use results to plan your exam-taking strategy</li>
+            <li><strong>Risk Assessment:</strong> Understand when it's worth attempting uncertain questions</li>
+          </ul>
+
+          <h3 class="text-white text-2xl my-4">Calculation Examples</h3>
+          <p>
+            The calculator handles various scenarios commonly found in preliminary examinations:
+          </p>
+          <ul class="list-disc list-inside space-y-2 my-4">
+            <li><strong>Standard Pattern:</strong> +4 for correct, -1 for incorrect (1/4 negative marking)</li>
+            <li><strong>Tough Exams:</strong> +2 for correct, -0.66 for incorrect (1/3 negative marking)</li>
+            <li><strong>Custom Schemes:</strong> Any marking pattern with user-defined values</li>
+            <li><strong>No Negative Marking:</strong> Simple positive marking calculations</li>
+          </ul>
+
+          <h3 class="text-white text-2xl my-4">Benefits for Students</h3>
+          <ul class="list-disc list-inside space-y-2 my-4">
+            <li><strong>Quick Assessment:</strong> Instantly know your preliminary exam performance</li>
+            <li><strong>Strategy Development:</strong> Plan your approach for future exams based on marking schemes</li>
+            <li><strong>Progress Tracking:</strong> Compare scores across multiple practice tests</li>
+            <li><strong>Confidence Building:</strong> Understand your performance level and areas for improvement</li>
+            <li><strong>Time Saving:</strong> Avoid manual calculation errors and save valuable time</li>
+          </ul>
+
+          <h3 class="text-white text-2xl my-4">Technical Features</h3>
+          <p>
+            Built with Svelte for lightning-fast performance and smooth user experience, the Prelims Marks Calculator uses precise mathematical algorithms to ensure accurate calculations. The responsive design works perfectly on desktop and mobile devices, making it accessible wherever you need to calculate exam scores.
+          </p>
+
+          <h3 class="text-white text-2xl my-4">Perfect For</h3>
+          <ul class="list-disc list-inside space-y-2 my-4">
+            <li>Competitive exam preparation (UPSC, SSC, Banking, etc.)</li>
+            <li>Standardized test score calculation</li>
+            <li>Academic assessment and grading</li>
+            <li>Practice test evaluation</li>
+            <li>Teaching and educational demonstrations</li>
+            <li>Exam strategy planning and analysis</li>
+          </ul>
+
+          <h3 class="text-white text-2xl my-4">Why Choose Our Calculator?</h3>
+          <p>
+            Our Prelims Marks Calculator stands out for its accuracy, flexibility, and ease of use. Unlike simple calculators, it provides comprehensive analysis of your exam performance, helps you understand the impact of negative marking, and offers insights that can improve your exam-taking strategy. The tool is completely free, requires no registration, and works instantly in your browser.
+          </p>
+
+          <p class="mt-8">
+            Whether you're a student preparing for competitive exams, a teacher evaluating assessments, or anyone needing accurate exam score calculations, the Prelims Marks Calculator provides the precision and insights you need. <a href="https://tools.typinks.com/prelims-marks-calculator/" target="_blank" class="text-yellow-400 font-bold">Start calculating</a> your exam scores today!
+          </p>
+        </section>
+      </article>
+    </div>
+  </div>
+  <ScrollUpButton client:load />
+  <Footer client:only="vue" />
+</Layout>

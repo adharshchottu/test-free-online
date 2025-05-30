@@ -1,0 +1,267 @@
+---
+import { Image } from "astro:assets";
+import { Navbar } from "../../components/Navbar";
+import { ScrollUpButton } from "../../components/ScrollUpButton";
+import { ListItem } from "../../components/blog/ListItem";
+import Layout from "../../layouts/Layout.astro";
+import Footer from "@/components/Footer.vue";
+import prelimsMarksCalculatorBannerImage from "../../assets/images/blog/prelims-marks-calculator.png";
+---
+
+<Layout
+  title="Comment utiliser le calculateur de notes d'examens préliminaires en ligne"
+  ogImage="blog/prelims-marks-calculator.png"
+  description="Calculez votre score d'examen préliminaire avec notre calculateur de notes gratuit en ligne. Prenez en compte la notation négative et découvrez votre score final instantanément avec des analyses détaillées."
+  lang="fr"
+>
+  <Navbar client:load />
+  <div class="flex justify-center bg-bgDark2 relative pt-2">
+    <div class="px-2 sm:px-4">
+      <article
+        class="p-8 text-center rounded-3xl w-full lg:w-[1200px] 2xl:w-[1400px] mb-24 mt-16 sm:mt-24"
+      >
+        <header class="mb-12">
+          <div class="text-sm text-secondaryText my-4">30 Mai 2025</div>
+          <h1
+            class="text-6xl lg:text-7xl xl:text-8xl font-bold tracking-tight leading-none mb-6 bg-gradient-to-r from-white via-green-200 to-yellow-400 bg-clip-text text-transparent"
+          >
+            Calculateur de Notes d'Examens Préliminaires
+          </h1>
+          <h2 class="text-2xl text-gray-300">
+            Calculez vos scores d'examen avec précision, y compris la notation
+            négative
+          </h2>
+        </header>
+
+        <Image
+          src={prelimsMarksCalculatorBannerImage}
+          alt="Prelims Marks Calculator"
+          class="rounded-xl mb-8 md:w-2/4 mx-auto mt-8"
+        />
+
+        <section
+          class="text-secondaryText !leading-8 sm:!leading-10 sm:text-xl text-left sm:text-justify mx-auto w-full md:w-10/12 lg:w-2/3 mt-16"
+        >
+          <a
+            href="https://tools.typinks.com/prelims-marks-calculator/"
+            target="_blank"
+            class="text-yellow-400 font-bold"
+            >Le calculateur de notes d'examens préliminaires</a
+          > est un outil essentiel pour les étudiants et candidats d'examens qui
+          ont besoin de calculer leurs scores d'examens préliminaires avec précision.
+          Que vous vous prépariez pour des concours, des tests standardisés ou des
+          évaluations académiques incluant une notation négative, ce calculateur
+          fournit des calculs de score instantanés et précis avec des analyses détaillées.
+
+          <h3 class="text-white text-2xl my-4">
+            Qu'est-ce que le calculateur de notes d'examens préliminaires ?
+          </h3>
+          <p>
+            Le calculateur de notes d'examens préliminaires est une application
+            web complète conçue pour aider les étudiants à calculer leurs scores
+            d'examen rapidement et avec précision. Il prend en compte les bonnes
+            réponses, les mauvaises réponses, les questions non tentées et les
+            schémas de notation négative couramment utilisés dans les examens de
+            concours. Construit avec Svelte pour des performances optimales, il
+            fournit des calculs en temps réel pendant que vous saisissez vos
+            résultats d'examen.
+          </p>
+
+          <h3 class="text-white text-2xl my-4">Fonctionnalités principales</h3>
+          <ul class="list-disc list-inside space-y-2 my-4">
+            <li>
+              <strong>Calcul de score complet :</strong> Calculez le total des points
+              avec notation positive et négative
+            </li>
+            <li>
+              <strong>Schémas de notation flexibles :</strong> Support pour divers
+              modèles de notation et ratios de notation négative
+            </li>
+            <li>
+              <strong>Résultats en temps réel :</strong> Calculs instantanés pendant
+              que vous entrez vos réponses
+            </li>
+            <li>
+              <strong>Analyse détaillée :</strong> Voyez les scores décomposés par
+              questions correctes, incorrectes et non tentées
+            </li>
+            <li>
+              <strong>Calcul de pourcentage :</strong> Obtenez votre score en pourcentage
+              à côté des points bruts
+            </li>
+            <li>
+              <strong>Formats d'examen multiples :</strong> Support pour différents
+              types de questions et schémas de notation
+            </li>
+            <li>
+              <strong>Export des résultats :</strong> Sauvegardez ou partagez vos
+              scores calculés
+            </li>
+          </ul>
+
+          <h3 class="text-white text-2xl my-4">
+            Comment utiliser le calculateur de notes d'examens préliminaires
+          </h3>
+
+          <ListItem
+            list={[
+              {
+                title: "Entrez les détails de l'examen",
+                description:
+                  "Commencez par entrer le nombre total de questions, les points par bonne réponse, et le schéma de notation négative si applicable.",
+              },
+              {
+                title: "Saisissez vos réponses",
+                description:
+                  "Entrez le nombre de bonnes réponses, de mauvaises réponses et de questions non tentées de votre examen.",
+              },
+              {
+                title: "Examinez les calculs",
+                description:
+                  "Voyez votre score total calculé instantanément, y compris l'impact de la notation négative sur votre résultat final.",
+              },
+              {
+                title: "Analysez la performance",
+                description:
+                  "Examinez l'analyse détaillée montrant les points gagnés, les points perdus et la performance globale en pourcentage.",
+              },
+              {
+                title: "Sauvegardez ou partagez les résultats",
+                description:
+                  "Exportez vos résultats pour les conserver ou partagez-les avec des professeurs, mentors ou groupes d'étude.",
+              },
+            ]}
+            client:visible
+          />
+
+          <h3 class="text-white text-2xl my-4">
+            Comprendre la notation négative
+          </h3>
+          <p>
+            De nombreux examens de concours utilisent la notation négative pour
+            décourager les devinettes. Notre calculateur vous aide à comprendre
+            comment cela affecte votre score :
+          </p>
+          <ul class="list-disc list-inside space-y-2 my-4">
+            <li>
+              <strong>Ratios courants :</strong> Support pour les ratios de notation
+              négative 1/4, 1/3 et personnalisés
+            </li>
+            <li>
+              <strong>Analyse d'impact :</strong> Voyez exactement combien de points
+              vous perdez à cause des réponses incorrectes
+            </li>
+            <li>
+              <strong>Planification de stratégie :</strong> Utilisez les résultats
+              pour planifier votre stratégie d'examen
+            </li>
+            <li>
+              <strong>Évaluation des risques :</strong> Comprenez quand il vaut la
+              peine de tenter des questions incertaines
+            </li>
+          </ul>
+
+          <h3 class="text-white text-2xl my-4">Exemples de calculs</h3>
+          <p>
+            Le calculateur gère divers scénarios couramment trouvés dans les
+            examens préliminaires :
+          </p>
+          <ul class="list-disc list-inside space-y-2 my-4">
+            <li>
+              <strong>Modèle standard :</strong> +4 pour correct, -1 pour incorrect
+              (notation négative 1/4)
+            </li>
+            <li>
+              <strong>Examens difficiles :</strong> +2 pour correct, -0.66 pour incorrect
+              (notation négative 1/3)
+            </li>
+            <li>
+              <strong>Schémas personnalisés :</strong> Tout modèle de notation avec
+              des valeurs définies par l'utilisateur
+            </li>
+            <li>
+              <strong>Pas de notation négative :</strong> Calculs de notation positive
+              simple
+            </li>
+          </ul>
+
+          <h3 class="text-white text-2xl my-4">Avantages pour les étudiants</h3>
+          <ul class="list-disc list-inside space-y-2 my-4">
+            <li>
+              <strong>Évaluation rapide :</strong> Connaissez instantanément votre
+              performance d'examen préliminaire
+            </li>
+            <li>
+              <strong>Développement de stratégie :</strong> Planifiez votre approche
+              pour les futurs examens basée sur les schémas de notation
+            </li>
+            <li>
+              <strong>Suivi des progrès :</strong> Comparez les scores à travers
+              plusieurs tests de pratique
+            </li>
+            <li>
+              <strong>Renforcement de confiance :</strong> Comprenez votre niveau
+              de performance et les domaines d'amélioration
+            </li>
+            <li>
+              <strong>Gain de temps :</strong> Évitez les erreurs de calcul manuel
+              et économisez du temps précieux
+            </li>
+          </ul>
+
+          <h3 class="text-white text-2xl my-4">Fonctionnalités techniques</h3>
+          <p>
+            Construit avec Svelte pour des performances ultra-rapides et une
+            expérience utilisateur fluide, le calculateur de notes d'examens
+            préliminaires utilise des algorithmes mathématiques précis pour
+            assurer des calculs exacts. Le design responsive fonctionne
+            parfaitement sur les ordinateurs de bureau et les appareils mobiles,
+            le rendant accessible partout où vous avez besoin de calculer des
+            scores d'examen.
+          </p>
+
+          <h3 class="text-white text-2xl my-4">Parfait pour</h3>
+          <ul class="list-disc list-inside space-y-2 my-4">
+            <li>
+              Préparation aux examens de concours (fonction publique, bancaire,
+              etc.)
+            </li>
+            <li>Calcul de scores de tests standardisés</li>
+            <li>Évaluation et notation académiques</li>
+            <li>Évaluation de tests de pratique</li>
+            <li>Enseignement et démonstrations éducatives</li>
+            <li>Planification et analyse de stratégie d'examen</li>
+          </ul>
+
+          <h3 class="text-white text-2xl my-4">
+            Pourquoi choisir notre calculateur ?
+          </h3>
+          <p>
+            Notre calculateur de notes d'examens préliminaires se distingue par
+            sa précision, sa flexibilité et sa facilité d'utilisation.
+            Contrairement aux calculateurs simples, il fournit une analyse
+            complète de votre performance d'examen, vous aide à comprendre
+            l'impact de la notation négative et offre des insights qui peuvent
+            améliorer votre stratégie d'examen. L'outil est complètement
+            gratuit, ne nécessite aucune inscription et fonctionne
+            instantanément dans votre navigateur.
+          </p>
+
+          <p class="mt-8">
+            Que vous soyez un étudiant se préparant pour des concours, un
+            enseignant évaluant des évaluations, ou toute personne ayant besoin
+            de calculs précis de scores d'examen, le calculateur de notes
+            d'examens préliminaires fournit la précision et les insights dont
+            vous avez besoin. <a
+              href="https://tools.typinks.com/prelims-marks-calculator/"
+              target="_blank"
+              class="text-yellow-400 font-bold">Commencez à calculer</a
+            > vos scores d'examen aujourd'hui !
+          </p>
+        </section>
+      </article>
+    </div>
+  </div>
+  <ScrollUpButton client:load />
+  <Footer client:only="vue" />
+</Layout>
