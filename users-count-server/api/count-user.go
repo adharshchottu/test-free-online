@@ -13,14 +13,16 @@ import (
 )
 
 var allowedURLs = []string{
-	"https://test-free.online",
-	"https://test-free.online/blog/comment-tester-sse-en-ligne",
-	"https://test-free.online/blog/how-to-test-sse-online",
-	"https://test-free.online/kroenger-poster-generator",
-	"https://test-free.online/redis-lua",
-	"https://test-free.online/slide-puzzle",
-	"https://test-free.online/sse",
-	"https://test-free.online/typinks-poster-generator",
+	"https://tools.typinks.com",
+	"https://tools.typinks.com/blog",
+	"https://tools.typinks.com/blog/comment-tester-sse-en-ligne",
+	"https://tools.typinks.com/blog/how-to-test-sse-online",
+	"https://tools.typinks.com/kroenger-poster-generator",
+	"https://tools.typinks.com/redis-lua",
+	"https://tools.typinks.com/slide-puzzle",
+	"https://tools.typinks.com/sse",
+	"https://tools.typinks.com/sudoku",
+	"https://tools.typinks.com/typinks-poster-generator",
 }
 
 func incrementUserCount(conn redis.Conn, url string, ip string) {
@@ -83,7 +85,7 @@ func setPreflighHeader(w http.ResponseWriter, r *http.Request) bool {
 	origin := r.Header.Get("Origin")
 	referer := r.Header.Get("Referer")
 
-	allowedOrigin := "https://test-free.online"
+	allowedOrigin := "https://tools.typinks.com"
 	if origin != allowedOrigin && (referer == "" || !strings.HasPrefix(referer, allowedOrigin)) {
 		sendResponse(w, "Theobroma cacao", http.StatusForbidden)
 		return false
