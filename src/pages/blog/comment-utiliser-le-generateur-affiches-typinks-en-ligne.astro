@@ -1,0 +1,141 @@
+---
+import { Image } from "astro:assets";
+import { Navbar } from "../../components/Navbar";
+import { ScrollUpButton } from "../../components/ScrollUpButton";
+import Layout from "../../layouts/Layout.astro";
+import Footer from "@/components/Footer.vue";
+import typinksPosterGeneratorBannerImage from "../../assets/images/blog/typinks-poster-generator.png";
+---
+
+<Layout
+  title="Comment utiliser le générateur d'affiches Typinks en ligne"
+  ogImage="blog/typinks-poster-generator.png"
+  description="Créez de superbes affiches de médias sociaux pour les journées d'observance avec du texte personnalisable, des dates et des arrière-plans en utilisant le générateur d'affiches Typinks."
+  lang="fr"
+>
+  <Navbar client:load />
+  <div class="flex justify-center bg-bgDark2 relative pt-2">
+    <div class="px-2 sm:px-4">
+      <article
+        class="p-8 text-center rounded-3xl w-full lg:w-[1200px] 2xl:w-[1400px] mb-24 mt-16 sm:mt-24"
+      >
+        <header class="mb-12">
+          <div class="text-sm text-secondaryText my-4">30 mai 2025</div>
+          <h1
+            class="text-6xl lg:text-7xl xl:text-8xl font-bold tracking-tight leading-none mb-6 bg-gradient-to-r from-white to-gray-400 bg-clip-text text-transparent"
+          >
+            Comment utiliser le générateur d'affiches Typinks en ligne
+          </h1>
+          <p class="text-lg text-secondaryText mb-4">
+            Créez de superbes affiches de médias sociaux pour les journées d'observance avec du texte personnalisable, des dates et des arrière-plans en utilisant le générateur d'affiches Typinks.
+          </p>
+        </header>
+        
+        <Image
+          src={typinksPosterGeneratorBannerImage}
+          alt="Typinks Poster Generator"
+          class="rounded-xl mb-8 md:w-2/4 mx-auto mt-8"
+        />
+        
+        <section
+          class="text-secondaryText !leading-8 sm:!leading-10 sm:text-xl text-left sm:text-justify mx-auto w-full md:w-10/12 lg:w-2/3 mt-16"
+        >
+          <a
+            href="https://tools.typinks.com/typinks-poster-generator/"
+            target="_blank"
+            class="text-gray-400 font-bold">Le générateur d'affiches Typinks</a
+          > est un outil puissant basé sur React conçu pour vous aider à créer de belles affiches personnalisables pour les journées d'observance et les occasions spéciales. Que vous fassiez la promotion d'une campagne de sensibilisation ou que vous célébriez une journée spéciale, cet outil rend la création d'affiches simple et professionnelle.
+
+          <h3 class="text-white text-2xl my-4">Qu'est-ce que le générateur d'affiches Typinks ?</h3>
+          <p>
+            Le générateur d'affiches Typinks est une application web qui vous permet de créer des affiches prêtes pour les médias sociaux avec du texte personnalisable, des dates, des arrière-plans et des mises en page. Construit avec React et react-konva, il fournit une approche basée sur le canevas pour la création de designs, facilitant la génération de fichiers PNG de haute qualité pour le partage.
+          </p>
+
+          <h3 class="text-white text-2xl my-4">Fonctionnalités principales</h3>
+          <ul class="list-disc list-inside space-y-2 my-4">
+            <li><strong>Texte personnalisable :</strong> Modifiez facilement les noms et descriptions des journées d'observance</li>
+            <li><strong>Contrôle de date :</strong> Détection automatique de date avec options de remplacement manuel</li>
+            <li><strong>Personnalisation de police :</strong> Ajustez les tailles et positions de police pour des mises en page parfaites</li>
+            <li><strong>Options d'arrière-plan :</strong> Choisissez parmi les images Unsplash ou téléchargez des arrière-plans personnalisés</li>
+            <li><strong>Prêt à télécharger :</strong> Exportez instantanément des fichiers PNG de haute qualité</li>
+          </ul>
+
+          <h3 class="text-white text-2xl my-4">Comment utiliser l'outil</h3>
+          
+          <h4 class="text-white text-xl my-3">Étape 1 : Accéder au générateur</h4>
+          <p>
+            Visitez le <a href="https://tools.typinks.com/typinks-poster-generator/" target="_blank" class="text-gray-400 font-bold">générateur d'affiches Typinks</a> dans votre navigateur web. L'interface se charge avec un canevas de prévisualisation et un panneau de contrôle.
+          </p>
+
+          <h4 class="text-white text-xl my-3">Étape 2 : Personnaliser votre texte</h4>
+          <p>
+            Dans le panneau de contrôle, vous trouverez des champs de saisie pour :
+          </p>
+          <ul class="list-disc list-inside space-y-1 my-2 ml-4">
+            <li>Nom de la journée d'observance (titre principal)</li>
+            <li>Texte de description (sous-titre ou détails)</li>
+            <li>Contrôles de taille de police pour les deux éléments</li>
+            <li>Ajustements de position (positionnement axe Y)</li>
+          </ul>
+
+          <h4 class="text-white text-xl my-3">Étape 3 : Définir la date</h4>
+          <p>
+            Le générateur utilise automatiquement la date d'aujourd'hui, mais vous pouvez la personnaliser selon vos besoins. La date apparaît dans une boîte formatée sur votre design d'affiche.
+          </p>
+
+          <h4 class="text-white text-xl my-3">Étape 4 : Choisir votre arrière-plan</h4>
+          <p>
+            Sélectionnez parmi deux options d'arrière-plan :
+          </p>
+          <ul class="list-disc list-inside space-y-1 my-2 ml-4">
+            <li><strong>Intégration Unsplash :</strong> Recherchez et sélectionnez parmi des millions de photos professionnelles</li>
+            <li><strong>Téléchargement personnalisé :</strong> Téléchargez vos propres images pour des arrière-plans personnalisés</li>
+          </ul>
+
+          <h4 class="text-white text-xl my-3">Étape 5 : Affiner votre design</h4>
+          <p>
+            Utilisez le panneau de contrôle pour ajuster :
+          </p>
+          <ul class="list-disc list-inside space-y-1 my-2 ml-4">
+            <li>Tailles de police pour une lisibilité optimale</li>
+            <li>Positionnement du texte pour un alignement parfait</li>
+            <li>Dimensions et mise à l'échelle de l'image</li>
+          </ul>
+
+          <h4 class="text-white text-xl my-3">Étape 6 : Télécharger votre affiche</h4>
+          <p>
+            Une fois satisfait de votre design, cliquez sur le bouton "Télécharger" pour sauvegarder votre affiche en tant que fichier PNG de haute qualité, prêt pour le partage sur les médias sociaux ou l'impression.
+          </p>
+
+          <h3 class="text-white text-2xl my-4">Meilleures pratiques</h3>
+          <ul class="list-disc list-inside space-y-2 my-4">
+            <li><strong>Gardez le texte concis :</strong> Les messages courts et percutants fonctionnent mieux pour les médias sociaux</li>
+            <li><strong>Choisissez des couleurs contrastées :</strong> Assurez-vous que le texte est lisible sur votre arrière-plan</li>
+            <li><strong>Testez différentes mises en page :</strong> Expérimentez avec les tailles et positions de police</li>
+            <li><strong>Utilisez des images de haute qualité :</strong> De meilleurs arrière-plans créent des résultats plus professionnels</li>
+          </ul>
+
+          <h3 class="text-white text-2xl my-4">Fonctionnalités techniques</h3>
+          <p>
+            Construit avec des technologies web modernes incluant React, react-konva pour le rendu de canevas, et Headless UI pour des contrôles accessibles. L'outil offre un design responsive qui fonctionne sur les appareils de bureau et mobiles, rendant la création d'affiches accessible partout.
+          </p>
+
+          <h3 class="text-white text-2xl my-4">Parfait pour</h3>
+          <ul class="list-disc list-inside space-y-2 my-4">
+            <li>Campagnes de médias sociaux</li>
+            <li>Promotions de journées de sensibilisation</li>
+            <li>Création de contenu éducatif</li>
+            <li>Annonces d'événements</li>
+            <li>Matériaux d'organisations communautaires</li>
+          </ul>
+
+          <p class="mt-8">
+            Le générateur d'affiches Typinks combine facilité d'utilisation et résultats professionnels, en faisant un outil essentiel pour quiconque ayant besoin de création d'affiches rapide et de haute qualité. <a href="https://tools.typinks.com/typinks-poster-generator/" target="_blank" class="text-gray-400 font-bold">Essayez-le aujourd'hui</a> et voyez à quel point la conception d'affiches professionnelles peut être facile !
+          </p>
+        </section>
+      </article>
+    </div>
+  </div>
+  <ScrollUpButton client:load />
+  <Footer client:only="vue" />
+</Layout>

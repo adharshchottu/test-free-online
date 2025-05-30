@@ -1,0 +1,140 @@
+---
+import { Image } from "astro:assets";
+import { Navbar } from "../../components/Navbar";
+import { ScrollUpButton } from "../../components/ScrollUpButton";
+import Layout from "../../layouts/Layout.astro";
+import Footer from "@/components/Footer.vue";
+import typinksPosterGeneratorBannerImage from "../../assets/images/blog/typinks-poster-generator.png";
+---
+
+<Layout
+  title="How to use Typinks Poster Generator Online"
+  ogImage="blog/typinks-poster-generator.png"
+  description="Create stunning social media posters for observance days with customizable text, dates, and backgrounds using the Typinks Poster Generator."
+>
+  <Navbar client:load />
+  <div class="flex justify-center bg-bgDark2 relative pt-2">
+    <div class="px-2 sm:px-4">
+      <article
+        class="p-8 text-center rounded-3xl w-full lg:w-[1200px] 2xl:w-[1400px] mb-24 mt-16 sm:mt-24"
+      >
+        <header class="mb-12">
+          <div class="text-sm text-secondaryText my-4">30 May 2025</div>
+          <h1
+            class="text-6xl lg:text-7xl xl:text-8xl font-bold tracking-tight leading-none mb-6 bg-gradient-to-r from-white to-gray-400 bg-clip-text text-transparent"
+          >
+            How to use Typinks Poster Generator Online
+          </h1>
+          <p class="text-lg text-secondaryText mb-4">
+            Create stunning social media posters for observance days with customizable text, dates, and backgrounds using the Typinks Poster Generator.
+          </p>
+        </header>
+        
+        <Image
+          src={typinksPosterGeneratorBannerImage}
+          alt="Typinks Poster Generator"
+          class="rounded-xl mb-8 md:w-2/4 mx-auto mt-8"
+        />
+        
+        <section
+          class="text-secondaryText !leading-8 sm:!leading-10 sm:text-xl text-left sm:text-justify mx-auto w-full md:w-10/12 lg:w-2/3 mt-16"
+        >
+          <a
+            href="https://tools.typinks.com/typinks-poster-generator/"
+            target="_blank"
+            class="text-gray-400 font-bold">The Typinks Poster Generator</a
+          > is a powerful React-based tool designed to help you create beautiful, customizable posters for observance days and special occasions. Whether you're promoting an awareness campaign or celebrating a special day, this tool makes poster creation simple and professional.
+
+          <h3 class="text-white text-2xl my-4">What Is Typinks Poster Generator?</h3>
+          <p>
+            Typinks Poster Generator is a web-based application that allows you to create social media-ready posters with customizable text, dates, backgrounds, and layouts. Built with React and react-konva, it provides a canvas-based approach to design creation, making it easy to generate high-quality PNG files for sharing.
+          </p>
+
+          <h3 class="text-white text-2xl my-4">Key Features</h3>
+          <ul class="list-disc list-inside space-y-2 my-4">
+            <li><strong>Customizable Text:</strong> Easily modify observance day names and descriptions</li>
+            <li><strong>Date Control:</strong> Automatic date detection with manual override options</li>
+            <li><strong>Font Customization:</strong> Adjust font sizes and positions for perfect layouts</li>
+            <li><strong>Background Options:</strong> Choose from Unsplash images or upload custom backgrounds</li>
+            <li><strong>Download Ready:</strong> Export high-quality PNG files instantly</li>
+          </ul>
+
+          <h3 class="text-white text-2xl my-4">How to Use the Tool</h3>
+          
+          <h4 class="text-white text-xl my-3">Step 1: Access the Generator</h4>
+          <p>
+            Visit the <a href="https://tools.typinks.com/typinks-poster-generator/" target="_blank" class="text-gray-400 font-bold">Typinks Poster Generator</a> in your web browser. The interface loads with a preview canvas and control panel.
+          </p>
+
+          <h4 class="text-white text-xl my-3">Step 2: Customize Your Text</h4>
+          <p>
+            In the control panel, you'll find input fields for:
+          </p>
+          <ul class="list-disc list-inside space-y-1 my-2 ml-4">
+            <li>Observance day name (main title)</li>
+            <li>Description text (subtitle or details)</li>
+            <li>Font size controls for both elements</li>
+            <li>Position adjustments (Y-axis positioning)</li>
+          </ul>
+
+          <h4 class="text-white text-xl my-3">Step 3: Set the Date</h4>
+          <p>
+            The generator automatically uses today's date, but you can customize it to any date you need. The date appears in a formatted box on your poster design.
+          </p>
+
+          <h4 class="text-white text-xl my-3">Step 4: Choose Your Background</h4>
+          <p>
+            Select from two background options:
+          </p>
+          <ul class="list-disc list-inside space-y-1 my-2 ml-4">
+            <li><strong>Unsplash Integration:</strong> Search and select from millions of professional photos</li>
+            <li><strong>Custom Upload:</strong> Upload your own images for personalized backgrounds</li>
+          </ul>
+
+          <h4 class="text-white text-xl my-3">Step 5: Fine-tune Your Design</h4>
+          <p>
+            Use the control panel to adjust:
+          </p>
+          <ul class="list-disc list-inside space-y-1 my-2 ml-4">
+            <li>Font sizes for optimal readability</li>
+            <li>Text positioning for perfect alignment</li>
+            <li>Image dimensions and scaling</li>
+          </ul>
+
+          <h4 class="text-white text-xl my-3">Step 6: Download Your Poster</h4>
+          <p>
+            Once satisfied with your design, click the "Download" button to save your poster as a high-quality PNG file, ready for social media sharing or printing.
+          </p>
+
+          <h3 class="text-white text-2xl my-4">Best Practices</h3>
+          <ul class="list-disc list-inside space-y-2 my-4">
+            <li><strong>Keep text concise:</strong> Short, impactful messages work best for social media</li>
+            <li><strong>Choose contrasting colors:</strong> Ensure text is readable against your background</li>
+            <li><strong>Test different layouts:</strong> Experiment with font sizes and positions</li>
+            <li><strong>Use high-quality images:</strong> Better backgrounds create more professional results</li>
+          </ul>
+
+          <h3 class="text-white text-2xl my-4">Technical Features</h3>
+          <p>
+            Built with modern web technologies including React, react-konva for canvas rendering, and Headless UI for accessible controls. The tool offers responsive design that works on desktop and mobile devices, making poster creation accessible anywhere.
+          </p>
+
+          <h3 class="text-white text-2xl my-4">Perfect For</h3>
+          <ul class="list-disc list-inside space-y-2 my-4">
+            <li>Social media campaigns</li>
+            <li>Awareness day promotions</li>
+            <li>Educational content creation</li>
+            <li>Event announcements</li>
+            <li>Community organization materials</li>
+          </ul>
+
+          <p class="mt-8">
+            The Typinks Poster Generator combines ease of use with professional results, making it an essential tool for anyone needing quick, high-quality poster creation. <a href="https://tools.typinks.com/typinks-poster-generator/" target="_blank" class="text-gray-400 font-bold">Try it today</a> and see how easy professional poster design can be!
+          </p>
+        </section>
+      </article>
+    </div>
+  </div>
+  <ScrollUpButton client:load />
+  <Footer client:only="vue" />
+</Layout>
