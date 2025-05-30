@@ -1,0 +1,251 @@
+---
+import { Image } from "astro:assets";
+import { Navbar } from "../../components/Navbar";
+import { ScrollUpButton } from "../../components/ScrollUpButton";
+import { ListItem } from "../../components/blog/ListItem";
+import Layout from "../../layouts/Layout.astro";
+import Footer from "@/components/Footer.vue";
+import sudokuBanner from "../../assets/images/blog/sudoku.png";
+---
+
+<Layout
+  title="How to play Sudoku Online - Free Unlimited Puzzles"
+  ogImage="blog/sudoku.png"
+  description="Play unlimited free Sudoku puzzles online with our interactive 9x9 grid. Enjoy validation, hints, and celebration effects in this classic number puzzle game."
+>
+  <Navbar client:load />
+  <div class="flex justify-center bg-bgDark2 relative pt-2">
+    <div class="px-2 sm:px-4">
+      <article
+        class="p-8 text-center rounded-3xl w-full lg:w-[1200px] 2xl:w-[1400px] mb-24 mt-16 sm:mt-24"
+      >
+        <header class="mb-12">
+          <div class="text-sm text-secondaryText my-4">30 Mai 2025</div>
+          <h1
+            class="text-6xl lg:text-7xl xl:text-8xl font-bold tracking-tight leading-none mb-6 bg-gradient-to-r from-white via-orange-200 to-orange-400 bg-clip-text text-transparent"
+          >
+            Sudoku Online
+          </h1>
+          <h2 class="text-2xl text-gray-300">
+            Classic 9x9 number puzzle with unlimited free games and interactive
+            features
+          </h2>
+        </header>
+
+        <Image
+          src={sudokuBanner}
+          alt="Sudoku Online Game"
+          class="rounded-xl mb-8 md:w-2/4 mx-auto mt-8"
+        />
+
+        <section
+          class="text-secondaryText !leading-8 sm:!leading-10 sm:text-xl text-left sm:text-justify mx-auto w-full md:w-10/12 lg:w-2/3 mt-16"
+        >
+          <a
+            href="https://tools.typinks.com/sudoku/"
+            target="_blank"
+            class="text-orange-400 font-bold">The Sudoku Online Game</a
+          > brings the world's most popular number puzzle to your browser with unlimited
+          free puzzles and modern interactive features. Whether you're a beginner
+          learning the basics or an expert seeking a mental challenge, this classic
+          9x9 Sudoku game provides endless entertainment with validation, completion
+          effects, and mobile-friendly gameplay.
+
+          <h3 class="text-white text-2xl my-4">What Is Sudoku?</h3>
+          <p>
+            Sudoku is a logic-based number puzzle that challenges players to
+            fill a 9x9 grid with digits 1-9, ensuring each number appears
+            exactly once in every row, column, and 3x3 sub-grid. Our online
+            version is built with Vue.js for smooth performance and includes
+            modern features like real-time validation, confetti celebrations,
+            and responsive design that works perfectly on all devices.
+          </p>
+
+          <h3 class="text-white text-2xl my-4">Key Features</h3>
+          <ul class="list-disc list-inside space-y-2 my-4">
+            <li>
+              <strong>Unlimited Free Puzzles:</strong> Generate new Sudoku puzzles
+              instantly with varying difficulty levels
+            </li>
+            <li>
+              <strong>Interactive Number Input:</strong> Click any cell and select
+              numbers from an intuitive interface
+            </li>
+            <li>
+              <strong>Real-Time Validation:</strong> Immediate feedback when you
+              place invalid numbers
+            </li>
+            <li>
+              <strong>Confetti Celebration:</strong> Spectacular effects when you
+              complete a puzzle
+            </li>
+            <li>
+              <strong>Mobile-Friendly Design:</strong> Perfect touch controls for
+              smartphones and tablets
+            </li>
+            <li>
+              <strong>Progress Tracking:</strong> See your completion status and
+              time elapsed
+            </li>
+            <li>
+              <strong>Error Prevention:</strong> Visual indicators help prevent common
+              mistakes
+            </li>
+          </ul>
+
+          <h3 class="text-white text-2xl my-4">How to Play Sudoku Online</h3>
+
+          <ListItem
+            list={[
+              {
+                title: "Understand the Rules",
+                description:
+                  "Each row, column, and 3x3 box must contain all digits from 1 to 9 exactly once. No number can be repeated in the same row, column, or box.",
+              },
+              {
+                title: "Start with Easy Numbers",
+                description:
+                  "Look for cells where only one number can fit based on the existing numbers in that row, column, and 3x3 box.",
+              },
+              {
+                title: "Use Process of Elimination",
+                description:
+                  "For each empty cell, determine which numbers are already used in its row, column, and box to narrow down possibilities.",
+              },
+              {
+                title: "Apply Advanced Techniques",
+                description:
+                  "As you progress, use techniques like naked pairs, hidden singles, and pointing pairs to solve more complex puzzles.",
+              },
+              {
+                title: "Celebrate Your Success",
+                description:
+                  "Enjoy the satisfying confetti animation when you successfully complete the puzzle and see your completion time!",
+              },
+            ]}
+            client:visible
+          />
+
+          <h3 class="text-white text-2xl my-4">Sudoku Solving Strategies</h3>
+          <p>Master these essential techniques to become a Sudoku expert:</p>
+          <ul class="list-disc list-inside space-y-2 my-4">
+            <li>
+              <strong>Naked Singles:</strong> Cells where only one number can fit
+              based on row, column, and box constraints
+            </li>
+            <li>
+              <strong>Hidden Singles:</strong> Numbers that can only go in one cell
+              within a row, column, or box
+            </li>
+            <li>
+              <strong>Naked Pairs:</strong> Two cells in the same unit that can only
+              contain the same two numbers
+            </li>
+            <li>
+              <strong>Pointing Pairs:</strong> When a number in a box can only appear
+              in one row or column
+            </li>
+            <li>
+              <strong>Box/Line Reduction:</strong> Eliminating possibilities based
+              on box and line intersections
+            </li>
+          </ul>
+
+          <h3 class="text-white text-2xl my-4">Benefits of Playing Sudoku</h3>
+          <ul class="list-disc list-inside space-y-2 my-4">
+            <li>
+              <strong>Mental Exercise:</strong> Strengthens logical thinking and
+              problem-solving abilities
+            </li>
+            <li>
+              <strong>Memory Improvement:</strong> Enhances working memory and concentration
+              skills
+            </li>
+            <li>
+              <strong>Stress Relief:</strong> Provides meditative focus and relaxation
+              through puzzling
+            </li>
+            <li>
+              <strong>Pattern Recognition:</strong> Develops ability to spot number
+              patterns and relationships
+            </li>
+            <li>
+              <strong>Cognitive Health:</strong> Regular play may help maintain mental
+              sharpness
+            </li>
+            <li>
+              <strong>Achievement Satisfaction:</strong> Builds confidence through
+              puzzle completion
+            </li>
+          </ul>
+
+          <h3 class="text-white text-2xl my-4">
+            Difficulty Levels and Progression
+          </h3>
+          <p>Our Sudoku game adapts to your skill level:</p>
+          <ul class="list-disc list-inside space-y-2 my-4">
+            <li>
+              <strong>Beginner Friendly:</strong> Start with easier puzzles that
+              require basic logic
+            </li>
+            <li>
+              <strong>Progressive Challenge:</strong> Gradually increase difficulty
+              as you improve
+            </li>
+            <li>
+              <strong>Expert Levels:</strong> Challenge yourself with complex puzzles
+              requiring advanced techniques
+            </li>
+            <li>
+              <strong>Unlimited Practice:</strong> Generate as many puzzles as you
+              want to hone your skills
+            </li>
+          </ul>
+
+          <h3 class="text-white text-2xl my-4">Technical Features</h3>
+          <p>
+            Built with Vue.js for responsive performance and smooth user
+            experience, our Sudoku game features intelligent puzzle generation
+            algorithms that create unique, solvable puzzles every time. The
+            touch-optimized interface ensures perfect playability on mobile
+            devices, while the validation system provides helpful feedback
+            without being intrusive.
+          </p>
+
+          <h3 class="text-white text-2xl my-4">Perfect For</h3>
+          <ul class="list-disc list-inside space-y-2 my-4">
+            <li>Daily brain training and mental exercise</li>
+            <li>Relaxation and stress relief during breaks</li>
+            <li>Educational activities and logic skill development</li>
+            <li>Competitive puzzle solving and time challenges</li>
+            <li>Long commutes and travel entertainment</li>
+            <li>Family game time and intergenerational fun</li>
+          </ul>
+
+          <h3 class="text-white text-2xl my-4">Why Choose Our Sudoku Game?</h3>
+          <p>
+            Our online Sudoku game combines the timeless appeal of the classic
+            number puzzle with modern interactive features that enhance your
+            playing experience. With unlimited free puzzles, real-time
+            validation, and satisfying completion effects, it provides both
+            entertainment and mental stimulation in a convenient, accessible
+            format.
+          </p>
+
+          <p class="mt-8">
+            Whether you're looking to sharpen your mind, relax with a
+            challenging puzzle, or simply enjoy one of the world's favorite
+            number games, our Sudoku offers the perfect blend of classic
+            gameplay and modern convenience. <a
+              href="https://tools.typinks.com/sudoku/"
+              target="_blank"
+              class="text-orange-400 font-bold">Start playing</a
+            > unlimited Sudoku puzzles today!
+          </p>
+        </section>
+      </article>
+    </div>
+  </div>
+  <ScrollUpButton client:load />
+  <Footer client:only="vue" />
+</Layout>
