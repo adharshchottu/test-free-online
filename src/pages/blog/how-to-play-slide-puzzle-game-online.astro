@@ -1,0 +1,252 @@
+---
+import { Image } from "astro:assets";
+import { Navbar } from "../../components/Navbar";
+import { ScrollUpButton } from "../../components/ScrollUpButton";
+import { ListItem } from "../../components/blog/ListItem";
+import Layout from "../../layouts/Layout.astro";
+import Footer from "@/components/Footer.vue";
+import slidePuzzleBannerImage from "../../assets/images/blog/slide-puzzle.png";
+---
+
+<Layout
+  title="How to play Slide Puzzle Game Online"
+  ogImage="blog/slide-puzzle.png"
+  description="Play the classic 3x3 slide puzzle game online with custom image upload. Solve puzzles with your own photos and enjoy hours of brain-teasing fun directly in your browser."
+>
+  <Navbar client:load />
+  <div class="flex justify-center bg-bgDark2 relative pt-2">
+    <div class="px-2 sm:px-4">
+      <article
+        class="p-8 text-center rounded-3xl w-full lg:w-[1200px] 2xl:w-[1400px] mb-24 mt-16 sm:mt-24"
+      >
+        <header class="mb-12">
+          <div class="text-sm text-secondaryText my-4">30 May 2025</div>
+          <h1
+            class="text-6xl lg:text-7xl xl:text-8xl font-bold tracking-tight leading-none mb-6 bg-gradient-to-r from-white via-purple-200 to-pink-400 bg-clip-text text-transparent"
+          >
+            Slide Puzzle Game
+          </h1>
+          <h2 class="text-2xl text-gray-300">
+            Classic 3x3 sliding puzzle with custom image upload for endless fun
+          </h2>
+        </header>
+
+        <Image
+          src={slidePuzzleBannerImage}
+          alt="Slide Puzzle Game"
+          class="rounded-xl mb-8 md:w-2/4 mx-auto mt-8"
+        />
+
+        <section
+          class="text-secondaryText !leading-8 sm:!leading-10 sm:text-xl text-left sm:text-justify mx-auto w-full md:w-10/12 lg:w-2/3 mt-16"
+        >
+          <a
+            href="https://tools.typinks.com/slide-puzzle/"
+            target="_blank"
+            class="text-pink-400 font-bold">The Slide Puzzle Game</a
+          > brings the classic 15-puzzle experience to your browser with a modern
+          twist. This engaging 3x3 sliding puzzle game allows you to upload your
+          own images, creating personalized puzzles that challenge your spatial reasoning
+          and problem-solving skills. Perfect for entertainment, cognitive training,
+          or a quick brain teaser during breaks.
+
+          <h3 class="text-white text-2xl my-4">
+            What Is the Slide Puzzle Game?
+          </h3>
+          <p>
+            The Slide Puzzle Game is a digital version of the classic sliding
+            puzzle, where players must arrange scrambled image pieces by sliding
+            them into the correct order. Built with Svelte for smooth
+            performance, this 3x3 puzzle game features custom image upload
+            capabilities, move counting, and celebration animations when you
+            successfully complete the puzzle.
+          </p>
+
+          <h3 class="text-white text-2xl my-4">Key Features</h3>
+          <ul class="list-disc list-inside space-y-2 my-4">
+            <li>
+              <strong>Custom Image Upload:</strong> Use your own photos to create
+              personalized puzzles
+            </li>
+            <li>
+              <strong>3x3 Grid Format:</strong> Perfect difficulty level for quick
+              yet challenging gameplay
+            </li>
+            <li>
+              <strong>Move Counter:</strong> Track your efficiency with automatic
+              move counting
+            </li>
+            <li>
+              <strong>Smooth Animations:</strong> Fluid tile sliding animations for
+              satisfying gameplay
+            </li>
+            <li>
+              <strong>Completion Celebration:</strong> Special effects when you solve
+              the puzzle
+            </li>
+            <li>
+              <strong>Mobile Responsive:</strong> Play on any device with touch and
+              click support
+            </li>
+            <li>
+              <strong>Instant Reset:</strong> Scramble the puzzle anytime for a new
+              challenge
+            </li>
+          </ul>
+
+          <h3 class="text-white text-2xl my-4">
+            How to Play the Slide Puzzle Game
+          </h3>
+
+          <ListItem
+            list={[
+              {
+                title: "Upload Your Image (Optional)",
+                description:
+                  "Click the upload button to use your own photo, or start with the default image. JPG, PNG, and other common formats are supported.",
+              },
+              {
+                title: "Study the Complete Picture",
+                description:
+                  "Take a moment to observe the complete image before it gets scrambled, so you know what you're working towards.",
+              },
+              {
+                title: "Start Sliding Tiles",
+                description:
+                  "Click or tap on tiles adjacent to the empty space to slide them into position. Plan your moves strategically.",
+              },
+              {
+                title: "Arrange in Order",
+                description:
+                  "Continue sliding tiles until you recreate the original image in the correct order, from top-left to bottom-right.",
+              },
+              {
+                title: "Celebrate Your Success",
+                description:
+                  "Enjoy the celebration animation when you complete the puzzle and see your final move count!",
+              },
+            ]}
+            client:visible
+          />
+
+          <h3 class="text-white text-2xl my-4">Strategies for Success</h3>
+          <p>Master the slide puzzle with these proven techniques:</p>
+          <ul class="list-disc list-inside space-y-2 my-4">
+            <li>
+              <strong>Start with Corners:</strong> Position corner pieces first as
+              they have fewer possible positions
+            </li>
+            <li>
+              <strong>Work Row by Row:</strong> Complete the top row first, then
+              work your way down
+            </li>
+            <li>
+              <strong>Use the Empty Space:</strong> Think of the empty space as a
+              movable tool to manipulate other pieces
+            </li>
+            <li>
+              <strong>Plan Ahead:</strong> Consider how each move affects future
+              possibilities
+            </li>
+            <li>
+              <strong>Practice Pattern Recognition:</strong> Learn common tile movement
+              patterns
+            </li>
+          </ul>
+
+          <h3 class="text-white text-2xl my-4">Educational Benefits</h3>
+          <ul class="list-disc list-inside space-y-2 my-4">
+            <li>
+              <strong>Spatial Reasoning:</strong> Develops understanding of spatial
+              relationships and transformations
+            </li>
+            <li>
+              <strong>Problem Solving:</strong> Enhances logical thinking and sequential
+              planning abilities
+            </li>
+            <li>
+              <strong>Memory Training:</strong> Improves working memory and visual
+              memory skills
+            </li>
+            <li>
+              <strong>Patience and Focus:</strong> Builds concentration and persistence
+              in problem-solving
+            </li>
+            <li>
+              <strong>Pattern Recognition:</strong> Strengthens ability to identify
+              and use recurring patterns
+            </li>
+          </ul>
+
+          <h3 class="text-white text-2xl my-4">Custom Image Ideas</h3>
+          <p>
+            Make your puzzle experience more engaging with these image
+            suggestions:
+          </p>
+          <ul class="list-disc list-inside space-y-2 my-4">
+            <li>
+              <strong>Personal Photos:</strong> Family pictures, pets, or memorable
+              moments
+            </li>
+            <li>
+              <strong>Artwork:</strong> Famous paintings, digital art, or your own
+              creations
+            </li>
+            <li>
+              <strong>Nature Scenes:</strong> Landscapes, flowers, or wildlife photography
+            </li>
+            <li>
+              <strong>Educational Images:</strong> Maps, diagrams, or learning materials
+            </li>
+            <li>
+              <strong>Motivational Content:</strong> Quotes, goals, or inspirational
+              imagery
+            </li>
+          </ul>
+
+          <h3 class="text-white text-2xl my-4">Technical Features</h3>
+          <p>
+            Built with Svelte for optimal performance and smooth animations, the
+            Slide Puzzle Game features responsive design that adapts to all
+            screen sizes. The image processing system automatically optimizes
+            uploaded photos for the best puzzle experience, while the
+            touch-friendly interface ensures perfect playability on mobile
+            devices.
+          </p>
+
+          <h3 class="text-white text-2xl my-4">Perfect For</h3>
+          <ul class="list-disc list-inside space-y-2 my-4">
+            <li>Brain training and cognitive exercise</li>
+            <li>Educational activities and classroom games</li>
+            <li>Quick entertainment during breaks</li>
+            <li>Family fun with personal photos</li>
+            <li>Stress relief and mindful gaming</li>
+            <li>Problem-solving skill development</li>
+          </ul>
+
+          <h3 class="text-white text-2xl my-4">Why Play Our Slide Puzzle?</h3>
+          <p>
+            Our Slide Puzzle Game combines the timeless appeal of the classic
+            sliding puzzle with modern features like custom image upload and
+            smooth digital gameplay. Whether you're looking to exercise your
+            brain, have fun with family photos, or simply enjoy a few minutes of
+            engaging entertainment, this puzzle provides the perfect blend of
+            challenge and satisfaction.
+          </p>
+
+          <p class="mt-8">
+            The combination of familiar gameplay mechanics with personalization
+            options makes every puzzle unique and meaningful. Challenge yourself
+            with your favorite images and see how quickly you can solve them! <a
+              href="https://tools.typinks.com/slide-puzzle/"
+              target="_blank"
+              class="text-pink-400 font-bold">Start playing</a
+            > the Slide Puzzle Game today!
+          </p>
+        </section>
+      </article>
+    </div>
+  </div>
+  <ScrollUpButton client:load />
+  <Footer client:only="vue" />
+</Layout>

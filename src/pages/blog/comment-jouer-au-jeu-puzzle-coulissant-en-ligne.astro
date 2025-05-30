@@ -1,0 +1,161 @@
+---
+import { Image } from "astro:assets";
+import { Navbar } from "../../components/Navbar";
+import { ScrollUpButton } from "../../components/ScrollUpButton";
+import { ListItem } from "../../components/blog/ListItem";
+import Layout from "../../layouts/Layout.astro";
+import Footer from "@/components/Footer.vue";
+import slidePuzzleBannerImage from "../../assets/images/blog/slide-puzzle.png";
+---
+
+<Layout
+  title="Comment jouer au jeu de puzzle coulissant en ligne"
+  ogImage="blog/slide-puzzle.png"
+  description="Jouez au jeu de puzzle coulissant 3x3 classique en ligne avec téléchargement d'image personnalisée. Résolvez des puzzles avec vos propres photos et profitez d'heures de divertissement cérébral directement dans votre navigateur."
+  lang="fr"
+>
+  <Navbar client:load />
+  <div class="flex justify-center bg-bgDark2 relative pt-2">
+    <div class="px-2 sm:px-4">
+      <article
+        class="p-8 text-center rounded-3xl w-full lg:w-[1200px] 2xl:w-[1400px] mb-24 mt-16 sm:mt-24"
+      >
+        <header class="mb-12">
+            <div class="text-sm text-secondaryText my-4">30 Mai 2025</div>
+          <h1
+            class="text-6xl lg:text-7xl xl:text-8xl font-bold tracking-tight leading-none mb-6 bg-gradient-to-r from-white via-purple-200 to-pink-400 bg-clip-text text-transparent"
+          >
+            Jeu de Puzzle Coulissant
+          </h1>
+          <h2 class="text-2xl text-gray-300">
+            Puzzle coulissant 3x3 classique avec téléchargement d'image personnalisée pour un plaisir infini
+          </h2>
+        </header>
+
+         <Image
+          src={slidePuzzleBannerImage}
+          alt="Slide Puzzle Game"
+          class="rounded-xl mb-8 md:w-2/4 mx-auto mt-8"
+        />
+
+        <section
+          class="text-secondaryText !leading-8 sm:!leading-10 sm:text-xl text-left sm:text-justify mx-auto w-full md:w-10/12 lg:w-2/3 mt-16"
+        >
+          <a
+            href="https://tools.typinks.com/slide-puzzle/"
+            target="_blank"
+            class="text-pink-400 font-bold">Le jeu de puzzle coulissant</a
+          > apporte l'expérience classique du puzzle à 15 pièces dans votre navigateur avec une touche moderne. Ce jeu de puzzle coulissant 3x3 engageant vous permet de télécharger vos propres images, créant des puzzles personnalisés qui défient votre raisonnement spatial et vos compétences de résolution de problèmes. Parfait pour le divertissement, l'entraînement cognitif ou un casse-tête rapide pendant les pauses.
+
+          <h3 class="text-white text-2xl my-4">Qu'est-ce que le jeu de puzzle coulissant ?</h3>
+          <p>
+            Le jeu de puzzle coulissant est une version numérique du puzzle coulissant classique, où les joueurs doivent arranger des pièces d'image mélangées en les faisant glisser dans le bon ordre. Construit avec Svelte pour des performances fluides, ce jeu de puzzle 3x3 dispose de capacités de téléchargement d'images personnalisées, de comptage de mouvements et d'animations de célébration lorsque vous terminez avec succès le puzzle.
+          </p>
+
+          <h3 class="text-white text-2xl my-4">Fonctionnalités principales</h3>
+          <ul class="list-disc list-inside space-y-2 my-4">
+            <li><strong>Téléchargement d'image personnalisée :</strong> Utilisez vos propres photos pour créer des puzzles personnalisés</li>
+            <li><strong>Format de grille 3x3 :</strong> Niveau de difficulté parfait pour un jeu rapide mais stimulant</li>
+            <li><strong>Compteur de mouvements :</strong> Suivez votre efficacité avec un comptage automatique des mouvements</li>
+            <li><strong>Animations fluides :</strong> Animations de glissement de tuiles fluides pour un jeu satisfaisant</li>
+            <li><strong>Célébration de complétion :</strong> Effets spéciaux quand vous résolvez le puzzle</li>
+            <li><strong>Responsive mobile :</strong> Jouez sur n'importe quel appareil avec support tactile et clic</li>
+            <li><strong>Réinitialisation instantanée :</strong> Mélangez le puzzle à tout moment pour un nouveau défi</li>
+          </ul>
+
+          <h3 class="text-white text-2xl my-4">Comment jouer au jeu de puzzle coulissant</h3>
+          
+          <ListItem
+            list={[
+              {
+                title: "Téléchargez votre image (Optionnel)",
+                description:
+                  "Cliquez sur le bouton de téléchargement pour utiliser votre propre photo, ou commencez avec l'image par défaut. JPG, PNG et autres formats courants sont supportés.",
+              },
+              {
+                title: "Étudiez l'image complète",
+                description:
+                  "Prenez un moment pour observer l'image complète avant qu'elle ne soit mélangée, ainsi vous savez vers quoi vous travaillez.",
+              },
+              {
+                title: "Commencez à faire glisser les tuiles",
+                description:
+                  "Cliquez ou touchez les tuiles adjacentes à l'espace vide pour les faire glisser en position. Planifiez vos mouvements stratégiquement.",
+              },
+              {
+                title: "Arrangez dans l'ordre",
+                description:
+                  "Continuez à faire glisser les tuiles jusqu'à ce que vous recréiez l'image originale dans le bon ordre, de haut-gauche à bas-droite.",
+              },
+              {
+                title: "Célébrez votre succès",
+                description:
+                  "Profitez de l'animation de célébration quand vous terminez le puzzle et voyez votre nombre final de mouvements !",
+              },
+            ]}
+            client:visible
+          />
+
+          <h3 class="text-white text-2xl my-4">Stratégies pour réussir</h3>
+          <p>
+            Maîtrisez le puzzle coulissant avec ces techniques éprouvées :
+          </p>
+          <ul class="list-disc list-inside space-y-2 my-4">
+            <li><strong>Commencez par les coins :</strong> Positionnez d'abord les pièces de coin car elles ont moins de positions possibles</li>
+            <li><strong>Travaillez rangée par rangée :</strong> Terminez d'abord la rangée du haut, puis descendez</li>
+            <li><strong>Utilisez l'espace vide :</strong> Pensez à l'espace vide comme un outil mobile pour manipuler d'autres pièces</li>
+            <li><strong>Planifiez à l'avance :</strong> Considérez comment chaque mouvement affecte les possibilités futures</li>
+            <li><strong>Pratiquez la reconnaissance de motifs :</strong> Apprenez les motifs courants de mouvement de tuiles</li>
+          </ul>
+
+          <h3 class="text-white text-2xl my-4">Avantages éducatifs</h3>
+          <ul class="list-disc list-inside space-y-2 my-4">
+            <li><strong>Raisonnement spatial :</strong> Développe la compréhension des relations spatiales et des transformations</li>
+            <li><strong>Résolution de problèmes :</strong> Améliore la pensée logique et les capacités de planification séquentielle</li>
+            <li><strong>Entraînement de la mémoire :</strong> Améliore la mémoire de travail et les compétences de mémoire visuelle</li>
+            <li><strong>Patience et concentration :</strong> Développe la concentration et la persistance dans la résolution de problèmes</li>
+            <li><strong>Reconnaissance de motifs :</strong> Renforce la capacité à identifier et utiliser des motifs récurrents</li>
+          </ul>
+
+          <h3 class="text-white text-2xl my-4">Idées d'images personnalisées</h3>
+          <p>
+            Rendez votre expérience de puzzle plus engageante avec ces suggestions d'images :
+          </p>
+          <ul class="list-disc list-inside space-y-2 my-4">
+            <li><strong>Photos personnelles :</strong> Photos de famille, animaux de compagnie ou moments mémorables</li>
+            <li><strong>Œuvres d'art :</strong> Peintures célèbres, art numérique ou vos propres créations</li>
+            <li><strong>Scènes de nature :</strong> Paysages, fleurs ou photographie d'animaux sauvages</li>
+            <li><strong>Images éducatives :</strong> Cartes, diagrammes ou matériaux d'apprentissage</li>
+            <li><strong>Contenu motivationnel :</strong> Citations, objectifs ou imagerie inspirante</li>
+          </ul>
+
+          <h3 class="text-white text-2xl my-4">Fonctionnalités techniques</h3>
+          <p>
+            Construit avec Svelte pour des performances optimales et des animations fluides, le jeu de puzzle coulissant dispose d'un design responsive qui s'adapte à toutes les tailles d'écran. Le système de traitement d'images optimise automatiquement les photos téléchargées pour la meilleure expérience de puzzle, tandis que l'interface tactile assure une jouabilité parfaite sur les appareils mobiles.
+          </p>
+
+          <h3 class="text-white text-2xl my-4">Parfait pour</h3>
+          <ul class="list-disc list-inside space-y-2 my-4">
+            <li>Entraînement cérébral et exercice cognitif</li>
+            <li>Activités éducatives et jeux de classe</li>
+            <li>Divertissement rapide pendant les pauses</li>
+            <li>Plaisir familial avec des photos personnelles</li>
+            <li>Soulagement du stress et jeu attentif</li>
+            <li>Développement des compétences de résolution de problèmes</li>
+          </ul>
+
+          <h3 class="text-white text-2xl my-4">Pourquoi jouer à notre puzzle coulissant ?</h3>
+          <p>
+            Notre jeu de puzzle coulissant combine l'attrait intemporel du puzzle coulissant classique avec des fonctionnalités modernes comme le téléchargement d'images personnalisées et un jeu numérique fluide. Que vous cherchiez à exercer votre cerveau, vous amuser avec des photos de famille, ou simplement profiter de quelques minutes de divertissement engageant, ce puzzle fournit le mélange parfait de défi et de satisfaction.
+          </p>
+
+          <p class="mt-8">
+            La combinaison de mécaniques de jeu familières avec des options de personnalisation rend chaque puzzle unique et significatif. Défiez-vous avec vos images préférées et voyez à quelle vitesse vous pouvez les résoudre ! <a href="https://tools.typinks.com/slide-puzzle/" target="_blank" class="text-pink-400 font-bold">Commencez à jouer</a> au jeu de puzzle coulissant aujourd'hui !
+          </p>
+        </section>
+      </article>
+    </div>
+  </div>
+  <ScrollUpButton client:load />
+  <Footer client:only="vue" />
+</Layout>
