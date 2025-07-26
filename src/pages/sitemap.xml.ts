@@ -1,49 +1,37 @@
 import type { APIRoute } from 'astro';
 
-interface SiteMapItem {
-    loc: string;
-    lastmod?: string;
-    changefreq?:
-    | "always"
-    | "hourly"
-    | "daily"
-    | "weekly"
-    | "monthly"
-    | "yearly"
-    | "never";
-    priority?: number;
-}
+export const GET: APIRoute = async ({ site }) => {
+    const baseUrl = "https://tools.typinks.com";
 
-export const GET: APIRoute = ({ site }) => {
-    const sitemapItems: SiteMapItem[] = [
-        { loc: "https://tools.typinks.com/", changefreq: "daily" },
-        { loc: "https://tools.typinks.com/blog/", changefreq: "daily" },
-        {
-            loc: "https://tools.typinks.com/blog/comment-tester-sse-en-ligne/",
-            changefreq: "daily",
-        },
-        {
-            loc: "https://tools.typinks.com/blog/how-to-test-sse-online/",
-            changefreq: "daily",
-        },
-        { loc: "https://tools.typinks.com/blog/how-to-test-redis-lua-script-online", changefreq: "daily" },
-        { loc: "https://tools.typinks.com/blog/comment-utiliser-le-testeur-en-ligne-de-script-lua-redis", changefreq: "daily" },
-        {
-            loc: "https://tools.typinks.com/kroenger-poster-generator/",
-            changefreq: "daily",
-        },
-        {
-            loc: "https://tools.typinks.com/life-time-calculator/",
-            changefreq: "daily",
-        },
-        { loc: "https://tools.typinks.com/redis-lua/", changefreq: "daily" },
-        { loc: "https://tools.typinks.com/slide-puzzle/", changefreq: "daily" },
-        { loc: "https://tools.typinks.com/sse/", changefreq: "daily" },
-        { loc: "https://tools.typinks.com/sudoku/", changefreq: "daily" },
-        {
-            loc: "https://tools.typinks.com/typinks-poster-generator/",
-            changefreq: "daily",
-        },
+    const sitemapItems = [
+        // Pages from src/pages
+        { loc: `${baseUrl}/`, changefreq: "daily" },
+        { loc: `${baseUrl}/kroenger-poster-generator/`, changefreq: "daily" },
+        { loc: `${baseUrl}/life-time-calculator/`, changefreq: "daily" },
+        { loc: `${baseUrl}/prelims-marks-calculator/`, changefreq: "daily" },
+        { loc: `${baseUrl}/redis-lua/`, changefreq: "daily" },
+        { loc: `${baseUrl}/slide-puzzle/`, changefreq: "daily" },
+        { loc: `${baseUrl}/sse/`, changefreq: "daily" },
+        { loc: `${baseUrl}/sudoku/`, changefreq: "daily" },
+        { loc: `${baseUrl}/typinks-poster-generator/`, changefreq: "daily" },
+
+        // Pages from src/pages/blog
+        { loc: `${baseUrl}/blog/comment-jouer-au-jeu-puzzle-coulissant-en-ligne/`, changefreq: "daily" },
+        { loc: `${baseUrl}/blog/comment-jouer-au-sudoku-en-ligne-gratuit-illimite/`, changefreq: "daily" },
+        { loc: `${baseUrl}/blog/comment-tester-sse-en-ligne/`, changefreq: "daily" },
+        { loc: `${baseUrl}/blog/comment-utiliser-le-calculateur-notes-examens-preliminaires-en-ligne/`, changefreq: "daily" },
+        { loc: `${baseUrl}/blog/comment-utiliser-le-calculateur-temps-vie-en-ligne/`, changefreq: "daily" },
+        { loc: `${baseUrl}/blog/comment-utiliser-le-generateur-affiches-kroenger-en-ligne/`, changefreq: "daily" },
+        { loc: `${baseUrl}/blog/comment-utiliser-le-generateur-affiches-typinks-en-ligne/`, changefreq: "daily" },
+        { loc: `${baseUrl}/blog/comment-utiliser-le-testeur-en-ligne-de-script-lua-redis/`, changefreq: "daily" },
+        { loc: `${baseUrl}/blog/how-to-play-slide-puzzle-game-online/`, changefreq: "daily" },
+        { loc: `${baseUrl}/blog/how-to-play-sudoku-online-free-unlimited/`, changefreq: "daily" },
+        { loc: `${baseUrl}/blog/how-to-test-redis-lua-script-online/`, changefreq: "daily" },
+        { loc: `${baseUrl}/blog/how-to-test-sse-online/`, changefreq: "daily" },
+        { loc: `${baseUrl}/blog/how-to-use-kroenger-poster-generator-online/`, changefreq: "daily" },
+        { loc: `${baseUrl}/blog/how-to-use-life-time-calculator-online/`, changefreq: "daily" },
+        { loc: `${baseUrl}/blog/how-to-use-prelims-marks-calculator-online/`, changefreq: "daily" },
+        { loc: `${baseUrl}/blog/how-to-use-typinks-poster-generator-online/`, changefreq: "daily" },
     ];
 
     const now = new Date().toISOString();
@@ -55,9 +43,8 @@ export const GET: APIRoute = ({ site }) => {
                 (item) => `
         <url>
           <loc>${item.loc}</loc>
-          ${item.lastmod ? `<lastmod>${now}</lastmod>` : ""}
-          ${item.changefreq ? `<changefreq>${item.changefreq}</changefreq>` : ""}
-          ${item.priority ? `<priority>${item.priority}</priority>` : ""}
+          <lastmod>${now}</lastmod>
+          <changefreq>${item.changefreq}</changefreq>
         </url>
       `
             )
