@@ -8,7 +8,7 @@ import LifeTimeCalculatorComponent from '@/components/life-time-calculator/lifeT
 import Footer from '@/components/Footer.vue'
 ---
 
-<Layout title="Life Time Calculator" description='find out how long you have lived for?' ogImage={`https://vercel-sse-obdb.vercel.app/api/life-time?gente=${Astro.url.toString().match(/gente=([^&]*)/)?.[1]}`} ogImageCustom={true}>
+<Layout title="Life Time Calculator" description='find out how long you have lived for?' ogImage={`https://sse.tools.typinks.com/api/life-time?gente=${Astro.url.toString().match(/gente=([^&]*)/)?.[1]}`} ogImageCustom={true}>
   <Navbar client:load />
   <LifeTimeCalculatorComponent client:only="vue" />
   <Footer client:only="vue" />

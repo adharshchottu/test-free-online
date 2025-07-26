@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { AlertCircle, AlertTriangle, BadgeCheck, Info } from 'lucide-react';
 
 export const SSETester = () => {
-  const [url, setUrl] = useState('https://vercel-sse-obdb.vercel.app/api/story');
+  const [url, setUrl] = useState('https://sse.tools.typinks.com/api/story');
   const [messages, setMessages] = useState([]);
   const [story, setStory] = useState([]);
   const [storyMode, setStoryMode] = useState(true);

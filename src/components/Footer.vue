@@ -116,7 +116,7 @@ export default {
         const fetchUserCount = async () => {
             try {
                 const response = await fetch(
-                    `https://users-count-server.vercel.app/api/count-user?url=${encodeURIComponent(
+                    `https://users-count.tools.typinks.com/api/count-user?url=${encodeURIComponent(
                         window.location.href
                     )}`
                 );

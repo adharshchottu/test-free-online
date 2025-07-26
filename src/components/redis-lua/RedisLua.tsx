@@ -27,9 +27,7 @@ const LuaScriptExecutor: React.FC = () => {
         setResult([]);
 
         try {
-            const regex = /,(?![^\[]*\])/;
-            // Split the string based on the regex and trim each result
-            const response = await fetch('https://redis-lua-server.vercel.app/api/redis-lua', {
+            const response = await fetch('https://redis-lua.tools.typinks.com/api/redis-lua', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
