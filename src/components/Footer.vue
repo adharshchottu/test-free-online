@@ -121,9 +121,11 @@ export default {
                     )}`
                 );
                 if (!response.ok) {
+                    console.error("Network response was not ok");
                     throw new Error("Network response was not ok");
                 }
                 const data = await response.json();
+                console.log("User count data:", data);
                 userCount.value = JSON.parse(data.data).count;
             } catch (error) {
                 console.error("Error fetching user count:", error);
