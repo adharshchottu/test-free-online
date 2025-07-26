@@ -29,12 +29,6 @@
                                 </div> {{ userCount }}
                             </dd>
                         </div>
-                        <div class="w-36 mx-auto lg:mx-0">
-                            <a class="inline-block w-10 h-10 mr-2 p-2 pt-[0.55rem] outlined-button"
-                                href="mailto:admin@test-free.online" aria-label="Mail">
-                                <MailIcon />
-                            </a>
-                        </div>
                     </div>
                     <div class="w-full lg:w-2/3 lg:pl-16 flex flex-wrap items-start gap-8">
                         <FooterSection v-for="(section, index) in footerData" :key="index" :title="section.title"
@@ -122,7 +116,7 @@ export default {
         const fetchUserCount = async () => {
             try {
                 const response = await fetch(
-                    `https://users-count-server.test-free.online/api/count-user?url=${encodeURIComponent(
+                    `https://users-count-server.vercel.app/api/count-user?url=${encodeURIComponent(
                         window.location.href
                     )}`
                 );
