@@ -29,8 +29,7 @@ const LuaScriptExecutor: React.FC = () => {
         try {
             const regex = /,(?![^\[]*\])/;
             // Split the string based on the regex and trim each result
-            const splitArgs = args.split(regex).map(arg => arg.trim());
-            const response = await fetch('https://redis-server.test-free.online/api/redis-lua', {
+            const response = await fetch('https://redis-lua-server.vercel.app/api/redis-lua', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -39,7 +38,6 @@ const LuaScriptExecutor: React.FC = () => {
             });
 
             const data: ExecutionResponse = await response.json();
-            console.log(data.data);
             setStatusCode(response.status);
 
             if (!response.ok) {
