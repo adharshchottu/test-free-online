@@ -8,9 +8,7 @@ const navbarLinks = [
   { label: "Typinks", href: "/typinks-poster-generator", ariaLabel: "Typinks" },
   { label: "Kroenger", href: "/kroenger-poster-generator", ariaLabel: "Kroenger" },
   { label: "SSE", href: "/sse", ariaLabel: "SSE" },
-  { label: "Slide Puzzle", href: "/slide-puzzle", ariaLabel: "Slide Puzzle" },
   { label: "Redis Lua", href: "/redis-lua", ariaLabel: "Redis Lua" },
-  { label: "Sudoku", href: "/sudoku", ariaLabel: "Sudoku" },
 ];
 
 export const Navbar = () => {
