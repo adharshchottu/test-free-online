@@ -45,6 +45,7 @@ const Kroenger = () => {
     const [selected, setSelected] = useState({});
     const [selectSvgIcon, setSelectSvgIcon] = useState('');
     const [svgIcon, setSvgIcon] = useState('');
+    const [selectedFile, setSelectedFile] = useState(null);
     const [date, setDate] = useState(formattedDate);
     const [displayDate, setDisplayDate] = useState('01 AUG 2024');
 
@@ -99,6 +100,21 @@ const Kroenger = () => {
 
         }
     }, [selectSvgIcon]);
+
+    useEffect(() => {
+        if (selectedFile) {
+            const reader = new FileReader();
+            reader.readAsDataURL(selectedFile);
+            reader.onload = (e) => {
+                const img = new window.Image();
+                img.src = e.target.result;
+                img.crossOrigin = 'Anonymous';
+                img.onload = () => {
+                    setImage(img);
+                };
+            };
+        }
+    }, [selectedFile]);
 
     useEffect(() => {
         const ima = new window.Image();
@@ -504,7 +520,30 @@ const Kroenger = () => {
                             </div>
                         </div>
                         <div className='my-2'>
-                            <Unsplash setSelectedImage={setSelectedImage} />
+                            <div className="mb-4">
+                                <label htmlFor="imageUpload" className="block text-sm font-medium leading-6 text-white mb-2">
+                                    Upload Your Own Image
+                                </label>
+                                <input
+                                    id="imageUpload"
+                                    type="file"
+                                    accept="image/*"
+                                    className="block w-full rounded-md border-0 p-2 text-white ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                                    onChange={(e) => {
+                                        setSelectedFile(e.target.files[0]);
+                                        // Clear Unsplash selection when user uploads a file
+                                        setSelectedImage(null);
+                                    }}
+                                />
+                            </div>
+                            <div className="mb-4">
+                                <p className="text-white text-sm font-medium mb-2">Or search from Unsplash:</p>
+                                <Unsplash setSelectedImage={(imageUrl) => {
+                                    setSelectedImage(imageUrl);
+                                    // Clear file upload when user selects from Unsplash
+                                    setSelectedFile(null);
+                                }} />
+                            </div>
                         </div>
                     </div>
                 </div>
