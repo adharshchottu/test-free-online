@@ -33,6 +33,22 @@ const Typinks = () => {
     const [uploadedImage, setUploadedImage] = useState(null);
     const [date, setDate] = useState(formattedDate);
 
+    // Add confirmation before page reload/exit
+    useEffect(() => {
+        const handleBeforeUnload = (event) => {
+            const message = 'Are you sure you want to leave? Your poster progress will be lost.';
+            event.preventDefault();
+            event.returnValue = message;
+            return message;
+        };
+
+        window.addEventListener('beforeunload', handleBeforeUnload);
+
+        return () => {
+            window.removeEventListener('beforeunload', handleBeforeUnload);
+        };
+    }, []);
+
     useEffect(() => {
         const img = new window.Image();
         img.src = background.src;
