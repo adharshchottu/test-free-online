@@ -13,6 +13,7 @@ export const GET: APIRoute = async ({ site }) => {
         { loc: `${baseUrl}/slide-puzzle/`, changefreq: "daily" },
         { loc: `${baseUrl}/sse/`, changefreq: "daily" },
         { loc: `${baseUrl}/sudoku/`, changefreq: "daily" },
+        { loc: `${baseUrl}/text-editor/`, changefreq: "daily" },
         { loc: `${baseUrl}/typinks-poster-generator/`, changefreq: "daily" },
 
         // Pages from src/pages/blog
@@ -24,6 +25,7 @@ export const GET: APIRoute = async ({ site }) => {
         { loc: `${baseUrl}/blog/comment-utiliser-le-generateur-affiches-kroenger-en-ligne/`, changefreq: "daily" },
         { loc: `${baseUrl}/blog/comment-utiliser-le-generateur-affiches-typinks-en-ligne/`, changefreq: "daily" },
         { loc: `${baseUrl}/blog/comment-utiliser-le-testeur-en-ligne-de-script-lua-redis/`, changefreq: "daily" },
+        { loc: `${baseUrl}/blog/comment-utiliser-editeur-texte-en-ligne-gratuit/`, changefreq: "daily" },
         { loc: `${baseUrl}/blog/how-to-play-slide-puzzle-game-online/`, changefreq: "daily" },
         { loc: `${baseUrl}/blog/how-to-play-sudoku-online-free-unlimited/`, changefreq: "daily" },
         { loc: `${baseUrl}/blog/how-to-test-redis-lua-script-online/`, changefreq: "daily" },
@@ -31,6 +33,7 @@ export const GET: APIRoute = async ({ site }) => {
         { loc: `${baseUrl}/blog/how-to-use-kroenger-poster-generator-online/`, changefreq: "daily" },
         { loc: `${baseUrl}/blog/how-to-use-life-time-calculator-online/`, changefreq: "daily" },
         { loc: `${baseUrl}/blog/how-to-use-prelims-marks-calculator-online/`, changefreq: "daily" },
+        { loc: `${baseUrl}/blog/how-to-use-free-online-text-editor/`, changefreq: "daily" },
         { loc: `${baseUrl}/blog/how-to-use-typinks-poster-generator-online/`, changefreq: "daily" },
     ];
 
