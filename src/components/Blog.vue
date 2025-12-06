@@ -43,6 +43,7 @@ import kroengerPosterGenerator from "../assets/images/thumbnail/kroenger-poster-
 import prelimsMarksCalculator from "../assets/images/thumbnail/prelims-marks-calculator.png";
 import slidePuzzleGame from "../assets/images/thumbnail/slide-puzzle.png";
 import sudoku from "../assets/images/thumbnail/sudoku.png";
+import textEditor from "../assets/images/thumbnail/simple-text-editor.png";
 
 export default {
     name: "Blog",
@@ -161,6 +162,20 @@ export default {
                         "Maîtrisez le puzzle Sudoku 9x9 classique avec des jeux gratuits illimités. Améliorez votre logique et vos compétences de résolution de problèmes.",
                     image: sudoku,
                     link: 'comment-jouer-au-sudoku-en-ligne-gratuit-illimite'
+                },
+                {
+                    title: "How to use Free Online Text Editor",
+                    subtitle:
+                        "Write, edit, and format text online with our simple text editor. Features word count, character count, and basic formatting - no signup required.",
+                    image: textEditor,
+                    link: 'how-to-use-free-online-text-editor'
+                },
+                {
+                    title: "Comment utiliser l'éditeur de texte en ligne gratuit",
+                    subtitle:
+                        "Écrivez, éditez et formatez du texte en ligne avec notre éditeur simple. Compteur de mots, de caractères et formatage de base - aucune inscription requise.",
+                    image: textEditor,
+                    link: 'comment-utiliser-editeur-texte-en-ligne-gratuit'
                 }
             ],
         };

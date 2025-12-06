@@ -1,0 +1,370 @@
+---
+import { Image } from "astro:assets";
+import { Navbar } from "../../components/Navbar";
+import { ScrollUpButton } from "../../components/ScrollUpButton";
+import Layout from "../../layouts/Layout.astro";
+import Footer from "@/components/Footer.vue";
+import textEditorBannerImage from "../../assets/images/blog/simple-text-editor.png";
+---
+
+<Layout
+  title="Comment utiliser l'éditeur de texte en ligne gratuit"
+  ogImage="blog/simple-text-editor.png"
+  description="Découvrez la façon la plus simple d'écrire, éditer et formater du texte en ligne. Éditeur de texte gratuit avec compteur de mots, de caractères et formatage de base. Aucune inscription requise, fonctionne dans votre navigateur."
+  lang="fr"
+>
+  <Navbar client:load />
+  <div class="flex justify-center bg-bgDark2 relative pt-2">
+    <div class="px-2 sm:px-4">
+      <article
+        class="p-8 text-center rounded-3xl w-full lg:w-[1200px] 2xl:w-[1400px] mb-24 mt-16 sm:mt-24"
+      >
+        <header class="mb-12">
+          <div class="text-sm text-secondaryText my-4">6 Décembre 2025</div>
+          <h1
+            class="text-6xl lg:text-7xl xl:text-8xl font-bold tracking-tight leading-none mb-6 bg-gradient-to-r from-white via-purple-200 to-pink-400 bg-clip-text text-transparent"
+          >
+            Éditeur de Texte en Ligne Gratuit
+          </h1>
+          <h2 class="text-2xl text-gray-300">
+            Éditeur de texte simple et léger avec compteur de mots et formatage de base
+          </h2>
+        </header>
+
+        <Image
+          src={textEditorBannerImage}
+          alt="Éditeur de Texte en Ligne Gratuit"
+          class="rounded-xl mb-8 md:w-2/4 mx-auto mt-8"
+        />
+
+        <section
+          class="text-secondaryText !leading-8 sm:!leading-10 sm:text-xl text-left sm:text-justify mx-auto w-full md:w-10/12 lg:w-2/3 mt-16"
+        >
+          <a
+            href="https://tools.typinks.com/text-editor/"
+            target="_blank"
+            class="text-pink-400 font-bold">L'éditeur de texte en ligne gratuit</a
+          > offre un environnement d'écriture propre et sans distraction directement
+          dans votre navigateur. Que vous rédigiez une note rapide, écriviez un
+          article ou prépariez du contenu, cet éditeur de texte léger propose des
+          fonctionnalités essentielles comme le compteur de mots en temps réel, le
+          compteur de caractères et le formatage de texte de base sans la lourdeur
+          des traitements de texte complexes. Pas d'installation, pas d'inscription
+          - ouvrez simplement et commencez à taper.
+
+          <h3 class="text-white text-2xl my-4">
+            Qu'est-ce que l'éditeur de texte en ligne gratuit ?
+          </h3>
+          <p>
+            L'éditeur de texte en ligne gratuit est un outil d'édition de texte
+            minimaliste basé sur navigateur, conçu pour la simplicité et
+            l'efficacité. Il fournit des outils d'écriture essentiels incluant
+            le comptage de caractères, le comptage de mots, le comptage de
+            lignes et le formatage de texte de base (gras, italique,
+            souligné). Votre travail est automatiquement sauvegardé dans le
+            stockage local de votre navigateur, vous ne perdez donc jamais
+            votre progression.
+          </p>
+
+          <h3 class="text-white text-2xl my-4">Fonctionnalités Clés</h3>
+          <ul class="list-disc list-inside space-y-2 my-4">
+            <li>
+              <strong>Statistiques en Temps Réel :</strong> Compteur de caractères,
+              mots et lignes en direct pendant que vous tapez
+            </li>
+            <li>
+              <strong>Formatage de Base :</strong> Formatage de texte en gras, italique
+              et souligné avec raccourcis clavier
+            </li>
+            <li>
+              <strong>Sauvegarde Automatique :</strong> Votre texte est automatiquement
+              sauvegardé dans le stockage local
+            </li>
+            <li>
+              <strong>Copie en Un Clic :</strong> Copiez tout le texte dans le presse-papiers
+              instantanément
+            </li>
+            <li>
+              <strong>Téléchargement en .txt :</strong> Sauvegardez votre travail
+              comme fichier texte en un clic
+            </li>
+            <li>
+              <strong>Interface Claire :</strong> Environnement d'écriture sans distraction
+              avec thème sombre
+            </li>
+            <li>
+              <strong>Raccourcis Clavier :</strong> Ctrl+B (Gras), Ctrl+I (Italique),
+              Ctrl+U (Souligné)
+            </li>
+            <li>
+              <strong>Aucune Inscription Requise :</strong> Commencez à utiliser immédiatement
+              sans créer de compte
+            </li>
+          </ul>
+
+          <h3 class="text-white text-2xl my-4">
+            Comment utiliser l'éditeur de texte en ligne
+          </h3>
+
+          <h4 class="text-white text-xl my-3">Étape 1 : Commencer à Taper</h4>
+          <p>
+            Cliquez simplement dans la zone de texte et commencez à taper.
+            L'éditeur fournit une zone d'écriture propre et spacieuse qui
+            s'étend automatiquement au fur et à mesure que vous écrivez. Vos
+            statistiques de texte (caractères, mots, lignes) se mettent à jour
+            en temps réel en haut de la page.
+          </p>
+
+          <h4 class="text-white text-xl my-3">
+            Étape 2 : Formater Votre Texte
+          </h4>
+          <p>
+            Sélectionnez n'importe quel texte et cliquez sur les boutons de
+            formatage pour appliquer le formatage gras (**texte**), italique
+            (*texte*) ou souligné (_texte_). Vous pouvez également utiliser les
+            raccourcis clavier : Ctrl+B pour le gras, Ctrl+I pour l'italique et
+            Ctrl+U pour le souligné. Le formatage utilise une syntaxe de style
+            Markdown.
+          </p>
+
+          <h4 class="text-white text-xl my-3">
+            Étape 3 : Sauvegarder ou Copier Votre Travail
+          </h4>
+          <p>
+            Votre texte est automatiquement sauvegardé dans le stockage local
+            de votre navigateur, vous pouvez donc fermer l'onglet et revenir
+            plus tard pour continuer là où vous vous êtes arrêté. Pour partager
+            votre texte, cliquez sur "Copier" pour tout copier dans votre
+            presse-papiers, ou cliquez sur "Télécharger" pour l'enregistrer en
+            tant que fichier .txt sur votre ordinateur.
+          </p>
+
+          <h4 class="text-white text-xl my-3">Étape 4 : Effacer Lorsque Terminé</h4>
+          <p>
+            Lorsque vous êtes prêt à recommencer, cliquez sur le bouton
+            "Effacer". Il vous sera demandé de confirmer avant que tout le
+            texte ne soit supprimé, évitant ainsi la perte accidentelle de
+            données.
+          </p>
+
+          <h3 class="text-white text-2xl my-4">
+            Pourquoi utiliser un éditeur de texte en ligne ?
+          </h3>
+
+          <h4 class="text-white text-xl my-3">Accès Instantané</h4>
+          <p>
+            Pas besoin de télécharger ou d'installer de logiciel. Ouvrez votre
+            navigateur et commencez à écrire immédiatement. Parfait pour les
+            notes rapides lorsque vous êtes sur l'ordinateur de quelqu'un
+            d'autre ou un appareil public.
+          </p>
+
+          <h4 class="text-white text-xl my-3">Léger et Rapide</h4>
+          <p>
+            Contrairement aux lourds traitements de texte comme Microsoft Word
+            ou Google Docs, cet éditeur de texte se charge instantanément et
+            utilise des ressources système minimales. Il est conçu pour
+            l'écriture pure sans distractions.
+          </p>
+
+          <h4 class="text-white text-xl my-3">Comptage de Mots Facile</h4>
+          <p>
+            Les écrivains, étudiants et professionnels ont souvent besoin de
+            suivre le nombre de mots pour les essais, articles ou devoirs. Cet
+            éditeur vous montre des statistiques en temps réel pour que vous
+            sachiez exactement où vous en êtes sans comptage manuel.
+          </p>
+
+          <h4 class="text-white text-xl my-3">
+            Compatibilité Multi-Appareils
+          </h4>
+          <p>
+            Fonctionne sur n'importe quel appareil avec un navigateur web -
+            ordinateur de bureau, portable, tablette ou smartphone. La
+            conception responsive assure une écriture confortable sur n'importe
+            quelle taille d'écran.
+          </p>
+
+          <h3 class="text-white text-2xl my-4">Cas d'Utilisation Courants</h3>
+
+          <h4 class="text-white text-xl my-3">Rédaction de Contenu</h4>
+          <p>
+            Rédigez des articles de blog, des articles ou du contenu pour les
+            réseaux sociaux sans distractions de formatage. La fonction de
+            comptage de mots vous aide à atteindre les longueurs cibles pour le
+            référencement ou les exigences de plateforme.
+          </p>
+
+          <h4 class="text-white text-xl my-3">Prise de Notes</h4>
+          <p>
+            Notez rapidement des notes pendant les réunions, les cours ou les
+            sessions de brainstorming. La fonction de sauvegarde automatique
+            garantit que vous ne perdrez pas d'informations importantes.
+          </p>
+
+          <h4 class="text-white text-xl my-3">Rédaction d'Essais</h4>
+          <p>
+            Les étudiants peuvent rédiger des essais et suivre les exigences de
+            nombre de mots en temps réel. L'interface claire aide à maintenir
+            la concentration sur l'écriture plutôt que sur le formatage.
+          </p>
+
+          <h4 class="text-white text-xl my-3">Planification de Code</h4>
+          <p>
+            Les développeurs peuvent l'utiliser pour rédiger du pseudocode,
+            planifier des algorithmes ou écrire de la documentation technique
+            avant de l'implémenter dans leur IDE.
+          </p>
+
+          <h4 class="text-white text-xl my-3">Travail de Traduction</h4>
+          <p>
+            Les traducteurs peuvent coller le texte source, travailler sur les
+            traductions et suivre le nombre de caractères/mots à des fins de
+            facturation.
+          </p>
+
+          <h3 class="text-white text-2xl my-4">
+            Conseils pour une Utilisation Efficace
+          </h3>
+
+          <h4 class="text-white text-xl my-3">
+            Utiliser les Raccourcis Clavier
+          </h4>
+          <p>
+            Maîtrisez les raccourcis clavier (Ctrl+B, Ctrl+I, Ctrl+U) pour
+            accélérer votre flux de travail de formatage. Cela garde vos mains
+            sur le clavier et maintient votre flux d'écriture.
+          </p>
+
+          <h4 class="text-white text-xl my-3">Téléchargements Réguliers</h4>
+          <p>
+            Bien que l'éditeur sauvegarde automatiquement dans le stockage
+            local, c'est une bonne pratique de télécharger périodiquement votre
+            travail en tant que sauvegarde, surtout pour les documents
+            importants.
+          </p>
+
+          <h4 class="text-white text-xl my-3">
+            Effacer le Cache du Navigateur avec Précaution
+          </h4>
+          <p>
+            N'oubliez pas que votre texte sauvegardé automatiquement est stocké
+            dans le stockage local du navigateur. Si vous effacez le cache de
+            votre navigateur ou utilisez le mode privé/incognito, votre texte
+            sauvegardé sera perdu. Téléchargez d'abord le travail important.
+          </p>
+
+          <h4 class="text-white text-xl my-3">Surveiller Vos Statistiques</h4>
+          <p>
+            Gardez un œil sur le nombre de caractères et de mots pour rester
+            dans les limites des plateformes comme Twitter, LinkedIn ou les
+            devoirs académiques qui ont des exigences spécifiques.
+          </p>
+
+          <h3 class="text-white text-2xl my-4">Confidentialité et Sécurité</h3>
+          <p>
+            Votre texte ne quitte jamais votre navigateur. Tout est stocké
+            localement sur votre appareil en utilisant le stockage local du
+            navigateur. Aucune donnée n'est envoyée à un serveur, garantissant
+            une confidentialité complète pour les documents sensibles, les
+            notes personnelles ou les brouillons confidentiels.
+          </p>
+
+          <h3 class="text-white text-2xl my-4">
+            Comparaison avec d'Autres Éditeurs de Texte
+          </h3>
+
+          <h4 class="text-white text-xl my-3">vs. Microsoft Word</h4>
+          <p>
+            Word est puissant mais lourd. Cet éditeur de texte en ligne est
+            léger, se charge instantanément et ne nécessite pas d'installation
+            ou d'abonnement. Parfait pour les tâches d'écriture simples sans la
+            complexité.
+          </p>
+
+          <h4 class="text-white text-xl my-3">vs. Google Docs</h4>
+          <p>
+            Google Docs nécessite un compte Google et une connexion Internet
+            pour la synchronisation. Cet éditeur de texte fonctionne
+            complètement hors ligne après le chargement, ne nécessite aucun
+            compte et garde vos données privées sur votre appareil.
+          </p>
+
+          <h4 class="text-white text-xl my-3">vs. Bloc-notes</h4>
+          <p>
+            Le Bloc-notes est basique mais manque de fonctionnalités comme le
+            comptage de mots, le formatage et la sauvegarde automatique. Cet
+            éditeur offre plus de fonctionnalités tout en restant aussi simple
+            à utiliser.
+          </p>
+
+          <h3 class="text-white text-2xl my-4">Spécifications Techniques</h3>
+          <ul class="list-disc list-inside space-y-2 my-4">
+            <li>
+              Construit avec des technologies web modernes pour des performances
+              optimales
+            </li>
+            <li>Design responsive fonctionne sur des écrans de 320px à 4K</li>
+            <li>
+              Sauvegarde automatique en stockage local à chaque fois que vous
+              tapez
+            </li>
+            <li>Syntaxe de formatage de style Markdown</li>
+            <li>Pas de cookies, pas de suivi, pas de collecte de données</li>
+            <li>
+              Fonctionne dans tous les navigateurs modernes (Chrome, Firefox,
+              Safari, Edge)
+            </li>
+          </ul>
+
+          <h3 class="text-white text-2xl my-4">Améliorations Futures</h3>
+          <p>
+            Bien que la version actuelle se concentre sur la simplicité, les
+            fonctionnalités futures potentielles incluent : la vérification
+            orthographique, plus d'options de formatage (listes, titres), la
+            fonctionnalité rechercher et remplacer, l'exportation vers
+            plusieurs formats (PDF, Markdown) et des thèmes personnalisables.
+          </p>
+
+          <h3 class="text-white text-2xl my-4">Conclusion</h3>
+          <p>
+            L'éditeur de texte en ligne gratuit est votre outil de référence
+            pour l'édition de texte rapide et simple sans la lourdeur des
+            traitements de texte traditionnels. Avec des statistiques en temps
+            réel, un formatage de base, une sauvegarde automatique et une
+            confidentialité complète, il est parfait pour les écrivains, les
+            étudiants, les professionnels et tous ceux qui ont besoin d'une
+            solution d'édition de texte fiable. Commencez à l'utiliser
+            aujourd'hui sur{" "}
+            <a
+              href="https://tools.typinks.com/text-editor/"
+              target="_blank"
+              class="text-pink-400 font-bold"
+              >tools.typinks.com/text-editor</a
+            > et découvrez l'écriture sans distraction à son meilleur.
+          </p>
+
+          <div class="mt-12 p-6 bg-bgDark3 rounded-xl border border-gray-700">
+            <h4 class="text-white text-xl mb-4">
+              Prêt à Commencer à Écrire ?
+            </h4>
+            <p class="mb-4">
+              Pas d'inscription, pas d'installation - ouvrez simplement et
+              tapez. Essayez l'éditeur de texte en ligne gratuit maintenant et
+              découvrez à quel point l'écriture peut être simple.
+            </p>
+            <a
+              href="https://tools.typinks.com/text-editor/"
+              target="_blank"
+              class="inline-block px-6 py-3 bg-gradient-to-r from-purple-500 to-pink-500 text-white font-semibold rounded-lg hover:from-purple-600 hover:to-pink-600 transition-all"
+            >
+              Lancer l'Éditeur de Texte
+            </a>
+          </div>
+        </section>
+      </article>
+    </div>
+  </div>
+  <ScrollUpButton client:load />
+  <Footer client:only="vue" />
+</Layout>
