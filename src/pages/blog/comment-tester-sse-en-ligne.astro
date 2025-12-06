@@ -13,6 +13,11 @@ import Footer from "@/components/Footer.vue";
   ogImage="blog/test-sse-online.png"
   description="SSE permet à un serveur d'envoyer des mises à jour en temps réel au navigateur sans que celui-ci les demande."
   lang="fr"
+  keywords="testeur SSE, server-sent events, tester SSE en ligne, débogage SSE, mises à jour temps réel, outils développement web, test API SSE"
+  author="Typinks Tools"
+  publishedDate="2024-08-29"
+  modifiedDate="2024-08-29"
+  articleSchema={true}
 >
   <Navbar client:load />
   <div class="flex justify-center bg-bgDark2 relative pt-2">
@@ -34,7 +39,7 @@ import Footer from "@/components/Footer.vue";
         </header>
         <Image
           src={sseBannerImage}
-          alt="SSE Tester"
+          alt="Testeur SSE en Ligne - Outil de Test Server-Sent Events pour Mises à Jour Temps Réel"
           class="rounded-xl mb-8 md:w-2/4 mx-auto mt-8"
         />
         <section
@@ -49,7 +54,7 @@ import Footer from "@/components/Footer.vue";
           utiliser l'application étape par étape. Pas de souci si vous débutez avec
           SSE ; ce guide vous accompagnera facilement dans toutes les étapes.
 
-          <h3 class="text-white text-2xl my-4">Qu'est-ce que le SSE ?</h3>
+          <h2 class="text-white text-2xl my-4">Qu'est-ce que le SSE ?</h2>
 
           SSE (Server-Sent Events) permet à un serveur d'envoyer des mises à
           jour en temps réel au navigateur sans que celui-ci les demande. Il est
@@ -59,17 +64,17 @@ import Footer from "@/components/Footer.vue";
 
           <h2 class="text-white text-3xl my-4">Commencer</h2>
 
-          <h3 class="text-white text-2xl my-4">
+          <h2 class="text-white text-2xl my-4">
             Étape 1 : Ouvrir <a
               href="https://tools.typinks.com/sse/"
               target="_blank"
               class="text-teal-400 font-bold">l'application</a
             >
-          </h3>
+          </h2>
           Lorsque vous ouvrez l'application, vous verrez une interface simple avec
           quelques champs de saisie et des boutons.
 
-          <h3 class="text-white text-2xl my-4">Étape 2 : Saisir l'URL SSE</h3>
+          <h2 class="text-white text-2xl my-4">Étape 2 : Saisir l'URL SSE</h2>
           En haut de l'application, il y a une zone de texte qui dit "Entrer l'URL
           SSE". C'est là que vous allez insérer l'URL du flux SSE que vous souhaitez
           tester. Si vous n'êtes pas sûr, une bonne URL de départ pourrait être <span
@@ -77,16 +82,16 @@ import Footer from "@/components/Footer.vue";
             >https://sse.tools.typinks.com/api/story</span
           >, qui est l'URL par défaut dans l'application.
 
-          <h3 class="text-white text-2xl my-4">
+          <h2 class="text-white text-2xl my-4">
             Étape 3 : Se connecter au flux SSE
-          </h3>
+          </h2>
           Une fois que vous avez entré l'URL, cliquez sur le bouton "Connecter".
           L'application essaiera de se connecter au serveur et de commencer à recevoir
           les messages. Si la connexion est réussie, vous verrez un statut "Connecté".
           S'il y a des problèmes de connexion, l'application affichera un message
           d'erreur.
 
-          <h3 class="text-white text-2xl my-4">Étape 4 : Voir les messages</h3>
+          <h2 class="text-white text-2xl my-4">Étape 4 : Voir les messages</h2>
           Une fois connecté, vous verrez les messages du serveur affichés dans la
           boîte de message. Les messages apparaîtront en temps réel au fur et à mesure
           qu'ils sont envoyés par le serveur.
@@ -109,7 +114,7 @@ import Footer from "@/components/Footer.vue";
             client:visible
           />
 
-          <h3 class="text-white text-2xl my-4">Étape 5 : Déconnecter</h3>
+          <h2 class="text-white text-2xl my-4">Étape 5 : Déconnecter</h2>
           Lorsque vous avez terminé, cliquez simplement sur le bouton "Déconnecter".
           Cela fermera la connexion au serveur.
 
@@ -131,9 +136,9 @@ import Footer from "@/components/Footer.vue";
             client:visible
           />
 
-          <h3 class="text-white text-2xl my-4">
+          <h2 class="text-white text-2xl my-4">
             Récapitulatif des fonctionnalités
-          </h3>
+          </h2>
           <ListItem
             list={[
               {

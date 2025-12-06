@@ -12,6 +12,11 @@ import Footer from "@/components/Footer.vue";
   title="How to Use Redis Lua Script Online Tester"
   ogImage="blog/redis-lua-script-online.png"
   description="Learn how to test and debug Redis Lua scripts easily with this interactive online tool."
+  keywords="redis lua, lua script tester, test redis lua online, redis debugging, lua scripting, redis commands, redis online tool"
+  author="Typinks Tools"
+  publishedDate="2024-08-29"
+  modifiedDate="2024-08-29"
+  articleSchema={true}
 >
   <Navbar client:load />
   <div class="flex justify-center bg-bgDark2 relative pt-2">
@@ -33,8 +38,8 @@ import Footer from "@/components/Footer.vue";
         </header>
         <Image
           src={redisBannerImage}
-          alt="Redis Lua Script Online Tester"
-          class="rounded-xl mb-8 w-full md:w-2/4 mx-auto mt-8"
+          alt="Redis Lua Script Online Tester - Debug and Test Redis Lua Scripts in Browser"
+          class="rounded-xl mb-8 md:w-2/4 mx-auto mt-8"
         />
         <section
           class="text-secondaryText !leading-8 sm:!leading-10 sm:text-xl text-left sm:text-justify mx-auto w-full md:w-10/12 lg:w-2/3 mt-16"
@@ -48,9 +53,9 @@ import Footer from "@/components/Footer.vue";
           in real-time. This guide walks you through how to use the app and addresses
           potential edge cases to watch out for.
 
-          <h3 class="text-white text-2xl my-4">Step-by-Step Guide</h3>
+          <h2 class="text-white text-2xl my-4">Step-by-Step Guide</h2>
 
-          <h3 class="text-white text-2xl my-4">Step 1: Open the Tester App</h3>
+          <h2 class="text-white text-2xl my-4">Step 1: Open the Tester App</h2>
           Visit the <a
             href="https://tools.typinks.com/redis-lua/"
             target="_blank"
@@ -59,9 +64,9 @@ import Footer from "@/components/Footer.vue";
           > to start. You'll see an interface with a Lua script editor, an arguments
           input field, and a result display panel.
 
-          <h3 class="text-white text-2xl my-4">
+          <h2 class="text-white text-2xl my-4">
             Step 2: Write Your Lua Script
-          </h3>
+          </h2>
           Use the built-in editor to write your Redis Lua script. The editor supports
           syntax highlighting, making it easier to identify errors in your code.
           For example:
@@ -70,7 +75,7 @@ import Footer from "@/components/Footer.vue";
             return ARGV[1]
           </pre>
 
-          <h3 class="text-white text-2xl my-4">Step 3: Enter Arguments</h3>
+          <h2 class="text-white text-2xl my-4">Step 3: Enter Arguments</h2>
           In the <b>Arguments</b> input field, add your script's arguments as a comma-separated
           list. For example:
 
@@ -80,11 +85,11 @@ import Footer from "@/components/Footer.vue";
           </pre>
           These arguments will be passed as the <code>`ARGV`</code> array to your script.
 
-          <h3 class="text-white text-2xl my-4">Step 4: Execute the Script</h3>
+          <h2 class="text-white text-2xl my-4">Step 4: Execute the Script</h2>
           Click the <b>Execute Script</b> button to run the Lua script. The app sends
           your script and arguments to a Redis server and retrieves the results.
 
-          <h3 class="text-white text-2xl my-4">Step 5: View the Results</h3>
+          <h2 class="text-white text-2xl my-4">Step 5: View the Results</h2>
           Check the output in the <b>Result Panel</b>:
           <ListItem
             list={[
@@ -102,7 +107,7 @@ import Footer from "@/components/Footer.vue";
             client:visible
           />
 
-          <h3 class="text-white text-2xl my-4">Technical Edge Cases</h3>
+          <h2 class="text-white text-2xl my-4">Technical Edge Cases</h2>
           <ListItem
             list={[
               {
@@ -129,7 +134,7 @@ import Footer from "@/components/Footer.vue";
             client:visible
           />
 
-          <h3 class="text-white text-2xl my-4">Features Recap</h3>
+          <h2 class="text-white text-2xl my-4">Features Recap</h2>
           <ListItem
             list={[
               {

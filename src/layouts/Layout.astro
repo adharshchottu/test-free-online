@@ -13,6 +13,11 @@ export interface Props {
   ogImage?: string;
   ogImageCustom?: boolean;
   lang?: string;
+  author?: string;
+  publishedDate?: string;
+  modifiedDate?: string;
+  keywords?: string;
+  articleSchema?: boolean;
 }
 
 const {
@@ -20,7 +25,12 @@ const {
   ogImage = "test-free-online.png",
   description = "Test online tools for free",
   ogImageCustom = false,
-  lang="en"
+  lang="en",
+  author = "Typinks Tools",
+  publishedDate,
+  modifiedDate,
+  keywords,
+  articleSchema = false
 } = Astro.props;
 
 const modifiedOgImage = ogImageCustom ? ogImage : `${Astro.url.origin}/${ogImage}`;
@@ -49,16 +59,56 @@ import  SpeedInsights  from "@vercel/speed-insights/astro"
     <link rel="sitemap" href="/sitemap-index.xml" />
     <title>{title}</title>
 
+    <!-- Canonical URL -->
+    <link rel="canonical" href={Astro.url.href} />
+
+    <!-- Basic Meta Tags -->
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
     <meta property="og:image" content={modifiedOgImage} />
     <meta property="og:url" content={Astro.url.toString()} />
-    <meta property="og:type" content="website" />
+    <meta property="og:type" content={articleSchema ? "article" : "website"} />
 
+    <!-- Twitter Card -->
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content={title} />
     <meta name="twitter:description" content={description} />
     <meta name="twitter:image" content={modifiedOgImage} />
+
+    {author && <meta name="author" content={author} />}
+    {keywords && <meta name="keywords" content={keywords} />}
+    {publishedDate && <meta property="article:published_time" content={publishedDate} />}
+    {modifiedDate && <meta property="article:modified_time" content={modifiedDate} />}
+    {articleSchema && <meta property="article:author" content={author} />}
+
+    {articleSchema && publishedDate && (
+      <script type="application/ld+json" set:html={JSON.stringify({
+        "@context": "https://schema.org",
+        "@type": "Article",
+        "headline": title,
+        "description": description,
+        "image": modifiedOgImage,
+        "datePublished": publishedDate,
+        "dateModified": modifiedDate || publishedDate,
+        "author": {
+          "@type": "Organization",
+          "name": author,
+          "url": Astro.url.origin
+        },
+        "publisher": {
+          "@type": "Organization",
+          "name": "Typinks Tools",
+          "logo": {
+            "@type": "ImageObject",
+            "url": `${Astro.url.origin}/favicon.svg`
+          }
+        },
+        "mainEntityOfPage": {
+          "@type": "WebPage",
+          "@id": Astro.url.href
+        }
+      })} />
+    )}
   </head>
   <body class="bg-bgDark2">
     <main aria-label="Main content">

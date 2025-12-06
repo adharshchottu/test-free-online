@@ -13,6 +13,11 @@ import Footer from "@/components/Footer.vue";
   ogImage="blog/redis-lua-script-online.png"
   description="Apprenez à tester et déboguer facilement les scripts Lua Redis avec cet outil interactif en ligne."
   lang="fr"
+  keywords="redis lua, testeur script lua, tester redis lua en ligne, débogage redis, script lua, commandes redis, outil redis en ligne"
+  author="Typinks Tools"
+  publishedDate="2024-08-29"
+  modifiedDate="2024-08-29"
+  articleSchema={true}
 >
   <Navbar client:load />
   <div class="flex justify-center bg-bgDark2 relative pt-2">
@@ -34,8 +39,8 @@ import Footer from "@/components/Footer.vue";
         </header>
         <Image
           src={redisBannerImage}
-          alt="Testeur en ligne de script Lua Redis"
-          class="rounded-xl mb-8 w-full md:w-2/4 mx-auto mt-8"
+          alt="Testeur Script Lua Redis en Ligne - Déboguer et Tester Scripts Lua Redis dans le Navigateur"
+          class="rounded-xl mb-8 md:w-2/4 mx-auto mt-8"
         />
         <section
           class="text-secondaryText !leading-8 sm:!leading-10 sm:text-xl text-left sm:text-justify mx-auto w-full md:w-10/12 lg:w-2/3 mt-16"
@@ -49,11 +54,11 @@ import Footer from "@/components/Footer.vue";
           des scripts Lua Redis en temps réel. Ce guide vous explique comment utiliser
           l'application et aborde les cas limites à surveiller.
 
-          <h3 class="text-white text-2xl my-4">Guide étape par étape</h3>
+          <h2 class="text-white text-2xl my-4">Guide étape par étape</h2>
 
-          <h3 class="text-white text-2xl my-4">
+          <h2 class="text-white text-2xl my-4">
             Étape 1 : Ouvrir l'application
-          </h3>
+          </h2>
           Rendez-vous sur le <a
             href="https://tools.typinks.com/redis-lua/"
             target="_blank"
@@ -62,9 +67,9 @@ import Footer from "@/components/Footer.vue";
           > pour commencer. Vous verrez une interface avec un éditeur de script Lua,
           un champ de saisie pour les arguments et un panneau d'affichage des résultats.
 
-          <h3 class="text-white text-2xl my-4">
+          <h2 class="text-white text-2xl my-4">
             Étape 2 : Rédiger votre script Lua
-          </h3>
+          </h2>
           Utilisez l'éditeur intégré pour écrire votre script Lua Redis. L'éditeur
           prend en charge la mise en évidence de la syntaxe, ce qui facilite l'identification
           des erreurs dans votre code. Par exemple :
@@ -73,9 +78,9 @@ import Footer from "@/components/Footer.vue";
             return ARGV[1]
           </pre>
 
-          <h3 class="text-white text-2xl my-4">
+          <h2 class="text-white text-2xl my-4">
             Étape 3 : Saisir les arguments
-          </h3>
+          </h2>
           Dans le champ de saisie <b>Arguments</b>, ajoutez les arguments de
           votre script sous forme de liste séparée par des virgules. Par
           exemple :
@@ -86,12 +91,12 @@ import Footer from "@/components/Footer.vue";
           </pre>
           Ces arguments seront passés comme tableau <code>`ARGV`</code> à votre script.
 
-          <h3 class="text-white text-2xl my-4">Étape 4 : Exécuter le script</h3>
+          <h2 class="text-white text-2xl my-4">Étape 4 : Exécuter le script</h2>
           Cliquez sur le bouton <b>Exécuter le script</b> pour lancer le script Lua.
           L'application envoie votre script et vos arguments à un serveur Redis et
           récupère les résultats.
 
-          <h3 class="text-white text-2xl my-4">Étape 5 : Voir les résultats</h3>
+          <h2 class="text-white text-2xl my-4">Étape 5 : Voir les résultats</h2>
           Consultez la sortie dans le <b>Panneau des résultats</b> :
           <ListItem
             list={[
@@ -109,7 +114,7 @@ import Footer from "@/components/Footer.vue";
             client:visible
           />
 
-          <h3 class="text-white text-2xl my-4">Cas limites techniques</h3>
+          <h2 class="text-white text-2xl my-4">Cas limites techniques</h2>
           <ListItem
             list={[
               {
@@ -136,9 +141,9 @@ import Footer from "@/components/Footer.vue";
             client:visible
           />
 
-          <h3 class="text-white text-2xl my-4">
+          <h2 class="text-white text-2xl my-4">
             Récapitulatif des fonctionnalités
-          </h3>
+          </h2>
           <ListItem
             list={[
               {

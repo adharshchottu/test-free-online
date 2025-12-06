@@ -12,6 +12,11 @@ import Footer from "@/components/Footer.vue";
   title="How to test SSE online"
   ogImage="blog/test-sse-online.png"
   description="SSE allows a server to send real-time updates to the browser without the browser asking for them"
+  keywords="SSE tester, server-sent events, test SSE online, SSE debugging, real-time updates, web development tools, SSE API testing"
+  author="Typinks Tools"
+  publishedDate="2024-08-29"
+  modifiedDate="2024-08-29"
+  articleSchema={true}
 >
   <Navbar client:load />
   <div class="flex justify-center bg-bgDark2 relative pt-2">
@@ -33,7 +38,7 @@ import Footer from "@/components/Footer.vue";
         </header>
         <Image
           src={sseBannerImage}
-          alt="hah ha"
+          alt="SSE Online Tester - Server-Sent Events Testing Tool for Real-time Updates"
           class="rounded-xl mb-8 md:w-2/4 mx-auto mt-8"
         />
         <section
@@ -48,7 +53,7 @@ import Footer from "@/components/Footer.vue";
           step. Don't worry if you're new to SSE; this guide will walk you through
           everything easily.
 
-          <h3 class="text-white text-2xl my-4">What Is SSE?</h3>
+          <h2 class="text-white text-2xl my-4">What Is SSE?</h2>
 
           SSE (Server-Sent Events) allows a server to send real-time updates to
           the browser without the browser asking for them. It's useful for
@@ -57,16 +62,16 @@ import Footer from "@/components/Footer.vue";
 
           <h2 class="text-white text-3xl my-4">Getting Started</h2>
 
-          <h3 class="text-white text-2xl my-4">
+          <h2 class="text-white text-2xl my-4">
             Step 1: Open the <a
               href="https://tools.typinks.com/sse/"
               target="_blank"
               class="text-teal-400 font-bold">App</a>
-          </h3>
+          </h2>
           When you open the app, you'll see a simple interface with a few input fields
           and buttons.
 
-          <h3 class="text-white text-2xl my-4">Step 2: Enter the SSE URL</h3>
+          <h2 class="text-white text-2xl my-4">Step 2: Enter the SSE URL</h2>
           At the top of the app, there's a text box that says "Enter SSE URL." This
           is where you'll put the URL of the SSE stream you want to test. If you're
           unsure, a good starting URL might be <span
@@ -74,15 +79,15 @@ import Footer from "@/components/Footer.vue";
             >https://sse.tools.typinks.com/api/story</span
           >, which is the default one in the app.
 
-          <h3 class="text-white text-2xl my-4">
+          <h2 class="text-white text-2xl my-4">
             Step 3: Connect to the SSE Stream
-          </h3>
+          </h2>
           Once you've entered the URL, click the "Connect" button. The app will try
           to connect to the server and start receiving messages. If the connection
           is successful, you'll see a "Connected" status. If there are any issues
           with the connection, the app will show an error message.
 
-          <h3 class="text-white text-2xl my-4">Step 4: View the Messages</h3>
+          <h2 class="text-white text-2xl my-4">Step 4: View the Messages</h2>
           Once connected, you'll see the messages from the server displayed in the
           message box. The messages will appear in real-time as the server sends
           them.
@@ -105,7 +110,7 @@ import Footer from "@/components/Footer.vue";
             client:visible
           />
 
-          <h3 class="text-white text-2xl my-4">Step 5: Disconnect</h3>
+          <h2 class="text-white text-2xl my-4">Step 5: Disconnect</h2>
           When Done When you're done testing, simply click the "Disconnect" button.
           This will close the connection to the server.
 
@@ -127,7 +132,7 @@ import Footer from "@/components/Footer.vue";
             client:visible
           />
 
-          <h3 class="text-white text-2xl my-4">Features Recap</h3>
+          <h2 class="text-white text-2xl my-4">Features Recap</h2>
           <ListItem
             list={[
               {
