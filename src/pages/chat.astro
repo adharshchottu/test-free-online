@@ -1,0 +1,20 @@
+---
+import Layout from "../layouts/Layout.astro";
+import { Navbar } from "../components/Navbar.jsx";
+import { ScrollUpButton } from "../components/ScrollUpButton";
+import "../styles/Theme.css";
+import "../styles/sse.css";
+import Footer from "@/components/Footer.vue";
+import ChatRoom from "@/components/chat/ChatRoom.vue";
+---
+
+<Layout
+  title="Public Chat Room - Connect and Share in Real-Time"
+  description="Join our public chat room to connect with others and share your thoughts in real-time. Experience seamless communication and stay updated with live conversations."
+  ogImage="live-chat-room.png"
+>
+  <Navbar client:load />
+  <ChatRoom client:load />
+  <ScrollUpButton client:load />
+  <Footer client:only="vue" />
+</Layout>

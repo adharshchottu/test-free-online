@@ -98,6 +98,10 @@ export default {
                     title: "Fun Tools",
                     items: [
                         {
+                            label: "Chat Room",
+                            value: "/chat"
+                        },
+                        {
                             label: "Slide Puzzle",
                             value: "/slide-puzzle"
                         },
