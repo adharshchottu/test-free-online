@@ -42,6 +42,12 @@ var allowedURLs = []string{
 	"https://tools.typinks.com/blog/how-to-use-typinks-poster-generator-online",
 }
 
+var allowedUsers = []string{
+	"adharsh", "benny", "ouseph", "stephen", "martin", "santhosh", "reju",
+	"job", "baby", "abin", "tinil", "dolly", "jojo", "dominic", "jobin",
+	"scott", "mati", "lucas", "reynolds", "edison", "shibu", "ruban",
+}
+
 type ChatMessage struct {
 	User             string `json:"user"`
 	Message          string `json:"message"`
@@ -59,6 +65,15 @@ type ChatUIData struct {
 	User      string `json:"user"`
 	Message   string `json:"message"`
 	Timestamp int64  `json:"timestamp"`
+}
+
+func isUserAllowed(user string) bool {
+	for _, allowedUser := range allowedUsers {
+		if user == allowedUser {
+			return true
+		}
+	}
+	return false
 }
 
 func addChatMessage(conn redis.Conn, msgJSON string) error {
@@ -278,6 +293,11 @@ func Handler(w http.ResponseWriter, r *http.Request) {
 		err := json.NewDecoder(r.Body).Decode(&chatMsg)
 		if err != nil || chatMsg.Message == "" {
 			sendResponse(w, "Invalid message content", http.StatusBadRequest)
+			return
+		}
+
+		if !isUserAllowed(chatMsg.User) {
+			sendResponse(w, "quién eres?", http.StatusForbidden)
 			return
 		}
 
