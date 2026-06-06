@@ -8,7 +8,7 @@
     ],
     "routes": [
         {
-            "src": "/api/count-user",
+            "src": "/api/(.*)",
             "dest": "/api/count-user.go"
         }
     ]

@@ -8,6 +8,7 @@ import (
 	"net/http"
 	"os"
 	"strings"
+	"time"
 
 	"github.com/gomodule/redigo/redis"
 )
@@ -41,6 +42,55 @@ var allowedURLs = []string{
 	"https://tools.typinks.com/blog/how-to-use-typinks-poster-generator-online",
 }
 
+type ChatMessage struct {
+	User             string `json:"user"`
+	Message          string `json:"message"`
+	Timezone         string `json:"timezone"`
+	LocalTime        string `json:"local_time"`
+	Language         string `json:"language"`
+	ScreenResolution string `json:"screen_resolution"`
+	UserAgent        string `json:"user_agent"`
+	Platform         string `json:"platform"`
+	IP               string `json:"ip"`
+	Timestamp        int64  `json:"timestamp"`
+}
+
+type ChatUIData struct {
+	User      string `json:"user"`
+	Message   string `json:"message"`
+	Timestamp int64  `json:"timestamp"`
+}
+
+func addChatMessage(conn redis.Conn, msgJSON string) error {
+	redisKey := "typinks-chat-room"
+
+	// Send both commands sequentially via pipeline/multi to avoid unnecessary round-trips
+	if err := conn.Send("LPUSH", redisKey, msgJSON); err != nil {
+		return err
+	}
+	if err := conn.Send("LTRIM", redisKey, 0, 9); err != nil {
+		return err
+	}
+
+	// Flush and receive replies
+	if err := conn.Flush(); err != nil {
+		return err
+	}
+	_, err := conn.Do("") // Clears the reply queue and returns error if any executed failed
+	return err
+}
+
+// Redis logic for retrieving the last 100 messages
+func getChatMessages(conn redis.Conn) ([]string, error) {
+	redisKey := "typinks-chat-room"
+	// LRANGE key 0 -1 returns all existing items (which is max 100 due to LTRIM)
+	messages, err := redis.Strings(conn.Do("LRANGE", redisKey, 0, -1))
+	if err != nil {
+		return nil, err
+	}
+	return messages, nil
+}
+
 func incrementUserCount(conn redis.Conn, url string, ip string) {
 	// Add user IP to the set for the URL
 	_, err := conn.Do("SADD", fmt.Sprintf("user_set:%s", url), ip)
@@ -61,6 +111,12 @@ func getUserCount(conn redis.Conn, url string) (int, error) {
 		return 0, err
 	}
 	return count, nil
+}
+
+func sendRawJSONResponse(w http.ResponseWriter, rawJSON string, statusCode int) {
+	w.Header().Set("Content-Type", "application/json")
+	w.WriteHeader(statusCode)
+	fmt.Fprintf(w, rawJSON)
 }
 
 func sendResponse(w http.ResponseWriter, message string, statusCode int) {
@@ -136,24 +192,14 @@ func Handler(w http.ResponseWriter, r *http.Request) {
 	// Get Redis address and password from environment variables
 	redisAddress := os.Getenv("REDIS_ADDRESS")
 	redisPassword := os.Getenv("REDIS_PASSWORD")
+	redisUsername := os.Getenv("REDIS_USERNAME")
 
-	conn, err := redis.Dial("tcp", redisAddress, redis.DialPassword(redisPassword))
+	conn, err := redis.Dial("tcp", redisAddress, redis.DialUsername(redisUsername), redis.DialPassword(redisPassword))
 	if err != nil {
 		sendResponse(w, "redis connection failed", http.StatusBadRequest)
 		return
 	}
 	defer conn.Close()
-
-	url := r.URL.Query().Get("url")
-	if url == "" {
-		sendResponse(w, "falta al URL", http.StatusBadRequest)
-		return
-	}
-
-	if !isURLAllowed(url) {
-		sendResponse(w, "no no no", http.StatusForbidden)
-		return
-	}
 
 	ip := getClientIP(r)
 	if ip == "" {
@@ -163,6 +209,17 @@ func Handler(w http.ResponseWriter, r *http.Request) {
 
 	switch r.URL.Path {
 	case "/api/count-user":
+		url := r.URL.Query().Get("url")
+		if url == "" {
+			sendResponse(w, "falta al URL", http.StatusBadRequest)
+			return
+		}
+
+		if !isURLAllowed(url) {
+			sendResponse(w, "no no no", http.StatusForbidden)
+			return
+		}
+
 		incrementUserCount(conn, url, ip)
 		count, err := getUserCount(conn, url)
 		if err != nil {
@@ -171,6 +228,78 @@ func Handler(w http.ResponseWriter, r *http.Request) {
 		}
 		sendResponse(w, fmt.Sprintf(`{"count":%d}`, count), http.StatusOK)
 		return
+	case "/api/chat/messages":
+		if r.Method != http.MethodGet {
+			sendResponse(w, "Method not allowed", http.StatusMethodNotAllowed)
+			return
+		}
+
+		rawMessages, err := getChatMessages(conn)
+		if err != nil {
+			sendResponse(w, "Failed to retrieve chat logs", http.StatusInternalServerError)
+			return
+		}
+
+		uiMessages := make([]ChatUIData, 0, len(rawMessages))
+		for _, rawMsg := range rawMessages {
+			var fullMsg ChatMessage
+
+			// Unmarshal the full Redis JSON string into the large struct
+			if err := json.Unmarshal([]byte(rawMsg), &fullMsg); err != nil {
+				// Log the error but skip broken messages so the API doesn't crash
+				log.Printf("Error unmarshaling chat message: %v", err)
+				continue
+			}
+
+			// Copy over only what the UI needs
+			uiMessages = append(uiMessages, ChatUIData{
+				User:      fullMsg.User,
+				Message:   fullMsg.Message,
+				Timestamp: fullMsg.Timestamp,
+			})
+		}
+
+		cleanJSONBytes, err := json.Marshal(uiMessages)
+		if err != nil {
+			sendResponse(w, "Failed to process payload", http.StatusInternalServerError)
+			return
+		}
+
+		sendRawJSONResponse(w, string(cleanJSONBytes), http.StatusOK)
+		return
+
+	case "/api/chat/message":
+		if r.Method != http.MethodPost {
+			sendResponse(w, "Method not allowed", http.StatusMethodNotAllowed)
+			return
+		}
+
+		var chatMsg ChatMessage
+		err := json.NewDecoder(r.Body).Decode(&chatMsg)
+		if err != nil || chatMsg.Message == "" {
+			sendResponse(w, "Invalid message content", http.StatusBadRequest)
+			return
+		}
+
+		chatMsg.IP = ip
+		chatMsg.Timestamp = time.Now().Unix()
+
+		// Re-encode object into compact single-line JSON string to store inside Redis list
+		msgBytes, err := json.Marshal(chatMsg)
+		if err != nil {
+			sendResponse(w, "Internal marshal failure", http.StatusInternalServerError)
+			return
+		}
+
+		err = addChatMessage(conn, string(msgBytes))
+		if err != nil {
+			sendResponse(w, "Failed to save message", http.StatusInternalServerError)
+			return
+		}
+
+		sendResponse(w, "success", http.StatusOK)
+		return
+
 	default:
 		sendResponse(w, "ha ha", http.StatusNotFound)
 	}
