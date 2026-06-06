@@ -46,6 +46,7 @@ var allowedUsers = []string{
 	"adharsh", "benny", "ouseph", "stephen", "martin", "santhosh", "reju",
 	"job", "baby", "abin", "tinil", "dolly", "jojo", "dominic", "jobin",
 	"scott", "mati", "lucas", "reynolds", "edison", "shibu", "ruban",
+	"peter", "sebastian", "lalan", "sansilo", "tomy", "joy",
 }
 
 type ChatMessage struct {
@@ -170,17 +171,27 @@ func getClientIP(r *http.Request) string {
 
 func setPreflighHeader(w http.ResponseWriter, r *http.Request) bool {
 	origin := r.Header.Get("Origin")
-	referer := r.Header.Get("Referer")
 
-	allowedOrigin := "https://tools.typinks.com"
-	if origin != allowedOrigin && (referer == "" || !strings.HasPrefix(referer, allowedOrigin)) {
-		w.Header().Set("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS")
-		w.Header().Set("Access-Control-Allow-Headers", "Content-Type, Authorization")
+	allowedOrigins := map[string]bool{
+		"https://tools.typinks.com": true,
+		"http://localhost:4321":     true,
+	}
+
+	if !allowedOrigins[origin] {
 		sendResponse(w, "Theobroma cacao", http.StatusForbidden)
 		return false
 	}
 
-	w.Header().Set("Access-Control-Allow-Origin", allowedOrigin)
+	w.Header().Set("Access-Control-Allow-Origin", origin)
+
+	w.Header().Set("Access-Control-Allow-Methods", "GET, POST, OPTIONS")
+	w.Header().Set("Access-Control-Allow-Headers", "Content-Type, Authorization, X-Requested-With")
+
+	if r.Method == http.MethodOptions {
+		w.WriteHeader(http.StatusNoContent)
+		return false
+	}
+
 	return true
 }
 
@@ -196,11 +207,6 @@ func isURLAllowed(url string) bool {
 
 func Handler(w http.ResponseWriter, r *http.Request) {
 	if !setPreflighHeader(w, r) {
-		return
-	}
-
-	if r.Method == http.MethodOptions {
-		w.WriteHeader(http.StatusNoContent)
 		return
 	}
 

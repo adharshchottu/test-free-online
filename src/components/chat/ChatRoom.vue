@@ -72,7 +72,8 @@ const MESSAGE_API = `https://users-count.tools.typinks.com/api/chat/message`;
 const ALLOWED_USERS = [
     "adharsh", "benny", "ouseph", "stephen", "martin", "santhosh", "reju",
 	"job", "baby", "abin", "tinil", "dolly", "jojo", "dominic", "jobin",
-	"scott", "mati", "lucas", "reynolds", "edison", "shibu", "ruban"
+	"scott", "mati", "lucas", "reynolds", "edison", "shibu", "ruban",
+  "peter", "sebastian", "lalan", "sansilo", "tomy", "joy",
 ];
 
 const messages = ref([]);
