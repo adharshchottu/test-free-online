@@ -23,6 +23,22 @@ var allowedURLs = []string{
 	"https://tools.typinks.com/sse",
 	"https://tools.typinks.com/sudoku",
 	"https://tools.typinks.com/typinks-poster-generator",
+	"https://tools.typinks.com/blog/comment-jouer-au-jeu-puzzle-coulissant-en-ligne",
+	"https://tools.typinks.com/blog/comment-jouer-au-sudoku-en-ligne-gratuit-illimite",
+	"https://tools.typinks.com/blog/comment-tester-sse-en-ligne",
+	"https://tools.typinks.com/blog/comment-utiliser-le-calculateur-notes-examens-preliminaires-en-ligne",
+	"https://tools.typinks.com/blog/comment-utiliser-le-calculateur-temps-vie-en-ligne",
+	"https://tools.typinks.com/blog/comment-utiliser-le-generateur-affiches-kroenger-en-ligne",
+	"https://tools.typinks.com/blog/comment-utiliser-le-generateur-affiches-typinks-en-ligne",
+	"https://tools.typinks.com/blog/comment-utiliser-le-testeur-en-ligne-de-script-lua-redis",
+	"https://tools.typinks.com/blog/how-to-play-slide-puzzle-game-online",
+	"https://tools.typinks.com/blog/how-to-play-sudoku-online-free-unlimited",
+	"https://tools.typinks.com/blog/how-to-test-redis-lua-script-online",
+	"https://tools.typinks.com/blog/how-to-test-sse-online",
+	"https://tools.typinks.com/blog/how-to-use-kroenger-poster-generator-online",
+	"https://tools.typinks.com/blog/how-to-use-life-time-calculator-online",
+	"https://tools.typinks.com/blog/how-to-use-prelims-marks-calculator-online",
+	"https://tools.typinks.com/blog/how-to-use-typinks-poster-generator-online",
 }
 
 func incrementUserCount(conn redis.Conn, url string, ip string) {
@@ -87,13 +103,13 @@ func setPreflighHeader(w http.ResponseWriter, r *http.Request) bool {
 
 	allowedOrigin := "https://tools.typinks.com"
 	if origin != allowedOrigin && (referer == "" || !strings.HasPrefix(referer, allowedOrigin)) {
+		w.Header().Set("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS")
+		w.Header().Set("Access-Control-Allow-Headers", "Content-Type, Authorization")
 		sendResponse(w, "Theobroma cacao", http.StatusForbidden)
 		return false
 	}
 
 	w.Header().Set("Access-Control-Allow-Origin", allowedOrigin)
-	w.Header().Set("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS")
-	w.Header().Set("Access-Control-Allow-Headers", "Content-Type, Authorization")
 	return true
 }
 
@@ -123,10 +139,10 @@ func Handler(w http.ResponseWriter, r *http.Request) {
 
 	conn, err := redis.Dial("tcp", redisAddress, redis.DialPassword(redisPassword))
 	if err != nil {
-		log.Printf("Failed to connect to Redis server: %v", err)
 		sendResponse(w, "redis connection failed", http.StatusBadRequest)
 		return
 	}
+	defer conn.Close()
 
 	url := r.URL.Query().Get("url")
 	if url == "" {
