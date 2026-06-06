@@ -100,7 +100,7 @@ const fetchMessages = async () => {
     if (!response.ok) throw new Error('Failed to fetch logs');
     
     const result = await response.json();
-    const reversedLogs = [...result.data].reverse();
+    const reversedLogs = [...result].reverse();
     
     if (JSON.stringify(messages.value) !== JSON.stringify(reversedLogs)) {
       messages.value = reversedLogs;
