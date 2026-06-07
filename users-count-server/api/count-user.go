@@ -23,6 +23,7 @@ var allowedURLs = []string{
 	"https://tools.typinks.com/slide-puzzle",
 	"https://tools.typinks.com/sse",
 	"https://tools.typinks.com/sudoku",
+	"https://tools.typinks.com/chat",
 	"https://tools.typinks.com/typinks-poster-generator",
 	"https://tools.typinks.com/blog/comment-jouer-au-jeu-puzzle-coulissant-en-ligne",
 	"https://tools.typinks.com/blog/comment-jouer-au-sudoku-en-ligne-gratuit-illimite",
@@ -84,7 +85,7 @@ func addChatMessage(conn redis.Conn, msgJSON string) error {
 	if err := conn.Send("LPUSH", redisKey, msgJSON); err != nil {
 		return err
 	}
-	if err := conn.Send("LTRIM", redisKey, 0, 9); err != nil {
+	if err := conn.Send("LTRIM", redisKey, 0, 999); err != nil {
 		return err
 	}
 
