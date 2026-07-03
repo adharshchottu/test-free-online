@@ -13,7 +13,7 @@
             </div>
 
             <div ref="chatContainer" class="flex-1 overflow-y-auto p-6 space-y-4 bg-bgDark1 custom-scrollbar">
-            <div v-if="messages.length === 0" class="flex items-center justify-center h-[60vh] text-secondaryText text-sm italic">
+            <div v-if="messages.length === 0" class="flex items-center justify-center h-[60vh] max-h-[60vh] text-secondaryText text-sm italic">
                 Aún no hay mensajes. ¡Empieza la conversación!
             </div>
             
@@ -32,12 +32,24 @@
                 </div>
 
                 <div 
-                class="px-4 py-2.5 rounded-2xl text-sm leading-relaxed whitespace-pre-wrap break-words"
+                class="px-4 py-2.5 rounded-2xl text-sm leading-relaxed whitespace-pre-wrap break-words max-w-[85%]"
                 :class="msg.user === currentUser 
                     ? 'bg-primaryColor text-primaryText rounded-tr-none' 
                     : 'bg-bgDark3 text-primaryText rounded-tl-none border border-mainBorderDarker'"
                 >
-                {{ msg.message }}
+                <template v-for="(part, idx) in linkifyMessage(msg.message)" :key="idx">
+                  <a 
+                    v-if="part.type === 'link'"
+                    :href="part.href"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    class="underline hover:opacity-80 transition-opacity"
+                    :class="msg.user === currentUser ? 'text-primaryText' : 'text-blue-400'"
+                  >
+                    {{ part.content }}
+                  </a>
+                  <span v-else>{{ part.content }}</span>
+                </template>
                 </div>
             </div>
             </div>
@@ -67,8 +79,8 @@
 <script setup>
 import { ref, onMounted, onUnmounted, nextTick } from 'vue';
 
-const MESSAGES_API = 'https://users-count.tools.typinks.com/api/chat/messages';
-const MESSAGE_API = `https://users-count.tools.typinks.com/api/chat/message`;
+const MESSAGES_API = 'http://localhost:3000/api/chat/messages';
+const MESSAGE_API = `http://localhost:3000/api/chat/message`;
 const ALLOWED_USERS = [
     "adharsh", "benny", "ouseph", "stephen", "martin", "santhosh", "reju",
 	"job", "baby", "abin", "tinil", "dolly", "jojo", "dominic", "jobin",
@@ -152,6 +164,54 @@ const formatTime = (unixSecs) => {
   return date.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
 };
 
+// Parse and linkify URLs in message text
+const linkifyMessage = (text) => {
+  if (!text) return '';
+  
+  // Regex to match URLs (http, https, www)
+  const urlRegex = /(https?:\/\/[^\s]+|www\.[^\s]+)/gi;
+  
+  const parts = [];
+  let lastIndex = 0;
+  let match;
+  
+  const tempRegex = new RegExp(urlRegex.source, urlRegex.flags);
+  
+  while ((match = tempRegex.exec(text)) !== null) {
+    // Add text before URL
+    if (match.index > lastIndex) {
+      parts.push({
+        type: 'text',
+        content: text.substring(lastIndex, match.index)
+      });
+    }
+    
+    // Add URL
+    let url = match[0];
+    if (!url.startsWith('http')) {
+      url = 'https://' + url;
+    }
+    
+    parts.push({
+      type: 'link',
+      content: match[0],
+      href: url
+    });
+    
+    lastIndex = tempRegex.lastIndex;
+  }
+  
+  // Add remaining text
+  if (lastIndex < text.length) {
+    parts.push({
+      type: 'text',
+      content: text.substring(lastIndex)
+    });
+  }
+  
+  return parts.length > 0 ? parts : [{ type: 'text', content: text }];
+};
+
 onMounted(() => {
   assignRandomUser();
   fetchMessages();
@@ -165,6 +225,11 @@ onUnmounted(() => {
 </script>
 
 <style scoped>
+section::selection {
+  background-color: rgb(55, 151, 28);
+  color: rgb(255, 255, 255);
+}
+
 .custom-scrollbar::-webkit-scrollbar {
   width: 6px;
 }
