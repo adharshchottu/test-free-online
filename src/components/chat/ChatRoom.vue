@@ -225,11 +225,6 @@ onUnmounted(() => {
 </script>
 
 <style scoped>
-section::selection {
-  background-color: rgb(55, 151, 28);
-  color: rgb(255, 255, 255);
-}
-
 .custom-scrollbar::-webkit-scrollbar {
   width: 6px;
 }

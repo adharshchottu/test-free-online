@@ -139,11 +139,11 @@ export default {
         };
 
         onMounted(() => {
-            // fetchUserCount();
+            fetchUserCount();
 
-            // const interval = setInterval(fetchUserCount, 10000);
+            const interval = setInterval(fetchUserCount, 10000);
 
-            // onUnmounted(() => clearInterval(interval));
+            onUnmounted(() => clearInterval(interval));
         });
 
         return {

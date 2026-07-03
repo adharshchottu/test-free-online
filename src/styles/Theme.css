@@ -41,3 +41,9 @@
 @font-face {
   font-display: var(--fontsource-Inter-font-display, optional);
 }
+
+
+::selection {
+  background-color: rgb(55, 151, 28);
+  color: rgb(255, 255, 255);
+}
