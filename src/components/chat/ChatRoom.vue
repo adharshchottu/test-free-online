@@ -113,7 +113,17 @@ const fetchMessages = async () => {
     if (!response.ok) throw new Error('Failed to fetch logs');
     
     const result = await response.json();
-    const reversedLogs = [...result].reverse();
+
+    // Filter out messages with corrupted content (Go's missing value pattern)
+    const validMessages = Array.isArray(result) ? result.filter(msg => {
+      // Skip messages with corrupted Go output
+      if (msg.message && msg.message.includes('%!(MISSING)')) {
+        return false;
+      }
+      return msg.user && msg.message && msg.timestamp;
+    }) : [];
+
+    const reversedLogs = [...validMessages].reverse();
     
     if (JSON.stringify(messages.value) !== JSON.stringify(reversedLogs)) {
       messages.value = reversedLogs;
