@@ -1,0 +1,24 @@
+---
+import Layout from '../layouts/Layout.astro'
+import { Navbar } from '../components/Navbar.jsx'
+import { ScrollUpButton } from '../components/ScrollUpButton.jsx'
+import '../styles/Theme.css'
+import Planner from '../components/planner/Planner.svelte'
+import Footer from '@/components/Footer.vue'
+---
+
+<Layout 
+  title="Pomodoro Planner - 25/5 Timer & Task Manager" 
+  description="Boost productivity with our free Pomodoro timer (25min focus, 5min break) and kanban task planner. Organize tasks in To-Do, Doing, Done columns with localStorage sync."
+  ogImage="planner.png"
+  keywords="pomodoro timer, task planner, productivity timer, todo app, kanban board, time management, focus timer, free planner, task management online"
+  author="Typinks Tools"
+  publishedDate="2026-07-04"
+  modifiedDate="2026-07-04"
+  articleSchema={false}
+>
+  <Navbar client:load />
+  <Planner client:only="svelte"/>
+  <ScrollUpButton client:load />
+  <Footer client:only="vue" />
+</Layout>

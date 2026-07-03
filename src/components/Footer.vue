@@ -91,6 +91,10 @@ export default {
                         {
                             label: "Text Editor",
                             value: "/text-editor"
+                        },
+                        {
+                            label: "Planner",
+                            value: "/planner"
                         }
                     ],
                 },
