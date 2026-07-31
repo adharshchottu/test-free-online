@@ -42,6 +42,7 @@ import typinksPosterGenerator from "../assets/images/thumbnail/typinks-poster-ge
 import kroengerPosterGenerator from "../assets/images/thumbnail/kroenger-poster-generator.png";
 import prelimsMarksCalculator from "../assets/images/thumbnail/prelims-marks-calculator.png";
 import slidePuzzleGame from "../assets/images/thumbnail/slide-puzzle.png";
+import tunc from "../assets/images/thumbnail/tunc.png";
 import sudoku from "../assets/images/thumbnail/sudoku.png";
 import textEditor from "../assets/images/thumbnail/simple-text-editor.png";
 
@@ -51,6 +52,13 @@ export default {
     data() {
         return {
             blogData: [
+                {
+                    title: "How Tunc Live Map Works",
+                    subtitle:
+                        "Tunc captures and shows unedited, real-time ground truth for OSINT.",
+                    image: tunc,
+                    link: 'how-tunc-works-live-map'
+                },
                 {
                     title: "How to test SSE online",
                     subtitle:

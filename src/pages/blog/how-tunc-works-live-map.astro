@@ -1,0 +1,204 @@
+---
+import { Navbar } from "../../components/Navbar";
+import { ScrollUpButton } from "../../components/ScrollUpButton";
+import { ListItem } from "../../components/blog/ListItem";
+import Layout from "../../layouts/Layout.astro";
+import Footer from "@/components/Footer.vue";
+---
+
+<Layout
+  title="How tunc creates live ground truth on a real map"
+  ogImage="https://tunc.app/tunc.png"
+  description="Learn how tunc turns fresh Android camera captures into location-bound, hardware-signed ground truth that people can explore on the tunc.live map."
+  keywords="tunc, tunc app, tunc live, live map, real-time photo map, ground truth, verified photos, hardware signed photos, OSINT map, live Android camera app, location-bound photos"
+  author="tunc"
+  publishedDate="2026-07-31"
+  modifiedDate="2026-07-31"
+  articleSchema={true}
+>
+  <Navbar client:load />
+  <div class="flex justify-center bg-bgDark2 relative pt-2">
+    <div class="px-2 sm:px-4">
+      <article
+        class="p-8 text-center rounded-3xl w-full lg:w-[1200px] 2xl:w-[1400px] mb-24 mt-16 sm:mt-24"
+      >
+        <header class="mb-12">
+          <div class="text-sm text-secondaryText my-4">31 July 2026</div>
+          <h1
+            class="text-5xl sm:text-6xl lg:text-7xl xl:text-8xl font-bold tracking-tight leading-none mb-6 bg-gradient-to-r from-white via-orange-200 to-emerald-300 bg-clip-text text-transparent"
+          >
+            How tunc creates live ground truth on a real map
+          </h1>
+          <p class="text-lg text-secondaryText mb-4">
+            Tunc is an Android camera app for fresh, location-bound captures.
+            <a
+              href="https://tunc.live"
+              target="_blank"
+              rel="noopener noreferrer"
+              class="text-teal-400 font-bold">tunc.live</a
+            > is where published captures become points people can explore on a real map.
+          </p>
+        </header>
+
+        <img
+          src="https://tunc.app/tunc.png"
+          alt="tunc logo - ground truth at this exact moment"
+          class="rounded-xl mb-8 w-40 sm:w-52 mx-auto mt-8"
+          width="512"
+          height="512"
+          loading="eager"
+        />
+
+        <section
+          class="text-secondaryText !leading-8 sm:!leading-10 sm:text-xl text-left sm:text-justify mx-auto w-full md:w-10/12 lg:w-2/3 mt-16"
+        >
+          <a
+            href="https://tunc.app"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="text-teal-400 font-bold">tunc</a
+          > is built around a simple question: what is happening at this exact moment?
+          Most posts reach the internet after an event has already changed. They may be
+          delayed, cropped, edited, reposted, or separated from the place and time they
+          claim to show. tunc is designed for a more immediate form of evidence: a fresh
+          camera capture with location and time bound to it when it is made.
+
+          <h2 class="text-white text-3xl my-4">Why tunc exists</h2>
+
+          Social feeds are optimized for attention, not context. When an event is moving
+          quickly, one image rarely tells the whole story. People need nearby points of
+          view: the crowd at an entrance, the condition of a road, activity near a stage,
+          or the quieter street a few blocks away.
+
+          <br />
+          <br />
+          tunc separates the act of capturing from the act of exploring. The Android app
+          creates a new capture in the moment. The public map at
+          <a
+            href="https://tunc.live"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="text-teal-400 font-bold"> tunc.live</a
+          > places approved captures in their geographic context, so a viewer can move
+          from a broad map view to an individual point of view.
+
+          <h2 class="text-white text-3xl my-4">How the tunc app works</h2>
+
+          tunc removes the usual account and gallery workflow. Rather than uploading an
+          existing image, the app is made to capture directly from the camera, then bind
+          its provenance to the submitted data.
+
+          <ListItem
+            list={[
+              {
+                title: "Claim a name without a password",
+                description:
+                  "A user chooses a unique username. The Android device generates a cryptographic key pair in its hardware-backed security area, while the private key stays on that device.",
+              },
+              {
+                title: "Wait for an accurate location",
+                description:
+                  "The capture flow waits for an accurate GPS lock before the shutter is available, helping associate the resulting capture with meaningful coordinates.",
+              },
+              {
+                title: "Create a fresh camera capture",
+                description:
+                  "The app captures from the camera rather than accepting an image from the phone gallery. Capture time and location become part of the submission context.",
+              },
+              {
+                title: "Sign and submit the capture",
+                description:
+                  "The device signs the capture payload using its device-bound key. The backend can check that signature against the corresponding public key.",
+              },
+              {
+                title: "Review before public publication",
+                description:
+                  "Submitted captures are reviewed before they can be published to the public map. This creates a deliberate boundary between submitting a capture and making it visible to everyone.",
+              },
+            ]}
+            client:visible
+          />
+
+          <h2 class="text-white text-3xl my-4">How captures appear on tunc.live</h2>
+
+          <a
+            href="https://tunc.live"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="text-teal-400 font-bold">tunc.live</a
+          > is a separate public website for viewing published captures. It loads recent
+          public capture data and plots each valid latitude and longitude as a marker on a
+          dark, interactive map. When capture points are available, the map frames the
+          visible area around them.
+
+          <br />
+          <br />
+          Select a marker to open the capture detail view. The viewer can inspect the
+          image along with its coordinates and capture time, then return to the map to
+          compare it with other nearby perspectives. This is what makes the system useful
+          for live events, local awareness, and open-source research: the map provides
+          context that a standalone image cannot.
+
+          <h2 class="text-white text-3xl my-4">What people can do with the live map</h2>
+
+          <ListItem
+            list={[
+              {
+                title: "Scan for activity",
+                description:
+                  "Start with the map to see where approved capture points are appearing and identify areas worth examining.",
+              },
+              {
+                title: "Open the point of view behind a marker",
+                description:
+                  "Choose a marker to view its capture and the associated geographic and time context.",
+              },
+              {
+                title: "Compare nearby perspectives",
+                description:
+                  "Several captures in the same area can give a clearer picture of an event than a single isolated post.",
+              },
+              {
+                title: "Follow evidence, not an algorithm",
+                description:
+                  "The map is organized around place and published captures, helping viewers inspect the source material directly.",
+              },
+            ]}
+            client:visible
+          />
+
+          <h2 class="text-white text-3xl my-4">One system, two ways to participate</h2>
+
+          The tunc Android app is where a live capture starts. The
+          <a
+            href="https://tunc.live"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="text-teal-400 font-bold"> tunc.live</a
+          > map is where approved captures can be understood in relation to place, time, and
+          other points of view. Together, they aim to make real-time information more
+          inspectable: not a claim detached from context, but a capture that can be seen
+          on a real map.
+
+          <h4 class="text-white text-xl my-4">Explore tunc</h4>
+
+          Learn more about the Android app and download it at
+          <a
+            href="https://tunc.app"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="text-teal-400 font-bold"> tunc.app</a
+          >. To see published captures on the map, visit
+          <a
+            href="https://tunc.live"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="text-teal-400 font-bold"> tunc.live</a
+          >.
+        </section>
+      </article>
+    </div>
+  </div>
+  <ScrollUpButton client:load />
+  <Footer client:only="vue" />
+</Layout>
