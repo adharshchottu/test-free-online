@@ -1,6 +1,6 @@
 <template>
     <section className='pt-16 md:pt-16 lg:pt-24'>
-        <div class="flex flex-col min-h-[80vh] md:h-[600px] w-full max-w-4xl mx-auto rounded-lg border border-mainBorder bg-bgDark1 font-Inter overflow-hidden shadow-xl mt-4 mb-8">
+        <div class="flex flex-col h-[65dvh] min-h-[420px] md:h-[600px] w-full max-w-4xl mx-auto rounded-lg border border-mainBorder bg-bgDark1 font-Inter overflow-hidden shadow-xl mt-4 mb-8">
             
             <div class="flex items-center justify-between px-6 py-4 bg-bgDark2 border-b border-mainBorder">
             <div class="flex items-center space-x-3">

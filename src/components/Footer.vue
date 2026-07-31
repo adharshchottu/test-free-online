@@ -106,6 +106,10 @@ export default {
                             value: "/chat"
                         },
                         {
+                            label: "Image Chat Room",
+                            value: "/image-chat"
+                        },
+                        {
                             label: "Slide Puzzle",
                             value: "/slide-puzzle"
                         },

@@ -1,0 +1,20 @@
+---
+import Layout from "../layouts/Layout.astro";
+import { Navbar } from "../components/Navbar.jsx";
+import { ScrollUpButton } from "../components/ScrollUpButton";
+import "../styles/Theme.css";
+import "../styles/sse.css";
+import Footer from "@/components/Footer.vue";
+import ImageChatRoom from "@/components/chat/ImageChatRoom.vue";
+---
+
+<Layout
+  title="Public Image Chat Room - Share Images in Real-Time"
+  description="Share JPEG, PNG, GIF, and WebP images in a public real-time image chat room."
+  ogImage="live-chat-room.png"
+>
+  <Navbar client:load />
+  <ImageChatRoom client:load />
+  <ScrollUpButton client:load />
+  <Footer client:only="vue" />
+</Layout>
