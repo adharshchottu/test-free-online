@@ -33,6 +33,7 @@ var allowedURLs = []string{
 	"https://tools.typinks.com/sse",
 	"https://tools.typinks.com/sudoku",
 	"https://tools.typinks.com/chat",
+	"https://tools.typinks.com/image-chat",
 	"https://tools.typinks.com/text-editor",
 	"https://tools.typinks.com/planner",
 	"https://tools.typinks.com/prelims-marks-calculator",
@@ -54,6 +55,9 @@ var allowedURLs = []string{
 	"https://tools.typinks.com/blog/how-to-use-life-time-calculator-online",
 	"https://tools.typinks.com/blog/how-to-use-prelims-marks-calculator-online",
 	"https://tools.typinks.com/blog/how-to-use-typinks-poster-generator-online",
+	"https://tools.typinks.com/blog/how-to-use-free-online-text-editor",
+	"https://tools.typinks.com/blog/comment-utiliser-editeur-texte-en-ligne-gratuit",
+	"https://tools.typinks.com/blog/how-tunc-works-live-map",
 }
 
 var allowedUsers = []string{
@@ -108,17 +112,6 @@ func isUserAllowed(user string) bool {
 
 func addChatMessage(conn redis.Conn, msgJSON string) error {
 	redisKey := "typinks-chat-room"
-
-	// Validate JSON and message content before storing
-	var msg ChatMessage
-	if err := json.Unmarshal([]byte(msgJSON), &msg); err != nil {
-		return fmt.Errorf("invalid message JSON: %v", err)
-	}
-
-	// Check for corrupted content (Go's missing value pattern)
-	if strings.Contains(msg.Message, "%!(MISSING)") || strings.Contains(msg.Message, "%!A(") {
-		return fmt.Errorf("message contains corrupted data")
-	}
 
 	// Send both commands sequentially via pipeline/multi to avoid unnecessary round-trips
 	if err := conn.Send("LPUSH", redisKey, msgJSON); err != nil {
@@ -314,7 +307,8 @@ func getUserCount(conn redis.Conn, url string) (int, error) {
 func sendRawJSONResponse(w http.ResponseWriter, rawJSON string, statusCode int) {
 	w.Header().Set("Content-Type", "application/json")
 	w.WriteHeader(statusCode)
-	fmt.Fprintf(w, rawJSON)
+	// Fprint, not Fprintf: the payload holds user text, and a "%" in it would be read as a format verb
+	fmt.Fprint(w, rawJSON)
 }
 
 func sendResponse(w http.ResponseWriter, message string, statusCode int) {
