@@ -95,9 +95,23 @@ const isSending = ref(false);
 const chatContainer = ref(null);
 let pollInterval = null;
 
-const assignRandomUser = () => {
-  const randomIndex = Math.floor(Math.random() * ALLOWED_USERS.length);
-  currentUser.value = ALLOWED_USERS[randomIndex];
+// Shared with ImageChatRoom so both rooms keep the same name
+const USER_STORAGE_KEY = 'typinks-chat-user';
+
+const assignUser = () => {
+  let user = null;
+  try {
+    user = localStorage.getItem(USER_STORAGE_KEY);
+  } catch {}
+
+  if (!ALLOWED_USERS.includes(user)) {
+    user = ALLOWED_USERS[Math.floor(Math.random() * ALLOWED_USERS.length)];
+    try {
+      localStorage.setItem(USER_STORAGE_KEY, user);
+    } catch {}
+  }
+
+  currentUser.value = user;
 };
 
 const scrollToBottom = async () => {
@@ -114,14 +128,9 @@ const fetchMessages = async () => {
     
     const result = await response.json();
 
-    // Filter out messages with corrupted content (Go's missing value pattern)
-    const validMessages = Array.isArray(result) ? result.filter(msg => {
-      // Skip messages with corrupted Go output
-      if (msg.message && msg.message.includes('%!(MISSING)')) {
-        return false;
-      }
-      return msg.user && msg.message && msg.timestamp;
-    }) : [];
+    const validMessages = Array.isArray(result)
+      ? result.filter(msg => msg.user && msg.message && msg.timestamp)
+      : [];
 
     const reversedLogs = [...validMessages].reverse();
     
@@ -223,7 +232,7 @@ const linkifyMessage = (text) => {
 };
 
 onMounted(() => {
-  assignRandomUser();
+  assignUser();
   fetchMessages();
   
   pollInterval = setInterval(fetchMessages, 10000);

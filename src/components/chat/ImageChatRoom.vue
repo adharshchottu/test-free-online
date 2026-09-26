@@ -159,8 +159,27 @@ const sendImage = async () => {
 
 const formatTime = (unixSecs) => new Date(unixSecs * 1000).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
 
+// Shared with ChatRoom so both rooms keep the same name
+const USER_STORAGE_KEY = 'typinks-chat-user';
+
+const assignUser = () => {
+  let user = null;
+  try {
+    user = localStorage.getItem(USER_STORAGE_KEY);
+  } catch {}
+
+  if (!ALLOWED_USERS.includes(user)) {
+    user = ALLOWED_USERS[Math.floor(Math.random() * ALLOWED_USERS.length)];
+    try {
+      localStorage.setItem(USER_STORAGE_KEY, user);
+    } catch {}
+  }
+
+  currentUser.value = user;
+};
+
 onMounted(() => {
-  currentUser.value = ALLOWED_USERS[Math.floor(Math.random() * ALLOWED_USERS.length)];
+  assignUser();
   fetchImages();
   pollInterval = setInterval(fetchImages, 10000);
 });
