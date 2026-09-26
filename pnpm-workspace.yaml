@@ -1,0 +1,12 @@
+# Flat node_modules like npm: the Vercel adapter copies dependencies with symlinks,
+# which Windows only allows with Developer Mode on.
+nodeLinker: hoisted
+
+# Only these dependencies may run install scripts (esbuild and sharp need theirs).
+# canvas is not imported anywhere, and its native build fails on Windows.
+onlyBuiltDependencies:
+  - esbuild
+  - sharp
+ignoredBuiltDependencies:
+  - '@vercel/speed-insights'
+  - canvas

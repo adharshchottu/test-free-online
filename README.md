@@ -26,6 +26,18 @@ Execute and test Lua scripts with Redis using Monaco Editor. [Try it online](htt
 
 **Features:** Syntax highlighting, argument support, execution results, error debugging
 
+## 📝 Productivity Tools
+
+### Text Editor
+Lightweight online text editor that saves as you type. [Try it online](https://tools.typinks.com/text-editor/)
+
+**Features:** Word, character and line counts, Markdown-style bold/italic/underline shortcuts, copy, .txt download, auto-save
+
+### Pomodoro Planner
+25/5 focus timer with a kanban task board. [Try it online](https://tools.typinks.com/planner/)
+
+**Features:** Pomodoro timer, To-Do / Doing / Done columns, saved in the browser
+
 ## 📊 Calculator Tools
 
 ### Prelims Marks Calculator
@@ -49,6 +61,18 @@ Calculate how long you've lived and share with friends. [Try it online](https://
 Classic 9x9 Sudoku game with validation and completion effects. [Try it online](https://tools.typinks.com/sudoku/)
 
 **Features:** Interactive number input, validation, confetti on completion, mobile-friendly
+
+## 💬 Community
+
+### Chat Room
+Public chat room with no signup. [Try it online](https://tools.typinks.com/chat/)
+
+**Features:** Clickable links, name kept between visits
+
+### Image Chat Room
+Share images in a public room. [Try it online](https://tools.typinks.com/image-chat/)
+
+**Features:** JPEG, PNG, GIF and WebP up to 15 MB
 
 ## 🛠️ Tech Stack
 

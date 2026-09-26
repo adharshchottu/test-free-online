@@ -5,6 +5,7 @@
   "homepage": "https://tools.typinks.com",
   "description": "Test free online tools",
   "private": true,
+  "packageManager": "pnpm@10.24.0",
   "scripts": {
     "dev": "astro dev --host",
     "start": "astro dev",
@@ -32,9 +33,9 @@
     "class-variance-authority": "^0.7.0",
     "clsx": "^2.1.1",
     "crypto-js": "^4.2.0",
-    "framer-motion": "^11.2.10",
     "lucide-react": "^0.435.0",
     "react-konva": "^18.2.10",
+    "sharp": "^0.33.5",
     "svelte": "^5.8.1",
     "tailwind-merge": "^2.5.4",
     "tailwindcss": "^3.4.3",
