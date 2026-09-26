@@ -6,15 +6,17 @@ import '../styles/Theme.css'
 import '../styles/Diagonals.css'
 import Footer from '@/components/Footer.vue'
 import Hero from '@/components/home/hero.astro'
+import AllTools from '@/components/home/allTools.astro'
 import TypinksBanner from '@/components/home/typinksBanner.astro'
 import KroengerBanner from '@/components/home/kroengerBanner.astro'
 import SSEBanner from '@/components/home/sseBanner.astro'
 import Brands from '@/components/home/brands.astro'
 ---
 
-<Layout title="Test Free Online" description='Access online tools like a poster generator, Redis Lua script tester, and server-sent events tester. Test and create easily, all in one place!'>
+<Layout title="Test Free Online - Free Online Tools, No Signup" description='Free online tools in one place: poster generators, SSE and Redis Lua testers, text editor, Pomodoro planner, exam and life time calculators, Sudoku and slide puzzles. No signup needed.'>
   <Navbar client:load />
   <Hero />
+  <AllTools />
   <TypinksBanner />
   <KroengerBanner />
   <SSEBanner />

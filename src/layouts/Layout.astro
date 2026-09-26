@@ -34,7 +34,9 @@ const {
 } = Astro.props;
 
 const modifiedOgImage = ogImageCustom ? ogImage : `${Astro.url.origin}/${ogImage}`;
+const blogAlternates = getBlogAlternates(Astro.url.pathname);
 import  SpeedInsights  from "@vercel/speed-insights/astro"
+import { getBlogAlternates } from "@/data/blogTranslations";
 ---
 
 <!doctype html>
@@ -56,11 +58,20 @@ import  SpeedInsights  from "@vercel/speed-insights/astro"
 
       gtag("config", "G-T0TTMCQ05W");
     </script>
-    <link rel="sitemap" href="/sitemap-index.xml" />
+    <link rel="sitemap" href="/sitemap.xml" />
     <title>{title}</title>
 
     <!-- Canonical URL -->
     <link rel="canonical" href={Astro.url.href} />
+
+    <!-- Language alternates for blog posts that have an English and French version -->
+    {blogAlternates && (
+      <>
+        <link rel="alternate" hreflang="en" href={new URL(blogAlternates.en, Astro.site).href} />
+        <link rel="alternate" hreflang="fr" href={new URL(blogAlternates.fr, Astro.site).href} />
+        <link rel="alternate" hreflang="x-default" href={new URL(blogAlternates.en, Astro.site).href} />
+      </>
+    )}
 
     <!-- Basic Meta Tags -->
     <meta property="og:title" content={title} />

@@ -1,15 +1,14 @@
 import { useState } from "react";
-import { motion, AnimatePresence } from "framer-motion";
 
 import { GithubIcon } from "../assets/icons/GithubIcon";
 
 const navbarLinks = [
-  { label: "Home", href: "/#home", ariaLabel: "Home" },
-  { label: "Typinks", href: "/typinks-poster-generator", ariaLabel: "Typinks" },
-  { label: "Kroenger", href: "/kroenger-poster-generator", ariaLabel: "Kroenger" },
-  { label: "SSE", href: "/sse", ariaLabel: "SSE" },
-  { label: "Redis Lua", href: "/redis-lua", ariaLabel: "Redis Lua" },
+  { label: "Home", href: "/" },
+  { label: "All tools", href: "/#tools" },
+  { label: "Blog", href: "/blog" },
 ];
+
+const sourceCodeUrl = "https://github.com/adharshchottu/test-free-online";
 
 export const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -20,107 +19,72 @@ export const Navbar = () => {
       aria-label="Main navigation"
     >
       <div className="2xl:w-[1280px] xl:w-10/12 w-11/12 flex justify-between items-center relative">
-        <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ duration: 0.3 }}
-          exit={{ opacity: 0 }}
-        >
-          <a href="/#home" aria-label="Home">
-            <div className="flex justify-start items-center grow basis-0">
-              <div className="text-white mr-2 text-6xl">
-                <img src="/logo.png" alt="test free online" className="w-8 h-8"/>
-              </div>
-              <div className="text-white font-['Inter'] font-bold text-xl">
-                Free Online
-              </div>
-            </div>
-          </a>
-        </motion.div>
-        <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ duration: 0.3 }}
-          exit={{ opacity: 0 }}
-        >
-          <div className="hidden lg:flex h-full pl-12 pb-2">
-            {navbarLinks.map(({ href, label, ariaLabel }) => (
-              <a
-                className="text-white lg:text-base text-2xl  leading-6 mr-4 ml-4   2xl:mr-6 2xl:ml-6 cursor-pointer font-normal lg:font-medium hover:scale-110 transition h-full pt-2"
-                href={href}
-                aria-label={ariaLabel}
-                key={label}
-              >
-                {label}
-              </a>
-            ))}
-          </div>
-        </motion.div>
-        <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ duration: 0.3 }}
-          exit={{ opacity: 0 }}
-        >
-          <div className="grow basis-0 justify-end hidden lg:flex">
+        <a href="/" aria-label="Home" className="flex justify-start items-center grow basis-0">
+          <img src="/logo.png" alt="test free online" className="w-8 h-8 mr-2" />
+          <span className="text-white font-['Inter'] font-bold text-xl">Free Online</span>
+        </a>
+
+        <div className="hidden lg:flex h-full pb-2">
+          {navbarLinks.map(({ href, label }) => (
             <a
-              className="text-white main-border-gray rounded-xl
-           bg-bgDark2 hover:bg-bgDark3  border-gray-700 pl-6 pr-8 pt-2 pb-2 text-sm flex"
-              href="https://github.com/adharshchottu/test-free-online"
-              target="_blank"
-              aria-label="source code"
+              className="text-white text-base leading-6 mx-4 2xl:mx-6 font-medium hover:scale-110 transition h-full pt-2"
+              href={href}
+              key={label}
             >
-              <GithubIcon />
-              <span className="pt-px">Source code</span>
+              {label}
             </a>
-          </div>
-        </motion.div>
-        <div
-          className="lg:hidden flex flex-col  px-2 py-3 border-solid border border-gray-600 rounded-md cursor-pointer hover:bg-bgDark2"
-          onClick={() => setIsOpen(!isOpen)}
-        >
-          <div className="w-5 h-0.5 bg-gray-500  mb-1"></div>
-          <div className="w-5 h-0.5 bg-gray-500  mb-1"></div>
-          <div className="w-5 h-0.5 bg-gray-500 "></div>
+          ))}
         </div>
-      </div>
-      {/* Mobile navbar */}
-      <AnimatePresence>
-        {isOpen && (
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ duration: 0.3 }}
-            exit={{ opacity: 0 }}
+
+        <div className="grow basis-0 justify-end hidden lg:flex">
+          <a
+            className="text-white main-border-gray rounded-xl bg-bgDark2 hover:bg-bgDark3 border-gray-700 pl-6 pr-8 pt-2 pb-2 text-sm flex"
+            href={sourceCodeUrl}
+            target="_blank"
+            rel="noopener noreferrer"
           >
-            <div
-              className="flex flex-col mt-16 lg:hidden absolute top-4 left-0  bg-bgDark1 z-50 w-full 
-        items-center gap-10 pb-10 border-y border-solid border-bgDark3 pt-10
-        "
+            <GithubIcon />
+            <span className="pt-px">Source code</span>
+          </a>
+        </div>
+
+        <button
+          type="button"
+          className="lg:hidden flex flex-col px-2 py-3 border-solid border border-gray-600 rounded-md cursor-pointer hover:bg-bgDark2"
+          onClick={() => setIsOpen(!isOpen)}
+          aria-label="Toggle menu"
+          aria-expanded={isOpen}
+        >
+          <span className="w-5 h-0.5 bg-gray-500 mb-1"></span>
+          <span className="w-5 h-0.5 bg-gray-500 mb-1"></span>
+          <span className="w-5 h-0.5 bg-gray-500"></span>
+        </button>
+      </div>
+
+      {/* Mobile navbar */}
+      {isOpen && (
+        <div className="flex flex-col mt-16 lg:hidden absolute top-4 left-0 bg-bgDark1 z-50 w-full items-center gap-10 py-10 border-y border-solid border-bgDark3">
+          {navbarLinks.map(({ label, href }) => (
+            <a
+              key={href}
+              className="text-white text-2xl leading-6 hover:scale-110 transition duration-300"
+              href={href}
+              onClick={() => setIsOpen(false)}
             >
-              {navbarLinks.map(({ label, href, ariaLabel }) => (
-                <a
-                  key={href}
-                  className="text-white lg:text-base text-2xl  leading-6 mr-4 ml-4   2xl:mr-6 2xl:ml-6 cursor-pointer font-normal lg:font-medium hover:scale-110 transition duration-300 h-full pt-2"
-                  href={href}
-                  onClick={() => setIsOpen(false)}
-                  aria-label={ariaLabel}
-                >
-                  {label}
-                </a>
-              ))}
-              <a
-                className="outlined-button pl-6 pr-8 pt-2 pb-2  flex"
-                href="https://github.com/adharshchottu/test-free-online"
-                target="_blank"
-              >
-                <GithubIcon />
-                Source code
-              </a>
-            </div>
-          </motion.div>
-        )}
-      </AnimatePresence>
+              {label}
+            </a>
+          ))}
+          <a
+            className="outlined-button pl-6 pr-8 pt-2 pb-2 flex"
+            href={sourceCodeUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            <GithubIcon />
+            Source code
+          </a>
+        </div>
+      )}
     </nav>
   );
 };
