@@ -41,6 +41,11 @@ Decode JSON Web Tokens and verify their signatures without the token leaving you
 
 **Features:** Colour-coded token parts, readable exp/iat/nbf dates, expiry status, HS256/384/512 secret and RS/PS/ES PEM public key verification
 
+### Regex Tester
+Test JavaScript regular expressions with live match highlighting. [Try it online](https://tools.typinks.com/regex-tester/)
+
+**Features:** Live highlighting, numbered and named groups, replace preview, all JS flags, runaway pattern protection, quick reference
+
 ## 📝 Productivity Tools
 
 ### Text Editor

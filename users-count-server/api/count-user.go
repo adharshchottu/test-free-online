@@ -67,6 +67,9 @@ var allowedURLs = []string{
 	"https://tools.typinks.com/jwt-decoder",
 	"https://tools.typinks.com/blog/how-to-decode-jwt-online",
 	"https://tools.typinks.com/blog/comment-decoder-jwt-en-ligne",
+	"https://tools.typinks.com/regex-tester",
+	"https://tools.typinks.com/blog/how-to-test-regex-online",
+	"https://tools.typinks.com/blog/comment-tester-regex-en-ligne",
 }
 
 var allowedUsers = []string{

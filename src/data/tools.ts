@@ -49,6 +49,12 @@ export const tools: Tool[] = [
     category: "Developer",
   },
   {
+    name: "Regex Tester",
+    href: "/regex-tester",
+    description: "Test JavaScript regular expressions with live highlighting, capture groups and a replace preview.",
+    category: "Developer",
+  },
+  {
     name: "Text Editor",
     href: "/text-editor",
     description: "A lightweight editor with word, character and line counts that saves as you type.",

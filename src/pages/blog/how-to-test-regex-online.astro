@@ -1,0 +1,195 @@
+---
+import { Image } from "astro:assets";
+import { Navbar } from "../../components/Navbar";
+import { ScrollUpButton } from "../../components/ScrollUpButton";
+import Layout from "../../layouts/Layout.astro";
+import Footer from "@/components/Footer.vue";
+import regexTesterBannerImage from "../../assets/images/blog/regex-tester.png";
+---
+
+<Layout
+  title="How to Test Regular Expressions Online"
+  ogImage="blog/regex-tester.png"
+  description="Learn how to write and test regular expressions online with live highlighting, capture groups, named groups and replace. Includes flags explained, common patterns and how to avoid catastrophic backtracking."
+  keywords="test regex online, regex tester, regular expression, javascript regex, regex groups, named capture groups, regex replace, regex flags, catastrophic backtracking"
+  author="Typinks Tools"
+  publishedDate="2026-09-27"
+  modifiedDate="2026-09-27"
+  articleSchema={true}
+>
+  <Navbar client:load />
+  <div class="flex justify-center bg-bgDark2 relative pt-2">
+    <div class="px-2 sm:px-4">
+      <article
+        class="p-8 text-center rounded-3xl w-full lg:w-[1200px] 2xl:w-[1400px] mb-24 mt-16 sm:mt-24"
+      >
+        <header class="mb-12">
+          <div class="text-sm text-secondaryText my-4">27 September 2026</div>
+          <h1
+            class="text-6xl lg:text-7xl xl:text-8xl font-bold tracking-tight leading-none mb-6 bg-gradient-to-r from-white via-purple-200 to-pink-400 bg-clip-text text-transparent"
+          >
+            Regex Tester
+          </h1>
+          <h2 class="text-2xl text-gray-300">
+            Build and debug regular expressions with instant feedback
+          </h2>
+        </header>
+
+        <Image
+          src={regexTesterBannerImage}
+          alt="Regex Tester - test JavaScript regular expressions online with match highlighting"
+          class="rounded-xl mb-8 md:w-2/4 mx-auto mt-8"
+        />
+
+        <section
+          class="text-secondaryText !leading-8 sm:!leading-10 sm:text-xl text-left sm:text-justify mx-auto w-full md:w-10/12 lg:w-2/3 mt-16"
+        >
+          <a
+            href="https://tools.typinks.com/regex-tester/"
+            target="_blank"
+            class="text-pink-400 font-bold">The Regex Tester</a
+          > lets you write a regular expression and see immediately what it matches.
+          Matches are highlighted in your text, every capture group is listed, and
+          you can preview a find-and-replace before putting the pattern into your
+          code. It uses the JavaScript regex engine, the same one that runs in
+          browsers and Node.js.
+
+          <h2 class="text-white text-2xl my-4">What Is a Regular Expression?</h2>
+          <p>
+            A regular expression, or regex, is a small pattern language for
+            describing text. <code>\d{"{"}3{"}"}</code> means "three digits",
+            <code>^[A-Z]</code> means "starts with a capital letter", and
+            <code>colou?r</code> matches both "color" and "colour". Regexes are
+            used to validate input, search logs, extract data and rewrite text
+            in almost every programming language and editor.
+          </p>
+
+          <h2 class="text-white text-2xl my-4">Key Features</h2>
+          <ul class="list-disc list-inside space-y-2 my-4">
+            <li><strong>Live highlighting:</strong> Matches are marked in your text as you type</li>
+            <li><strong>Groups:</strong> Every match lists its numbered groups ($1, $2) and named groups ($&lt;name&gt;)</li>
+            <li><strong>Replace preview:</strong> See the result of a replacement, including group references</li>
+            <li><strong>All JavaScript flags:</strong> g, i, m, s, u and y, each with a tooltip</li>
+            <li><strong>Runaway protection:</strong> Patterns that take too long are stopped instead of freezing your tab</li>
+            <li><strong>Quick reference:</strong> The most used syntax, right below the tester</li>
+            <li><strong>Remembers your work:</strong> Pattern, flags and text are kept when you reload</li>
+          </ul>
+
+          <h2 class="text-white text-2xl my-4">How to Test a Regex</h2>
+
+          <h4 class="text-white text-xl my-3">Step 1: Enter the Pattern</h4>
+          <p>
+            Type your pattern between the slashes, without the slashes
+            themselves. Click "Sample" to load an email-matching example with
+            named groups.
+          </p>
+
+          <h4 class="text-white text-xl my-3">Step 2: Choose Flags</h4>
+          <p>
+            The <code>g</code> flag is on by default so you see every match. Add
+            <code>i</code> to ignore case, <code>m</code> to make <code>^</code>
+            and <code>$</code> work per line, or <code>s</code> to let
+            <code>.</code> match line breaks. The flags you pick appear after the
+            closing slash.
+          </p>
+
+          <h4 class="text-white text-xl my-3">Step 3: Add Test Text</h4>
+          <p>
+            Paste the text you want to search. Include examples that should
+            match and examples that shouldn't, so you catch both missed matches
+            and false positives.
+          </p>
+
+          <h4 class="text-white text-xl my-3">Step 4: Read the Results</h4>
+          <p>
+            The status line gives the number of matches and groups. The
+            highlighted view shows where each match sits, and the Matches list
+            shows its position and every group value. A group that didn't take
+            part in the match is shown as "(no match)".
+          </p>
+
+          <h4 class="text-white text-xl my-3">Step 5: Try a Replacement</h4>
+          <p>
+            Type a replacement to preview the rewritten text. Use
+            <code>$1</code> for the first group, <code>$&lt;name&gt;</code> for a
+            named group and <code>$&amp;</code> for the whole match. Without the
+            <code>g</code> flag, only the first match is replaced, exactly as in
+            JavaScript's <code>String.replace</code>.
+          </p>
+
+          <h2 class="text-white text-2xl my-4">Regex Flags Explained</h2>
+          <ul class="list-disc list-inside space-y-2 my-4">
+            <li><strong>g (global):</strong> Find all matches, not just the first</li>
+            <li><strong>i (ignore case):</strong> <code>a</code> also matches <code>A</code></li>
+            <li><strong>m (multiline):</strong> <code>^</code> and <code>$</code> match at the start and end of each line</li>
+            <li><strong>s (dotAll):</strong> <code>.</code> also matches line breaks</li>
+            <li><strong>u (unicode):</strong> Treats emoji and other astral characters as one character, and enables <code>\p{"{"}L{"}"}</code> style classes</li>
+            <li><strong>y (sticky):</strong> Only matches at the exact current position</li>
+          </ul>
+
+          <h2 class="text-white text-2xl my-4">Useful Patterns</h2>
+          <ul class="list-disc list-inside space-y-2 my-4">
+            <li><strong>Whole word:</strong> <code>\bword\b</code></li>
+            <li><strong>Digits only:</strong> <code>^\d+$</code></li>
+            <li><strong>ISO date:</strong> <code>\d{"{"}4{"}"}-\d{"{"}2{"}"}-\d{"{"}2{"}"}</code></li>
+            <li><strong>Hex colour:</strong> <code>#(?:[0-9a-fA-F]{"{"}3{"}"}){"{"}1,2{"}"}\b</code></li>
+            <li><strong>Trailing whitespace:</strong> <code>[ \t]+$</code> with the m flag</li>
+            <li><strong>Duplicate words:</strong> <code>\b(\w+)\s+\1\b</code></li>
+          </ul>
+
+          <h2 class="text-white text-2xl my-4">Avoiding Catastrophic Backtracking</h2>
+          <p>
+            Some patterns, such as <code>(a+)+$</code>, can take exponentially
+            longer as the input grows, because the engine tries every way to
+            split the text between the nested quantifiers before giving up. In
+            production this can hang a server. The tester runs your pattern in
+            the background and stops it after 1.5 seconds, so you find these
+            problems safely. To fix one, remove nested quantifiers, make
+            alternatives mutually exclusive, and use specific character classes
+            instead of <code>.*</code>.
+          </p>
+
+          <h2 class="text-white text-2xl my-4">Tips</h2>
+          <ul class="list-disc list-inside space-y-2 my-4">
+            <li>Build patterns step by step, checking the matches after each change</li>
+            <li>Use named groups; <code>$&lt;year&gt;</code> is easier to read than <code>$3</code></li>
+            <li>Prefer lazy quantifiers like <code>.+?</code> when matching between delimiters</li>
+            <li>Anchor validation patterns with <code>^</code> and <code>$</code>, or partial input will pass</li>
+          </ul>
+
+          <h2 class="text-white text-2xl my-4">Privacy</h2>
+          <p>
+            Your pattern and text are processed in your browser and saved only
+            in its local storage. Nothing is uploaded.
+          </p>
+
+          <h2 class="text-white text-2xl my-4">Conclusion</h2>
+          <p>
+            Live highlighting, group details and replace previews make regular
+            expressions far easier to get right. Try it at{" "}
+            <a
+              href="https://tools.typinks.com/regex-tester/"
+              target="_blank"
+              class="text-pink-400 font-bold"
+              >tools.typinks.com/regex-tester</a
+            >.
+          </p>
+
+          <div class="mt-12 p-6 bg-bgDark3 rounded-xl border border-gray-700">
+            <h4 class="text-white text-xl mb-4">Got a Pattern to Debug?</h4>
+            <p class="mb-4">Paste it in and see exactly what it matches.</p>
+            <a
+              href="https://tools.typinks.com/regex-tester/"
+              target="_blank"
+              class="inline-block px-6 py-3 bg-gradient-to-r from-purple-500 to-pink-500 text-white font-semibold rounded-lg hover:from-purple-600 hover:to-pink-600 transition-all"
+            >
+              Launch Regex Tester
+            </a>
+          </div>
+        </section>
+      </article>
+    </div>
+  </div>
+  <ScrollUpButton client:load />
+  <Footer client:only="vue" />
+</Layout>

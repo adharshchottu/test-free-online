@@ -138,6 +138,10 @@ export default {
                             label: "JWT Decoder",
                             value: "/jwt-decoder"
                         },
+                        {
+                            label: "Regex Tester",
+                            value: "/regex-tester"
+                        },
                     ],
                 },
             ],

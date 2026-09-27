@@ -1,0 +1,199 @@
+---
+import { Image } from "astro:assets";
+import { Navbar } from "../../components/Navbar";
+import { ScrollUpButton } from "../../components/ScrollUpButton";
+import Layout from "../../layouts/Layout.astro";
+import Footer from "@/components/Footer.vue";
+import regexTesterBannerImage from "../../assets/images/blog/regex-tester.png";
+---
+
+<Layout
+  title="Comment tester des expressions régulières en ligne"
+  ogImage="blog/regex-tester.png"
+  description="Apprenez à écrire et tester des expressions régulières en ligne avec surlignage en direct, groupes de capture, groupes nommés et remplacement. Drapeaux expliqués, motifs courants et comment éviter le backtracking catastrophique."
+  lang="fr"
+  keywords="tester regex en ligne, testeur regex, expression régulière, regex javascript, groupes regex, groupes nommés, remplacement regex, drapeaux regex"
+  author="Typinks Tools"
+  publishedDate="2026-09-27"
+  modifiedDate="2026-09-27"
+  articleSchema={true}
+>
+  <Navbar client:load />
+  <div class="flex justify-center bg-bgDark2 relative pt-2">
+    <div class="px-2 sm:px-4">
+      <article
+        class="p-8 text-center rounded-3xl w-full lg:w-[1200px] 2xl:w-[1400px] mb-24 mt-16 sm:mt-24"
+      >
+        <header class="mb-12">
+          <div class="text-sm text-secondaryText my-4">27 septembre 2026</div>
+          <h1
+            class="text-6xl lg:text-7xl xl:text-8xl font-bold tracking-tight leading-none mb-6 bg-gradient-to-r from-white via-purple-200 to-pink-400 bg-clip-text text-transparent"
+          >
+            Testeur de Regex
+          </h1>
+          <h2 class="text-2xl text-gray-300">
+            Construisez et déboguez des expressions régulières avec un retour immédiat
+          </h2>
+        </header>
+
+        <Image
+          src={regexTesterBannerImage}
+          alt="Testeur de regex - tester des expressions régulières JavaScript en ligne avec surlignage"
+          class="rounded-xl mb-8 md:w-2/4 mx-auto mt-8"
+        />
+
+        <section
+          class="text-secondaryText !leading-8 sm:!leading-10 sm:text-xl text-left sm:text-justify mx-auto w-full md:w-10/12 lg:w-2/3 mt-16"
+        >
+          <a
+            href="https://tools.typinks.com/regex-tester/"
+            target="_blank"
+            class="text-pink-400 font-bold">Le Testeur de Regex</a
+          > vous permet d'écrire une expression régulière et de voir aussitôt ce
+          qu'elle trouve. Les correspondances sont surlignées dans votre texte,
+          chaque groupe de capture est listé, et vous pouvez prévisualiser un
+          rechercher-remplacer avant d'intégrer le motif à votre code. Il utilise le
+          moteur regex de JavaScript, le même que dans les navigateurs et Node.js.
+
+          <h2 class="text-white text-2xl my-4">Qu'est-ce qu'une expression régulière ?</h2>
+          <p>
+            Une expression régulière, ou regex, est un petit langage de motifs
+            pour décrire du texte. <code>\d{"{"}3{"}"}</code> signifie « trois
+            chiffres », <code>^[A-Z]</code> « commence par une majuscule », et
+            <code>colou?r</code> trouve à la fois « color » et « colour ». Les
+            regex servent à valider des saisies, fouiller des logs, extraire des
+            données et réécrire du texte dans presque tous les langages et
+            éditeurs.
+          </p>
+
+          <h2 class="text-white text-2xl my-4">Fonctionnalités Principales</h2>
+          <ul class="list-disc list-inside space-y-2 my-4">
+            <li><strong>Surlignage en direct :</strong> Les correspondances sont marquées dans votre texte pendant la saisie</li>
+            <li><strong>Groupes :</strong> Chaque correspondance liste ses groupes numérotés ($1, $2) et nommés ($&lt;nom&gt;)</li>
+            <li><strong>Aperçu du remplacement :</strong> Voyez le résultat d'un remplacement, références de groupes comprises</li>
+            <li><strong>Tous les drapeaux JavaScript :</strong> g, i, m, s, u et y, chacun avec une info-bulle</li>
+            <li><strong>Protection contre les emballements :</strong> Un motif trop long à exécuter est arrêté au lieu de bloquer l'onglet</li>
+            <li><strong>Aide-mémoire :</strong> La syntaxe la plus utilisée, juste sous le testeur</li>
+            <li><strong>Mémorise votre travail :</strong> Motif, drapeaux et texte sont conservés au rechargement</li>
+          </ul>
+
+          <h2 class="text-white text-2xl my-4">Comment tester une regex</h2>
+
+          <h4 class="text-white text-xl my-3">Étape 1 : Saisissez le motif</h4>
+          <p>
+            Tapez votre motif entre les barres obliques, sans les barres
+            elles-mêmes. Cliquez sur « Sample » pour charger un exemple qui
+            détecte des adresses e-mail avec des groupes nommés.
+          </p>
+
+          <h4 class="text-white text-xl my-3">Étape 2 : Choisissez les drapeaux</h4>
+          <p>
+            Le drapeau <code>g</code> est activé par défaut pour voir toutes les
+            correspondances. Ajoutez <code>i</code> pour ignorer la casse,
+            <code>m</code> pour que <code>^</code> et <code>$</code> agissent par
+            ligne, ou <code>s</code> pour que <code>.</code> accepte les retours à
+            la ligne. Les drapeaux choisis apparaissent après la barre finale.
+          </p>
+
+          <h4 class="text-white text-xl my-3">Étape 3 : Ajoutez un texte de test</h4>
+          <p>
+            Collez le texte à analyser. Incluez des exemples qui doivent
+            correspondre et d'autres qui ne le doivent pas, pour repérer à la fois
+            les oublis et les faux positifs.
+          </p>
+
+          <h4 class="text-white text-xl my-3">Étape 4 : Lisez les résultats</h4>
+          <p>
+            La ligne d'état donne le nombre de correspondances et de groupes. La
+            vue surlignée montre où se trouve chaque correspondance, et la liste
+            Matches indique sa position et la valeur de chaque groupe. Un groupe
+            qui n'a pas participé à la correspondance est affiché « (no match) ».
+          </p>
+
+          <h4 class="text-white text-xl my-3">Étape 5 : Essayez un remplacement</h4>
+          <p>
+            Tapez un texte de remplacement pour prévisualiser le résultat.
+            Utilisez <code>$1</code> pour le premier groupe,
+            <code>$&lt;nom&gt;</code> pour un groupe nommé et <code>$&amp;</code>
+            pour la correspondance entière. Sans le drapeau <code>g</code>, seule
+            la première correspondance est remplacée, exactement comme avec
+            <code>String.replace</code> en JavaScript.
+          </p>
+
+          <h2 class="text-white text-2xl my-4">Les drapeaux expliqués</h2>
+          <ul class="list-disc list-inside space-y-2 my-4">
+            <li><strong>g (global) :</strong> Trouve toutes les correspondances, pas seulement la première</li>
+            <li><strong>i (ignore case) :</strong> <code>a</code> correspond aussi à <code>A</code></li>
+            <li><strong>m (multiline) :</strong> <code>^</code> et <code>$</code> correspondent au début et à la fin de chaque ligne</li>
+            <li><strong>s (dotAll) :</strong> <code>.</code> accepte aussi les retours à la ligne</li>
+            <li><strong>u (unicode) :</strong> Traite les emoji comme un seul caractère et active les classes du type <code>\p{"{"}L{"}"}</code></li>
+            <li><strong>y (sticky) :</strong> Ne cherche qu'à la position courante exacte</li>
+          </ul>
+
+          <h2 class="text-white text-2xl my-4">Motifs utiles</h2>
+          <ul class="list-disc list-inside space-y-2 my-4">
+            <li><strong>Mot entier :</strong> <code>\bmot\b</code></li>
+            <li><strong>Chiffres uniquement :</strong> <code>^\d+$</code></li>
+            <li><strong>Date ISO :</strong> <code>\d{"{"}4{"}"}-\d{"{"}2{"}"}-\d{"{"}2{"}"}</code></li>
+            <li><strong>Couleur hexadécimale :</strong> <code>#(?:[0-9a-fA-F]{"{"}3{"}"}){"{"}1,2{"}"}\b</code></li>
+            <li><strong>Espaces en fin de ligne :</strong> <code>[ \t]+$</code> avec le drapeau m</li>
+            <li><strong>Mots répétés :</strong> <code>\b(\w+)\s+\1\b</code></li>
+          </ul>
+
+          <h2 class="text-white text-2xl my-4">Éviter le backtracking catastrophique</h2>
+          <p>
+            Certains motifs, comme <code>(a+)+$</code>, prennent un temps qui
+            explose avec la taille du texte, car le moteur essaie toutes les
+            façons de répartir le texte entre les quantificateurs imbriqués avant
+            d'abandonner. En production, cela peut bloquer un serveur. Le testeur
+            exécute votre motif en arrière-plan et l'arrête après 1,5 seconde,
+            pour détecter ces problèmes sans risque. Pour les corriger, supprimez
+            les quantificateurs imbriqués, rendez les alternatives exclusives et
+            préférez des classes de caractères précises à <code>.*</code>.
+          </p>
+
+          <h2 class="text-white text-2xl my-4">Conseils</h2>
+          <ul class="list-disc list-inside space-y-2 my-4">
+            <li>Construisez vos motifs pas à pas en vérifiant les correspondances à chaque modification</li>
+            <li>Utilisez des groupes nommés : <code>$&lt;annee&gt;</code> se lit mieux que <code>$3</code></li>
+            <li>Préférez les quantificateurs paresseux comme <code>.+?</code> entre deux délimiteurs</li>
+            <li>Ancrez vos motifs de validation avec <code>^</code> et <code>$</code>, sinon une saisie partielle passera</li>
+          </ul>
+
+          <h2 class="text-white text-2xl my-4">Confidentialité</h2>
+          <p>
+            Votre motif et votre texte sont traités dans votre navigateur et
+            enregistrés uniquement dans son stockage local. Rien n'est envoyé.
+          </p>
+
+          <h2 class="text-white text-2xl my-4">Conclusion</h2>
+          <p>
+            Le surlignage en direct, le détail des groupes et l'aperçu des
+            remplacements rendent les expressions régulières bien plus faciles à
+            maîtriser. Essayez-le sur{" "}
+            <a
+              href="https://tools.typinks.com/regex-tester/"
+              target="_blank"
+              class="text-pink-400 font-bold"
+              >tools.typinks.com/regex-tester</a
+            >.
+          </p>
+
+          <div class="mt-12 p-6 bg-bgDark3 rounded-xl border border-gray-700">
+            <h4 class="text-white text-xl mb-4">Un motif à déboguer ?</h4>
+            <p class="mb-4">Collez-le et voyez exactement ce qu'il trouve.</p>
+            <a
+              href="https://tools.typinks.com/regex-tester/"
+              target="_blank"
+              class="inline-block px-6 py-3 bg-gradient-to-r from-purple-500 to-pink-500 text-white font-semibold rounded-lg hover:from-purple-600 hover:to-pink-600 transition-all"
+            >
+              Lancer le testeur de regex
+            </a>
+          </div>
+        </section>
+      </article>
+    </div>
+  </div>
+  <ScrollUpButton client:load />
+  <Footer client:only="vue" />
+</Layout>

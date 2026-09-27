@@ -44,12 +44,27 @@ import textEditor from "../assets/images/thumbnail/simple-text-editor.png";
 import jsonFormatter from "../assets/images/thumbnail/json-formatter.png";
 import base64UrlEncoder from "../assets/images/thumbnail/base64-url-encoder.png";
 import jwtDecoder from "../assets/images/thumbnail/jwt-decoder.png";
+import regexTester from "../assets/images/thumbnail/regex-tester.png";
 
 export default {
     name: "Blog",
     data() {
         return {
             blogData: [
+                {
+                    title: "How to Test Regular Expressions Online",
+                    subtitle:
+                        "Write, debug and replace with regex using live highlighting, capture groups and flags explained.",
+                    image: regexTester,
+                    link: 'how-to-test-regex-online'
+                },
+                {
+                    title: "Comment tester des expressions régulières en ligne",
+                    subtitle:
+                        "Écrivez, déboguez et remplacez avec des regex grâce au surlignage en direct, aux groupes et aux drapeaux expliqués.",
+                    image: regexTester,
+                    link: 'comment-tester-regex-en-ligne'
+                },
                 {
                     title: "How to Decode and Verify a JWT Online",
                     subtitle:
