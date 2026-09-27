@@ -146,6 +146,10 @@ export default {
                             label: "Cron Expression Explainer",
                             value: "/cron-explainer"
                         },
+                        {
+                            label: "UUID & Hash Generator",
+                            value: "/uuid-hash-generator"
+                        },
                     ],
                 },
             ],

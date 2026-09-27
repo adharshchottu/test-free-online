@@ -1,0 +1,202 @@
+---
+import { Image } from "astro:assets";
+import { Navbar } from "../../components/Navbar";
+import { ScrollUpButton } from "../../components/ScrollUpButton";
+import Layout from "../../layouts/Layout.astro";
+import Footer from "@/components/Footer.vue";
+import uuidHashBannerImage from "../../assets/images/blog/uuid-hash-generator.png";
+---
+
+<Layout
+  title="Comment générer des UUID et des hash en ligne"
+  ogImage="blog/uuid-hash-generator.png"
+  description="Découvrez la différence entre UUID v4 et v7, comment les générer en masse, et comment calculer des hash MD5, SHA-1, SHA-256 et SHA-512 et des HMAC de textes ou de fichiers en ligne, en toute confidentialité."
+  lang="fr"
+  keywords="générer uuid en ligne, uuid v4 ou v7, générateur guid, hash sha256 en ligne, générateur md5, générateur hmac, somme de contrôle fichier, sha512"
+  author="Typinks Tools"
+  publishedDate="2026-09-27"
+  modifiedDate="2026-09-27"
+  articleSchema={true}
+>
+  <Navbar client:load />
+  <div class="flex justify-center bg-bgDark2 relative pt-2">
+    <div class="px-2 sm:px-4">
+      <article
+        class="p-8 text-center rounded-3xl w-full lg:w-[1200px] 2xl:w-[1400px] mb-24 mt-16 sm:mt-24"
+      >
+        <header class="mb-12">
+          <div class="text-sm text-secondaryText my-4">27 septembre 2026</div>
+          <h1
+            class="text-6xl lg:text-7xl xl:text-8xl font-bold tracking-tight leading-none mb-6 bg-gradient-to-r from-white via-purple-200 to-pink-400 bg-clip-text text-transparent"
+          >
+            Générateur d'UUID et de Hash
+          </h1>
+          <h2 class="text-2xl text-gray-300">
+            Des identifiants uniques et des empreintes, générés en toute sécurité dans votre navigateur
+          </h2>
+        </header>
+
+        <Image
+          src={uuidHashBannerImage}
+          alt="Générateur d'UUID et de hash - générer des UUID v4 et v7, des hash MD5 et SHA-256 en ligne"
+          class="rounded-xl mb-8 md:w-2/4 mx-auto mt-8"
+        />
+
+        <section
+          class="text-secondaryText !leading-8 sm:!leading-10 sm:text-xl text-left sm:text-justify mx-auto w-full md:w-10/12 lg:w-2/3 mt-16"
+        >
+          <a
+            href="https://tools.typinks.com/uuid-hash-generator/"
+            target="_blank"
+            class="text-pink-400 font-bold">Le Générateur d'UUID et de Hash</a
+          > réunit deux tâches quotidiennes du développeur : créer des
+          identifiants uniques et calculer des empreintes. Générez jusqu'à 1 000
+          UUID d'un coup en version 4 ou 7, inspectez n'importe quel UUID pour
+          connaître sa version et sa date de création, et calculez le hash de
+          textes ou de fichiers en MD5, SHA-1, SHA-256, SHA-384 et SHA-512.
+
+          <h2 class="text-white text-2xl my-4">Qu'est-ce qu'un UUID ?</h2>
+          <p>
+            Un UUID (identifiant unique universel), aussi appelé GUID, est un
+            identifiant de 128 bits écrit sous forme de 32 chiffres hexadécimaux
+            en cinq groupes, comme <code>f47ac10b-58cc-4372-a567-0e02b2c3d479</code>.
+            Un UUID peut être créé n'importe où, sur n'importe quel appareil,
+            sans consulter de base centrale, et en pratique deux UUID ne se
+            ressemblent jamais. C'est idéal pour les clés de base de données, les
+            identifiants de requête, les noms de fichiers et tout ce que créent
+            les systèmes distribués.
+          </p>
+
+          <h2 class="text-white text-2xl my-4">UUID v4 ou UUID v7 ?</h2>
+          <ul class="list-disc list-inside space-y-2 my-4">
+            <li>
+              <strong>La version 4</strong> contient 122 bits aléatoires. Elle ne
+              révèle ni quand ni où elle a été créée, ce qui en fait un bon choix
+              pour les identifiants publics et les jetons
+            </li>
+            <li>
+              <strong>La version 7</strong> commence par un horodatage Unix en
+              millisecondes suivi de bits aléatoires. Les identifiants créés plus
+              tard se trient après les autres : les index de base de données
+              restent compacts et les insertions rapides. Définie dans la RFC
+              9562, c'est désormais le choix recommandé pour les clés primaires
+            </li>
+          </ul>
+
+          <h2 class="text-white text-2xl my-4">Comment générer des UUID</h2>
+
+          <h4 class="text-white text-xl my-3">Étape 1 : Choisissez la version et le nombre</h4>
+          <p>
+            Sélectionnez la version 4 ou 7 et indiquez combien il vous en faut,
+            de 1 à 1 000. Un nouveau lot apparaît à chaque clic sur Generate.
+          </p>
+
+          <h4 class="text-white text-xl my-3">Étape 2 : Choisissez le format</h4>
+          <p>
+            Cochez Uppercase (majuscules), No hyphens (sans tirets) ou Braces
+            (accolades) selon ce qu'attend votre langage ou votre base de
+            données. Les accolades donnent le style <code>{"{...}"}</code> utilisé
+            par Windows et .NET.
+          </p>
+
+          <h4 class="text-white text-xl my-3">Étape 3 : Copiez</h4>
+          <p>
+            Cliquez sur « Copy all » pour copier toute la liste, un UUID par
+            ligne.
+          </p>
+
+          <h2 class="text-white text-2xl my-4">Inspecter un UUID</h2>
+          <p>
+            Collez un UUID dans « Inspect a UUID » pour voir sa forme canonique,
+            sa version et sa variante. Pour les versions temporelles 1, 6 et 7,
+            l'inspecteur affiche aussi le moment exact de sa création, pratique
+            pour déboguer des enregistrements ou des logs. Il accepte les
+            majuscules, l'absence de tirets, les accolades et le préfixe
+            <code>urn:uuid:</code>, et reconnaît les UUID spéciaux nil et max.
+          </p>
+
+          <h2 class="text-white text-2xl my-4">Qu'est-ce qu'un hash ?</h2>
+          <p>
+            Une fonction de hachage transforme n'importe quelle entrée en une
+            empreinte courte de longueur fixe. La même entrée donne toujours le
+            même hash, et le moindre changement en donne un complètement
+            différent. Les hash servent à vérifier des téléchargements, détecter
+            des fichiers modifiés, construire des clés de cache et signer des
+            données.
+          </p>
+
+          <h2 class="text-white text-2xl my-4">Comment générer un hash</h2>
+
+          <h4 class="text-white text-xl my-3">Étape 1 : Saisissez un texte ou choisissez un fichier</h4>
+          <p>
+            Tapez dans la zone et les cinq hash se mettent à jour
+            instantanément. Pour un fichier de 200 Mo maximum, cliquez sur
+            « Hash a file ». Le texte est haché en UTF-8 : les résultats
+            correspondent aux outils en ligne de commande comme
+            <code>sha256sum</code>.
+          </p>
+
+          <h4 class="text-white text-xl my-3">Étape 2 : Choisissez le format de sortie</h4>
+          <p>
+            Choisissez l'hexadécimal en minuscules, en majuscules ou le Base64,
+            selon l'endroit où la valeur sera utilisée.
+          </p>
+
+          <h4 class="text-white text-xl my-3">Étape 3 : Ajoutez une clé HMAC (facultatif)</h4>
+          <p>
+            Cochez HMAC et saisissez une clé secrète pour calculer des hash à
+            clé. HMAC-SHA256 est utilisé par des services comme Stripe et GitHub
+            pour signer leurs webhooks : c'est un moyen rapide de vérifier une
+            signature à la main.
+          </p>
+
+          <h2 class="text-white text-2xl my-4">Choisir un algorithme</h2>
+          <ul class="list-disc list-inside space-y-2 my-4">
+            <li><strong>SHA-256 :</strong> Le choix par défaut pour les sommes de contrôle, les signatures et les vérifications d'intégrité</li>
+            <li><strong>SHA-384 et SHA-512 :</strong> Des empreintes plus longues quand une politique l'exige</li>
+            <li><strong>SHA-1 :</strong> Cassé pour la sécurité ; encore utilisé par Git et d'anciens systèmes</li>
+            <li><strong>MD5 :</strong> Cassé pour la sécurité ; suffisant pour repérer une corruption accidentelle ou comparer d'anciennes sommes de contrôle</li>
+          </ul>
+          <p>
+            Ne stockez jamais de mots de passe sous forme de simple hash. Utilisez
+            un algorithme dédié comme Argon2, bcrypt ou scrypt.
+          </p>
+
+          <h2 class="text-white text-2xl my-4">Confidentialité et sécurité</h2>
+          <p>
+            Les UUID proviennent du générateur aléatoire cryptographiquement sûr
+            de votre navigateur, et les hash SHA et HMAC utilisent l'API Web
+            Crypto intégrée. Vos textes, fichiers et clés ne quittent jamais
+            votre appareil.
+          </p>
+
+          <h2 class="text-white text-2xl my-4">Conclusion</h2>
+          <p>
+            Des clés primaires aux sommes de contrôle, le Générateur d'UUID et de
+            Hash couvre les deux besoins sur une seule page. Essayez-le sur{" "}
+            <a
+              href="https://tools.typinks.com/uuid-hash-generator/"
+              target="_blank"
+              class="text-pink-400 font-bold"
+              >tools.typinks.com/uuid-hash-generator</a
+            >.
+          </p>
+
+          <div class="mt-12 p-6 bg-bgDark3 rounded-xl border border-gray-700">
+            <h4 class="text-white text-xl mb-4">Besoin d'identifiants ou d'une empreinte ?</h4>
+            <p class="mb-4">Générez-les instantanément, sans que rien ne quitte votre navigateur.</p>
+            <a
+              href="https://tools.typinks.com/uuid-hash-generator/"
+              target="_blank"
+              class="inline-block px-6 py-3 bg-gradient-to-r from-purple-500 to-pink-500 text-white font-semibold rounded-lg hover:from-purple-600 hover:to-pink-600 transition-all"
+            >
+              Lancer le générateur
+            </a>
+          </div>
+        </section>
+      </article>
+    </div>
+  </div>
+  <ScrollUpButton client:load />
+  <Footer client:only="vue" />
+</Layout>

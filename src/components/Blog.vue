@@ -46,12 +46,27 @@ import base64UrlEncoder from "../assets/images/thumbnail/base64-url-encoder.png"
 import jwtDecoder from "../assets/images/thumbnail/jwt-decoder.png";
 import regexTester from "../assets/images/thumbnail/regex-tester.png";
 import cronExplainer from "../assets/images/thumbnail/cron-explainer.png";
+import uuidHashGenerator from "../assets/images/thumbnail/uuid-hash-generator.png";
 
 export default {
     name: "Blog",
     data() {
         return {
             blogData: [
+                {
+                    title: "How to Generate UUIDs and Hashes Online",
+                    subtitle:
+                        "UUID v4 vs v7, inspecting UUIDs, and creating MD5, SHA-256 and HMAC hashes of text or files in your browser.",
+                    image: uuidHashGenerator,
+                    link: 'how-to-generate-uuid-and-hash-online'
+                },
+                {
+                    title: "Comment générer des UUID et des hash en ligne",
+                    subtitle:
+                        "UUID v4 ou v7, inspection d'UUID, et calcul de hash MD5, SHA-256 et HMAC de textes ou de fichiers dans votre navigateur.",
+                    image: uuidHashGenerator,
+                    link: 'comment-generer-uuid-et-hash-en-ligne'
+                },
                 {
                     title: "How to Read Cron Expressions",
                     subtitle:

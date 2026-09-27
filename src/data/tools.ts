@@ -61,6 +61,12 @@ export const tools: Tool[] = [
     category: "Developer",
   },
   {
+    name: "UUID & Hash Generator",
+    href: "/uuid-hash-generator",
+    description: "Generate UUID v4 or v7 in bulk, inspect any UUID, and hash text or files with MD5 and SHA.",
+    category: "Developer",
+  },
+  {
     name: "Text Editor",
     href: "/text-editor",
     description: "A lightweight editor with word, character and line counts that saves as you type.",

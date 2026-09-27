@@ -73,6 +73,9 @@ var allowedURLs = []string{
 	"https://tools.typinks.com/cron-explainer",
 	"https://tools.typinks.com/blog/how-to-read-cron-expressions-online",
 	"https://tools.typinks.com/blog/comment-lire-expressions-cron-en-ligne",
+	"https://tools.typinks.com/uuid-hash-generator",
+	"https://tools.typinks.com/blog/how-to-generate-uuid-and-hash-online",
+	"https://tools.typinks.com/blog/comment-generer-uuid-et-hash-en-ligne",
 }
 
 var allowedUsers = []string{

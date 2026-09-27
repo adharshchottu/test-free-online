@@ -1,0 +1,320 @@
+---
+import { Navbar } from "@/components/Navbar";
+import Layout from "../layouts/Layout.astro";
+import Footer from "@/components/Footer.vue";
+import { ScrollUpButton } from "@/components/ScrollUpButton";
+import "../styles/Theme.css";
+
+const buttonClass =
+    "px-3 py-2 bg-bgDark2 hover:bg-bgDark1 text-primaryText text-sm rounded-lg transition-colors border border-gray-700 hover:border-primaryColor";
+const inputClass =
+    "w-full p-3 font-mono text-sm main-border-gray rounded-lg bg-bgDark2 text-primaryText placeholder-gray-500 focus:outline-none focus:border-primaryColor";
+const selectClass = "bg-bgDark2 text-primaryText text-sm rounded-lg border border-gray-700 px-2 py-2";
+const cardClass = "p-4 sm:p-6 bg-bgDark3 main-border-gray rounded-xl";
+const algorithms = ["MD5", "SHA-1", "SHA-256", "SHA-384", "SHA-512"];
+---
+
+<Layout
+    title="UUID & Hash Generator Online - UUID v4, v7, MD5, SHA-256"
+    description="Generate UUID v4 and time-ordered UUID v7 in bulk, inspect any UUID, and hash text or files with MD5, SHA-1, SHA-256, SHA-384 and SHA-512, including HMAC. Runs in your browser."
+    ogImage="blog/uuid-hash-generator.png"
+    keywords="uuid generator, uuid v4, uuid v7, guid generator, hash generator, md5 generator, sha256 online, sha1, sha512, hmac generator, file checksum"
+>
+    <Navbar client:load />
+    <section class="pt-16 md:pt-16 lg:pt-24">
+        <div class="w-full max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+            <div class="mb-6">
+                <h1 class="block-big-title">UUID & Hash Generator</h1>
+                <p class="mt-3 text-secondaryText">
+                    Generate unique IDs and checksums with your browser's secure random number generator.
+                </p>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                <div class="space-y-6">
+                    <div class={cardClass}>
+                        <h2 class="text-white text-lg font-bold mb-4">UUID generator</h2>
+                        <div class="flex flex-wrap items-center gap-3 mb-4">
+                            <select id="uuidVersion" class={selectClass} aria-label="UUID version">
+                                <option value="4">Version 4 (random)</option>
+                                <option value="7">Version 7 (time-ordered)</option>
+                            </select>
+                            <label class="text-sm text-secondaryText flex items-center gap-2">
+                                How many
+                                <input id="uuidCount" type="number" min="1" max="1000" value="5" class={`${selectClass} w-20`} />
+                            </label>
+                        </div>
+                        <div class="flex flex-wrap items-center gap-4 mb-4">
+                            <label class="text-sm text-secondaryText flex items-center gap-2">
+                                <input id="uuidUpper" type="checkbox" class="accent-primaryColor" /> Uppercase
+                            </label>
+                            <label class="text-sm text-secondaryText flex items-center gap-2">
+                                <input id="uuidNoHyphens" type="checkbox" class="accent-primaryColor" /> No hyphens
+                            </label>
+                            <label class="text-sm text-secondaryText flex items-center gap-2">
+                                <input id="uuidBraces" type="checkbox" class="accent-primaryColor" /> Braces
+                            </label>
+                        </div>
+                        <div class="flex gap-2 mb-3">
+                            <button id="uuidGenerate" class="contained-button px-4 py-2 !rounded-lg text-sm">Generate</button>
+                            <button id="uuidCopy" class={buttonClass}>Copy all</button>
+                        </div>
+                        <textarea id="uuidOutput" readonly spellcheck="false" class={`${inputClass} min-h-[180px] resize-y`}></textarea>
+                    </div>
+
+                    <div class={cardClass}>
+                        <h2 class="text-white text-lg font-bold mb-4">Inspect a UUID</h2>
+                        <input id="inspectInput" type="text" spellcheck="false" autocomplete="off" placeholder="Paste a UUID" class={inputClass} />
+                        <dl id="inspectOutput" class="mt-3 text-sm space-y-1"></dl>
+                    </div>
+                </div>
+
+                <div class={cardClass}>
+                    <h2 class="text-white text-lg font-bold mb-4">Hash generator</h2>
+                    <textarea id="hashInput" spellcheck="false" placeholder="Type or paste text to hash" class={`${inputClass} min-h-[120px] resize-y`}></textarea>
+                    <div class="flex flex-wrap items-center gap-3 mt-3">
+                        <label class={`${buttonClass} cursor-pointer`}>
+                            Hash a file
+                            <input id="hashFile" type="file" class="sr-only" />
+                        </label>
+                        <select id="hashFormat" class={selectClass} aria-label="Output format">
+                            <option value="hex">Hex</option>
+                            <option value="HEX">HEX (uppercase)</option>
+                            <option value="base64">Base64</option>
+                        </select>
+                        <label class="text-sm text-secondaryText flex items-center gap-2">
+                            <input id="hmacToggle" type="checkbox" class="accent-primaryColor" /> HMAC
+                        </label>
+                    </div>
+                    <input id="hmacKey" type="text" spellcheck="false" autocomplete="off" placeholder="HMAC secret key" class={`${inputClass} mt-3 hidden`} />
+                    <p id="hashSource" class="mt-3 text-sm text-secondaryText" aria-live="polite">Hashing text input.</p>
+                    <div class="mt-4 space-y-3">
+                        {
+                            algorithms.map((name) => (
+                                <div>
+                                    <div class="flex justify-between items-center mb-1">
+                                        <span class="text-sm font-bold text-secondaryColor">{name}</span>
+                                        <button class={`${buttonClass} !py-1 text-xs copy-hash`} data-target={`hash-${name}`}>Copy</button>
+                                    </div>
+                                    <output id={`hash-${name}`} class="block p-2 font-mono text-xs break-all rounded-lg bg-bgDark2 text-primaryText min-h-[2rem]" />
+                                </div>
+                            ))
+                        }
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="text-secondaryText leading-8 w-full max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 mt-8 mb-16">
+        <h2 class="text-white text-2xl mb-4">Which one should I use?</h2>
+        <p>
+            Use <strong class="text-white">UUID v7</strong> for database keys, since IDs created later sort later and
+            keep indexes fast, and <strong class="text-white">UUID v4</strong> when an ID must not reveal when it was
+            made. For checksums and signatures use <strong class="text-white">SHA-256</strong>; MD5 and SHA-1 are only
+            suitable for non-security checks such as matching a download against a published checksum. Never use a
+            plain hash to store passwords. Read the
+            <a href="/blog/how-to-generate-uuid-and-hash-online/" class="text-pink-400 font-bold">full guide</a>
+            for details.
+        </p>
+    </section>
+    <ScrollUpButton client:load />
+    <Footer client:only="vue" />
+</Layout>
+
+<script>
+    import MD5 from "crypto-js/md5";
+    import HmacMD5 from "crypto-js/hmac-md5";
+    import WordArray from "crypto-js/lib-typedarrays";
+
+    const $ = <T extends HTMLElement>(id: string) => document.getElementById(id) as T;
+
+    // UUIDs
+    const uuidVersion = $<HTMLSelectElement>("uuidVersion");
+    const uuidCount = $<HTMLInputElement>("uuidCount");
+    const uuidUpper = $<HTMLInputElement>("uuidUpper");
+    const uuidNoHyphens = $<HTMLInputElement>("uuidNoHyphens");
+    const uuidBraces = $<HTMLInputElement>("uuidBraces");
+    const uuidOutput = $<HTMLTextAreaElement>("uuidOutput");
+
+    const toHex = (bytes: Uint8Array) => Array.from(bytes, (b) => b.toString(16).padStart(2, "0")).join("");
+    const formatUuid = (hex: string) => `${hex.slice(0, 8)}-${hex.slice(8, 12)}-${hex.slice(12, 16)}-${hex.slice(16, 20)}-${hex.slice(20)}`;
+
+    const uuidV7 = () => {
+        const bytes = crypto.getRandomValues(new Uint8Array(16));
+        const ms = Date.now();
+        // 48-bit big-endian millisecond timestamp, then version and variant bits
+        for (let i = 0; i < 6; i++) bytes[i] = Math.floor(ms / 2 ** (8 * (5 - i))) & 0xff;
+        bytes[6] = 0x70 | (bytes[6] & 0x0f);
+        bytes[8] = 0x80 | (bytes[8] & 0x3f);
+        return formatUuid(toHex(bytes));
+    };
+
+    const generateUuids = () => {
+        const count = Math.min(1000, Math.max(1, Math.floor(Number(uuidCount.value)) || 1));
+        uuidCount.value = String(count);
+        const ids = Array.from({ length: count }, () => {
+            let id: string = uuidVersion.value === "7" ? uuidV7() : crypto.randomUUID();
+            if (uuidNoHyphens.checked) id = id.replace(/-/g, "");
+            if (uuidUpper.checked) id = id.toUpperCase();
+            if (uuidBraces.checked) id = `{${id}}`;
+            return id;
+        });
+        uuidOutput.value = ids.join("\n");
+    };
+
+    $("uuidGenerate").addEventListener("click", generateUuids);
+    [uuidVersion, uuidUpper, uuidNoHyphens, uuidBraces].forEach((el) => el.addEventListener("change", generateUuids));
+
+    const copyWithFeedback = async (button: HTMLButtonElement, text: string) => {
+        if (!text) return;
+        const label = button.textContent;
+        try {
+            await navigator.clipboard.writeText(text);
+            button.textContent = "Copied!";
+            setTimeout(() => (button.textContent = label), 1500);
+        } catch {
+            alert("Failed to copy text");
+        }
+    };
+    $<HTMLButtonElement>("uuidCopy").addEventListener("click", (e) => copyWithFeedback(e.currentTarget as HTMLButtonElement, uuidOutput.value));
+
+    // UUID inspector
+    const inspectInput = $<HTMLInputElement>("inspectInput");
+    const inspectOutput = $<HTMLDListElement>("inspectOutput");
+    const VERSION_NAMES: Record<number, string> = {
+        1: "1 (time and MAC address)",
+        2: "2 (DCE security)",
+        3: "3 (MD5 name-based)",
+        4: "4 (random)",
+        5: "5 (SHA-1 name-based)",
+        6: "6 (reordered time)",
+        7: "7 (Unix time-ordered)",
+        8: "8 (custom)",
+    };
+
+    const inspect = () => {
+        const raw = inspectInput.value.trim();
+        const rows: [string, string][] = [];
+        const hex = raw.replace(/^urn:uuid:/i, "").replace(/[{}-]/g, "").toLowerCase();
+        if (!raw) {
+            inspectOutput.replaceChildren();
+            return;
+        }
+        if (!/^[0-9a-f]{32}$/.test(hex)) {
+            rows.push(["Result", "Not a valid UUID. It should be 32 hex digits, optionally with hyphens."]);
+        } else if (/^0+$/.test(hex) || /^f+$/.test(hex)) {
+            rows.push(["Result", hex.startsWith("0") ? "The nil UUID (all zeros)." : "The max UUID (all ones)."]);
+        } else {
+            const version = parseInt(hex[12], 16);
+            const variantBits = parseInt(hex[16], 16);
+            const variant = variantBits >= 0xe ? "Reserved (future)" : variantBits >= 0xc ? "Microsoft (legacy GUID)" : variantBits >= 0x8 ? "RFC 9562 (standard)" : "NCS (legacy)";
+            rows.push(["Canonical", formatUuid(hex)], ["Version", VERSION_NAMES[version] ?? `${version} (unknown)`], ["Variant", variant]);
+            let ms: number | null = null;
+            if (version === 7) ms = parseInt(hex.slice(0, 12), 16);
+            if (version === 1 || version === 6) {
+                // 60-bit count of 100 ns intervals since 15 October 1582
+                const timeHex = version === 1 ? hex.slice(13, 16) + hex.slice(8, 12) + hex.slice(0, 8) : hex.slice(0, 12) + hex.slice(13, 16);
+                ms = Number((BigInt(`0x${timeHex}`) - 0x01b21dd213814000n) / 10000n);
+            }
+            if (ms !== null) rows.push(["Created", `${new Date(ms).toISOString()} (${new Date(ms).toLocaleString()})`]);
+        }
+        inspectOutput.replaceChildren(
+            ...rows.map(([term, value]) => {
+                const row = document.createElement("div");
+                row.className = "flex flex-wrap gap-x-2";
+                const dt = document.createElement("dt");
+                dt.className = "text-secondaryText";
+                dt.textContent = `${term}:`;
+                const dd = document.createElement("dd");
+                dd.className = "text-primaryText font-mono break-all";
+                dd.textContent = value;
+                row.append(dt, dd);
+                return row;
+            }),
+        );
+    };
+    inspectInput.addEventListener("input", inspect);
+
+    // Hashes
+    const hashInput = $<HTMLTextAreaElement>("hashInput");
+    const hashFile = $<HTMLInputElement>("hashFile");
+    const hashFormat = $<HTMLSelectElement>("hashFormat");
+    const hmacToggle = $<HTMLInputElement>("hmacToggle");
+    const hmacKey = $<HTMLInputElement>("hmacKey");
+    const hashSource = $<HTMLParagraphElement>("hashSource");
+    const SHA_ALGORITHMS = ["SHA-1", "SHA-256", "SHA-384", "SHA-512"];
+    const MAX_FILE = 200 * 1024 * 1024;
+
+    let fileBytes: Uint8Array | null = null;
+    let runId = 0;
+
+    const wordArrayToBytes = (words: { words: number[]; sigBytes: number }) =>
+        Uint8Array.from({ length: words.sigBytes }, (_, i) => (words.words[i >>> 2] >>> (24 - (i % 4) * 8)) & 0xff);
+
+    const formatDigest = (bytes: Uint8Array) => {
+        if (hashFormat.value === "base64") {
+            let binary = "";
+            bytes.forEach((b) => (binary += String.fromCharCode(b)));
+            return btoa(binary);
+        }
+        const hex = toHex(bytes);
+        return hashFormat.value === "HEX" ? hex.toUpperCase() : hex;
+    };
+
+    const md5 = (data: Uint8Array, key: Uint8Array | null) => {
+        const message = WordArray.create(data as unknown as number[]);
+        const digest = key ? HmacMD5(message, WordArray.create(key as unknown as number[])) : MD5(message);
+        return wordArrayToBytes(digest);
+    };
+
+    const sha = async (name: string, data: Uint8Array, key: Uint8Array | null) => {
+        if (!key) return new Uint8Array(await crypto.subtle.digest(name, data));
+        // Web Crypto rejects empty HMAC keys, so fall back to a single zero byte, which gives the same result
+        const cryptoKey = await crypto.subtle.importKey("raw", key.length ? key : new Uint8Array(1), { name: "HMAC", hash: name }, false, ["sign"]);
+        return new Uint8Array(await crypto.subtle.sign("HMAC", cryptoKey, data));
+    };
+
+    const updateHashes = async () => {
+        const id = ++runId;
+        const data = fileBytes ?? new TextEncoder().encode(hashInput.value);
+        const key = hmacToggle.checked ? new TextEncoder().encode(hmacKey.value) : null;
+        const results: Record<string, Uint8Array> = { MD5: md5(data, key) };
+        for (const name of SHA_ALGORITHMS) results[name] = await sha(name, data, key);
+        if (id !== runId) return; // a newer input arrived while hashing
+        for (const [name, digest] of Object.entries(results)) $(`hash-${name}`).textContent = formatDigest(digest);
+    };
+
+    hashInput.addEventListener("input", () => {
+        if (fileBytes) {
+            fileBytes = null;
+            hashFile.value = "";
+            hashSource.textContent = "Hashing text input.";
+        }
+        updateHashes();
+    });
+    [hashFormat, hmacToggle].forEach((el) => el.addEventListener("change", updateHashes));
+    hmacToggle.addEventListener("change", () => hmacKey.classList.toggle("hidden", !hmacToggle.checked));
+    hmacKey.addEventListener("input", updateHashes);
+
+    hashFile.addEventListener("change", async () => {
+        const file = hashFile.files?.[0];
+        if (!file) return;
+        if (file.size > MAX_FILE) {
+            hashSource.textContent = "Files must be 200 MB or smaller.";
+            return;
+        }
+        hashSource.textContent = `Hashing ${file.name}…`;
+        fileBytes = new Uint8Array(await file.arrayBuffer());
+        hashInput.value = "";
+        await updateHashes();
+        hashSource.textContent = `Hashing file: ${file.name} (${file.size.toLocaleString()} bytes). Type in the box to switch back to text.`;
+    });
+
+    document.querySelectorAll<HTMLButtonElement>(".copy-hash").forEach((button) =>
+        button.addEventListener("click", () => copyWithFeedback(button, $(button.dataset.target!).textContent ?? "")),
+    );
+
+    generateUuids();
+    updateHashes();
+</script>

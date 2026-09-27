@@ -51,6 +51,11 @@ Read cron expressions in plain English and see the next run times. [Try it onlin
 
 **Features:** Plain-English summary, field-by-field breakdown, next 5/10/20 runs in local time or UTC, names, steps, ranges, @daily macros, shareable links
 
+### UUID & Hash Generator
+Generate UUIDs and MD5/SHA hashes of text or files. [Try it online](https://tools.typinks.com/uuid-hash-generator/)
+
+**Features:** UUID v4 and v7 in bulk, uppercase/no-hyphen/brace formats, UUID inspector with creation time, MD5, SHA-1, SHA-256, SHA-384, SHA-512, HMAC, file hashing, hex or Base64
+
 ## 📝 Productivity Tools
 
 ### Text Editor
