@@ -1,0 +1,195 @@
+---
+import { Image } from "astro:assets";
+import { Navbar } from "../../components/Navbar";
+import { ScrollUpButton } from "../../components/ScrollUpButton";
+import Layout from "../../layouts/Layout.astro";
+import Footer from "@/components/Footer.vue";
+import timestampBannerImage from "../../assets/images/blog/timestamp-converter.png";
+
+const snippets = [
+  ["JavaScript", "Math.floor(Date.now() / 1000)", "new Date(1790000000 * 1000).toISOString()"],
+  ["Python", "int(time.time())", "datetime.fromtimestamp(1790000000, tz=timezone.utc)"],
+  ["PHP", "time()", "date('c', 1790000000)"],
+  ["Go", "time.Now().Unix()", "time.Unix(1790000000, 0).UTC()"],
+  ["Java", "Instant.now().getEpochSecond()", "Instant.ofEpochSecond(1790000000)"],
+  ["PostgreSQL", "extract(epoch from now())", "to_timestamp(1790000000)"],
+  ["MySQL", "UNIX_TIMESTAMP()", "FROM_UNIXTIME(1790000000)"],
+  ["Bash (GNU)", "date +%s", "date -u -d @1790000000"],
+];
+---
+
+<Layout
+  title="How to Convert a Unix Timestamp to a Date (and Back)"
+  ogImage="blog/timestamp-converter.png"
+  description="Learn what Unix epoch time is, how to convert timestamps in seconds, milliseconds, microseconds or nanoseconds to dates and back, how time zones affect the result, and how to do it in JavaScript, Python, SQL and more."
+  keywords="unix timestamp to date, epoch converter, convert timestamp online, date to unix timestamp, epoch time, milliseconds to date, unix time time zone, year 2038 problem"
+  author="Typinks Tools"
+  publishedDate="2026-09-27"
+  modifiedDate="2026-09-27"
+  articleSchema={true}
+>
+  <Navbar client:load />
+  <div class="flex justify-center bg-bgDark2 relative pt-2">
+    <div class="px-2 sm:px-4">
+      <article
+        class="p-8 text-center rounded-3xl w-full lg:w-[1200px] 2xl:w-[1400px] mb-24 mt-16 sm:mt-24"
+      >
+        <header class="mb-12">
+          <div class="text-sm text-secondaryText my-4">27 September 2026</div>
+          <h1
+            class="text-6xl lg:text-7xl xl:text-8xl font-bold tracking-tight leading-none mb-6 bg-gradient-to-r from-white via-purple-200 to-pink-400 bg-clip-text text-transparent"
+          >
+            Unix Timestamp Converter
+          </h1>
+          <h2 class="text-2xl text-gray-300">
+            Epoch time to dates, dates to epoch time, across every time zone
+          </h2>
+        </header>
+
+        <Image
+          src={timestampBannerImage}
+          alt="Unix Timestamp Converter - convert epoch time to date and time zones online"
+          class="rounded-xl mb-8 md:w-2/4 mx-auto mt-8"
+        />
+
+        <section
+          class="text-secondaryText !leading-8 sm:!leading-10 sm:text-xl text-left sm:text-justify mx-auto w-full md:w-10/12 lg:w-2/3 mt-16"
+        >
+          <a
+            href="https://tools.typinks.com/timestamp-converter/"
+            target="_blank"
+            class="text-pink-400 font-bold">The Unix Timestamp Converter</a
+          > turns numbers like <code>1790000000</code> into readable dates, turns
+          dates back into timestamps, and shows the same moment in as many time
+          zones as you like. It detects whether a timestamp is in seconds,
+          milliseconds, microseconds or nanoseconds, and shows the current Unix
+          time live at the top of the page.
+
+          <h2 class="text-white text-2xl my-4">What Is a Unix Timestamp?</h2>
+          <p>
+            A Unix timestamp, also called epoch time or POSIX time, is the
+            number of seconds since 00:00:00 UTC on 1 January 1970. Because it
+            is a single number and the same everywhere in the world, it is the
+            standard way to store and exchange moments in time in databases,
+            APIs, logs and file systems. Times before 1970 are negative.
+          </p>
+
+          <h2 class="text-white text-2xl my-4">Seconds, Milliseconds, Microseconds or Nanoseconds?</h2>
+          <ul class="list-disc list-inside space-y-2 my-4">
+            <li><strong>Seconds (10 digits today):</strong> Unix, PHP, Python's <code>time()</code>, most APIs</li>
+            <li><strong>Milliseconds (13 digits):</strong> JavaScript, Java, many JSON APIs</li>
+            <li><strong>Microseconds (16 digits):</strong> PostgreSQL internals, some analytics tools</li>
+            <li><strong>Nanoseconds (19 digits):</strong> Go, InfluxDB, OpenTelemetry traces</li>
+          </ul>
+          <p>
+            In Auto mode the converter picks the unit from the number of
+            digits, and you can override it at any time. Nanosecond values are
+            read exactly, without the rounding errors ordinary JavaScript
+            numbers would introduce.
+          </p>
+
+          <h2 class="text-white text-2xl my-4">How to Convert a Timestamp to a Date</h2>
+
+          <h4 class="text-white text-xl my-3">Step 1: Enter the Timestamp</h4>
+          <p>
+            Paste the number into "Timestamp to date". Commas, spaces and
+            underscores are ignored, and decimals like
+            <code>1790000000.5</code> are accepted. Click "Convert now" to load
+            the current time.
+          </p>
+
+          <h4 class="text-white text-xl my-3">Step 2: Read the Results</h4>
+          <p>
+            You get the date in your local time and in UTC, ISO 8601 and RFC
+            2822 strings, a relative time such as "3 days ago", the value in
+            seconds and milliseconds, and the day of the year and ISO week
+            number. Every row has its own Copy button.
+          </p>
+
+          <h4 class="text-white text-xl my-3">Step 3: Compare Time Zones</h4>
+          <p>
+            The "In other time zones" table shows the same moment in several
+            cities with their UTC offsets, including half-hour and 45-minute
+            zones like India and Nepal. Add any IANA time zone from the list or
+            remove the ones you don't need; your choice is remembered.
+          </p>
+
+          <h2 class="text-white text-2xl my-4">How to Convert a Date to a Timestamp</h2>
+          <p>
+            In "Date to timestamp", pick a date and time and choose the time
+            zone it belongs to. The converter accounts for daylight saving time
+            in that zone, so 12:00 in New York gives a different timestamp in
+            July than in January. You can also type a date as text, for example
+            <code>2026-09-27T10:30:00Z</code> or
+            <code>2026-09-27T10:30:00+02:00</code>. If the text has no time zone,
+            it is read as your local time, and the tool says so.
+          </p>
+
+          <h2 class="text-white text-2xl my-4">Unix Time in Popular Languages</h2>
+          <div class="overflow-x-auto my-4">
+            <table class="w-full text-base text-left">
+              <thead class="text-white">
+                <tr>
+                  <th class="py-2 pr-4">Language</th>
+                  <th class="py-2 pr-4">Current timestamp</th>
+                  <th class="py-2">Timestamp to date</th>
+                </tr>
+              </thead>
+              <tbody>
+                {snippets.map(([language, now, toDate]) => (
+                  <tr class="border-t border-gray-700">
+                    <td class="py-2 pr-4 text-white whitespace-nowrap">{language}</td>
+                    <td class="py-2 pr-4"><code>{now}</code></td>
+                    <td class="py-2"><code>{toDate}</code></td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+
+          <h2 class="text-white text-2xl my-4">Common Pitfalls</h2>
+          <ul class="list-disc list-inside space-y-2 my-4">
+            <li><strong>Mixing units:</strong> A date in 1970 usually means milliseconds were read as seconds or the other way round</li>
+            <li><strong>Local vs UTC:</strong> Timestamps have no time zone. Only the display does, so always say which one you mean</li>
+            <li><strong>Daylight saving:</strong> Some local times happen twice a year and some not at all. Store UTC timestamps and convert only for display</li>
+            <li><strong>The Year 2038 problem:</strong> Signed 32-bit timestamps run out at <code>2147483647</code>, which is 19 January 2038 03:14:07 UTC. Use 64-bit integers</li>
+            <li><strong>Leap seconds:</strong> Unix time ignores them, so every day is exactly 86,400 seconds</li>
+          </ul>
+
+          <h2 class="text-white text-2xl my-4">Privacy</h2>
+          <p>
+            All conversions run in your browser using its built-in time zone
+            data. Nothing you enter is sent anywhere.
+          </p>
+
+          <h2 class="text-white text-2xl my-4">Conclusion</h2>
+          <p>
+            Whether you are reading a log line, checking a token expiry or
+            scheduling across continents, the converter gives you every format
+            and time zone at once. Try it at{" "}
+            <a
+              href="https://tools.typinks.com/timestamp-converter/"
+              target="_blank"
+              class="text-pink-400 font-bold"
+              >tools.typinks.com/timestamp-converter</a
+            >.
+          </p>
+
+          <div class="mt-12 p-6 bg-bgDark3 rounded-xl border border-gray-700">
+            <h4 class="text-white text-xl mb-4">Got a Timestamp to Decode?</h4>
+            <p class="mb-4">Paste it in and see it in every format and time zone.</p>
+            <a
+              href="https://tools.typinks.com/timestamp-converter/"
+              target="_blank"
+              class="inline-block px-6 py-3 bg-gradient-to-r from-purple-500 to-pink-500 text-white font-semibold rounded-lg hover:from-purple-600 hover:to-pink-600 transition-all"
+            >
+              Launch Timestamp Converter
+            </a>
+          </div>
+        </section>
+      </article>
+    </div>
+  </div>
+  <ScrollUpButton client:load />
+  <Footer client:only="vue" />
+</Layout>

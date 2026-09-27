@@ -15,6 +15,7 @@ export const blogTranslations: Record<string, string> = {
   "how-to-test-regex-online": "comment-tester-regex-en-ligne",
   "how-to-read-cron-expressions-online": "comment-lire-expressions-cron-en-ligne",
   "how-to-generate-uuid-and-hash-online": "comment-generer-uuid-et-hash-en-ligne",
+  "how-to-convert-unix-timestamp-online": "comment-convertir-timestamp-unix-en-ligne",
 };
 
 export const getBlogAlternates = (pathname: string) => {

@@ -76,6 +76,9 @@ var allowedURLs = []string{
 	"https://tools.typinks.com/uuid-hash-generator",
 	"https://tools.typinks.com/blog/how-to-generate-uuid-and-hash-online",
 	"https://tools.typinks.com/blog/comment-generer-uuid-et-hash-en-ligne",
+	"https://tools.typinks.com/timestamp-converter",
+	"https://tools.typinks.com/blog/how-to-convert-unix-timestamp-online",
+	"https://tools.typinks.com/blog/comment-convertir-timestamp-unix-en-ligne",
 }
 
 var allowedUsers = []string{

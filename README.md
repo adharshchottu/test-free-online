@@ -56,6 +56,11 @@ Generate UUIDs and MD5/SHA hashes of text or files. [Try it online](https://tool
 
 **Features:** UUID v4 and v7 in bulk, uppercase/no-hyphen/brace formats, UUID inspector with creation time, MD5, SHA-1, SHA-256, SHA-384, SHA-512, HMAC, file hashing, hex or Base64
 
+### Unix Timestamp Converter
+Convert Unix timestamps to dates and back, across time zones. [Try it online](https://tools.typinks.com/timestamp-converter/)
+
+**Features:** Live epoch clock, auto-detects seconds/ms/µs/ns, ISO 8601, RFC 2822, relative time, ISO week, date to timestamp in any IANA zone with DST handling, custom time zone list
+
 ## 📝 Productivity Tools
 
 ### Text Editor

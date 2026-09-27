@@ -1,0 +1,202 @@
+---
+import { Image } from "astro:assets";
+import { Navbar } from "../../components/Navbar";
+import { ScrollUpButton } from "../../components/ScrollUpButton";
+import Layout from "../../layouts/Layout.astro";
+import Footer from "@/components/Footer.vue";
+import timestampBannerImage from "../../assets/images/blog/timestamp-converter.png";
+
+const snippets = [
+  ["JavaScript", "Math.floor(Date.now() / 1000)", "new Date(1790000000 * 1000).toISOString()"],
+  ["Python", "int(time.time())", "datetime.fromtimestamp(1790000000, tz=timezone.utc)"],
+  ["PHP", "time()", "date('c', 1790000000)"],
+  ["Go", "time.Now().Unix()", "time.Unix(1790000000, 0).UTC()"],
+  ["Java", "Instant.now().getEpochSecond()", "Instant.ofEpochSecond(1790000000)"],
+  ["PostgreSQL", "extract(epoch from now())", "to_timestamp(1790000000)"],
+  ["MySQL", "UNIX_TIMESTAMP()", "FROM_UNIXTIME(1790000000)"],
+  ["Bash (GNU)", "date +%s", "date -u -d @1790000000"],
+];
+---
+
+<Layout
+  title="Comment convertir un timestamp Unix en date (et inversement)"
+  ogImage="blog/timestamp-converter.png"
+  description="Découvrez ce qu'est le temps Unix, comment convertir des timestamps en secondes, millisecondes, microsecondes ou nanosecondes en dates et inversement, l'effet des fuseaux horaires, et comment le faire en JavaScript, Python, SQL et plus."
+  lang="fr"
+  keywords="timestamp unix en date, convertisseur epoch, convertir timestamp en ligne, date en timestamp unix, temps epoch, millisecondes en date, fuseau horaire unix, problème de l'an 2038"
+  author="Typinks Tools"
+  publishedDate="2026-09-27"
+  modifiedDate="2026-09-27"
+  articleSchema={true}
+>
+  <Navbar client:load />
+  <div class="flex justify-center bg-bgDark2 relative pt-2">
+    <div class="px-2 sm:px-4">
+      <article
+        class="p-8 text-center rounded-3xl w-full lg:w-[1200px] 2xl:w-[1400px] mb-24 mt-16 sm:mt-24"
+      >
+        <header class="mb-12">
+          <div class="text-sm text-secondaryText my-4">27 septembre 2026</div>
+          <h1
+            class="text-6xl lg:text-7xl xl:text-8xl font-bold tracking-tight leading-none mb-6 bg-gradient-to-r from-white via-purple-200 to-pink-400 bg-clip-text text-transparent"
+          >
+            Convertisseur de Timestamp Unix
+          </h1>
+          <h2 class="text-2xl text-gray-300">
+            Du temps epoch aux dates, des dates au temps epoch, dans tous les fuseaux horaires
+          </h2>
+        </header>
+
+        <Image
+          src={timestampBannerImage}
+          alt="Convertisseur de timestamp Unix - convertir le temps epoch en date et en fuseaux horaires"
+          class="rounded-xl mb-8 md:w-2/4 mx-auto mt-8"
+        />
+
+        <section
+          class="text-secondaryText !leading-8 sm:!leading-10 sm:text-xl text-left sm:text-justify mx-auto w-full md:w-10/12 lg:w-2/3 mt-16"
+        >
+          <a
+            href="https://tools.typinks.com/timestamp-converter/"
+            target="_blank"
+            class="text-pink-400 font-bold">Le Convertisseur de Timestamp Unix</a
+          > transforme des nombres comme <code>1790000000</code> en dates lisibles,
+          reconvertit des dates en timestamps, et affiche le même instant dans
+          autant de fuseaux horaires que vous le souhaitez. Il détecte si un
+          timestamp est en secondes, millisecondes, microsecondes ou nanosecondes,
+          et affiche en direct l'heure Unix actuelle en haut de la page.
+
+          <h2 class="text-white text-2xl my-4">Qu'est-ce qu'un timestamp Unix ?</h2>
+          <p>
+            Un timestamp Unix, aussi appelé temps epoch ou temps POSIX, est le
+            nombre de secondes écoulées depuis le 1er janvier 1970 à 00:00:00 UTC.
+            Comme c'est un simple nombre, identique partout dans le monde, c'est
+            la façon standard de stocker et d'échanger des instants dans les
+            bases de données, les API, les logs et les systèmes de fichiers. Les
+            dates antérieures à 1970 sont négatives.
+          </p>
+
+          <h2 class="text-white text-2xl my-4">Secondes, millisecondes, microsecondes ou nanosecondes ?</h2>
+          <ul class="list-disc list-inside space-y-2 my-4">
+            <li><strong>Secondes (10 chiffres aujourd'hui) :</strong> Unix, PHP, <code>time()</code> en Python, la plupart des API</li>
+            <li><strong>Millisecondes (13 chiffres) :</strong> JavaScript, Java, de nombreuses API JSON</li>
+            <li><strong>Microsecondes (16 chiffres) :</strong> le fonctionnement interne de PostgreSQL, certains outils d'analyse</li>
+            <li><strong>Nanosecondes (19 chiffres) :</strong> Go, InfluxDB, les traces OpenTelemetry</li>
+          </ul>
+          <p>
+            En mode Auto, le convertisseur déduit l'unité du nombre de chiffres,
+            et vous pouvez la forcer à tout moment. Les valeurs en nanosecondes
+            sont lues exactement, sans les erreurs d'arrondi qu'introduiraient
+            les nombres JavaScript ordinaires.
+          </p>
+
+          <h2 class="text-white text-2xl my-4">Comment convertir un timestamp en date</h2>
+
+          <h4 class="text-white text-xl my-3">Étape 1 : Saisissez le timestamp</h4>
+          <p>
+            Collez le nombre dans « Timestamp to date ». Les virgules, espaces et
+            tirets bas sont ignorés, et les décimales comme
+            <code>1790000000.5</code> sont acceptées. Cliquez sur « Convert now »
+            pour charger l'heure actuelle.
+          </p>
+
+          <h4 class="text-white text-xl my-3">Étape 2 : Lisez les résultats</h4>
+          <p>
+            Vous obtenez la date en heure locale et en UTC, les formats ISO 8601
+            et RFC 2822, une durée relative comme « 3 days ago » (il y a 3
+            jours), la valeur en secondes et en millisecondes, ainsi que le jour
+            de l'année et le numéro de semaine ISO. Chaque ligne a son bouton
+            Copy.
+          </p>
+
+          <h4 class="text-white text-xl my-3">Étape 3 : Comparez les fuseaux horaires</h4>
+          <p>
+            Le tableau « In other time zones » affiche le même instant dans
+            plusieurs villes avec leur décalage UTC, y compris les fuseaux à la
+            demi-heure et au quart d'heure comme l'Inde et le Népal. Ajoutez
+            n'importe quel fuseau IANA ou retirez ceux dont vous n'avez pas
+            besoin ; votre choix est mémorisé.
+          </p>
+
+          <h2 class="text-white text-2xl my-4">Comment convertir une date en timestamp</h2>
+          <p>
+            Dans « Date to timestamp », choisissez une date, une heure et le
+            fuseau horaire auquel elles appartiennent. Le convertisseur tient
+            compte de l'heure d'été de ce fuseau : midi à New York ne donne pas
+            le même timestamp en juillet et en janvier. Vous pouvez aussi saisir
+            une date en texte, par exemple <code>2026-09-27T10:30:00Z</code> ou
+            <code>2026-09-27T10:30:00+02:00</code>. Si le texte ne précise pas de
+            fuseau, il est lu comme votre heure locale, et l'outil vous le
+            signale.
+          </p>
+
+          <h2 class="text-white text-2xl my-4">Le temps Unix dans les langages courants</h2>
+          <div class="overflow-x-auto my-4">
+            <table class="w-full text-base text-left">
+              <thead class="text-white">
+                <tr>
+                  <th class="py-2 pr-4">Langage</th>
+                  <th class="py-2 pr-4">Timestamp actuel</th>
+                  <th class="py-2">Timestamp en date</th>
+                </tr>
+              </thead>
+              <tbody>
+                {snippets.map(([language, now, toDate]) => (
+                  <tr class="border-t border-gray-700">
+                    <td class="py-2 pr-4 text-white whitespace-nowrap">{language}</td>
+                    <td class="py-2 pr-4"><code>{now}</code></td>
+                    <td class="py-2"><code>{toDate}</code></td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+
+          <h2 class="text-white text-2xl my-4">Pièges courants</h2>
+          <ul class="list-disc list-inside space-y-2 my-4">
+            <li><strong>Mélanger les unités :</strong> Une date en 1970 signifie généralement que des millisecondes ont été lues comme des secondes, ou l'inverse</li>
+            <li><strong>Local ou UTC :</strong> Un timestamp n'a pas de fuseau horaire, seul l'affichage en a un : précisez toujours lequel vous utilisez</li>
+            <li><strong>Heure d'été :</strong> Certaines heures locales existent deux fois par an, d'autres jamais. Stockez des timestamps UTC et ne convertissez qu'à l'affichage</li>
+            <li><strong>Le problème de l'an 2038 :</strong> Les timestamps signés sur 32 bits s'arrêtent à <code>2147483647</code>, soit le 19 janvier 2038 à 03:14:07 UTC. Utilisez des entiers sur 64 bits</li>
+            <li><strong>Secondes intercalaires :</strong> Le temps Unix les ignore : chaque jour dure exactement 86 400 secondes</li>
+          </ul>
+
+          <h2 class="text-white text-2xl my-4">Confidentialité</h2>
+          <p>
+            Toutes les conversions se font dans votre navigateur, avec ses
+            propres données de fuseaux horaires. Rien de ce que vous saisissez
+            n'est envoyé.
+          </p>
+
+          <h2 class="text-white text-2xl my-4">Conclusion</h2>
+          <p>
+            Que vous lisiez une ligne de log, vérifiiez l'expiration d'un jeton
+            ou planifiiez entre plusieurs continents, le convertisseur vous
+            donne tous les formats et fuseaux horaires d'un coup. Essayez-le
+            sur{" "}
+            <a
+              href="https://tools.typinks.com/timestamp-converter/"
+              target="_blank"
+              class="text-pink-400 font-bold"
+              >tools.typinks.com/timestamp-converter</a
+            >.
+          </p>
+
+          <div class="mt-12 p-6 bg-bgDark3 rounded-xl border border-gray-700">
+            <h4 class="text-white text-xl mb-4">Un timestamp à décoder ?</h4>
+            <p class="mb-4">Collez-le et voyez-le dans tous les formats et fuseaux horaires.</p>
+            <a
+              href="https://tools.typinks.com/timestamp-converter/"
+              target="_blank"
+              class="inline-block px-6 py-3 bg-gradient-to-r from-purple-500 to-pink-500 text-white font-semibold rounded-lg hover:from-purple-600 hover:to-pink-600 transition-all"
+            >
+              Lancer le convertisseur
+            </a>
+          </div>
+        </section>
+      </article>
+    </div>
+  </div>
+  <ScrollUpButton client:load />
+  <Footer client:only="vue" />
+</Layout>

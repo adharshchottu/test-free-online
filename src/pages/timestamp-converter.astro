@@ -1,0 +1,436 @@
+---
+import { Navbar } from "@/components/Navbar";
+import Layout from "../layouts/Layout.astro";
+import Footer from "@/components/Footer.vue";
+import { ScrollUpButton } from "@/components/ScrollUpButton";
+import "../styles/Theme.css";
+
+const buttonClass =
+    "px-3 py-2 bg-bgDark2 hover:bg-bgDark1 text-primaryText text-sm rounded-lg transition-colors border border-gray-700 hover:border-primaryColor";
+const inputClass =
+    "w-full p-3 font-mono text-sm main-border-gray rounded-lg bg-bgDark2 text-primaryText placeholder-gray-500 focus:outline-none focus:border-primaryColor";
+const selectClass = "bg-bgDark2 text-primaryText text-sm rounded-lg border border-gray-700 px-2 py-2";
+const cardClass = "p-4 sm:p-6 bg-bgDark3 main-border-gray rounded-xl";
+---
+
+<Layout
+    title="Unix Timestamp Converter - Epoch to Date & Time Zones"
+    description="Convert Unix timestamps in seconds, milliseconds, microseconds or nanoseconds to dates, convert dates back to epoch time, and see any moment across time zones. Live current epoch time."
+    ogImage="blog/timestamp-converter.png"
+    keywords="unix timestamp converter, epoch converter, timestamp to date, date to timestamp, epoch time now, unix time, milliseconds to date, time zone converter, iso 8601"
+>
+    <Navbar client:load />
+    <section class="pt-16 md:pt-16 lg:pt-24">
+        <div class="w-full max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+            <div class="mb-6">
+                <h1 class="block-big-title">Unix Timestamp Converter</h1>
+                <p class="mt-3 text-secondaryText">
+                    Convert between Unix time and human-readable dates, in any time zone.
+                </p>
+            </div>
+
+            <div class={`${cardClass} mb-6 flex flex-col md:flex-row md:items-center justify-between gap-4`}>
+                <div>
+                    <div class="text-sm text-secondaryText">Current Unix time</div>
+                    <div id="nowSeconds" class="font-mono text-4xl sm:text-5xl font-bold text-primaryText tabular-nums">-</div>
+                    <div id="nowMillis" class="font-mono text-sm text-secondaryText tabular-nums">-</div>
+                </div>
+                <div class="flex flex-wrap gap-2">
+                    <button id="copyNowS" class={buttonClass}>Copy seconds</button>
+                    <button id="copyNowMs" class={buttonClass}>Copy milliseconds</button>
+                    <button id="useNow" class="contained-button px-4 py-2 !rounded-lg text-sm">Convert now</button>
+                </div>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                <div class={cardClass}>
+                    <h2 class="text-white text-lg font-bold mb-4">Timestamp to date</h2>
+                    <div class="flex gap-2">
+                        <input id="tsInput" type="text" inputmode="numeric" spellcheck="false" autocomplete="off" placeholder="1790000000" class={inputClass} />
+                        <select id="tsUnit" class={selectClass} aria-label="Unit">
+                            <option value="auto">Auto</option>
+                            <option value="s">Seconds</option>
+                            <option value="ms">Milliseconds</option>
+                            <option value="us">Microseconds</option>
+                            <option value="ns">Nanoseconds</option>
+                        </select>
+                    </div>
+                    <p id="tsStatus" class="mt-2 text-sm text-secondaryText" aria-live="polite"></p>
+                    <dl id="tsResult" class="mt-3 space-y-2 text-sm"></dl>
+                </div>
+
+                <div class={cardClass}>
+                    <h2 class="text-white text-lg font-bold mb-4">Date to timestamp</h2>
+                    <div class="flex flex-col sm:flex-row gap-2">
+                        <input id="dateInput" type="datetime-local" step="1" class={`${inputClass} [color-scheme:dark]`} aria-label="Date and time" />
+                        <select id="dateZone" class={`${selectClass} sm:max-w-[14rem]`} aria-label="Time zone of the date"></select>
+                    </div>
+                    <label for="dateText" class="block mt-4 mb-2 text-sm text-secondaryText">Or type any date</label>
+                    <input id="dateText" type="text" spellcheck="false" autocomplete="off" placeholder="2026-09-27T10:30:00Z, or Sep 27 2026 10:30 GMT+2" class={inputClass} />
+                    <p id="dateStatus" class="mt-2 text-sm text-secondaryText" aria-live="polite"></p>
+                    <dl id="dateResult" class="mt-3 space-y-2 text-sm"></dl>
+                </div>
+            </div>
+
+            <div class={`${cardClass} mt-6`}>
+                <div class="flex flex-wrap items-center justify-between gap-3 mb-4">
+                    <h2 class="text-white text-lg font-bold">In other time zones</h2>
+                    <div class="flex gap-2">
+                        <select id="zoneAdd" class={`${selectClass} max-w-[14rem]`} aria-label="Time zone to add"></select>
+                        <button id="zoneAddBtn" class={buttonClass}>Add</button>
+                    </div>
+                </div>
+                <p class="text-sm text-secondaryText mb-3">Showing the timestamp from "Timestamp to date".</p>
+                <div class="overflow-x-auto">
+                    <table class="w-full text-sm text-left">
+                        <thead class="text-secondaryText">
+                            <tr>
+                                <th class="py-2 pr-3 font-medium">Time zone</th>
+                                <th class="py-2 pr-3 font-medium">Date and time</th>
+                                <th class="py-2 pr-3 font-medium">Offset</th>
+                                <th class="py-2"><span class="sr-only">Remove</span></th>
+                            </tr>
+                        </thead>
+                        <tbody id="zoneRows" class="text-primaryText"></tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="text-secondaryText leading-8 w-full max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 mt-8 mb-16">
+        <h2 class="text-white text-2xl mb-4">What is a Unix timestamp?</h2>
+        <p>
+            A Unix timestamp counts the seconds since 1 January 1970 00:00:00 UTC, known as the Unix epoch. It is the
+            same everywhere in the world, which is why servers, databases and APIs use it. JavaScript and Java use
+            milliseconds instead, and some systems use microseconds or nanoseconds; Auto mode detects the unit from the
+            number of digits. Read the
+            <a href="/blog/how-to-convert-unix-timestamp-online/" class="text-pink-400 font-bold">full guide</a>
+            for examples in popular languages.
+        </p>
+    </section>
+    <ScrollUpButton client:load />
+    <Footer client:only="vue" />
+</Layout>
+
+<script>
+    const $ = <T extends HTMLElement>(id: string) => document.getElementById(id) as T;
+
+    const tsInput = $<HTMLInputElement>("tsInput");
+    const tsUnit = $<HTMLSelectElement>("tsUnit");
+    const tsStatus = $<HTMLParagraphElement>("tsStatus");
+    const tsResult = $<HTMLDListElement>("tsResult");
+    const dateInput = $<HTMLInputElement>("dateInput");
+    const dateZone = $<HTMLSelectElement>("dateZone");
+    const dateText = $<HTMLInputElement>("dateText");
+    const dateStatus = $<HTMLParagraphElement>("dateStatus");
+    const dateResult = $<HTMLDListElement>("dateResult");
+    const zoneAdd = $<HTMLSelectElement>("zoneAdd");
+    const zoneRows = $<HTMLTableSectionElement>("zoneRows");
+
+    // Chromium reports some zones by their legacy names; show the names people search for
+    const MODERN_NAMES: Record<string, string> = {
+        "Asia/Calcutta": "Asia/Kolkata",
+        "Asia/Katmandu": "Asia/Kathmandu",
+        "Asia/Saigon": "Asia/Ho_Chi_Minh",
+        "Asia/Rangoon": "Asia/Yangon",
+        "Asia/Dacca": "Asia/Dhaka",
+        "Asia/Thimbu": "Asia/Thimphu",
+        "Asia/Ulan_Bator": "Asia/Ulaanbaatar",
+        "Europe/Kiev": "Europe/Kyiv",
+        "America/Godthab": "America/Nuuk",
+        "Atlantic/Faeroe": "Atlantic/Faroe",
+        "Pacific/Truk": "Pacific/Chuuk",
+        "Pacific/Ponape": "Pacific/Pohnpei",
+        "Pacific/Enderbury": "Pacific/Kanton",
+    };
+    const isValidZone = (zone: string) => {
+        try {
+            new Intl.DateTimeFormat("en-US", { timeZone: zone });
+            return true;
+        } catch {
+            return false;
+        }
+    };
+    const modernName = (zone: string) => (MODERN_NAMES[zone] && isValidZone(MODERN_NAMES[zone]) ? MODERN_NAMES[zone] : zone);
+
+    const LOCAL_ZONE = modernName(Intl.DateTimeFormat().resolvedOptions().timeZone);
+    const ZONES_KEY = "timestampConverterZones";
+    const DEFAULT_ZONES = ["UTC", "America/Los_Angeles", "America/New_York", "Europe/London", "Europe/Paris", "Asia/Kolkata", "Asia/Tokyo", "Australia/Sydney"];
+    const ALL_ZONES: string[] = (() => {
+        let supported: string[] = [];
+        try {
+            supported = (Intl as unknown as { supportedValuesOf: (key: string) => string[] }).supportedValuesOf("timeZone").map(modernName);
+        } catch {}
+        return [...new Set(["UTC", ...supported, ...DEFAULT_ZONES, LOCAL_ZONE])].filter(isValidZone).sort((a, b) => (a === "UTC" ? -1 : b === "UTC" ? 1 : a.localeCompare(b)));
+    })();
+    const MAX_MS = 8.64e15; // the range JavaScript dates can represent
+    const UNIT_NAMES: Record<string, string> = { s: "seconds", ms: "milliseconds", us: "microseconds", ns: "nanoseconds" };
+
+    let currentMs: number | null = null;
+
+    const pad = (n: number, width = 2) => String(Math.abs(n)).padStart(width, "0");
+
+    // Offset of a time zone from UTC at a given instant, in minutes
+    const zoneOffset = (zone: string, ms: number) => {
+        const parts = Object.fromEntries(
+            new Intl.DateTimeFormat("en-US", { timeZone: zone, hourCycle: "h23", year: "numeric", month: "numeric", day: "numeric", hour: "numeric", minute: "numeric", second: "numeric", era: "short" })
+                .formatToParts(new Date(ms))
+                .map((p) => [p.type, p.value]),
+        );
+        const year = parts.era === "BC" ? 1 - Number(parts.year) : Number(parts.year);
+        const asUtc = Date.UTC(year, Number(parts.month) - 1, Number(parts.day), Number(parts.hour), Number(parts.minute), Number(parts.second));
+        return Math.round((asUtc - Math.floor(ms / 1000) * 1000) / 60000);
+    };
+    const formatOffset = (minutes: number) => `UTC${minutes < 0 ? "-" : "+"}${pad(Math.floor(Math.abs(minutes) / 60))}:${pad(Math.abs(minutes) % 60)}`;
+
+    // Wall-clock time in a zone -> epoch ms; re-checked once so daylight-saving transitions land correctly
+    const zonedToEpoch = (y: number, mo: number, d: number, h: number, mi: number, s: number, zone: string) => {
+        const wall = Date.UTC(y, mo, d, h, mi, s);
+        let guess = wall - zoneOffset(zone, wall) * 60000;
+        guess = wall - zoneOffset(zone, guess) * 60000;
+        return guess;
+    };
+
+    const relative = (ms: number) => {
+        const seconds = (ms - Date.now()) / 1000;
+        const units: [Intl.RelativeTimeFormatUnit, number][] = [["year", 31536000], ["month", 2592000], ["week", 604800], ["day", 86400], ["hour", 3600], ["minute", 60], ["second", 1]];
+        const rtf = new Intl.RelativeTimeFormat("en", { numeric: "auto" });
+        for (const [unit, size] of units) if (Math.abs(seconds) >= size || unit === "second") return rtf.format(Math.round(seconds / size), unit);
+        return "";
+    };
+
+    const isoWeek = (date: Date) => {
+        const d = new Date(Date.UTC(date.getUTCFullYear(), date.getUTCMonth(), date.getUTCDate()));
+        const day = d.getUTCDay() || 7;
+        d.setUTCDate(d.getUTCDate() + 4 - day);
+        const yearStart = Date.UTC(d.getUTCFullYear(), 0, 1);
+        return { year: d.getUTCFullYear(), week: Math.ceil(((d.getTime() - yearStart) / 86400000 + 1) / 7) };
+    };
+    const dayOfYear = (date: Date) => Math.floor((Date.UTC(date.getUTCFullYear(), date.getUTCMonth(), date.getUTCDate()) - Date.UTC(date.getUTCFullYear(), 0, 1)) / 86400000) + 1;
+
+    const copy = async (button: HTMLButtonElement, text: string) => {
+        const label = button.textContent;
+        try {
+            await navigator.clipboard.writeText(text);
+            button.textContent = "Copied!";
+            setTimeout(() => (button.textContent = label), 1500);
+        } catch {
+            alert("Failed to copy text");
+        }
+    };
+
+    const renderRows = (target: HTMLDListElement, rows: [string, string][]) => {
+        target.replaceChildren(
+            ...rows.map(([label, value]) => {
+                const row = document.createElement("div");
+                row.className = "flex items-start gap-3";
+                const dt = document.createElement("dt");
+                dt.className = "text-secondaryText w-24 sm:w-28 shrink-0";
+                dt.textContent = label;
+                const dd = document.createElement("dd");
+                dd.className = "font-mono text-primaryText [overflow-wrap:anywhere] grow";
+                dd.textContent = value;
+                const button = document.createElement("button");
+                button.className = "text-xs text-secondaryColor hover:text-primaryText shrink-0";
+                button.textContent = "Copy";
+                button.addEventListener("click", () => copy(button, value));
+                row.append(dt, dd, button);
+                return row;
+            }),
+        );
+    };
+
+    const setStatus = (el: HTMLElement, message: string, isError = false) => {
+        el.textContent = message;
+        el.className = `mt-2 text-sm ${isError ? "text-red-400" : "text-secondaryText"}`;
+    };
+
+    // Timestamp -> date
+    const parseTimestamp = (raw: string) => {
+        const text = raw.trim().replace(/[_,\s]/g, "");
+        if (!/^-?\d+(\.\d+)?$/.test(text)) throw new Error("Enter a number, such as 1790000000.");
+        const digits = text.replace(/^-/, "").split(".")[0].replace(/^0+/, "").length;
+        const unit = tsUnit.value !== "auto" ? tsUnit.value : digits <= 11 ? "s" : digits <= 14 ? "ms" : digits <= 17 ? "us" : "ns";
+        const divisor = { s: 0.001, ms: 1, us: 1e3, ns: 1e6 }[unit]!;
+        let ms: number;
+        if (/^-?\d+$/.test(text) && divisor > 1) {
+            // BigInt keeps microsecond and nanosecond values exact
+            ms = Number(BigInt(text) / BigInt(divisor));
+        } else {
+            ms = Number(text) / divisor;
+        }
+        if (!Number.isFinite(ms) || Math.abs(ms) > MAX_MS) throw new Error("That is outside the range of dates a browser can show (about 270,000 years either side of 1970).");
+        return { ms: Math.floor(ms), unit };
+    };
+
+    const convertTimestamp = () => {
+        currentMs = null;
+        if (!tsInput.value.trim()) {
+            setStatus(tsStatus, "");
+            tsResult.replaceChildren();
+            renderZones();
+            return;
+        }
+        try {
+            const { ms, unit } = parseTimestamp(tsInput.value);
+            currentMs = ms;
+            const date = new Date(ms);
+            const week = isoWeek(date);
+            setStatus(tsStatus, `Read as ${UNIT_NAMES[unit]}${tsUnit.value === "auto" ? " (detected)" : ""}.`);
+            renderRows(tsResult, [
+                ["Local", `${date.toLocaleString(undefined, { dateStyle: "full", timeStyle: "long" })}`],
+                ["UTC", date.toLocaleString("en-GB", { dateStyle: "full", timeStyle: "long", timeZone: "UTC" })],
+                ["ISO 8601", date.toISOString()],
+                ["RFC 2822", date.toUTCString().replace("GMT", "+0000")],
+                ["Relative", relative(ms)],
+                ["Seconds", String(Math.floor(ms / 1000))],
+                ["Milliseconds", String(ms)],
+                ["Day / week", `Day ${dayOfYear(date)} of ${date.getUTCFullYear()}, ISO week ${week.week} of ${week.year} (UTC)`],
+            ]);
+        } catch (error) {
+            setStatus(tsStatus, (error as Error).message, true);
+            tsResult.replaceChildren();
+        }
+        renderZones();
+    };
+
+    // Date -> timestamp
+    const showEpoch = (ms: number, note: string) => {
+        if (!Number.isFinite(ms) || Math.abs(ms) > MAX_MS) {
+            setStatus(dateStatus, "That date is out of range.", true);
+            dateResult.replaceChildren();
+            return;
+        }
+        setStatus(dateStatus, note);
+        renderRows(dateResult, [
+            ["Seconds", String(Math.floor(ms / 1000))],
+            ["Milliseconds", String(ms)],
+            ["ISO 8601", new Date(ms).toISOString()],
+            ["Relative", relative(ms)],
+        ]);
+    };
+
+    const convertPicker = () => {
+        dateText.value = "";
+        const match = dateInput.value.match(/^(\d{4,})-(\d{2})-(\d{2})T(\d{2}):(\d{2})(?::(\d{2}))?/);
+        if (!match) {
+            setStatus(dateStatus, "");
+            dateResult.replaceChildren();
+            return;
+        }
+        const [, y, mo, d, h, mi, s = "0"] = match;
+        const zone = dateZone.value;
+        const ms = zonedToEpoch(Number(y), Number(mo) - 1, Number(d), Number(h), Number(mi), Number(s), zone);
+        showEpoch(ms, `${dateInput.value.replace("T", " ")} in ${zone} (${formatOffset(zoneOffset(zone, ms))}).`);
+    };
+
+    const convertText = () => {
+        const raw = dateText.value.trim();
+        if (!raw) {
+            convertPicker();
+            return;
+        }
+        const ms = Date.parse(raw);
+        if (Number.isNaN(ms)) {
+            setStatus(dateStatus, "Couldn't read that date. ISO 8601, like 2026-09-27T10:30:00Z, works best.", true);
+            dateResult.replaceChildren();
+            return;
+        }
+        const hasZone = /(z|[+-]\d{2}:?\d{2}|gmt|utc)\s*$/i.test(raw) || /gmt[+-]\d/i.test(raw);
+        showEpoch(ms, hasZone ? "Read with the time zone in your text." : `No time zone given, so read as your local time (${LOCAL_ZONE}).`);
+    };
+
+    // Other time zones
+    const loadZones = () => {
+        try {
+            const saved = JSON.parse(localStorage.getItem(ZONES_KEY) ?? "null");
+            if (Array.isArray(saved)) return saved.filter((zone) => ALL_ZONES.includes(zone));
+        } catch {}
+        return DEFAULT_ZONES.filter((zone) => ALL_ZONES.includes(zone));
+    };
+    let zones = loadZones();
+    const saveZones = () => {
+        try {
+            localStorage.setItem(ZONES_KEY, JSON.stringify(zones));
+        } catch {}
+    };
+
+    const renderZones = () => {
+        const ms = currentMs;
+        zoneRows.replaceChildren(
+            ...zones.map((zone) => {
+                const row = document.createElement("tr");
+                row.className = "border-t border-gray-700";
+                const name = document.createElement("td");
+                name.className = "py-2 pr-3 whitespace-nowrap";
+                name.textContent = zone === LOCAL_ZONE ? `${zone} (you)` : zone;
+                const time = document.createElement("td");
+                time.className = "py-2 pr-3 font-mono";
+                const offset = document.createElement("td");
+                offset.className = "py-2 pr-3 font-mono text-secondaryText whitespace-nowrap";
+                if (ms === null) {
+                    time.textContent = "-";
+                    offset.textContent = "-";
+                } else {
+                    time.textContent = new Date(ms).toLocaleString(undefined, { timeZone: zone, weekday: "short", year: "numeric", month: "short", day: "numeric", hour: "2-digit", minute: "2-digit", second: "2-digit" });
+                    offset.textContent = formatOffset(zoneOffset(zone, ms));
+                }
+                const actions = document.createElement("td");
+                actions.className = "py-2 text-right";
+                const remove = document.createElement("button");
+                remove.className = "text-xs text-secondaryText hover:text-red-400";
+                remove.textContent = "Remove";
+                remove.setAttribute("aria-label", `Remove ${zone}`);
+                remove.addEventListener("click", () => {
+                    zones = zones.filter((z) => z !== zone);
+                    saveZones();
+                    renderZones();
+                });
+                actions.append(remove);
+                row.append(name, time, offset, actions);
+                return row;
+            }),
+        );
+    };
+
+    const fillZoneSelect = (select: HTMLSelectElement, selected: string) => {
+        select.replaceChildren(...ALL_ZONES.map((zone) => new Option(zone === LOCAL_ZONE ? `${zone} (local)` : zone, zone, false, zone === selected)));
+    };
+    fillZoneSelect(dateZone, LOCAL_ZONE);
+    fillZoneSelect(zoneAdd, "UTC");
+
+    $("zoneAddBtn").addEventListener("click", () => {
+        if (!zones.includes(zoneAdd.value)) zones.push(zoneAdd.value);
+        saveZones();
+        renderZones();
+    });
+
+    // Live clock
+    const nowSeconds = $<HTMLDivElement>("nowSeconds");
+    const nowMillis = $<HTMLDivElement>("nowMillis");
+    const tick = () => {
+        const now = Date.now();
+        nowSeconds.textContent = String(Math.floor(now / 1000));
+        nowMillis.textContent = `${now} ms`;
+    };
+    tick();
+    setInterval(tick, 250);
+    $<HTMLButtonElement>("copyNowS").addEventListener("click", (e) => copy(e.currentTarget as HTMLButtonElement, String(Math.floor(Date.now() / 1000))));
+    $<HTMLButtonElement>("copyNowMs").addEventListener("click", (e) => copy(e.currentTarget as HTMLButtonElement, String(Date.now())));
+    $("useNow").addEventListener("click", () => {
+        tsInput.value = String(Math.floor(Date.now() / 1000));
+        tsUnit.value = "auto";
+        convertTimestamp();
+    });
+
+    tsInput.addEventListener("input", convertTimestamp);
+    tsUnit.addEventListener("change", convertTimestamp);
+    dateInput.addEventListener("input", convertPicker);
+    dateZone.addEventListener("change", convertPicker);
+    dateText.addEventListener("input", convertText);
+
+    const shared = new URLSearchParams(window.location.search).get("t");
+    tsInput.value = shared ?? String(Math.floor(Date.now() / 1000));
+    convertTimestamp();
+</script>

@@ -47,12 +47,27 @@ import jwtDecoder from "../assets/images/thumbnail/jwt-decoder.png";
 import regexTester from "../assets/images/thumbnail/regex-tester.png";
 import cronExplainer from "../assets/images/thumbnail/cron-explainer.png";
 import uuidHashGenerator from "../assets/images/thumbnail/uuid-hash-generator.png";
+import timestampConverter from "../assets/images/thumbnail/timestamp-converter.png";
 
 export default {
     name: "Blog",
     data() {
         return {
             blogData: [
+                {
+                    title: "How to Convert a Unix Timestamp to a Date",
+                    subtitle:
+                        "Epoch time explained: seconds vs milliseconds, time zones, converting both ways, and code for popular languages.",
+                    image: timestampConverter,
+                    link: 'how-to-convert-unix-timestamp-online'
+                },
+                {
+                    title: "Comment convertir un timestamp Unix en date",
+                    subtitle:
+                        "Le temps epoch expliqué : secondes ou millisecondes, fuseaux horaires, conversion dans les deux sens et code pour les langages courants.",
+                    image: timestampConverter,
+                    link: 'comment-convertir-timestamp-unix-en-ligne'
+                },
                 {
                     title: "How to Generate UUIDs and Hashes Online",
                     subtitle:

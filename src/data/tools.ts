@@ -67,6 +67,12 @@ export const tools: Tool[] = [
     category: "Developer",
   },
   {
+    name: "Unix Timestamp Converter",
+    href: "/timestamp-converter",
+    description: "Convert Unix timestamps to dates and back, and see any moment across time zones.",
+    category: "Developer",
+  },
+  {
     name: "Text Editor",
     href: "/text-editor",
     description: "A lightweight editor with word, character and line counts that saves as you type.",
