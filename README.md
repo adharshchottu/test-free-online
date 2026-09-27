@@ -46,6 +46,11 @@ Test JavaScript regular expressions with live match highlighting. [Try it online
 
 **Features:** Live highlighting, numbered and named groups, replace preview, all JS flags, runaway pattern protection, quick reference
 
+### Cron Expression Explainer
+Read cron expressions in plain English and see the next run times. [Try it online](https://tools.typinks.com/cron-explainer/)
+
+**Features:** Plain-English summary, field-by-field breakdown, next 5/10/20 runs in local time or UTC, names, steps, ranges, @daily macros, shareable links
+
 ## 📝 Productivity Tools
 
 ### Text Editor

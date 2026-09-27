@@ -55,6 +55,12 @@ export const tools: Tool[] = [
     category: "Developer",
   },
   {
+    name: "Cron Expression Explainer",
+    href: "/cron-explainer",
+    description: "See what a cron expression means in plain English and when it will run next.",
+    category: "Developer",
+  },
+  {
     name: "Text Editor",
     href: "/text-editor",
     description: "A lightweight editor with word, character and line counts that saves as you type.",

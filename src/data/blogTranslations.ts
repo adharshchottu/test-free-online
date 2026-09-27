@@ -13,6 +13,7 @@ export const blogTranslations: Record<string, string> = {
   "how-to-encode-decode-base64-url-online": "comment-encoder-decoder-base64-url-en-ligne",
   "how-to-decode-jwt-online": "comment-decoder-jwt-en-ligne",
   "how-to-test-regex-online": "comment-tester-regex-en-ligne",
+  "how-to-read-cron-expressions-online": "comment-lire-expressions-cron-en-ligne",
 };
 
 export const getBlogAlternates = (pathname: string) => {

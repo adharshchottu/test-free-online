@@ -70,6 +70,9 @@ var allowedURLs = []string{
 	"https://tools.typinks.com/regex-tester",
 	"https://tools.typinks.com/blog/how-to-test-regex-online",
 	"https://tools.typinks.com/blog/comment-tester-regex-en-ligne",
+	"https://tools.typinks.com/cron-explainer",
+	"https://tools.typinks.com/blog/how-to-read-cron-expressions-online",
+	"https://tools.typinks.com/blog/comment-lire-expressions-cron-en-ligne",
 }
 
 var allowedUsers = []string{

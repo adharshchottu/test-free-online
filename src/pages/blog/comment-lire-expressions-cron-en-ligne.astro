@@ -1,0 +1,187 @@
+---
+import { Image } from "astro:assets";
+import { Navbar } from "../../components/Navbar";
+import { ScrollUpButton } from "../../components/ScrollUpButton";
+import Layout from "../../layouts/Layout.astro";
+import Footer from "@/components/Footer.vue";
+import cronExplainerBannerImage from "../../assets/images/blog/cron-explainer.png";
+---
+
+<Layout
+  title="Comment lire une expression cron (avec un explicateur en ligne)"
+  ogImage="blog/cron-explainer.png"
+  description="Apprenez la syntaxe cron champ par champ, découvrez les planifications courantes et vérifiez n'importe quelle expression cron en ligne, en langage clair, avec ses prochaines exécutions."
+  lang="fr"
+  keywords="expression cron, lire cron, syntaxe cron, exemples crontab, explicateur cron, prochaine exécution cron, cron toutes les 5 minutes, jour de la semaine cron"
+  author="Typinks Tools"
+  publishedDate="2026-09-27"
+  modifiedDate="2026-09-27"
+  articleSchema={true}
+>
+  <Navbar client:load />
+  <div class="flex justify-center bg-bgDark2 relative pt-2">
+    <div class="px-2 sm:px-4">
+      <article
+        class="p-8 text-center rounded-3xl w-full lg:w-[1200px] 2xl:w-[1400px] mb-24 mt-16 sm:mt-24"
+      >
+        <header class="mb-12">
+          <div class="text-sm text-secondaryText my-4">27 septembre 2026</div>
+          <h1
+            class="text-6xl lg:text-7xl xl:text-8xl font-bold tracking-tight leading-none mb-6 bg-gradient-to-r from-white via-purple-200 to-pink-400 bg-clip-text text-transparent"
+          >
+            Explicateur d'Expressions Cron
+          </h1>
+          <h2 class="text-2xl text-gray-300">
+            Comprenez n'importe quelle planification cron en langage clair
+          </h2>
+        </header>
+
+        <Image
+          src={cronExplainerBannerImage}
+          alt="Explicateur d'expressions cron - lire une planification cron avec ses prochaines exécutions"
+          class="rounded-xl mb-8 md:w-2/4 mx-auto mt-8"
+        />
+
+        <section
+          class="text-secondaryText !leading-8 sm:!leading-10 sm:text-xl text-left sm:text-justify mx-auto w-full md:w-10/12 lg:w-2/3 mt-16"
+        >
+          <a
+            href="https://tools.typinks.com/cron-explainer/"
+            target="_blank"
+            class="text-pink-400 font-bold">L'Explicateur d'Expressions Cron</a
+          > transforme une ligne comme <code>*/15 9-17 * * MON-FRI</code> en une
+          phrase claire, la décompose champ par champ et liste ses prochaines
+          exécutions. C'est le moyen le plus rapide de vérifier une entrée de
+          crontab, une planification de CI ou un CronJob Kubernetes avant de le
+          déployer. L'interface de l'outil est en anglais : l'exemple ci-dessus
+          s'affiche « Every 15 minutes, between 09:00 and 17:59, on Monday
+          through Friday », soit toutes les 15 minutes entre 9 h et 17 h 59, du
+          lundi au vendredi.
+
+          <h2 class="text-white text-2xl my-4">Qu'est-ce que cron ?</h2>
+          <p>
+            Cron est le planificateur intégré à Linux et macOS, et sa syntaxe a
+            été reprise par GitHub Actions, GitLab CI, Kubernetes, les
+            planificateurs cloud et de nombreuses bibliothèques. Chaque
+            planification est une ligne de cinq champs séparés par des espaces.
+            Quand l'heure actuelle correspond aux cinq champs, la tâche
+            s'exécute.
+          </p>
+
+          <h2 class="text-white text-2xl my-4">Les cinq champs</h2>
+          <ul class="list-disc list-inside space-y-2 my-4">
+            <li><strong>Minute :</strong> 0 à 59</li>
+            <li><strong>Heure :</strong> 0 à 23, au format 24 heures</li>
+            <li><strong>Jour du mois :</strong> 1 à 31</li>
+            <li><strong>Mois :</strong> 1 à 12, ou JAN à DEC</li>
+            <li><strong>Jour de la semaine :</strong> 0 à 7, ou SUN à SAT. 0 et 7 désignent tous deux le dimanche</li>
+          </ul>
+
+          <h2 class="text-white text-2xl my-4">Caractères spéciaux</h2>
+          <ul class="list-disc list-inside space-y-2 my-4">
+            <li><strong><code>*</code> (tout) :</strong> Toutes les valeurs. <code>*</code> dans le champ heure signifie toutes les heures</li>
+            <li><strong><code>,</code> (liste) :</strong> Plusieurs valeurs. <code>0,30</code> signifie la minute 0 et la minute 30</li>
+            <li><strong><code>-</code> (plage) :</strong> Un intervalle. <code>1-5</code> dans le jour de la semaine signifie du lundi au vendredi</li>
+            <li><strong><code>/</code> (pas) :</strong> Une valeur sur n. <code>*/10</code> signifie toutes les 10 minutes, et <code>9-17/2</code> signifie 9, 11, 13, 15 et 17</li>
+            <li><strong>Macros :</strong> <code>@hourly</code>, <code>@daily</code>, <code>@weekly</code>, <code>@monthly</code> et <code>@yearly</code> sont des raccourcis, et <code>@reboot</code> s'exécute une fois au démarrage</li>
+          </ul>
+
+          <h2 class="text-white text-2xl my-4">Comment utiliser l'explicateur</h2>
+
+          <h4 class="text-white text-xl my-3">Étape 1 : Saisissez une expression</h4>
+          <p>
+            Tapez ou collez votre expression cron, ou cliquez sur l'un des
+            exemples. Le résumé se met à jour pendant la saisie.
+          </p>
+
+          <h4 class="text-white text-xl my-3">Étape 2 : Vérifiez chaque champ</h4>
+          <p>
+            Le tableau Field by field indique le sens de chaque partie et
+            développe les plages et les pas en valeurs réelles : vous voyez ainsi
+            que <code>*/15</code> correspond aux minutes 0, 15, 30 et 45.
+          </p>
+
+          <h4 class="text-white text-xl my-3">Étape 3 : Consultez les prochaines exécutions</h4>
+          <p>
+            La liste Next runs affiche les prochaines exécutions et le délai
+            avant chacune. Basculez entre l'heure locale et UTC, car la plupart
+            des serveurs et des systèmes de CI exécutent cron en UTC. Affichez 5,
+            10 ou 20 exécutions.
+          </p>
+
+          <h4 class="text-white text-xl my-3">Étape 4 : Partagez-la</h4>
+          <p>
+            L'adresse de la page se met à jour avec votre expression : copiez le
+            lien dans une pull request ou une discussion, et les autres verront
+            la même explication.
+          </p>
+
+          <h2 class="text-white text-2xl my-4">Planifications cron courantes</h2>
+          <ul class="list-disc list-inside space-y-2 my-4">
+            <li><code>* * * * *</code> : toutes les minutes</li>
+            <li><code>*/5 * * * *</code> : toutes les 5 minutes</li>
+            <li><code>0 * * * *</code> : au début de chaque heure</li>
+            <li><code>0 0 * * *</code> : tous les jours à minuit</li>
+            <li><code>30 9 * * 1-5</code> : en semaine à 9 h 30</li>
+            <li><code>0 0 * * 0</code> : tous les dimanches à minuit</li>
+            <li><code>0 0 1 * *</code> : le premier jour de chaque mois</li>
+            <li><code>0 0 1 1,4,7,10 *</code> : le premier jour de chaque trimestre</li>
+          </ul>
+
+          <h2 class="text-white text-2xl my-4">Le piège du jour de la semaine</h2>
+          <p>
+            Quand le jour du mois et le jour de la semaine sont tous deux
+            restreints, cron lance la tâche si <em>l'un ou l'autre</em>
+            correspond, pas les deux. Ainsi, <code>0 0 1 * 1</code> s'exécute le
+            1er de chaque mois <em>et</em> tous les lundis. L'explicateur écrit
+            « or » dans ces cas pour que la surprise n'arrive pas en production.
+            Si l'un des deux champs commence par <code>*</code>, comme
+            <code>*/2</code>, les deux doivent correspondre.
+          </p>
+
+          <h2 class="text-white text-2xl my-4">Autres points d'attention</h2>
+          <ul class="list-disc list-inside space-y-2 my-4">
+            <li><strong>Fuseaux horaires :</strong> Cron utilise le fuseau du serveur, souvent UTC. Comparez les deux vues avant de vous fier à une heure</li>
+            <li><strong>Heure d'été :</strong> Une heure qui n'existe pas le jour du passage à l'heure d'été est ignorée dans la liste. La plupart des démons cron exécutent ces tâches juste après le changement</li>
+            <li><strong>Dates impossibles :</strong> <code>0 0 30 2 *</code> ne s'exécute jamais. L'explicateur vous prévient quand une planification n'a aucune exécution dans les 5 prochaines années</li>
+            <li><strong>Champ des secondes :</strong> Quartz et Spring ajoutent un champ de secondes et des caractères comme <code>?</code>, <code>L</code> et <code>#</code>. Cet outil suit le cron standard à 5 champs et signale les expressions dans l'autre format</li>
+          </ul>
+
+          <h2 class="text-white text-2xl my-4">Confidentialité</h2>
+          <p>
+            Tout est calculé dans votre navigateur. Vos planifications ne sont
+            envoyées nulle part, sauf dans l'adresse de la page si vous choisissez
+            de la partager.
+          </p>
+
+          <h2 class="text-white text-2xl my-4">Conclusion</h2>
+          <p>
+            Un résumé clair, le détail des champs et les vraies prochaines
+            exécutions suppriment les approximations avec cron. Vérifiez votre
+            prochaine planification sur{" "}
+            <a
+              href="https://tools.typinks.com/cron-explainer/"
+              target="_blank"
+              class="text-pink-400 font-bold"
+              >tools.typinks.com/cron-explainer</a
+            >.
+          </p>
+
+          <div class="mt-12 p-6 bg-bgDark3 rounded-xl border border-gray-700">
+            <h4 class="text-white text-xl mb-4">Vous ne savez pas quand votre tâche s'exécute ?</h4>
+            <p class="mb-4">Collez l'expression et voyez les 20 prochaines exécutions.</p>
+            <a
+              href="https://tools.typinks.com/cron-explainer/"
+              target="_blank"
+              class="inline-block px-6 py-3 bg-gradient-to-r from-purple-500 to-pink-500 text-white font-semibold rounded-lg hover:from-purple-600 hover:to-pink-600 transition-all"
+            >
+              Lancer l'explicateur cron
+            </a>
+          </div>
+        </section>
+      </article>
+    </div>
+  </div>
+  <ScrollUpButton client:load />
+  <Footer client:only="vue" />
+</Layout>

@@ -45,12 +45,27 @@ import jsonFormatter from "../assets/images/thumbnail/json-formatter.png";
 import base64UrlEncoder from "../assets/images/thumbnail/base64-url-encoder.png";
 import jwtDecoder from "../assets/images/thumbnail/jwt-decoder.png";
 import regexTester from "../assets/images/thumbnail/regex-tester.png";
+import cronExplainer from "../assets/images/thumbnail/cron-explainer.png";
 
 export default {
     name: "Blog",
     data() {
         return {
             blogData: [
+                {
+                    title: "How to Read Cron Expressions",
+                    subtitle:
+                        "Cron syntax field by field, common schedules, and how to check any expression and its next run times online.",
+                    image: cronExplainer,
+                    link: 'how-to-read-cron-expressions-online'
+                },
+                {
+                    title: "Comment lire une expression cron",
+                    subtitle:
+                        "La syntaxe cron champ par champ, les planifications courantes, et comment vérifier une expression et ses prochaines exécutions.",
+                    image: cronExplainer,
+                    link: 'comment-lire-expressions-cron-en-ligne'
+                },
                 {
                     title: "How to Test Regular Expressions Online",
                     subtitle:

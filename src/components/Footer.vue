@@ -142,6 +142,10 @@ export default {
                             label: "Regex Tester",
                             value: "/regex-tester"
                         },
+                        {
+                            label: "Cron Expression Explainer",
+                            value: "/cron-explainer"
+                        },
                     ],
                 },
             ],

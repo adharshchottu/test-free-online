@@ -1,0 +1,179 @@
+---
+import { Image } from "astro:assets";
+import { Navbar } from "../../components/Navbar";
+import { ScrollUpButton } from "../../components/ScrollUpButton";
+import Layout from "../../layouts/Layout.astro";
+import Footer from "@/components/Footer.vue";
+import cronExplainerBannerImage from "../../assets/images/blog/cron-explainer.png";
+---
+
+<Layout
+  title="How to Read Cron Expressions (with an Online Explainer)"
+  ogImage="blog/cron-explainer.png"
+  description="Learn cron syntax field by field, see common schedules, and check any cron expression online in plain English with its next run times. Covers steps, ranges, names, @daily macros and the day-of-week gotcha."
+  keywords="cron expression, how to read cron, cron syntax, crontab examples, cron explainer, cron next run, cron every 5 minutes, cron day of week, crontab guru"
+  author="Typinks Tools"
+  publishedDate="2026-09-27"
+  modifiedDate="2026-09-27"
+  articleSchema={true}
+>
+  <Navbar client:load />
+  <div class="flex justify-center bg-bgDark2 relative pt-2">
+    <div class="px-2 sm:px-4">
+      <article
+        class="p-8 text-center rounded-3xl w-full lg:w-[1200px] 2xl:w-[1400px] mb-24 mt-16 sm:mt-24"
+      >
+        <header class="mb-12">
+          <div class="text-sm text-secondaryText my-4">27 September 2026</div>
+          <h1
+            class="text-6xl lg:text-7xl xl:text-8xl font-bold tracking-tight leading-none mb-6 bg-gradient-to-r from-white via-purple-200 to-pink-400 bg-clip-text text-transparent"
+          >
+            Cron Expression Explainer
+          </h1>
+          <h2 class="text-2xl text-gray-300">
+            Understand any cron schedule in plain English
+          </h2>
+        </header>
+
+        <Image
+          src={cronExplainerBannerImage}
+          alt="Cron Expression Explainer - read cron schedules in plain English with next run times"
+          class="rounded-xl mb-8 md:w-2/4 mx-auto mt-8"
+        />
+
+        <section
+          class="text-secondaryText !leading-8 sm:!leading-10 sm:text-xl text-left sm:text-justify mx-auto w-full md:w-10/12 lg:w-2/3 mt-16"
+        >
+          <a
+            href="https://tools.typinks.com/cron-explainer/"
+            target="_blank"
+            class="text-pink-400 font-bold">The Cron Expression Explainer</a
+          > turns a line like <code>*/15 9-17 * * MON-FRI</code> into "Every 15
+          minutes, between 09:00 and 17:59, on Monday through Friday", breaks it
+          down field by field, and lists the next times it will run. It is the
+          quickest way to check a crontab entry, a CI schedule or a Kubernetes
+          CronJob before you deploy it.
+
+          <h2 class="text-white text-2xl my-4">What Is Cron?</h2>
+          <p>
+            Cron is the scheduler built into Linux and macOS, and its syntax has
+            been adopted by GitHub Actions, GitLab CI, Kubernetes, cloud
+            schedulers and many job libraries. Each schedule is a line of five
+            fields separated by spaces. When the current time matches all five
+            fields, the job runs.
+          </p>
+
+          <h2 class="text-white text-2xl my-4">The Five Fields</h2>
+          <ul class="list-disc list-inside space-y-2 my-4">
+            <li><strong>Minute:</strong> 0 to 59</li>
+            <li><strong>Hour:</strong> 0 to 23, in 24-hour time</li>
+            <li><strong>Day of month:</strong> 1 to 31</li>
+            <li><strong>Month:</strong> 1 to 12, or JAN to DEC</li>
+            <li><strong>Day of week:</strong> 0 to 7, or SUN to SAT. Both 0 and 7 mean Sunday</li>
+          </ul>
+
+          <h2 class="text-white text-2xl my-4">Special Characters</h2>
+          <ul class="list-disc list-inside space-y-2 my-4">
+            <li><strong><code>*</code> (any):</strong> Every value. <code>*</code> in the hour field means every hour</li>
+            <li><strong><code>,</code> (list):</strong> Several values. <code>0,30</code> means minute 0 and minute 30</li>
+            <li><strong><code>-</code> (range):</strong> A span. <code>1-5</code> in day of week means Monday to Friday</li>
+            <li><strong><code>/</code> (step):</strong> Every nth value. <code>*/10</code> means every 10 minutes, and <code>9-17/2</code> means 9, 11, 13, 15 and 17</li>
+            <li><strong>Macros:</strong> <code>@hourly</code>, <code>@daily</code>, <code>@weekly</code>, <code>@monthly</code> and <code>@yearly</code> are shortcuts, and <code>@reboot</code> runs once at startup</li>
+          </ul>
+
+          <h2 class="text-white text-2xl my-4">How to Use the Explainer</h2>
+
+          <h4 class="text-white text-xl my-3">Step 1: Enter an Expression</h4>
+          <p>
+            Type or paste your cron expression, or click one of the examples.
+            The plain-English summary updates as you type.
+          </p>
+
+          <h4 class="text-white text-xl my-3">Step 2: Check Each Field</h4>
+          <p>
+            The Field by field table shows what every part means and expands
+            ranges and steps into the actual values, so you can see that
+            <code>*/15</code> means minutes 0, 15, 30 and 45.
+          </p>
+
+          <h4 class="text-white text-xl my-3">Step 3: Review the Next Runs</h4>
+          <p>
+            The Next runs list shows upcoming run times with how far away each
+            one is. Switch between local time and UTC, since most servers and
+            CI systems run cron in UTC. Show 5, 10 or 20 runs.
+          </p>
+
+          <h4 class="text-white text-xl my-3">Step 4: Share It</h4>
+          <p>
+            The page address updates with your expression, so you can copy the
+            link into a pull request or chat and others will see the same
+            explanation.
+          </p>
+
+          <h2 class="text-white text-2xl my-4">Common Cron Schedules</h2>
+          <ul class="list-disc list-inside space-y-2 my-4">
+            <li><code>* * * * *</code>: every minute</li>
+            <li><code>*/5 * * * *</code>: every 5 minutes</li>
+            <li><code>0 * * * *</code>: at the start of every hour</li>
+            <li><code>0 0 * * *</code>: every day at midnight</li>
+            <li><code>30 9 * * 1-5</code>: weekdays at 09:30</li>
+            <li><code>0 0 * * 0</code>: every Sunday at midnight</li>
+            <li><code>0 0 1 * *</code>: the first day of every month</li>
+            <li><code>0 0 1 1,4,7,10 *</code>: the first day of each quarter</li>
+          </ul>
+
+          <h2 class="text-white text-2xl my-4">The Day-of-Week Gotcha</h2>
+          <p>
+            When both day of month and day of week are restricted, cron runs the
+            job when <em>either</em> one matches, not both. So
+            <code>0 0 1 * 1</code> runs on the 1st of every month
+            <em>and</em> on every Monday. The explainer says "or" in these cases
+            so the surprise doesn't reach production. If one of the two fields
+            starts with <code>*</code>, as in <code>*/2</code>, both must match
+            instead.
+          </p>
+
+          <h2 class="text-white text-2xl my-4">Other Things to Watch For</h2>
+          <ul class="list-disc list-inside space-y-2 my-4">
+            <li><strong>Time zones:</strong> Cron uses the server's time zone, which is often UTC. Compare both views before you rely on a time</li>
+            <li><strong>Daylight saving:</strong> A time that doesn't exist on the day the clocks go forward is skipped in the list. Most cron daemons run those jobs right after the change</li>
+            <li><strong>Impossible dates:</strong> <code>0 0 30 2 *</code> never runs. The explainer tells you when a schedule has no runs in the next 5 years</li>
+            <li><strong>Seconds fields:</strong> Quartz and Spring add a seconds field and characters like <code>?</code>, <code>L</code> and <code>#</code>. This tool follows standard 5-field cron and points out when an expression uses the other format</li>
+          </ul>
+
+          <h2 class="text-white text-2xl my-4">Privacy</h2>
+          <p>
+            Everything is calculated in your browser. Your schedules are not
+            sent anywhere, except in the page address if you choose to share it.
+          </p>
+
+          <h2 class="text-white text-2xl my-4">Conclusion</h2>
+          <p>
+            A plain-English summary, a field breakdown and real next run times
+            take the guesswork out of cron. Check your next schedule at{" "}
+            <a
+              href="https://tools.typinks.com/cron-explainer/"
+              target="_blank"
+              class="text-pink-400 font-bold"
+              >tools.typinks.com/cron-explainer</a
+            >.
+          </p>
+
+          <div class="mt-12 p-6 bg-bgDark3 rounded-xl border border-gray-700">
+            <h4 class="text-white text-xl mb-4">Not Sure When Your Job Runs?</h4>
+            <p class="mb-4">Paste the expression and see the next 20 runs.</p>
+            <a
+              href="https://tools.typinks.com/cron-explainer/"
+              target="_blank"
+              class="inline-block px-6 py-3 bg-gradient-to-r from-purple-500 to-pink-500 text-white font-semibold rounded-lg hover:from-purple-600 hover:to-pink-600 transition-all"
+            >
+              Launch Cron Explainer
+            </a>
+          </div>
+        </section>
+      </article>
+    </div>
+  </div>
+  <ScrollUpButton client:load />
+  <Footer client:only="vue" />
+</Layout>

@@ -1,0 +1,429 @@
+---
+import { Navbar } from "@/components/Navbar";
+import Layout from "../layouts/Layout.astro";
+import Footer from "@/components/Footer.vue";
+import { ScrollUpButton } from "@/components/ScrollUpButton";
+import "../styles/Theme.css";
+
+const buttonClass =
+    "px-3 py-2 bg-bgDark2 hover:bg-bgDark1 text-primaryText text-sm rounded-lg transition-colors border border-gray-700 hover:border-primaryColor";
+const selectClass = "bg-bgDark2 text-primaryText text-sm rounded-lg border border-gray-700 px-2 py-2";
+const examples = [
+    ["*/5 * * * *", "Every 5 minutes"],
+    ["0 * * * *", "Hourly"],
+    ["0 0 * * *", "Daily at midnight"],
+    ["30 9 * * 1-5", "Weekdays at 9:30"],
+    ["0 0 1 * *", "First of the month"],
+    ["0 3 * * SUN", "Sundays at 3:00"],
+    ["0 0 1 1,4,7,10 *", "Quarterly"],
+    ["*/15 9-17 * * MON-FRI", "Office hours"],
+];
+---
+
+<Layout
+    title="Cron Expression Explainer - Read Cron Schedules in Plain English"
+    description="Paste a cron expression to see what it means in plain English, a field-by-field breakdown, and the next run times in your time zone or UTC. Supports names, steps, ranges and @daily macros."
+    ogImage="blog/cron-explainer.png"
+    keywords="cron explainer, cron expression, crontab, cron schedule, cron parser, cron next run, crontab guru, cron syntax, cron job"
+>
+    <Navbar client:load />
+    <section class="pt-16 md:pt-16 lg:pt-24">
+        <div class="w-full max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+            <div class="mb-6">
+                <h1 class="block-big-title">Cron Expression Explainer</h1>
+                <p class="mt-3 text-secondaryText">
+                    Type a cron expression to see when it runs.
+                </p>
+            </div>
+
+            <div class="p-4 sm:p-6 bg-bgDark3 main-border-gray rounded-xl mb-4">
+                <label for="expr" class="block text-sm text-secondaryText mb-2">Cron expression</label>
+                <input
+                    id="expr"
+                    type="text"
+                    spellcheck="false"
+                    autocomplete="off"
+                    value="*/15 9-17 * * MON-FRI"
+                    class="w-full p-4 font-mono text-xl sm:text-2xl tracking-wider text-center main-border-gray rounded-xl bg-bgDark2 text-primaryText focus:outline-none focus:border-primaryColor"
+                />
+                <p id="summary" class="mt-5 text-xl sm:text-2xl font-bold text-primaryText text-center" aria-live="polite"></p>
+                <p id="error" class="mt-3 text-sm text-red-400 text-center hidden" aria-live="polite"></p>
+                <div class="flex flex-wrap justify-center gap-2 mt-5">
+                    {examples.map(([expr, label]) => (
+                        <button class={`${buttonClass} example`} data-expr={expr} title={expr}>{label}</button>
+                    ))}
+                </div>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-5 gap-4">
+                <div class="lg:col-span-3 p-4 bg-bgDark3 main-border-gray rounded-xl overflow-x-auto">
+                    <h2 class="text-white text-lg font-bold mb-3">Field by field</h2>
+                    <table class="w-full text-sm text-left">
+                        <thead class="text-secondaryText">
+                            <tr>
+                                <th class="py-2 pr-3 font-medium">Field</th>
+                                <th class="py-2 pr-3 font-medium">Value</th>
+                                <th class="py-2 pr-3 font-medium">Meaning</th>
+                                <th class="py-2 font-medium hidden sm:table-cell">Allowed</th>
+                            </tr>
+                        </thead>
+                        <tbody id="fields" class="text-primaryText"></tbody>
+                    </table>
+                </div>
+                <div class="lg:col-span-2 p-4 bg-bgDark3 main-border-gray rounded-xl">
+                    <div class="flex flex-wrap items-center justify-between gap-2 mb-3">
+                        <h2 class="text-white text-lg font-bold">Next runs</h2>
+                        <div class="flex gap-2">
+                            <select id="zone" class={selectClass} aria-label="Time zone">
+                                <option value="local">Local time</option>
+                                <option value="utc">UTC</option>
+                            </select>
+                            <select id="count" class={selectClass} aria-label="Number of runs">
+                                <option value="5">5</option>
+                                <option value="10" selected>10</option>
+                                <option value="20">20</option>
+                            </select>
+                        </div>
+                    </div>
+                    <ol id="runs" class="space-y-1 text-sm font-mono"></ol>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="text-secondaryText leading-8 w-full max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 mt-8 mb-16">
+        <h2 class="text-white text-2xl mb-4">Cron syntax at a glance</h2>
+        <pre class="font-mono text-sm text-primaryText bg-bgDark3 main-border-gray rounded-xl p-4 overflow-x-auto mb-4">┌───────────── minute (0-59)
+│ ┌─────────── hour (0-23)
+│ │ ┌───────── day of month (1-31)
+│ │ │ ┌─────── month (1-12 or JAN-DEC)
+│ │ │ │ ┌───── day of week (0-7 or SUN-SAT, 0 and 7 are Sunday)
+│ │ │ │ │
+* * * * *</pre>
+        <p>
+            Use <code>*</code> for every value, <code>1,15</code> for a list, <code>1-5</code> for a range and
+            <code>*/10</code> for a step. This tool follows standard Unix cron (Vixie cron and cronie). Read the
+            <a href="/blog/how-to-read-cron-expressions-online/" class="text-pink-400 font-bold">full guide</a>
+            for examples and common mistakes.
+        </p>
+    </section>
+    <ScrollUpButton client:load />
+    <Footer client:only="vue" />
+</Layout>
+
+<script>
+    const exprInput = document.getElementById("expr") as HTMLInputElement;
+    const summary = document.getElementById("summary") as HTMLParagraphElement;
+    const errorOut = document.getElementById("error") as HTMLParagraphElement;
+    const fieldsOut = document.getElementById("fields") as HTMLTableSectionElement;
+    const runsOut = document.getElementById("runs") as HTMLOListElement;
+    const zoneSelect = document.getElementById("zone") as HTMLSelectElement;
+    const countSelect = document.getElementById("count") as HTMLSelectElement;
+
+    const MONTHS = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+    const DAYS = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
+    const MACROS: Record<string, string> = {
+        "@yearly": "0 0 1 1 *",
+        "@annually": "0 0 1 1 *",
+        "@monthly": "0 0 1 * *",
+        "@weekly": "0 0 * * 0",
+        "@daily": "0 0 * * *",
+        "@midnight": "0 0 * * *",
+        "@hourly": "0 * * * *",
+    };
+
+    interface Spec {
+        key: "minute" | "hour" | "dom" | "month" | "dow";
+        label: string;
+        unit: string;
+        min: number;
+        max: number;
+        allowed: string;
+        prefix: string;
+        names?: string[];
+    }
+    const SPECS: Spec[] = [
+        { key: "minute", label: "Minute", unit: "minute", min: 0, max: 59, allowed: "0-59", prefix: "minute " },
+        { key: "hour", label: "Hour", unit: "hour", min: 0, max: 23, allowed: "0-23", prefix: "hour " },
+        { key: "dom", label: "Day of month", unit: "day", min: 1, max: 31, allowed: "1-31", prefix: "day " },
+        { key: "month", label: "Month", unit: "month", min: 1, max: 12, allowed: "1-12, JAN-DEC", prefix: "", names: MONTHS },
+        { key: "dow", label: "Day of week", unit: "day", min: 0, max: 7, allowed: "0-7, SUN-SAT", prefix: "", names: DAYS },
+    ];
+
+    interface Part {
+        start: number;
+        end: number;
+        step: number;
+        star: boolean;
+    }
+    interface Field {
+        spec: Spec;
+        raw: string;
+        parts: Part[];
+        values: Set<number>;
+        star: boolean; // starts with "*", which changes how the two day fields combine
+        any: boolean; // matches every allowed value
+    }
+
+    const format = (spec: Spec, value: number) =>
+        spec.key === "month" ? MONTHS[value - 1] : spec.key === "dow" ? DAYS[value % 7] : String(value);
+    const list = (items: string[]) => (items.length <= 1 ? items.join("") : `${items.slice(0, -1).join(", ")} and ${items[items.length - 1]}`);
+    const pad = (n: number) => String(n).padStart(2, "0");
+
+    const parseValue = (text: string, spec: Spec) => {
+        if (/^\d+$/.test(text)) return Number(text);
+        const index = spec.names?.findIndex((name) => name.slice(0, 3).toLowerCase() === text.toLowerCase()) ?? -1;
+        if (index === -1) {
+            const quartz = /[?LW#]/.test(text) ? " ?, L, W and # are Quartz extensions that standard cron doesn't support." : "";
+            throw new Error(`"${text}" is not a valid ${spec.label.toLowerCase()} value.${quartz}`);
+        }
+        return spec.key === "month" ? index + 1 : index;
+    };
+
+    const parseField = (raw: string, spec: Spec): Field => {
+        const parts = raw.split(",").map((item): Part => {
+            const pieces = item.split("/");
+            if (pieces.length > 2 || !pieces[0]) throw new Error(`"${item}" in the ${spec.label.toLowerCase()} field is not valid.`);
+            const [rangeText, stepText] = pieces;
+            const step = stepText === undefined ? 1 : /^\d+$/.test(stepText) && Number(stepText) > 0 ? Number(stepText) : NaN;
+            if (Number.isNaN(step)) throw new Error(`The step "/${stepText}" in the ${spec.label.toLowerCase()} field must be a positive number.`);
+
+            let start: number;
+            let end: number;
+            const star = rangeText === "*";
+            if (star) {
+                start = spec.min;
+                end = spec.key === "dow" ? 6 : spec.max;
+            } else if (rangeText.includes("-")) {
+                const [a, b, extra] = rangeText.split("-");
+                if (extra !== undefined || !a || !b) throw new Error(`"${rangeText}" in the ${spec.label.toLowerCase()} field is not a valid range.`);
+                start = parseValue(a, spec);
+                end = parseValue(b, spec);
+                if (start > end) throw new Error(`The range ${rangeText} in the ${spec.label.toLowerCase()} field goes backwards.`);
+            } else {
+                start = parseValue(rangeText, spec);
+                // "5/15" means "from 5 to the end, every 15"
+                end = stepText === undefined ? start : spec.max;
+            }
+            for (const value of [start, end]) {
+                if (value < spec.min || value > spec.max) {
+                    throw new Error(`${value} is out of range for the ${spec.label.toLowerCase()} field (${spec.allowed}).`);
+                }
+            }
+            return { start, end, step, star };
+        });
+
+        const values = new Set<number>();
+        for (const part of parts) {
+            for (let v = part.start; v <= part.end; v += part.step) values.add(spec.key === "dow" ? v % 7 : v);
+        }
+        const size = spec.key === "dow" ? 7 : spec.max - spec.min + 1;
+        return { spec, raw, parts, values, star: raw.startsWith("*"), any: values.size === size };
+    };
+
+    const partMeaning = (spec: Spec, part: Part) => {
+        const plural = `${spec.unit}s`;
+        if (part.star) return part.step === 1 ? `every ${spec.unit}` : `every ${part.step} ${plural}`;
+        const from = `${spec.prefix}${format(spec, part.start)}`;
+        if (part.start === part.end) return from;
+        const range = `${from} through ${format(spec, part.end)}`;
+        return part.step === 1 ? range : `every ${part.step} ${plural} from ${range}`;
+    };
+    const isEvery = (field: Field) => field.parts.length === 1 && field.parts[0].star;
+    const onlySingles = (field: Field) => field.parts.every((part) => !part.star && part.start === part.end);
+    const fieldMeaning = (field: Field) => {
+        const { spec, parts } = field;
+        // "minutes 5 and 35" reads better than "minute 5 and minute 35"
+        if (spec.prefix && parts.length > 1 && onlySingles(field)) {
+            return `${spec.prefix.trim()}s ${list(parts.map((part) => format(spec, part.start)))}`;
+        }
+        return list(parts.map((part) => partMeaning(spec, part)));
+    };
+
+    const describe = ([minute, hour, dom, month, dow]: Field[]) => {
+        let text: string;
+        if (onlySingles(minute) && onlySingles(hour) && minute.values.size * hour.values.size <= 12) {
+            const times = [...hour.values].sort((a, b) => a - b).flatMap((h) => [...minute.values].sort((a, b) => a - b).map((m) => `${pad(h)}:${pad(m)}`));
+            text = `At ${list(times)}`;
+        } else {
+            const minuteText = fieldMeaning(minute);
+            const minuteIsRepeating = minuteText.startsWith("every");
+            text = minuteIsRepeating ? minuteText : `At ${minuteText}`;
+            if (!hour.any || !isEvery(hour)) {
+                const range = hour.parts.length === 1 && !hour.parts[0].star && hour.parts[0].step === 1 && hour.parts[0].start !== hour.parts[0].end;
+                text += range
+                    ? `, between ${pad(hour.parts[0].start)}:00 and ${pad(hour.parts[0].end)}:59`
+                    : onlySingles(hour) ? ` past ${fieldMeaning(hour)}` : `, ${fieldMeaning(hour)}`;
+            } else if (!minuteIsRepeating) {
+                text += " past every hour";
+            }
+        }
+
+        const domSet = !dom.any;
+        const dowSet = !dow.any;
+        const domText = isEvery(dom) ? fieldMeaning(dom) : `on ${fieldMeaning(dom)} of the month`;
+        if (domSet && dowSet) {
+            text += dom.star || dow.star ? `, ${domText}, but only on ${fieldMeaning(dow)}` : `, ${domText} or on ${fieldMeaning(dow)}`;
+        } else if (domSet) {
+            text += `, ${domText}`;
+        } else if (dowSet) {
+            text += `, on ${fieldMeaning(dow)}`;
+        }
+        if (!month.any) text += `, in ${fieldMeaning(month)}`;
+        return `${text.charAt(0).toUpperCase()}${text.slice(1)}.`;
+    };
+
+    const nextRuns = ([minute, hour, dom, month, dow]: Field[], count: number, utc: boolean) => {
+        const get = (d: Date) =>
+            utc
+                ? { y: d.getUTCFullYear(), mo: d.getUTCMonth(), d: d.getUTCDate(), wd: d.getUTCDay(), h: d.getUTCHours(), mi: d.getUTCMinutes() }
+                : { y: d.getFullYear(), mo: d.getMonth(), d: d.getDate(), wd: d.getDay(), h: d.getHours(), mi: d.getMinutes() };
+        const make = (y: number, mo: number, day: number, h: number, mi: number) =>
+            utc ? new Date(Date.UTC(y, mo, day, h, mi)) : new Date(y, mo, day, h, mi);
+        const dayMatches = (day: number, weekday: number) => {
+            const domOk = dom.values.has(day);
+            const dowOk = dow.values.has(weekday);
+            // Cron quirk: when both day fields are restricted, either one matching is enough
+            return dom.star || dow.star ? domOk && dowOk : domOk || dowOk;
+        };
+
+        const runs: Date[] = [];
+        const now = new Date();
+        const limit = now.getTime() + 5 * 366 * 86400000;
+        const t = get(now);
+        let date = make(t.y, t.mo, t.d, t.h, t.mi + 1);
+        for (let guard = 0; runs.length < count && date.getTime() < limit && guard < 200000; guard++) {
+            const c = get(date);
+            if (!month.values.has(c.mo + 1)) date = make(c.y, c.mo + 1, 1, 0, 0);
+            else if (!dayMatches(c.d, c.wd)) date = make(c.y, c.mo, c.d + 1, 0, 0);
+            else if (!hour.values.has(c.h)) date = make(c.y, c.mo, c.d, c.h + 1, 0);
+            else if (!minute.values.has(c.mi)) date = make(c.y, c.mo, c.d, c.h, c.mi + 1);
+            else {
+                runs.push(date);
+                date = make(c.y, c.mo, c.d, c.h, c.mi + 1);
+            }
+        }
+        return runs;
+    };
+
+    const relative = (date: Date) => {
+        const minutes = Math.round((date.getTime() - Date.now()) / 60000);
+        const rtf = new Intl.RelativeTimeFormat("en", { numeric: "auto" });
+        if (minutes < 60) return rtf.format(minutes, "minute");
+        if (minutes < 1440) return rtf.format(Math.round(minutes / 60), "hour");
+        return rtf.format(Math.round(minutes / 1440), "day");
+    };
+
+    const showError = (message: string) => {
+        summary.textContent = "";
+        errorOut.textContent = message;
+        errorOut.classList.remove("hidden");
+        fieldsOut.replaceChildren();
+        runsOut.replaceChildren();
+    };
+
+    const cell = (text: string, className = "") => {
+        const td = document.createElement("td");
+        td.className = `py-2 pr-3 align-top ${className}`;
+        td.textContent = text;
+        return td;
+    };
+
+    const render = () => {
+        const raw = exprInput.value.trim();
+        const url = new URL(window.location.href);
+        if (raw) url.searchParams.set("expr", raw);
+        else url.searchParams.delete("expr");
+        history.replaceState(null, "", url);
+
+        if (!raw) return showError("Enter a cron expression.");
+        if (raw.toLowerCase() === "@reboot") {
+            showError("");
+            errorOut.classList.add("hidden");
+            summary.textContent = "Once, when the cron daemon starts (usually at boot).";
+            return;
+        }
+        const expanded = MACROS[raw.toLowerCase()] ?? raw;
+        const pieces = expanded.split(/\s+/);
+        if (pieces.length !== 5) {
+            return showError(
+                pieces.length === 6 || pieces.length === 7
+                    ? `This has ${pieces.length} fields, like Quartz or Spring schedules that add seconds (and years). Standard cron uses 5: minute, hour, day of month, month and day of week.`
+                    : `A cron expression needs 5 fields separated by spaces; this has ${pieces.length}.`,
+            );
+        }
+
+        let fields: Field[];
+        try {
+            fields = pieces.map((piece, i) => parseField(piece, SPECS[i]));
+        } catch (error) {
+            return showError((error as Error).message);
+        }
+
+        errorOut.classList.add("hidden");
+        summary.textContent = (expanded !== raw ? `${raw} = ${expanded}: ` : "") + describe(fields);
+
+        fieldsOut.replaceChildren(
+            ...fields.map((field) => {
+                const row = document.createElement("tr");
+                row.className = "border-t border-gray-700";
+                const values = [...field.values].sort((a, b) => a - b).map((v) => format(field.spec, v));
+                const expandedValues = field.any || onlySingles(field) ? "" : ` (${values.length > 12 ? `${values.slice(0, 12).join(", ")}, …` : values.join(", ")})`;
+                row.append(
+                    cell(field.spec.label, "text-secondaryText whitespace-nowrap"),
+                    cell(field.raw, "font-mono text-secondaryColor whitespace-nowrap"),
+                    cell(`${fieldMeaning(field)}${expandedValues}`),
+                    cell(field.spec.allowed, "text-secondaryText whitespace-nowrap hidden sm:table-cell"),
+                );
+                return row;
+            }),
+        );
+
+        const utc = zoneSelect.value === "utc";
+        const runs = nextRuns(fields, Number(countSelect.value), utc);
+        if (!runs.length) {
+            const item = document.createElement("li");
+            item.className = "font-sans text-yellow-400";
+            item.textContent = "This schedule never runs in the next 5 years. Check the day and month, for example February 30.";
+            runsOut.replaceChildren(item);
+            return;
+        }
+        const formatter = new Intl.DateTimeFormat(undefined, {
+            weekday: "short",
+            year: "numeric",
+            month: "short",
+            day: "numeric",
+            hour: "2-digit",
+            minute: "2-digit",
+            hour12: false,
+            timeZone: utc ? "UTC" : undefined,
+        });
+        runsOut.replaceChildren(
+            ...runs.map((run) => {
+                const item = document.createElement("li");
+                item.className = "flex flex-wrap justify-between gap-x-3 text-primaryText";
+                const when = document.createElement("span");
+                when.textContent = `${formatter.format(run)}${utc ? " UTC" : ""}`;
+                const rel = document.createElement("span");
+                rel.className = "text-secondaryText font-sans";
+                rel.textContent = relative(run);
+                item.append(when, rel);
+                return item;
+            }),
+        );
+    };
+
+    exprInput.addEventListener("input", render);
+    zoneSelect.addEventListener("change", render);
+    countSelect.addEventListener("change", render);
+    document.querySelectorAll<HTMLButtonElement>(".example").forEach((button) =>
+        button.addEventListener("click", () => {
+            exprInput.value = button.dataset.expr!;
+            render();
+        }),
+    );
+
+    const shared = new URLSearchParams(window.location.search).get("expr");
+    if (shared) exprInput.value = shared;
+    render();
+</script>
