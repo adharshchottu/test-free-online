@@ -30,7 +30,7 @@
                             </dd>
                         </div>
                     </div>
-                    <div class="w-full lg:w-2/3 lg:pl-16 flex flex-wrap items-start gap-8">
+                    <div class="w-full lg:w-2/3 lg:pl-16 grid grid-cols-1 sm:grid-cols-2 gap-x-8">
                         <FooterSection v-for="(section, index) in footerData" :key="index" :title="section.title"
                             :items="section.items" />
                     </div>
