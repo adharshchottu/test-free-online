@@ -31,6 +31,12 @@ export const tools: Tool[] = [
     category: "Developer",
   },
   {
+    name: "JSON Formatter & Validator",
+    href: "/json-formatter",
+    description: "Validate JSON as you type, see errors by line and column, then format or minify it.",
+    category: "Developer",
+  },
+  {
     name: "Text Editor",
     href: "/text-editor",
     description: "A lightweight editor with word, character and line counts that saves as you type.",

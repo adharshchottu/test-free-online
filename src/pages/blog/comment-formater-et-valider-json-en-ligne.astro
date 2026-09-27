@@ -1,0 +1,213 @@
+---
+import { Image } from "astro:assets";
+import { Navbar } from "../../components/Navbar";
+import { ScrollUpButton } from "../../components/ScrollUpButton";
+import Layout from "../../layouts/Layout.astro";
+import Footer from "@/components/Footer.vue";
+import jsonFormatterBannerImage from "../../assets/images/blog/json-formatter.png";
+---
+
+<Layout
+  title="Comment formater et valider du JSON en ligne"
+  ogImage="blog/json-formatter.png"
+  description="Apprenez à formater, minifier et valider du JSON en ligne gratuitement. Trouvez les erreurs de syntaxe par ligne et colonne, triez les clés et gardez vos données privées dans le navigateur."
+  lang="fr"
+  keywords="formater json en ligne, valideur json, formateur json, embellir json, minifier json, corriger json invalide, erreur syntaxe json"
+  author="Typinks Tools"
+  publishedDate="2026-09-27"
+  modifiedDate="2026-09-27"
+  articleSchema={true}
+>
+  <Navbar client:load />
+  <div class="flex justify-center bg-bgDark2 relative pt-2">
+    <div class="px-2 sm:px-4">
+      <article
+        class="p-8 text-center rounded-3xl w-full lg:w-[1200px] 2xl:w-[1400px] mb-24 mt-16 sm:mt-24"
+      >
+        <header class="mb-12">
+          <div class="text-sm text-secondaryText my-4">27 septembre 2026</div>
+          <h1
+            class="text-6xl lg:text-7xl xl:text-8xl font-bold tracking-tight leading-none mb-6 bg-gradient-to-r from-white via-purple-200 to-pink-400 bg-clip-text text-transparent"
+          >
+            Formateur et Valideur JSON
+          </h1>
+          <h2 class="text-2xl text-gray-300">
+            Embellissez, minifiez et déboguez du JSON en quelques secondes
+          </h2>
+        </header>
+
+        <Image
+          src={jsonFormatterBannerImage}
+          alt="Formateur et valideur JSON - formater, minifier et valider du JSON en ligne"
+          class="rounded-xl mb-8 md:w-2/4 mx-auto mt-8"
+        />
+
+        <section
+          class="text-secondaryText !leading-8 sm:!leading-10 sm:text-xl text-left sm:text-justify mx-auto w-full md:w-10/12 lg:w-2/3 mt-16"
+        >
+          <a
+            href="https://tools.typinks.com/json-formatter/"
+            target="_blank"
+            class="text-pink-400 font-bold">Le Formateur et Valideur JSON</a
+          > transforme un bloc de JSON minifié en un texte lisible, et vous montre
+          exactement où un JSON invalide pose problème. Collez une réponse d'API, un
+          fichier de configuration ou une ligne de log : la validation se fait
+          pendant la saisie, l'indentation en un clic, et chaque erreur de syntaxe
+          est localisée par ligne et colonne.
+
+          <h2 class="text-white text-2xl my-4">Qu'est-ce que le JSON ?</h2>
+          <p>
+            Le JSON (JavaScript Object Notation) est le format le plus courant
+            pour échanger des données entre serveurs, applications et API. Il se
+            compose d'objets (paires clé-valeur entre accolades), de tableaux
+            (listes entre crochets), de chaînes, de nombres, de booléens et de
+            null. Les machines le lisent facilement, mais les API l'envoient
+            souvent minifié sur une seule ligne, ce qui le rend difficile à lire
+            pour un humain.
+          </p>
+
+          <h2 class="text-white text-2xl my-4">Fonctionnalités Principales</h2>
+          <ul class="list-disc list-inside space-y-2 my-4">
+            <li>
+              <strong>Validation en direct :</strong> Chaque frappe est vérifiée,
+              vous savez immédiatement si votre JSON est valide
+            </li>
+            <li>
+              <strong>Erreurs précises :</strong> Les erreurs de syntaxe indiquent
+              la ligne et la colonne exactes
+            </li>
+            <li>
+              <strong>Formater ou minifier :</strong> Indentation de 2 espaces, 4
+              espaces ou tabulations, ou compression sur une seule ligne
+            </li>
+            <li>
+              <strong>Trier les clés :</strong> Classez les clés des objets par
+              ordre alphabétique à tous les niveaux pour comparer facilement deux
+              fichiers
+            </li>
+            <li>
+              <strong>Copier et télécharger :</strong> Copiez le résultat ou
+              enregistrez-le en fichier .json
+            </li>
+            <li>
+              <strong>Confidentiel :</strong> Votre JSON ne quitte jamais votre
+              navigateur
+            </li>
+          </ul>
+
+          <h2 class="text-white text-2xl my-4">Comment formater du JSON en ligne</h2>
+
+          <h4 class="text-white text-xl my-3">Étape 1 : Collez votre JSON</h4>
+          <p>
+            Collez votre JSON dans la zone Input. La ligne d'état sous l'éditeur
+            indique aussitôt s'il est valide, le type de la valeur principale et
+            sa taille. Cliquez sur « Sample » pour essayer l'outil avec un
+            exemple.
+          </p>
+
+          <h4 class="text-white text-xl my-3">Étape 2 : Choisissez l'indentation</h4>
+          <p>
+            Choisissez 2 espaces, 4 espaces ou des tabulations selon le style de
+            votre projet. Cochez « Sort keys » pour trier les clés par ordre
+            alphabétique.
+          </p>
+
+          <h4 class="text-white text-xl my-3">Étape 3 : Formatez ou minifiez</h4>
+          <p>
+            Cliquez sur « Format » pour un résultat indenté et lisible, ou sur
+            « Minify » pour supprimer tous les espaces et obtenir le contenu le
+            plus compact possible. Le résultat s'affiche dans la zone Output.
+          </p>
+
+          <h4 class="text-white text-xl my-3">Étape 4 : Copiez ou téléchargez</h4>
+          <p>
+            Cliquez sur « Copy output » pour copier le résultat, ou sur
+            « Download » pour l'enregistrer en fichier .json. Votre saisie est
+            conservée dans le navigateur et reste là si vous rechargez la page.
+          </p>
+
+          <h2 class="text-white text-2xl my-4">Erreurs JSON courantes et comment les corriger</h2>
+
+          <h4 class="text-white text-xl my-3">Virgules finales</h4>
+          <p>
+            JavaScript accepte une virgule après le dernier élément, pas le JSON.
+            <code>{"{"}"a": 1,{"}"}</code> est invalide : supprimez la dernière
+            virgule.
+          </p>
+
+          <h4 class="text-white text-xl my-3">Guillemets simples</h4>
+          <p>
+            Les chaînes et les clés JSON doivent utiliser des guillemets doubles.
+            Remplacez <code>'name'</code> par <code>"name"</code>.
+          </p>
+
+          <h4 class="text-white text-xl my-3">Clés sans guillemets</h4>
+          <p>
+            Les clés doivent toujours être des chaînes entre guillemets.
+            <code>{"{"}name: "x"{"}"}</code> est du JavaScript valide, mais du JSON
+            invalide.
+          </p>
+
+          <h4 class="text-white text-xl my-3">Commentaires</h4>
+          <p>
+            Le JSON standard n'accepte pas de commentaires. Supprimez les lignes
+            <code>//</code> ou <code>/* */</code> avant l'analyse.
+          </p>
+
+          <h4 class="text-white text-xl my-3">Valeurs non prises en charge</h4>
+          <p>
+            <code>undefined</code>, <code>NaN</code>, <code>Infinity</code> et les
+            fonctions ne sont pas du JSON. Utilisez <code>null</code> ou une chaîne
+            à la place.
+          </p>
+
+          <h2 class="text-white text-2xl my-4">Cas d'utilisation courants</h2>
+          <ul class="list-disc list-inside space-y-2 my-4">
+            <li><strong>Déboguer des API :</strong> Rendez lisible une réponse minifiée avant de l'analyser</li>
+            <li><strong>Modifier des fichiers de configuration :</strong> Vérifiez package.json, tsconfig.json ou vos paramètres avant de les valider</li>
+            <li><strong>Comparer des données :</strong> Triez les clés de deux contenus pour qu'une comparaison ne montre que les vrais changements</li>
+            <li><strong>Réduire la taille :</strong> Minifiez le JSON avant de l'intégrer dans une requête ou un script</li>
+          </ul>
+
+          <h2 class="text-white text-2xl my-4">Confidentialité et sécurité</h2>
+          <p>
+            Beaucoup de formateurs en ligne envoient vos données à un serveur.
+            Celui-ci utilise l'analyseur JSON intégré à votre navigateur : les
+            jetons, données clients ou configurations internes que vous collez
+            restent sur votre appareil.
+          </p>
+
+          <h2 class="text-white text-2xl my-4">Conclusion</h2>
+          <p>
+            Que vous lisiez une réponse d'API ou que vous cherchiez une virgule
+            manquante, le Formateur et Valideur JSON vous donne un résultat
+            lisible et la position exacte des erreurs en quelques secondes.
+            Essayez-le sur{" "}
+            <a
+              href="https://tools.typinks.com/json-formatter/"
+              target="_blank"
+              class="text-pink-400 font-bold"
+              >tools.typinks.com/json-formatter</a
+            >.
+          </p>
+
+          <div class="mt-12 p-6 bg-bgDark3 rounded-xl border border-gray-700">
+            <h4 class="text-white text-xl mb-4">Du JSON à nettoyer ?</h4>
+            <p class="mb-4">
+              Collez-le, cliquez sur Format et voyez exactement ce qu'il contient.
+            </p>
+            <a
+              href="https://tools.typinks.com/json-formatter/"
+              target="_blank"
+              class="inline-block px-6 py-3 bg-gradient-to-r from-purple-500 to-pink-500 text-white font-semibold rounded-lg hover:from-purple-600 hover:to-pink-600 transition-all"
+            >
+              Lancer le formateur JSON
+            </a>
+          </div>
+        </section>
+      </article>
+    </div>
+  </div>
+  <ScrollUpButton client:load />
+  <Footer client:only="vue" />
+</Layout>

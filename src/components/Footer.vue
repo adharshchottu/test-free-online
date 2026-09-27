@@ -123,6 +123,15 @@ export default {
                         }
                     ],
                 },
+                {
+                    title: "Developer Tools",
+                    items: [
+                        {
+                            label: "JSON Formatter & Validator",
+                            value: "/json-formatter"
+                        },
+                    ],
+                },
             ],
         };
     },

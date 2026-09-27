@@ -9,6 +9,7 @@ export const blogTranslations: Record<string, string> = {
   "how-to-play-slide-puzzle-game-online": "comment-jouer-au-jeu-puzzle-coulissant-en-ligne",
   "how-to-play-sudoku-online-free-unlimited": "comment-jouer-au-sudoku-en-ligne-gratuit-illimite",
   "how-to-use-free-online-text-editor": "comment-utiliser-editeur-texte-en-ligne-gratuit",
+  "how-to-format-and-validate-json-online": "comment-formater-et-valider-json-en-ligne",
 };
 
 export const getBlogAlternates = (pathname: string) => {

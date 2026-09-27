@@ -58,6 +58,9 @@ var allowedURLs = []string{
 	"https://tools.typinks.com/blog/how-to-use-free-online-text-editor",
 	"https://tools.typinks.com/blog/comment-utiliser-editeur-texte-en-ligne-gratuit",
 	"https://tools.typinks.com/blog/how-tunc-works-live-map",
+	"https://tools.typinks.com/json-formatter",
+	"https://tools.typinks.com/blog/how-to-format-and-validate-json-online",
+	"https://tools.typinks.com/blog/comment-formater-et-valider-json-en-ligne",
 }
 
 var allowedUsers = []string{

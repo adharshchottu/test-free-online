@@ -26,6 +26,11 @@ Execute and test Lua scripts with Redis using Monaco Editor. [Try it online](htt
 
 **Features:** Syntax highlighting, argument support, execution results, error debugging
 
+### JSON Formatter & Validator
+Format, minify and validate JSON with exact error locations. [Try it online](https://tools.typinks.com/json-formatter/)
+
+**Features:** Live validation, line/column errors, 2/4 space or tab indent, minify, sort keys, copy and download
+
 ## 📝 Productivity Tools
 
 ### Text Editor

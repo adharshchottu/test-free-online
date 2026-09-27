@@ -1,0 +1,202 @@
+---
+import { Image } from "astro:assets";
+import { Navbar } from "../../components/Navbar";
+import { ScrollUpButton } from "../../components/ScrollUpButton";
+import Layout from "../../layouts/Layout.astro";
+import Footer from "@/components/Footer.vue";
+import jsonFormatterBannerImage from "../../assets/images/blog/json-formatter.png";
+---
+
+<Layout
+  title="How to Format and Validate JSON Online"
+  ogImage="blog/json-formatter.png"
+  description="Learn how to format, minify and validate JSON online for free. Find syntax errors by line and column, sort keys, and keep your data private in the browser."
+  keywords="format json online, json validator, json formatter, json beautifier, minify json, fix invalid json, json syntax error, pretty print json"
+  author="Typinks Tools"
+  publishedDate="2026-09-27"
+  modifiedDate="2026-09-27"
+  articleSchema={true}
+>
+  <Navbar client:load />
+  <div class="flex justify-center bg-bgDark2 relative pt-2">
+    <div class="px-2 sm:px-4">
+      <article
+        class="p-8 text-center rounded-3xl w-full lg:w-[1200px] 2xl:w-[1400px] mb-24 mt-16 sm:mt-24"
+      >
+        <header class="mb-12">
+          <div class="text-sm text-secondaryText my-4">27 September 2026</div>
+          <h1
+            class="text-6xl lg:text-7xl xl:text-8xl font-bold tracking-tight leading-none mb-6 bg-gradient-to-r from-white via-purple-200 to-pink-400 bg-clip-text text-transparent"
+          >
+            JSON Formatter & Validator
+          </h1>
+          <h2 class="text-2xl text-gray-300">
+            Beautify, minify and debug JSON in seconds
+          </h2>
+        </header>
+
+        <Image
+          src={jsonFormatterBannerImage}
+          alt="JSON Formatter and Validator - format, minify and validate JSON online"
+          class="rounded-xl mb-8 md:w-2/4 mx-auto mt-8"
+        />
+
+        <section
+          class="text-secondaryText !leading-8 sm:!leading-10 sm:text-xl text-left sm:text-justify mx-auto w-full md:w-10/12 lg:w-2/3 mt-16"
+        >
+          <a
+            href="https://tools.typinks.com/json-formatter/"
+            target="_blank"
+            class="text-pink-400 font-bold">The JSON Formatter & Validator</a
+          > turns a wall of minified JSON into something you can actually read, and
+          tells you exactly where broken JSON goes wrong. Paste an API response, a
+          config file or a log line, and you get validation as you type, clean
+          indentation with one click, and the line and column of any syntax error.
+
+          <h2 class="text-white text-2xl my-4">What Is JSON?</h2>
+          <p>
+            JSON (JavaScript Object Notation) is the most common format for
+            sending data between servers, apps and APIs. It is made of objects
+            (key-value pairs in curly braces), arrays (lists in square brackets),
+            strings, numbers, booleans and null. It is easy for machines to
+            parse, but APIs usually send it minified on a single line, which is
+            hard for people to read.
+          </p>
+
+          <h2 class="text-white text-2xl my-4">Key Features</h2>
+          <ul class="list-disc list-inside space-y-2 my-4">
+            <li>
+              <strong>Live validation:</strong> Every keystroke is checked, so you
+              know instantly whether your JSON is valid
+            </li>
+            <li>
+              <strong>Precise errors:</strong> Syntax errors point to the exact
+              line and column
+            </li>
+            <li>
+              <strong>Format or minify:</strong> Pretty print with 2 spaces, 4
+              spaces or tabs, or compress to a single line
+            </li>
+            <li>
+              <strong>Sort keys:</strong> Order object keys alphabetically at
+              every level, which makes two JSON files easy to compare
+            </li>
+            <li>
+              <strong>Copy and download:</strong> Copy the result or save it as a
+              .json file
+            </li>
+            <li>
+              <strong>Private:</strong> Your JSON never leaves your browser
+            </li>
+          </ul>
+
+          <h2 class="text-white text-2xl my-4">How to Format JSON Online</h2>
+
+          <h4 class="text-white text-xl my-3">Step 1: Paste Your JSON</h4>
+          <p>
+            Paste your JSON into the Input box. The status line below the editor
+            immediately tells you whether it is valid, what type the top-level
+            value is, and how large it is. Click "Sample" if you just want to try
+            the tool.
+          </p>
+
+          <h4 class="text-white text-xl my-3">Step 2: Choose Your Indentation</h4>
+          <p>
+            Pick 2 spaces, 4 spaces or tabs to match your project's style. Tick
+            "Sort keys" if you want object keys in alphabetical order.
+          </p>
+
+          <h4 class="text-white text-xl my-3">Step 3: Format or Minify</h4>
+          <p>
+            Click "Format" for readable, indented output, or "Minify" to remove
+            all whitespace for the smallest possible payload. The result appears
+            in the Output box.
+          </p>
+
+          <h4 class="text-white text-xl my-3">Step 4: Copy or Download</h4>
+          <p>
+            Click "Copy output" to put the result on your clipboard, or
+            "Download" to save it as a .json file. Your input is remembered in
+            your browser, so it is still there if you reload the page.
+          </p>
+
+          <h2 class="text-white text-2xl my-4">Common JSON Errors and How to Fix Them</h2>
+
+          <h4 class="text-white text-xl my-3">Trailing Commas</h4>
+          <p>
+            JavaScript allows a comma after the last item, but JSON does not.
+            <code>{"{"}"a": 1,{"}"}</code> is invalid; remove the final comma.
+          </p>
+
+          <h4 class="text-white text-xl my-3">Single Quotes</h4>
+          <p>
+            JSON strings and keys must use double quotes. Replace
+            <code>'name'</code> with <code>"name"</code>.
+          </p>
+
+          <h4 class="text-white text-xl my-3">Unquoted Keys</h4>
+          <p>
+            Keys must always be quoted strings. <code>{"{"}name: "x"{"}"}</code> is
+            valid JavaScript but invalid JSON.
+          </p>
+
+          <h4 class="text-white text-xl my-3">Comments</h4>
+          <p>
+            Standard JSON has no comments. Remove any <code>//</code> or
+            <code>/* */</code> lines before parsing.
+          </p>
+
+          <h4 class="text-white text-xl my-3">Unsupported Values</h4>
+          <p>
+            <code>undefined</code>, <code>NaN</code>, <code>Infinity</code> and
+            functions are not JSON. Use <code>null</code> or a string instead.
+          </p>
+
+          <h2 class="text-white text-2xl my-4">Common Use Cases</h2>
+          <ul class="list-disc list-inside space-y-2 my-4">
+            <li><strong>Debugging APIs:</strong> Make a minified response readable before you inspect it</li>
+            <li><strong>Editing config files:</strong> Check package.json, tsconfig.json or app settings before you commit</li>
+            <li><strong>Comparing data:</strong> Sort keys on two payloads so a diff shows only real changes</li>
+            <li><strong>Shrinking payloads:</strong> Minify JSON before embedding it in a request or a script</li>
+          </ul>
+
+          <h2 class="text-white text-2xl my-4">Privacy and Security</h2>
+          <p>
+            Many online formatters send your data to a server. This one uses
+            your browser's built-in JSON parser, so tokens, customer records or
+            internal configs you paste stay on your device.
+          </p>
+
+          <h2 class="text-white text-2xl my-4">Conclusion</h2>
+          <p>
+            Whether you are reading an API response or hunting down a missing
+            comma, the JSON Formatter & Validator gives you readable output and
+            exact error locations in seconds. Try it at{" "}
+            <a
+              href="https://tools.typinks.com/json-formatter/"
+              target="_blank"
+              class="text-pink-400 font-bold"
+              >tools.typinks.com/json-formatter</a
+            >.
+          </p>
+
+          <div class="mt-12 p-6 bg-bgDark3 rounded-xl border border-gray-700">
+            <h4 class="text-white text-xl mb-4">Got JSON to Clean Up?</h4>
+            <p class="mb-4">
+              Paste it in, click Format, and see exactly what is inside.
+            </p>
+            <a
+              href="https://tools.typinks.com/json-formatter/"
+              target="_blank"
+              class="inline-block px-6 py-3 bg-gradient-to-r from-purple-500 to-pink-500 text-white font-semibold rounded-lg hover:from-purple-600 hover:to-pink-600 transition-all"
+            >
+              Launch JSON Formatter
+            </a>
+          </div>
+        </section>
+      </article>
+    </div>
+  </div>
+  <ScrollUpButton client:load />
+  <Footer client:only="vue" />
+</Layout>

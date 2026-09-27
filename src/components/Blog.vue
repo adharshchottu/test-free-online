@@ -41,12 +41,27 @@ import slidePuzzleGame from "../assets/images/thumbnail/slide-puzzle.png";
 import tunc from "../assets/images/thumbnail/tunc.png";
 import sudoku from "../assets/images/thumbnail/sudoku.png";
 import textEditor from "../assets/images/thumbnail/simple-text-editor.png";
+import jsonFormatter from "../assets/images/thumbnail/json-formatter.png";
 
 export default {
     name: "Blog",
     data() {
         return {
             blogData: [
+                {
+                    title: "How to Format and Validate JSON Online",
+                    subtitle:
+                        "Beautify, minify and debug JSON in seconds. Find syntax errors by line and column, right in your browser.",
+                    image: jsonFormatter,
+                    link: 'how-to-format-and-validate-json-online'
+                },
+                {
+                    title: "Comment formater et valider du JSON en ligne",
+                    subtitle:
+                        "Embellissez, minifiez et déboguez du JSON en quelques secondes. Trouvez les erreurs par ligne et colonne, directement dans votre navigateur.",
+                    image: jsonFormatter,
+                    link: 'comment-formater-et-valider-json-en-ligne'
+                },
                 {
                     title: "How Tunc Live Map Works",
                     subtitle:

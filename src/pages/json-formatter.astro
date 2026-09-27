@@ -1,0 +1,199 @@
+---
+import { Navbar } from "@/components/Navbar";
+import Layout from "../layouts/Layout.astro";
+import Footer from "@/components/Footer.vue";
+import { ScrollUpButton } from "@/components/ScrollUpButton";
+import "../styles/Theme.css";
+
+const buttonClass =
+    "px-3 py-2 bg-bgDark2 hover:bg-bgDark1 text-primaryText text-sm rounded-lg transition-colors border border-gray-700 hover:border-primaryColor";
+const panelClass =
+    "w-full min-h-[420px] p-4 font-mono text-sm leading-relaxed main-border-gray rounded-xl resize-y bg-bgDark2 text-primaryText placeholder-gray-500 focus:outline-none focus:border-primaryColor";
+---
+
+<Layout
+    title="JSON Formatter & Validator Online - Free, Instant"
+    description="Format, beautify, minify and validate JSON online for free. Pinpoints syntax errors by line and column, sorts keys, and runs entirely in your browser."
+    ogImage="blog/json-formatter.png"
+    keywords="json formatter, json validator, json beautifier, json minify, format json online, validate json, json pretty print, json lint"
+>
+    <Navbar client:load />
+    <section class="pt-16 md:pt-16 lg:pt-24">
+        <div class="w-full max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+            <div class="mb-6">
+                <h1 class="block-big-title">JSON Formatter & Validator</h1>
+                <p class="mt-3 text-secondaryText">
+                    Paste JSON to validate it as you type, then format or minify it.
+                </p>
+            </div>
+
+            <div class="flex flex-wrap items-center gap-2 p-3 mb-4 bg-bgDark3 main-border-gray rounded-xl">
+                <label class="text-sm text-secondaryText flex items-center gap-2">
+                    Indent
+                    <select id="indent" class="bg-bgDark2 text-primaryText text-sm rounded-lg border border-gray-700 px-2 py-2">
+                        <option value="2">2 spaces</option>
+                        <option value="4">4 spaces</option>
+                        <option value="tab">Tab</option>
+                    </select>
+                </label>
+                <label class="text-sm text-secondaryText flex items-center gap-2 mr-2">
+                    <input id="sortKeys" type="checkbox" class="accent-primaryColor" />
+                    Sort keys
+                </label>
+                <button id="formatBtn" class="contained-button px-4 py-2 !rounded-lg text-sm">Format</button>
+                <button id="minifyBtn" class={buttonClass}>Minify</button>
+                <button id="copyBtn" class={buttonClass}>Copy output</button>
+                <button id="downloadBtn" class={buttonClass}>Download</button>
+                <button id="sampleBtn" class={buttonClass}>Sample</button>
+                <button id="clearBtn" class={buttonClass}>Clear</button>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <label class="block">
+                    <span class="block mb-2 text-sm text-secondaryText">Input</span>
+                    <textarea id="input" spellcheck="false" placeholder='{"paste": "your JSON here"}' class={panelClass}></textarea>
+                </label>
+                <label class="block">
+                    <span class="block mb-2 text-sm text-secondaryText">Output</span>
+                    <textarea id="output" spellcheck="false" readonly placeholder="Formatted JSON appears here" class={panelClass}></textarea>
+                </label>
+            </div>
+
+            <p id="status" class="mt-4 text-sm text-secondaryText" aria-live="polite">Waiting for input.</p>
+        </div>
+    </section>
+
+    <section class="text-secondaryText leading-8 w-full max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 mt-8 mb-16">
+        <h2 class="text-white text-2xl mb-4">About this JSON formatter</h2>
+        <p>
+            Everything runs in your browser, so the JSON you paste is never uploaded. Errors are
+            reported with the exact line and column, which makes a missing comma or an unquoted key
+            quick to find. Read the
+            <a href="/blog/how-to-format-and-validate-json-online/" class="text-pink-400 font-bold">full guide</a>
+            for tips on formatting and fixing JSON.
+        </p>
+    </section>
+    <ScrollUpButton client:load />
+    <Footer client:only="vue" />
+</Layout>
+
+<script>
+    const input = document.getElementById("input") as HTMLTextAreaElement;
+    const output = document.getElementById("output") as HTMLTextAreaElement;
+    const status = document.getElementById("status") as HTMLParagraphElement;
+    const indent = document.getElementById("indent") as HTMLSelectElement;
+    const sortKeys = document.getElementById("sortKeys") as HTMLInputElement;
+    const copyBtn = document.getElementById("copyBtn") as HTMLButtonElement;
+
+    const STORAGE_KEY = "jsonFormatterInput";
+    const SAMPLE = '{"name":"Typinks Tools","free":true,"tools":["json-formatter","sse","redis-lua"],"stats":{"users":42,"rating":4.9},"owner":null}';
+
+    const setStatus = (message: string, isError = false) => {
+        status.textContent = message;
+        status.className = `mt-4 text-sm ${isError ? "text-red-400" : "text-green-400"}`;
+    };
+
+    // Browsers report JSON errors differently: Chrome gives a character position, Firefox a line and column
+    const describeError = (text: string, error: Error) => {
+        const lineColumn = error.message.match(/line (\d+) column (\d+)/);
+        if (lineColumn) return `${error.message.split(" (line")[0]} (line ${lineColumn[1]}, column ${lineColumn[2]})`;
+
+        const position = error.message.match(/position (\d+)/);
+        if (!position) return error.message;
+        const before = text.slice(0, Number(position[1])).split("\n");
+        return `${error.message} (line ${before.length}, column ${before[before.length - 1].length + 1})`;
+    };
+
+    const sortDeep = (value: unknown): unknown => {
+        if (Array.isArray(value)) return value.map(sortDeep);
+        if (value && typeof value === "object") {
+            return Object.fromEntries(
+                Object.keys(value as object)
+                    .sort()
+                    .map((key) => [key, sortDeep((value as Record<string, unknown>)[key])]),
+            );
+        }
+        return value;
+    };
+
+    const parse = () => {
+        const text = input.value;
+        if (!text.trim()) {
+            status.textContent = "Waiting for input.";
+            status.className = "mt-4 text-sm text-secondaryText";
+            return undefined;
+        }
+        try {
+            const value = JSON.parse(text);
+            const kind = Array.isArray(value) ? `array with ${value.length} items` : value === null ? "null" : typeof value === "object" ? `object with ${Object.keys(value).length} keys` : typeof value;
+            setStatus(`Valid JSON: ${kind}, ${new Blob([text]).size.toLocaleString()} bytes.`);
+            return { value: sortKeys.checked ? sortDeep(value) : value };
+        } catch (error) {
+            setStatus(`Invalid JSON: ${describeError(text, error as Error)}`, true);
+            return undefined;
+        }
+    };
+
+    const render = (minify: boolean) => {
+        const parsed = parse();
+        if (!parsed) return;
+        const space = minify ? undefined : indent.value === "tab" ? "\t" : Number(indent.value);
+        output.value = JSON.stringify(parsed.value, null, space);
+    };
+
+    const saveInput = () => {
+        try {
+            localStorage.setItem(STORAGE_KEY, input.value);
+        } catch {}
+    };
+
+    input.addEventListener("input", () => {
+        parse();
+        saveInput();
+    });
+    document.getElementById("formatBtn")!.addEventListener("click", () => render(false));
+    document.getElementById("minifyBtn")!.addEventListener("click", () => render(true));
+    indent.addEventListener("change", () => output.value && render(false));
+    sortKeys.addEventListener("change", () => output.value && render(false));
+
+    document.getElementById("sampleBtn")!.addEventListener("click", () => {
+        input.value = SAMPLE;
+        saveInput();
+        render(false);
+    });
+
+    document.getElementById("clearBtn")!.addEventListener("click", () => {
+        input.value = "";
+        output.value = "";
+        parse();
+        try {
+            localStorage.removeItem(STORAGE_KEY);
+        } catch {}
+    });
+
+    copyBtn.addEventListener("click", async () => {
+        if (!output.value) return;
+        try {
+            await navigator.clipboard.writeText(output.value);
+            copyBtn.textContent = "Copied!";
+            setTimeout(() => (copyBtn.textContent = "Copy output"), 2000);
+        } catch {
+            alert("Failed to copy text");
+        }
+    });
+
+    document.getElementById("downloadBtn")!.addEventListener("click", () => {
+        if (!output.value) return;
+        const url = URL.createObjectURL(new Blob([output.value], { type: "application/json" }));
+        const a = document.createElement("a");
+        a.href = url;
+        a.download = `formatted-${Date.now()}.json`;
+        a.click();
+        URL.revokeObjectURL(url);
+    });
+
+    try {
+        input.value = localStorage.getItem(STORAGE_KEY) ?? "";
+    } catch {}
+    if (input.value) render(false);
+</script>
