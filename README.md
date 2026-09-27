@@ -31,6 +31,11 @@ Format, minify and validate JSON with exact error locations. [Try it online](htt
 
 **Features:** Live validation, line/column errors, 2/4 space or tab indent, minify, sort keys, copy and download
 
+### Base64 & URL Encoder
+Encode and decode Base64, Base64URL and URL (percent) encoding. [Try it online](https://tools.typinks.com/base64-url-encoder/)
+
+**Features:** Unicode-safe Base64 and Base64URL, URL component and full address modes, forgiving decoding, file to data URL, swap and copy
+
 ## 📝 Productivity Tools
 
 ### Text Editor

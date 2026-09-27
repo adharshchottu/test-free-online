@@ -1,0 +1,199 @@
+---
+import { Navbar } from "@/components/Navbar";
+import Layout from "../layouts/Layout.astro";
+import Footer from "@/components/Footer.vue";
+import { ScrollUpButton } from "@/components/ScrollUpButton";
+import "../styles/Theme.css";
+
+const buttonClass =
+    "px-3 py-2 bg-bgDark2 hover:bg-bgDark1 text-primaryText text-sm rounded-lg transition-colors border border-gray-700 hover:border-primaryColor";
+const panelClass =
+    "w-full min-h-[320px] p-4 font-mono text-sm leading-relaxed main-border-gray rounded-xl resize-y bg-bgDark2 text-primaryText placeholder-gray-500 focus:outline-none focus:border-primaryColor break-all";
+---
+
+<Layout
+    title="Base64 & URL Encoder / Decoder Online - Free"
+    description="Encode and decode Base64, Base64URL and URL (percent) encoding online. Handles emoji and any Unicode text, converts files to Base64, and runs in your browser."
+    ogImage="blog/base64-url-encoder.png"
+    keywords="base64 encode, base64 decode, base64url, url encode, url decode, percent encoding, file to base64, base64 converter online"
+>
+    <Navbar client:load />
+    <section class="pt-16 md:pt-16 lg:pt-24">
+        <div class="w-full max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+            <div class="mb-6">
+                <h1 class="block-big-title">Base64 & URL Encoder / Decoder</h1>
+                <p class="mt-3 text-secondaryText">
+                    Pick a format, paste your text, then encode or decode it.
+                </p>
+            </div>
+
+            <div class="flex flex-wrap items-center gap-2 p-3 mb-4 bg-bgDark3 main-border-gray rounded-xl">
+                <label class="text-sm text-secondaryText flex items-center gap-2 mr-2">
+                    Format
+                    <select id="mode" class="bg-bgDark2 text-primaryText text-sm rounded-lg border border-gray-700 px-2 py-2">
+                        <option value="base64">Base64</option>
+                        <option value="base64url">Base64URL</option>
+                        <option value="url-component">URL (component)</option>
+                        <option value="url-full">URL (full address)</option>
+                    </select>
+                </label>
+                <button id="encodeBtn" class="contained-button px-4 py-2 !rounded-lg text-sm">Encode</button>
+                <button id="decodeBtn" class="contained-button px-4 py-2 !rounded-lg text-sm">Decode</button>
+                <button id="swapBtn" class={buttonClass} title="Move the output into the input">Swap</button>
+                <button id="copyBtn" class={buttonClass}>Copy output</button>
+                <button id="clearBtn" class={buttonClass}>Clear</button>
+                <label class={`${buttonClass} cursor-pointer`}>
+                    File to Base64
+                    <input id="fileInput" type="file" class="sr-only" />
+                </label>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <label class="block">
+                    <span class="block mb-2 text-sm text-secondaryText">Input</span>
+                    <textarea id="input" spellcheck="false" placeholder="Hello, world! 👋" class={panelClass}></textarea>
+                </label>
+                <label class="block">
+                    <span class="block mb-2 text-sm text-secondaryText">Output</span>
+                    <textarea id="output" spellcheck="false" readonly placeholder="Result appears here" class={panelClass}></textarea>
+                </label>
+            </div>
+
+            <p id="status" class="mt-4 text-sm text-secondaryText" aria-live="polite">Choose Encode or Decode.</p>
+        </div>
+    </section>
+
+    <section class="text-secondaryText leading-8 w-full max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 mt-8 mb-16">
+        <h2 class="text-white text-2xl mb-4">Which format should I use?</h2>
+        <p>
+            Use <strong class="text-white">Base64</strong> to put binary data or text into JSON, email or data URLs,
+            and <strong class="text-white">Base64URL</strong> for tokens and URLs, since it avoids <code>+</code>,
+            <code>/</code> and <code>=</code>. Use <strong class="text-white">URL (component)</strong> for a single
+            query parameter value, and <strong class="text-white">URL (full address)</strong> to make a whole link
+            safe without breaking its <code>://</code>, <code>?</code> and <code>&amp;</code>. Everything runs in
+            your browser. Read the
+            <a href="/blog/how-to-encode-decode-base64-url-online/" class="text-pink-400 font-bold">full guide</a>
+            for examples.
+        </p>
+    </section>
+    <ScrollUpButton client:load />
+    <Footer client:only="vue" />
+</Layout>
+
+<script>
+    const input = document.getElementById("input") as HTMLTextAreaElement;
+    const output = document.getElementById("output") as HTMLTextAreaElement;
+    const status = document.getElementById("status") as HTMLParagraphElement;
+    const mode = document.getElementById("mode") as HTMLSelectElement;
+    const copyBtn = document.getElementById("copyBtn") as HTMLButtonElement;
+    const fileInput = document.getElementById("fileInput") as HTMLInputElement;
+
+    const setStatus = (message: string, isError = false) => {
+        status.textContent = message;
+        status.className = `mt-4 text-sm ${isError ? "text-red-400" : "text-green-400"}`;
+    };
+
+    const bytesToBase64 = (bytes: Uint8Array) => {
+        let binary = "";
+        // Chunked so large files don't overflow the argument limit of String.fromCharCode
+        for (let i = 0; i < bytes.length; i += 0x8000) {
+            binary += String.fromCharCode(...bytes.subarray(i, i + 0x8000));
+        }
+        return btoa(binary);
+    };
+
+    // Accepts both alphabets, whitespace and missing padding, since pasted values often have all three
+    const base64ToBytes = (text: string) => {
+        const normalized = text.replace(/\s+/g, "").replace(/-/g, "+").replace(/_/g, "/").replace(/=+$/, "");
+        if (!/^[A-Za-z0-9+/]*$/.test(normalized) || normalized.length % 4 === 1) {
+            throw new Error("This is not valid Base64.");
+        }
+        const binary = atob(normalized.padEnd(Math.ceil(normalized.length / 4) * 4, "="));
+        return Uint8Array.from(binary, (char) => char.charCodeAt(0));
+    };
+
+    const encode = (text: string) => {
+        switch (mode.value) {
+            case "base64":
+                return bytesToBase64(new TextEncoder().encode(text));
+            case "base64url":
+                return bytesToBase64(new TextEncoder().encode(text)).replace(/\+/g, "-").replace(/\//g, "_").replace(/=+$/, "");
+            case "url-component":
+                return encodeURIComponent(text);
+            default:
+                return encodeURI(text);
+        }
+    };
+
+    const decode = (text: string) => {
+        if (mode.value === "base64" || mode.value === "base64url") {
+            try {
+                return new TextDecoder("utf-8", { fatal: true }).decode(base64ToBytes(text));
+            } catch (error) {
+                if (error instanceof TypeError) throw new Error("The decoded data is binary, not UTF-8 text.");
+                throw error;
+            }
+        }
+        try {
+            // Form-encoded values use "+" for spaces; in a full address "+" is literal
+            return mode.value === "url-component" ? decodeURIComponent(text.replace(/\+/g, " ")) : decodeURI(text);
+        } catch {
+            throw new Error("This contains an invalid percent sequence, such as a lone %.");
+        }
+    };
+
+    const run = (action: "encode" | "decode") => {
+        if (!input.value) {
+            setStatus("Enter some text first.", true);
+            return;
+        }
+        try {
+            output.value = action === "encode" ? encode(input.value) : decode(input.value);
+            setStatus(`${action === "encode" ? "Encoded" : "Decoded"}: ${input.value.length.toLocaleString()} → ${output.value.length.toLocaleString()} characters.`);
+        } catch (error) {
+            output.value = "";
+            setStatus((error as Error).message, true);
+        }
+    };
+
+    document.getElementById("encodeBtn")!.addEventListener("click", () => run("encode"));
+    document.getElementById("decodeBtn")!.addEventListener("click", () => run("decode"));
+
+    document.getElementById("swapBtn")!.addEventListener("click", () => {
+        input.value = output.value;
+        output.value = "";
+        setStatus("Output moved to input.");
+    });
+
+    document.getElementById("clearBtn")!.addEventListener("click", () => {
+        input.value = "";
+        output.value = "";
+        fileInput.value = "";
+        status.textContent = "Choose Encode or Decode.";
+        status.className = "mt-4 text-sm text-secondaryText";
+    });
+
+    copyBtn.addEventListener("click", async () => {
+        if (!output.value) return;
+        try {
+            await navigator.clipboard.writeText(output.value);
+            copyBtn.textContent = "Copied!";
+            setTimeout(() => (copyBtn.textContent = "Copy output"), 2000);
+        } catch {
+            alert("Failed to copy text");
+        }
+    });
+
+    fileInput.addEventListener("change", async () => {
+        const file = fileInput.files?.[0];
+        if (!file) return;
+        if (file.size > 10 * 1024 * 1024) {
+            setStatus("Files must be 10 MB or smaller.", true);
+            return;
+        }
+        const base64 = bytesToBase64(new Uint8Array(await file.arrayBuffer()));
+        input.value = "";
+        output.value = `data:${file.type || "application/octet-stream"};base64,${base64}`;
+        setStatus(`${file.name} (${file.size.toLocaleString()} bytes) converted to a Base64 data URL.`);
+    });
+</script>

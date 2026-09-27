@@ -130,6 +130,10 @@ export default {
                             label: "JSON Formatter & Validator",
                             value: "/json-formatter"
                         },
+                        {
+                            label: "Base64 & URL Encoder",
+                            value: "/base64-url-encoder"
+                        },
                     ],
                 },
             ],

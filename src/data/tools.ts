@@ -37,6 +37,12 @@ export const tools: Tool[] = [
     category: "Developer",
   },
   {
+    name: "Base64 & URL Encoder",
+    href: "/base64-url-encoder",
+    description: "Encode and decode Base64, Base64URL and URL text, or turn a file into a Base64 data URL.",
+    category: "Developer",
+  },
+  {
     name: "Text Editor",
     href: "/text-editor",
     description: "A lightweight editor with word, character and line counts that saves as you type.",

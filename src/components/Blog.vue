@@ -42,12 +42,27 @@ import tunc from "../assets/images/thumbnail/tunc.png";
 import sudoku from "../assets/images/thumbnail/sudoku.png";
 import textEditor from "../assets/images/thumbnail/simple-text-editor.png";
 import jsonFormatter from "../assets/images/thumbnail/json-formatter.png";
+import base64UrlEncoder from "../assets/images/thumbnail/base64-url-encoder.png";
 
 export default {
     name: "Blog",
     data() {
         return {
             blogData: [
+                {
+                    title: "How to Encode and Decode Base64 and URLs Online",
+                    subtitle:
+                        "When to use Base64, Base64URL and URL encoding, and how to convert text and files in your browser.",
+                    image: base64UrlEncoder,
+                    link: 'how-to-encode-decode-base64-url-online'
+                },
+                {
+                    title: "Comment encoder et décoder Base64 et les URL en ligne",
+                    subtitle:
+                        "Quand utiliser Base64, Base64URL et l'encodage URL, et comment convertir textes et fichiers dans votre navigateur.",
+                    image: base64UrlEncoder,
+                    link: 'comment-encoder-decoder-base64-url-en-ligne'
+                },
                 {
                     title: "How to Format and Validate JSON Online",
                     subtitle:

@@ -1,0 +1,182 @@
+---
+import { Image } from "astro:assets";
+import { Navbar } from "../../components/Navbar";
+import { ScrollUpButton } from "../../components/ScrollUpButton";
+import Layout from "../../layouts/Layout.astro";
+import Footer from "@/components/Footer.vue";
+import base64BannerImage from "../../assets/images/blog/base64-url-encoder.png";
+---
+
+<Layout
+  title="How to Encode and Decode Base64 and URLs Online"
+  ogImage="blog/base64-url-encoder.png"
+  description="Learn when to use Base64, Base64URL and URL encoding, and how to encode or decode them online for free. Works with emoji and any language, and converts files to Base64."
+  keywords="base64 encode online, base64 decode online, base64url, url encode online, url decode, percent encoding, file to base64, data url"
+  author="Typinks Tools"
+  publishedDate="2026-09-27"
+  modifiedDate="2026-09-27"
+  articleSchema={true}
+>
+  <Navbar client:load />
+  <div class="flex justify-center bg-bgDark2 relative pt-2">
+    <div class="px-2 sm:px-4">
+      <article
+        class="p-8 text-center rounded-3xl w-full lg:w-[1200px] 2xl:w-[1400px] mb-24 mt-16 sm:mt-24"
+      >
+        <header class="mb-12">
+          <div class="text-sm text-secondaryText my-4">27 September 2026</div>
+          <h1
+            class="text-6xl lg:text-7xl xl:text-8xl font-bold tracking-tight leading-none mb-6 bg-gradient-to-r from-white via-purple-200 to-pink-400 bg-clip-text text-transparent"
+          >
+            Base64 & URL Encoder
+          </h1>
+          <h2 class="text-2xl text-gray-300">
+            Encode and decode Base64, Base64URL and URLs in one place
+          </h2>
+        </header>
+
+        <Image
+          src={base64BannerImage}
+          alt="Base64 and URL Encoder Decoder - encode and decode text online"
+          class="rounded-xl mb-8 md:w-2/4 mx-auto mt-8"
+        />
+
+        <section
+          class="text-secondaryText !leading-8 sm:!leading-10 sm:text-xl text-left sm:text-justify mx-auto w-full md:w-10/12 lg:w-2/3 mt-16"
+        >
+          <a
+            href="https://tools.typinks.com/base64-url-encoder/"
+            target="_blank"
+            class="text-pink-400 font-bold">The Base64 & URL Encoder / Decoder</a
+          > converts text to and from the four encodings developers run into most:
+          Base64, Base64URL, URL components and full URLs. It handles accented
+          letters, emoji and non-Latin scripts correctly, and can turn any file
+          into a Base64 data URL.
+
+          <h2 class="text-white text-2xl my-4">What Is Base64?</h2>
+          <p>
+            Base64 represents any data, including images and other binary files,
+            using only 64 safe characters: A to Z, a to z, 0 to 9, <code>+</code>
+            and <code>/</code>, with <code>=</code> as padding. That lets binary
+            data travel through systems built for text, such as JSON, email and
+            HTML. The trade-off is size: Base64 output is about 33% larger than
+            the input. Base64 is an encoding, not encryption. Anyone can decode
+            it.
+          </p>
+
+          <h2 class="text-white text-2xl my-4">What Is URL Encoding?</h2>
+          <p>
+            URLs can only contain a limited set of characters. URL encoding,
+            also called percent encoding, replaces everything else with a
+            <code>%</code> followed by two hex digits. A space becomes
+            <code>%20</code> and <code>é</code> becomes <code>%C3%A9</code>.
+            Without it, a value containing <code>&amp;</code> or <code>?</code>
+            would break the URL it is placed in.
+          </p>
+
+          <h2 class="text-white text-2xl my-4">Choosing the Right Format</h2>
+          <ul class="list-disc list-inside space-y-2 my-4">
+            <li>
+              <strong>Base64:</strong> Embedding images in CSS or HTML, sending
+              files in JSON, and email attachments
+            </li>
+            <li>
+              <strong>Base64URL:</strong> JWTs, API tokens and anything placed in
+              a URL. It swaps <code>+</code> and <code>/</code> for <code>-</code>
+              and <code>_</code> and drops the <code>=</code> padding
+            </li>
+            <li>
+              <strong>URL (component):</strong> A single query value, such as the
+              search term in <code>?q=</code>. Encodes <code>&amp;</code>,
+              <code>=</code>, <code>/</code> and <code>?</code> too
+            </li>
+            <li>
+              <strong>URL (full address):</strong> A complete link. Keeps
+              <code>://</code>, <code>/</code>, <code>?</code> and <code>&amp;</code>
+              intact and only encodes spaces and other unsafe characters
+            </li>
+          </ul>
+
+          <h2 class="text-white text-2xl my-4">How to Use the Encoder</h2>
+
+          <h4 class="text-white text-xl my-3">Step 1: Choose a Format</h4>
+          <p>
+            Select Base64, Base64URL, URL (component) or URL (full address) from
+            the Format menu.
+          </p>
+
+          <h4 class="text-white text-xl my-3">Step 2: Enter Your Text</h4>
+          <p>
+            Type or paste into the Input box. When decoding Base64, you don't
+            need to clean it up first: line breaks, missing <code>=</code>
+            padding and Base64URL characters are all accepted.
+          </p>
+
+          <h4 class="text-white text-xl my-3">Step 3: Encode or Decode</h4>
+          <p>
+            Click Encode or Decode. The result appears in the Output box, and
+            the status line shows the length before and after. If the input
+            can't be decoded, for example a lone <code>%</code> or Base64 that
+            contains binary data rather than text, you get a clear message
+            instead of garbled output.
+          </p>
+
+          <h4 class="text-white text-xl my-3">Step 4: Swap, Copy or Start Over</h4>
+          <p>
+            Swap moves the output back into the input, which is handy for
+            checking a round trip or decoding something twice. Copy output puts
+            the result on your clipboard, and Clear resets everything.
+          </p>
+
+          <h2 class="text-white text-2xl my-4">Converting a File to Base64</h2>
+          <p>
+            Click "File to Base64" and choose a file up to 10 MB. You get a
+            complete data URL such as <code>data:image/png;base64,...</code>,
+            ready to paste into an <code>&lt;img&gt;</code> tag, a CSS
+            <code>url()</code> or a JSON payload.
+          </p>
+
+          <h2 class="text-white text-2xl my-4">Tips</h2>
+          <ul class="list-disc list-inside space-y-2 my-4">
+            <li>Never treat Base64 as a way to hide passwords or secrets. It is trivially reversible</li>
+            <li>Only inline small images as Base64. Large ones make pages heavier than a normal image file</li>
+            <li>Encode each query value separately with URL (component), then join them with <code>&amp;</code></li>
+            <li>In form data, <code>+</code> means a space. The component decoder handles this for you</li>
+          </ul>
+
+          <h2 class="text-white text-2xl my-4">Privacy</h2>
+          <p>
+            Encoding and decoding happen entirely in your browser. Tokens, files
+            and text you paste are never uploaded.
+          </p>
+
+          <h2 class="text-white text-2xl my-4">Conclusion</h2>
+          <p>
+            One tool covers all four encodings, with correct Unicode handling
+            and forgiving decoding. Try it at{" "}
+            <a
+              href="https://tools.typinks.com/base64-url-encoder/"
+              target="_blank"
+              class="text-pink-400 font-bold"
+              >tools.typinks.com/base64-url-encoder</a
+            >.
+          </p>
+
+          <div class="mt-12 p-6 bg-bgDark3 rounded-xl border border-gray-700">
+            <h4 class="text-white text-xl mb-4">Need to Encode Something?</h4>
+            <p class="mb-4">Pick a format, paste your text and get the result instantly.</p>
+            <a
+              href="https://tools.typinks.com/base64-url-encoder/"
+              target="_blank"
+              class="inline-block px-6 py-3 bg-gradient-to-r from-purple-500 to-pink-500 text-white font-semibold rounded-lg hover:from-purple-600 hover:to-pink-600 transition-all"
+            >
+              Launch Encoder
+            </a>
+          </div>
+        </section>
+      </article>
+    </div>
+  </div>
+  <ScrollUpButton client:load />
+  <Footer client:only="vue" />
+</Layout>

@@ -61,6 +61,9 @@ var allowedURLs = []string{
 	"https://tools.typinks.com/json-formatter",
 	"https://tools.typinks.com/blog/how-to-format-and-validate-json-online",
 	"https://tools.typinks.com/blog/comment-formater-et-valider-json-en-ligne",
+	"https://tools.typinks.com/base64-url-encoder",
+	"https://tools.typinks.com/blog/how-to-encode-decode-base64-url-online",
+	"https://tools.typinks.com/blog/comment-encoder-decoder-base64-url-en-ligne",
 }
 
 var allowedUsers = []string{
