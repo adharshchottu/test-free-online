@@ -64,6 +64,9 @@ var allowedURLs = []string{
 	"https://tools.typinks.com/base64-url-encoder",
 	"https://tools.typinks.com/blog/how-to-encode-decode-base64-url-online",
 	"https://tools.typinks.com/blog/comment-encoder-decoder-base64-url-en-ligne",
+	"https://tools.typinks.com/jwt-decoder",
+	"https://tools.typinks.com/blog/how-to-decode-jwt-online",
+	"https://tools.typinks.com/blog/comment-decoder-jwt-en-ligne",
 }
 
 var allowedUsers = []string{

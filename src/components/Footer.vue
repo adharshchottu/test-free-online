@@ -134,6 +134,10 @@ export default {
                             label: "Base64 & URL Encoder",
                             value: "/base64-url-encoder"
                         },
+                        {
+                            label: "JWT Decoder",
+                            value: "/jwt-decoder"
+                        },
                     ],
                 },
             ],

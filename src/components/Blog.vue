@@ -43,12 +43,27 @@ import sudoku from "../assets/images/thumbnail/sudoku.png";
 import textEditor from "../assets/images/thumbnail/simple-text-editor.png";
 import jsonFormatter from "../assets/images/thumbnail/json-formatter.png";
 import base64UrlEncoder from "../assets/images/thumbnail/base64-url-encoder.png";
+import jwtDecoder from "../assets/images/thumbnail/jwt-decoder.png";
 
 export default {
     name: "Blog",
     data() {
         return {
             blogData: [
+                {
+                    title: "How to Decode and Verify a JWT Online",
+                    subtitle:
+                        "What is inside a JSON Web Token, what each claim means, and how to check its signature safely.",
+                    image: jwtDecoder,
+                    link: 'how-to-decode-jwt-online'
+                },
+                {
+                    title: "Comment décoder et vérifier un JWT en ligne",
+                    subtitle:
+                        "Le contenu d'un JSON Web Token, le sens de chaque claim, et comment vérifier sa signature en toute sécurité.",
+                    image: jwtDecoder,
+                    link: 'comment-decoder-jwt-en-ligne'
+                },
                 {
                     title: "How to Encode and Decode Base64 and URLs Online",
                     subtitle:

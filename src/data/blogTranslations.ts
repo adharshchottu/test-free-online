@@ -11,6 +11,7 @@ export const blogTranslations: Record<string, string> = {
   "how-to-use-free-online-text-editor": "comment-utiliser-editeur-texte-en-ligne-gratuit",
   "how-to-format-and-validate-json-online": "comment-formater-et-valider-json-en-ligne",
   "how-to-encode-decode-base64-url-online": "comment-encoder-decoder-base64-url-en-ligne",
+  "how-to-decode-jwt-online": "comment-decoder-jwt-en-ligne",
 };
 
 export const getBlogAlternates = (pathname: string) => {

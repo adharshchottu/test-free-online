@@ -1,0 +1,333 @@
+---
+import { Navbar } from "@/components/Navbar";
+import Layout from "../layouts/Layout.astro";
+import Footer from "@/components/Footer.vue";
+import { ScrollUpButton } from "@/components/ScrollUpButton";
+import "../styles/Theme.css";
+
+const buttonClass =
+    "px-3 py-2 bg-bgDark2 hover:bg-bgDark1 text-primaryText text-sm rounded-lg transition-colors border border-gray-700 hover:border-primaryColor";
+const boxClass = "p-4 bg-bgDark3 main-border-gray rounded-xl";
+const codeClass = "font-mono text-sm leading-relaxed whitespace-pre-wrap break-all text-primaryText";
+---
+
+<Layout
+    title="JWT Decoder Online - Decode & Verify JSON Web Tokens"
+    description="Decode JWT header and payload online, see exp, iat and nbf as readable dates, and verify HS256, RS256, PS256 and ES256 signatures. Tokens never leave your browser."
+    ogImage="blog/jwt-decoder.png"
+    keywords="jwt decoder, decode jwt, jwt verify, json web token, jwt parser, hs256, rs256, jwt expiration, jwt online"
+>
+    <Navbar client:load />
+    <section class="pt-16 md:pt-16 lg:pt-24">
+        <div class="w-full max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+            <div class="mb-6">
+                <h1 class="block-big-title">JWT Decoder</h1>
+                <p class="mt-3 text-secondaryText">
+                    Paste a JSON Web Token to read its header, payload and claims, then optionally verify its signature.
+                </p>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                <div>
+                    <div class="flex justify-between items-center mb-2">
+                        <label for="token" class="text-sm text-secondaryText">Encoded token</label>
+                        <div class="flex gap-2">
+                            <button id="sampleBtn" class={buttonClass}>Sample</button>
+                            <button id="clearBtn" class={buttonClass}>Clear</button>
+                        </div>
+                    </div>
+                    <textarea
+                        id="token"
+                        spellcheck="false"
+                        placeholder="eyJhbGciOiJIUzI1NiIs..."
+                        class="w-full min-h-[180px] p-4 font-mono text-sm main-border-gray rounded-xl resize-y bg-bgDark2 text-primaryText placeholder-gray-500 focus:outline-none focus:border-primaryColor break-all"
+                    ></textarea>
+                    <p id="status" class="mt-2 text-sm text-secondaryText" aria-live="polite">Tokens are decoded in your browser and never stored.</p>
+                    <div id="colored" class={`${boxClass} ${codeClass} mt-4 hidden`}></div>
+
+                    <div class={`${boxClass} mt-6`}>
+                        <h2 class="text-white text-lg font-bold mb-3">Verify signature</h2>
+                        <label for="key" id="keyLabel" class="block text-sm text-secondaryText mb-2">Secret or public key</label>
+                        <textarea
+                            id="key"
+                            spellcheck="false"
+                            placeholder="Secret for HS256, or a PEM public key (-----BEGIN PUBLIC KEY-----) for RS/PS/ES"
+                            class="w-full min-h-[110px] p-3 font-mono text-sm main-border-gray rounded-lg resize-y bg-bgDark2 text-primaryText placeholder-gray-500 focus:outline-none focus:border-primaryColor"
+                        ></textarea>
+                        <div class="flex flex-wrap items-center gap-4 mt-3">
+                            <label class="text-sm text-secondaryText flex items-center gap-2">
+                                <input id="secretBase64" type="checkbox" class="accent-primaryColor" />
+                                Secret is Base64 encoded
+                            </label>
+                            <button id="verifyBtn" class="contained-button px-4 py-2 !rounded-lg text-sm">Verify</button>
+                        </div>
+                        <p id="verifyResult" class="mt-3 text-sm" aria-live="polite"></p>
+                    </div>
+                </div>
+
+                <div class="space-y-4">
+                    <div class={boxClass}>
+                        <h2 class="text-sm font-bold text-red-400 mb-2">HEADER</h2>
+                        <pre id="header" class={codeClass}>-</pre>
+                    </div>
+                    <div class={boxClass}>
+                        <h2 class="text-sm font-bold text-purple-400 mb-2">PAYLOAD</h2>
+                        <pre id="payload" class={codeClass}>-</pre>
+                    </div>
+                    <div class={boxClass}>
+                        <h2 class="text-sm font-bold text-primaryText mb-2">CLAIMS</h2>
+                        <dl id="claims" class="text-sm space-y-2"><dd class="text-secondaryText">-</dd></dl>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="text-secondaryText leading-8 w-full max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 mt-8 mb-16">
+        <h2 class="text-white text-2xl mb-4">Decoding is not verifying</h2>
+        <p>
+            Anyone can read a JWT, because the header and payload are only Base64URL encoded. What makes a
+            token trustworthy is its signature, so always verify it on your server before acting on the
+            claims. Read the
+            <a href="/blog/how-to-decode-jwt-online/" class="text-pink-400 font-bold">full guide</a>
+            to learn what each claim means.
+        </p>
+    </section>
+    <ScrollUpButton client:load />
+    <Footer client:only="vue" />
+</Layout>
+
+<script>
+    const tokenInput = document.getElementById("token") as HTMLTextAreaElement;
+    const status = document.getElementById("status") as HTMLParagraphElement;
+    const colored = document.getElementById("colored") as HTMLDivElement;
+    const headerOut = document.getElementById("header") as HTMLPreElement;
+    const payloadOut = document.getElementById("payload") as HTMLPreElement;
+    const claimsOut = document.getElementById("claims") as HTMLDListElement;
+    const keyInput = document.getElementById("key") as HTMLTextAreaElement;
+    const keyLabel = document.getElementById("keyLabel") as HTMLLabelElement;
+    const secretBase64 = document.getElementById("secretBase64") as HTMLInputElement;
+    const verifyResult = document.getElementById("verifyResult") as HTMLParagraphElement;
+
+    const SAMPLE =
+        "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IlR5cGlua3MgVG9vbHMiLCJyb2xlIjoiYWRtaW4iLCJpYXQiOjE3OTAwMDAwMDAsImV4cCI6NDEwMjQ0NDgwMH0.uQ21C2kD_sv7YH8KFC6HkW-IQah92lrz3nceDYBa6JU";
+    const SAMPLE_SECRET = "typinks-secret";
+
+    const CLAIM_NAMES: Record<string, string> = {
+        iss: "Issuer",
+        sub: "Subject",
+        aud: "Audience",
+        exp: "Expires",
+        nbf: "Not before",
+        iat: "Issued at",
+        jti: "Token ID",
+    };
+    const TIME_CLAIMS = ["exp", "nbf", "iat"];
+
+    let decoded: { header: Record<string, unknown>; payload: Record<string, unknown>; parts: string[] } | null = null;
+
+    const base64UrlToBytes = (part: string) => {
+        const base64 = part.replace(/-/g, "+").replace(/_/g, "/");
+        const binary = atob(base64.padEnd(Math.ceil(base64.length / 4) * 4, "="));
+        return Uint8Array.from(binary, (char) => char.charCodeAt(0));
+    };
+    const decodePart = (part: string) => JSON.parse(new TextDecoder().decode(base64UrlToBytes(part)));
+
+    const relativeTime = (seconds: number) => {
+        const diff = seconds - Date.now() / 1000;
+        const units: [Intl.RelativeTimeFormatUnit, number][] = [
+            ["year", 31536000],
+            ["month", 2592000],
+            ["day", 86400],
+            ["hour", 3600],
+            ["minute", 60],
+        ];
+        const format = new Intl.RelativeTimeFormat("en", { numeric: "auto" });
+        for (const [unit, size] of units) {
+            if (Math.abs(diff) >= size) return format.format(Math.round(diff / size), unit);
+        }
+        return format.format(Math.round(diff), "second");
+    };
+
+    const setStatus = (message: string, tone: "ok" | "error" | "warn" | "neutral") => {
+        status.textContent = message;
+        const colors = { ok: "text-green-400", error: "text-red-400", warn: "text-yellow-400", neutral: "text-secondaryText" };
+        status.className = `mt-2 text-sm ${colors[tone]}`;
+    };
+
+    const renderClaims = (payload: Record<string, unknown>) => {
+        claimsOut.replaceChildren();
+        const known = Object.keys(payload).filter((key) => key in CLAIM_NAMES);
+        if (!known.length) {
+            const empty = document.createElement("dd");
+            empty.className = "text-secondaryText";
+            empty.textContent = "No registered claims (iss, sub, aud, exp, nbf, iat, jti).";
+            claimsOut.append(empty);
+            return;
+        }
+        for (const key of known) {
+            const row = document.createElement("div");
+            row.className = "flex flex-wrap gap-x-2";
+            const term = document.createElement("dt");
+            term.className = "text-secondaryText";
+            term.textContent = `${CLAIM_NAMES[key]} (${key}):`;
+            const value = document.createElement("dd");
+            value.className = "text-primaryText break-all";
+            const raw = payload[key];
+            value.textContent =
+                TIME_CLAIMS.includes(key) && typeof raw === "number"
+                    ? `${new Date(raw * 1000).toLocaleString()} (${relativeTime(raw)})`
+                    : Array.isArray(raw) ? raw.join(", ") : String(raw);
+            row.append(term, value);
+            claimsOut.append(row);
+        }
+    };
+
+    const renderColored = (parts: string[]) => {
+        const colors = ["text-red-400", "text-purple-400", "text-cyan-400"];
+        colored.replaceChildren(
+            ...parts.flatMap((part, index) => {
+                const span = document.createElement("span");
+                span.className = colors[index];
+                span.textContent = part;
+                if (index === parts.length - 1) return [span];
+                const dot = document.createElement("span");
+                dot.textContent = ".";
+                return [span, dot];
+            }),
+        );
+        colored.classList.remove("hidden");
+    };
+
+    const reset = () => {
+        decoded = null;
+        headerOut.textContent = "-";
+        payloadOut.textContent = "-";
+        claimsOut.innerHTML = '<dd class="text-secondaryText">-</dd>';
+        colored.classList.add("hidden");
+        verifyResult.textContent = "";
+    };
+
+    const decodeToken = () => {
+        reset();
+        const token = tokenInput.value.trim().replace(/^Bearer\s+/i, "");
+        if (!token) {
+            setStatus("Tokens are decoded in your browser and never stored.", "neutral");
+            return;
+        }
+        const parts = token.split(".");
+        if (parts.length !== 3) {
+            setStatus(`A JWT has 3 parts separated by dots; this has ${parts.length}.`, "error");
+            return;
+        }
+        let header, payload;
+        try {
+            header = decodePart(parts[0]);
+        } catch {
+            setStatus("The header is not valid Base64URL-encoded JSON.", "error");
+            return;
+        }
+        try {
+            payload = decodePart(parts[1]);
+        } catch {
+            setStatus("The payload is not valid Base64URL-encoded JSON.", "error");
+            return;
+        }
+
+        decoded = { header, payload, parts };
+        headerOut.textContent = JSON.stringify(header, null, 2);
+        payloadOut.textContent = JSON.stringify(payload, null, 2);
+        renderColored(parts);
+        renderClaims(payload);
+
+        const now = Date.now() / 1000;
+        const alg = String(header.alg ?? "unknown");
+        keyLabel.textContent = alg.startsWith("HS") ? `Secret (${alg})` : `PEM public key (${alg})`;
+        secretBase64.parentElement!.classList.toggle("hidden", !alg.startsWith("HS"));
+
+        if (typeof payload.exp === "number" && payload.exp < now) {
+            setStatus(`Decoded (${alg}). This token expired ${relativeTime(payload.exp)}.`, "error");
+        } else if (typeof payload.nbf === "number" && payload.nbf > now) {
+            setStatus(`Decoded (${alg}). This token becomes valid ${relativeTime(payload.nbf)}.`, "warn");
+        } else {
+            setStatus(`Decoded (${alg}). Signature not verified yet.`, "ok");
+        }
+    };
+
+    const HASHES: Record<string, string> = { "256": "SHA-256", "384": "SHA-384", "512": "SHA-512" };
+    const CURVES: Record<string, string> = { "256": "P-256", "384": "P-384", "512": "P-521" };
+
+    const importKey = async (alg: string, keyText: string) => {
+        const family = alg.slice(0, 2);
+        const bits = alg.slice(2);
+        const hash = HASHES[bits];
+        if (!hash) throw new Error(`Unsupported algorithm: ${alg}`);
+
+        if (family === "HS") {
+            const secret = secretBase64.checked ? base64UrlToBytes(keyText.trim()) : new TextEncoder().encode(keyText);
+            return { key: await crypto.subtle.importKey("raw", secret, { name: "HMAC", hash }, false, ["verify"]), params: { name: "HMAC" } };
+        }
+
+        if (/BEGIN RSA PUBLIC KEY/.test(keyText)) {
+            throw new Error('Use a "BEGIN PUBLIC KEY" (SPKI) PEM. Convert with: openssl rsa -RSAPublicKey_in -in key.pem -pubout');
+        }
+        const body = keyText.replace(/-----(BEGIN|END) PUBLIC KEY-----/g, "").replace(/\s+/g, "");
+        const spki = base64UrlToBytes(body.replace(/\+/g, "-").replace(/\//g, "_"));
+        const algorithms: Record<string, [object, object]> = {
+            RS: [{ name: "RSASSA-PKCS1-v1_5", hash }, { name: "RSASSA-PKCS1-v1_5" }],
+            PS: [{ name: "RSA-PSS", hash }, { name: "RSA-PSS", saltLength: Number(bits) / 8 }],
+            ES: [{ name: "ECDSA", namedCurve: CURVES[bits] }, { name: "ECDSA", hash }],
+        };
+        if (!algorithms[family]) throw new Error(`Unsupported algorithm: ${alg}`);
+        const [importParams, verifyParams] = algorithms[family];
+        return { key: await crypto.subtle.importKey("spki", spki, importParams as AlgorithmIdentifier, false, ["verify"]), params: verifyParams };
+    };
+
+    const verify = async () => {
+        if (!decoded) {
+            verifyResult.textContent = "Decode a token first.";
+            verifyResult.className = "mt-3 text-sm text-red-400";
+            return;
+        }
+        const alg = String(decoded.header.alg ?? "");
+        if (alg === "none") {
+            verifyResult.textContent = 'This token uses alg "none" and has no signature. Never accept it.';
+            verifyResult.className = "mt-3 text-sm text-red-400";
+            return;
+        }
+        if (!keyInput.value.trim()) {
+            verifyResult.textContent = "Enter the secret or public key first.";
+            verifyResult.className = "mt-3 text-sm text-red-400";
+            return;
+        }
+        try {
+            const { key, params } = await importKey(alg, keyInput.value);
+            const [header, payload, signature] = decoded.parts;
+            const valid = await crypto.subtle.verify(
+                params as AlgorithmIdentifier,
+                key,
+                base64UrlToBytes(signature),
+                new TextEncoder().encode(`${header}.${payload}`),
+            );
+            verifyResult.textContent = valid ? "Signature verified." : "Invalid signature: the token was changed or the key is wrong.";
+            verifyResult.className = `mt-3 text-sm ${valid ? "text-green-400" : "text-red-400"}`;
+        } catch (error) {
+            verifyResult.textContent = `Could not verify: ${(error as Error).message || "the key could not be read."}`;
+            verifyResult.className = "mt-3 text-sm text-red-400";
+        }
+    };
+
+    tokenInput.addEventListener("input", decodeToken);
+    document.getElementById("verifyBtn")!.addEventListener("click", verify);
+    document.getElementById("sampleBtn")!.addEventListener("click", () => {
+        tokenInput.value = SAMPLE;
+        keyInput.value = SAMPLE_SECRET;
+        secretBase64.checked = false;
+        decodeToken();
+    });
+    document.getElementById("clearBtn")!.addEventListener("click", () => {
+        tokenInput.value = "";
+        keyInput.value = "";
+        decodeToken();
+    });
+</script>

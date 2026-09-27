@@ -36,6 +36,11 @@ Encode and decode Base64, Base64URL and URL (percent) encoding. [Try it online](
 
 **Features:** Unicode-safe Base64 and Base64URL, URL component and full address modes, forgiving decoding, file to data URL, swap and copy
 
+### JWT Decoder
+Decode JSON Web Tokens and verify their signatures without the token leaving your browser. [Try it online](https://tools.typinks.com/jwt-decoder/)
+
+**Features:** Colour-coded token parts, readable exp/iat/nbf dates, expiry status, HS256/384/512 secret and RS/PS/ES PEM public key verification
+
 ## 📝 Productivity Tools
 
 ### Text Editor

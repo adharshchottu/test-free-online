@@ -1,0 +1,189 @@
+---
+import { Image } from "astro:assets";
+import { Navbar } from "../../components/Navbar";
+import { ScrollUpButton } from "../../components/ScrollUpButton";
+import Layout from "../../layouts/Layout.astro";
+import Footer from "@/components/Footer.vue";
+import jwtDecoderBannerImage from "../../assets/images/blog/jwt-decoder.png";
+---
+
+<Layout
+  title="How to Decode and Verify a JWT Online"
+  ogImage="blog/jwt-decoder.png"
+  description="Learn how JSON Web Tokens work, how to decode the header and payload, read exp and iat claims, and verify HS256, RS256 and ES256 signatures online without sending your token anywhere."
+  keywords="decode jwt online, jwt decoder, verify jwt, json web token, jwt claims, jwt exp, hs256 vs rs256, jwt signature"
+  author="Typinks Tools"
+  publishedDate="2026-09-27"
+  modifiedDate="2026-09-27"
+  articleSchema={true}
+>
+  <Navbar client:load />
+  <div class="flex justify-center bg-bgDark2 relative pt-2">
+    <div class="px-2 sm:px-4">
+      <article
+        class="p-8 text-center rounded-3xl w-full lg:w-[1200px] 2xl:w-[1400px] mb-24 mt-16 sm:mt-24"
+      >
+        <header class="mb-12">
+          <div class="text-sm text-secondaryText my-4">27 September 2026</div>
+          <h1
+            class="text-6xl lg:text-7xl xl:text-8xl font-bold tracking-tight leading-none mb-6 bg-gradient-to-r from-white via-purple-200 to-pink-400 bg-clip-text text-transparent"
+          >
+            JWT Decoder
+          </h1>
+          <h2 class="text-2xl text-gray-300">
+            Read, check and verify JSON Web Tokens in your browser
+          </h2>
+        </header>
+
+        <Image
+          src={jwtDecoderBannerImage}
+          alt="JWT Decoder - decode and verify JSON Web Tokens online"
+          class="rounded-xl mb-8 md:w-2/4 mx-auto mt-8"
+        />
+
+        <section
+          class="text-secondaryText !leading-8 sm:!leading-10 sm:text-xl text-left sm:text-justify mx-auto w-full md:w-10/12 lg:w-2/3 mt-16"
+        >
+          <a
+            href="https://tools.typinks.com/jwt-decoder/"
+            target="_blank"
+            class="text-pink-400 font-bold">The JWT Decoder</a
+          > shows what is inside a JSON Web Token: its header, its payload, and its
+          claims with timestamps turned into readable dates. It also tells you
+          whether the token has expired and can verify its signature with your
+          secret or public key. The token is never sent to a server, which matters
+          because a JWT is often a live login credential.
+
+          <h2 class="text-white text-2xl my-4">What Is a JWT?</h2>
+          <p>
+            A JSON Web Token is a compact way to pass signed information between
+            systems, most often to prove who a user is after they log in. It
+            looks like three blocks of text joined by dots:
+            <code>header.payload.signature</code>.
+          </p>
+          <ul class="list-disc list-inside space-y-2 my-4">
+            <li>
+              <strong>Header:</strong> The token type and the signing algorithm,
+              such as HS256 or RS256
+            </li>
+            <li>
+              <strong>Payload:</strong> The claims, meaning the data the token
+              carries, such as a user ID, roles and an expiry time
+            </li>
+            <li>
+              <strong>Signature:</strong> Proof that the header and payload were
+              created by someone holding the key and haven't been changed
+            </li>
+          </ul>
+          <p>
+            The header and payload are only Base64URL encoded, not encrypted.
+            Anyone who has the token can read them, so never put passwords or
+            other secrets in a JWT.
+          </p>
+
+          <h2 class="text-white text-2xl my-4">How to Decode a JWT</h2>
+
+          <h4 class="text-white text-xl my-3">Step 1: Paste the Token</h4>
+          <p>
+            Copy the token from your browser's developer tools, an
+            <code>Authorization</code> header or your app's logs and paste it into
+            the Encoded token box. A leading <code>Bearer </code> is removed
+            automatically. Click "Sample" to try a demo token.
+          </p>
+
+          <h4 class="text-white text-xl my-3">Step 2: Read the Header and Payload</h4>
+          <p>
+            The token is decoded as you paste. Its three parts are coloured red,
+            purple and cyan so you can see where each one starts, and the header
+            and payload appear as formatted JSON.
+          </p>
+
+          <h4 class="text-white text-xl my-3">Step 3: Check the Claims</h4>
+          <p>
+            The Claims panel lists the registered claims in plain language, and
+            converts <code>exp</code>, <code>iat</code> and <code>nbf</code> from
+            Unix timestamps into your local date and time, with a relative time
+            such as "in 2 hours". The status line warns you if the token has
+            expired or isn't valid yet.
+          </p>
+
+          <h4 class="text-white text-xl my-3">Step 4: Verify the Signature</h4>
+          <p>
+            Enter the key and click Verify. For HS256, HS384 and HS512 this is
+            the shared secret; tick "Secret is Base64 encoded" if your secret is
+            stored that way. For RS, PS and ES algorithms, paste the public key
+            in PEM format, starting with <code>-----BEGIN PUBLIC KEY-----</code>.
+            You'll see whether the signature is valid, or a message explaining
+            why it couldn't be checked.
+          </p>
+
+          <h2 class="text-white text-2xl my-4">Registered Claims Explained</h2>
+          <ul class="list-disc list-inside space-y-2 my-4">
+            <li><strong>iss (Issuer):</strong> Who created the token, such as your auth server</li>
+            <li><strong>sub (Subject):</strong> Who the token is about, usually a user ID</li>
+            <li><strong>aud (Audience):</strong> Which service the token is meant for</li>
+            <li><strong>exp (Expires):</strong> When the token stops being valid</li>
+            <li><strong>nbf (Not before):</strong> When the token starts being valid</li>
+            <li><strong>iat (Issued at):</strong> When the token was created</li>
+            <li><strong>jti (Token ID):</strong> A unique ID, useful for revoking a single token</li>
+          </ul>
+
+          <h2 class="text-white text-2xl my-4">HS256 vs RS256 vs ES256</h2>
+          <p>
+            <strong class="text-white">HS256</strong> uses one shared secret to
+            both sign and verify, so every service that verifies tokens can also
+            create them. <strong class="text-white">RS256</strong> and
+            <strong class="text-white">PS256</strong> use an RSA key pair: only
+            the auth server has the private key, and anyone can verify with the
+            public key. <strong class="text-white">ES256</strong> does the same
+            with elliptic-curve keys, which gives much shorter signatures. For
+            systems with several services, an asymmetric algorithm is usually
+            the safer choice.
+          </p>
+
+          <h2 class="text-white text-2xl my-4">Security Tips</h2>
+          <ul class="list-disc list-inside space-y-2 my-4">
+            <li>Always verify the signature on your server. Decoding alone proves nothing</li>
+            <li>Reject tokens with <code>alg: "none"</code>, and pin the algorithm you expect instead of trusting the header</li>
+            <li>Keep expiry times short, and check <code>exp</code>, <code>nbf</code> and <code>aud</code> on every request</li>
+            <li>Only paste production tokens into tools that run locally, like this one</li>
+          </ul>
+
+          <h2 class="text-white text-2xl my-4">Privacy</h2>
+          <p>
+            Decoding and verification use your browser's built-in Web Crypto
+            API. Tokens and keys are never uploaded or stored, and they are gone
+            when you close the tab.
+          </p>
+
+          <h2 class="text-white text-2xl my-4">Conclusion</h2>
+          <p>
+            Whether you are debugging a login flow or checking why an API
+            rejects a token, the JWT Decoder shows you the contents, the expiry
+            and the signature status in one place. Try it at{" "}
+            <a
+              href="https://tools.typinks.com/jwt-decoder/"
+              target="_blank"
+              class="text-pink-400 font-bold"
+              >tools.typinks.com/jwt-decoder</a
+            >.
+          </p>
+
+          <div class="mt-12 p-6 bg-bgDark3 rounded-xl border border-gray-700">
+            <h4 class="text-white text-xl mb-4">Have a Token to Inspect?</h4>
+            <p class="mb-4">Paste it in and see its claims and expiry instantly.</p>
+            <a
+              href="https://tools.typinks.com/jwt-decoder/"
+              target="_blank"
+              class="inline-block px-6 py-3 bg-gradient-to-r from-purple-500 to-pink-500 text-white font-semibold rounded-lg hover:from-purple-600 hover:to-pink-600 transition-all"
+            >
+              Launch JWT Decoder
+            </a>
+          </div>
+        </section>
+      </article>
+    </div>
+  </div>
+  <ScrollUpButton client:load />
+  <Footer client:only="vue" />
+</Layout>

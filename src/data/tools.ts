@@ -43,6 +43,12 @@ export const tools: Tool[] = [
     category: "Developer",
   },
   {
+    name: "JWT Decoder",
+    href: "/jwt-decoder",
+    description: "Read a JSON Web Token's header, payload and expiry, and verify HS, RS, PS or ES signatures.",
+    category: "Developer",
+  },
+  {
     name: "Text Editor",
     href: "/text-editor",
     description: "A lightweight editor with word, character and line counts that saves as you type.",
