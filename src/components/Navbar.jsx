@@ -5,6 +5,7 @@ import { GithubIcon } from "../assets/icons/GithubIcon";
 const navbarLinks = [
   { label: "Home", href: "/" },
   { label: "All tools", href: "/#tools" },
+  { label: "SSE", href: "/sse" },
   { label: "Blog", href: "/blog" },
 ];
 
