@@ -11,7 +11,7 @@
         </div>
       </div>
 
-      <div ref="chatContainer" class="flex-1 min-h-0 overflow-y-auto p-4 sm:p-6 space-y-4 bg-bgDark1 custom-scrollbar">
+      <div ref="chatContainer" @scroll="onScroll" class="flex-1 min-h-0 overflow-y-auto p-4 sm:p-6 space-y-4 bg-bgDark1 custom-scrollbar">
         <div v-if="images.length === 0" class="flex items-center justify-center h-full text-secondaryText text-sm italic">
           Aún no hay imágenes. ¡Comparte la primera!
         </div>
@@ -32,7 +32,7 @@
               :src="image.image_url"
               :alt="`Image shared by ${image.user}`"
               class="max-h-72 max-w-full rounded-lg border border-mainBorderDarker object-contain bg-bgDark3"
-              loading="lazy"
+              @load="onImageLoad"
             />
           </a>
         </article>
@@ -85,12 +85,23 @@ const errorMessage = ref('');
 const chatContainer = ref(null);
 const fileInput = ref(null);
 let pollInterval = null;
+// Images grow the list as they load, so keep pinning to the bottom unless the user scrolled up
+let stickToBottom = true;
 
 const scrollToBottom = async () => {
   await nextTick();
   if (chatContainer.value) {
     chatContainer.value.scrollTop = chatContainer.value.scrollHeight;
   }
+};
+
+const onScroll = () => {
+  const el = chatContainer.value;
+  if (el) stickToBottom = el.scrollHeight - el.scrollTop - el.clientHeight < 50;
+};
+
+const onImageLoad = () => {
+  if (stickToBottom) scrollToBottom();
 };
 
 const fetchImages = async () => {
@@ -149,6 +160,7 @@ const sendImage = async () => {
 
     selectedImage.value = null;
     fileInput.value.value = '';
+    stickToBottom = true;
     await fetchImages();
   } catch (error) {
     errorMessage.value = error.message;
