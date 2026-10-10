@@ -26,6 +26,17 @@
             <span :class="image.user === currentUser ? 'text-secondaryColor font-medium' : ''">{{ image.user }}</span>
             <span>•</span>
             <span>{{ formatTime(image.timestamp) }}</span>
+            <template v-if="isAdmin">
+              <span>•</span>
+              <button
+                type="button"
+                :disabled="deletingUrl === image.image_url"
+                class="text-red-400 hover:text-red-300 font-medium disabled:opacity-50"
+                @click="deleteImage(image)"
+              >
+                {{ deletingUrl === image.image_url ? 'Deleting...' : 'Delete' }}
+              </button>
+            </template>
           </div>
           <a :href="image.image_url" target="_blank" rel="noopener noreferrer" class="block">
             <img
@@ -68,6 +79,7 @@ import { nextTick, onMounted, onUnmounted, ref } from 'vue';
 
 const IMAGE_MESSAGES_API = 'https://users-count.tools.typinks.com/api/image-chat/messages';
 const IMAGE_MESSAGE_API = 'https://users-count.tools.typinks.com/api/image-chat/message';
+const IMAGE_DELETE_API = 'https://users-count.tools.typinks.com/api/image-chat/delete';
 const MAX_IMAGE_SIZE = 15 * 1024 * 1024;
 const ALLOWED_IMAGE_TYPES = ['image/jpeg', 'image/png', 'image/gif', 'image/webp'];
 const ALLOWED_USERS = [
@@ -84,6 +96,9 @@ const isSending = ref(false);
 const errorMessage = ref('');
 const chatContainer = ref(null);
 const fileInput = ref(null);
+// Admin controls only show the button; the API checks the passcode before deleting anything
+const isAdmin = ref(false);
+const deletingUrl = ref('');
 let pollInterval = null;
 // Images grow the list as they load, so keep pinning to the bottom unless the user scrolled up
 let stickToBottom = true;
@@ -169,6 +184,31 @@ const sendImage = async () => {
   }
 };
 
+const deleteImage = async (image) => {
+  const passcode = window.prompt('Enter the admin passcode to delete this image:');
+  if (!passcode) return;
+
+  deletingUrl.value = image.image_url;
+  errorMessage.value = '';
+  try {
+    const response = await fetch(IMAGE_DELETE_API, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ image_url: image.image_url, passcode }),
+    });
+    if (!response.ok) {
+      const result = await response.json().catch(() => null);
+      throw new Error(result?.data || 'Unable to delete image');
+    }
+
+    await fetchImages();
+  } catch (error) {
+    errorMessage.value = error.message;
+  } finally {
+    deletingUrl.value = '';
+  }
+};
+
 const formatTime = (unixSecs) => new Date(unixSecs * 1000).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
 
 // Shared with ChatRoom so both rooms keep the same name
@@ -191,6 +231,7 @@ const assignUser = () => {
 };
 
 onMounted(() => {
+  isAdmin.value = new URLSearchParams(window.location.search).get('repaso') === 'true';
   assignUser();
   fetchImages();
   pollInterval = setInterval(fetchImages, 10000);

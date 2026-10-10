@@ -4,6 +4,7 @@ import (
 	"bytes"
 	"context"
 	"crypto/rand"
+	"crypto/subtle"
 	"encoding/json"
 	"fmt"
 	"io"
@@ -198,13 +199,43 @@ func getImageChatMessages(conn redis.Conn) ([]ImageChatMessage, error) {
 	return messages, nil
 }
 
-func uploadImageToSupabase(image io.Reader, contentType string) (string, error) {
+func newSupabaseS3Client() (*s3.Client, string, string, error) {
 	bucket := os.Getenv("SUPABASE_IMAGE_CHAT_BUCKET")
 	s3Endpoint := strings.TrimRight(os.Getenv("SUPABASE_S3_ENDPOINT"), "/")
 	s3AccessKeyID := os.Getenv("SUPABASE_S3_ACCESS_KEY_ID")
 	s3SecretAccessKey := os.Getenv("SUPABASE_S3_SECRET_ACCESS_KEY")
 	if bucket == "" || s3Endpoint == "" || s3AccessKeyID == "" || s3SecretAccessKey == "" {
-		return "", fmt.Errorf("Supabase image chat configuration is missing")
+		return nil, "", "", fmt.Errorf("Supabase image chat configuration is missing")
+	}
+
+	awsConfig, err := config.LoadDefaultConfig(
+		context.Background(),
+		config.WithRegion("ap-southeast-2"),
+		config.WithCredentialsProvider(credentials.NewStaticCredentialsProvider(s3AccessKeyID, s3SecretAccessKey, "")),
+	)
+	if err != nil {
+		return nil, "", "", fmt.Errorf("create S3 configuration: %w", err)
+	}
+	s3Client := s3.NewFromConfig(awsConfig, func(options *s3.Options) {
+		options.BaseEndpoint = aws.String(s3Endpoint)
+		options.UsePathStyle = true
+	})
+	return s3Client, bucket, s3Endpoint, nil
+}
+
+// publicImagePrefix is the public URL prefix that uploaded image object names are appended to
+func publicImagePrefix(s3Endpoint string, bucket string) (string, error) {
+	publicBaseURL, err := publicSupabaseURL(s3Endpoint)
+	if err != nil {
+		return "", err
+	}
+	return fmt.Sprintf("%s/storage/v1/object/public/%s/", publicBaseURL, url.PathEscape(bucket)), nil
+}
+
+func uploadImageToSupabase(image io.Reader, contentType string) (string, error) {
+	s3Client, bucket, s3Endpoint, err := newSupabaseS3Client()
+	if err != nil {
+		return "", err
 	}
 
 	randomBytes := make([]byte, 16)
@@ -212,18 +243,6 @@ func uploadImageToSupabase(image io.Reader, contentType string) (string, error) 
 		return "", fmt.Errorf("generate image key: %w", err)
 	}
 	objectName := fmt.Sprintf("image-chat/%d-%x%s", time.Now().UnixNano(), randomBytes, imageExtensions[contentType])
-	awsConfig, err := config.LoadDefaultConfig(
-		context.Background(),
-		config.WithRegion("ap-southeast-2"),
-		config.WithCredentialsProvider(credentials.NewStaticCredentialsProvider(s3AccessKeyID, s3SecretAccessKey, "")),
-	)
-	if err != nil {
-		return "", fmt.Errorf("create S3 configuration: %w", err)
-	}
-	s3Client := s3.NewFromConfig(awsConfig, func(options *s3.Options) {
-		options.BaseEndpoint = aws.String(s3Endpoint)
-		options.UsePathStyle = true
-	})
 	_, err = s3Client.PutObject(context.Background(), &s3.PutObjectInput{
 		Bucket:      aws.String(bucket),
 		Key:         aws.String(objectName),
@@ -234,11 +253,102 @@ func uploadImageToSupabase(image io.Reader, contentType string) (string, error) 
 		return "", fmt.Errorf("upload image through S3: %w", err)
 	}
 
-	publicBaseURL, err := publicSupabaseURL(s3Endpoint)
+	prefix, err := publicImagePrefix(s3Endpoint, bucket)
 	if err != nil {
 		return "", err
 	}
-	return fmt.Sprintf("%s/storage/v1/object/public/%s/%s", publicBaseURL, url.PathEscape(bucket), objectName), nil
+	return prefix + objectName, nil
+}
+
+func deleteImageFromSupabase(imageURL string) error {
+	s3Client, bucket, s3Endpoint, err := newSupabaseS3Client()
+	if err != nil {
+		return err
+	}
+
+	prefix, err := publicImagePrefix(s3Endpoint, bucket)
+	if err != nil {
+		return err
+	}
+	objectName := strings.TrimPrefix(imageURL, prefix)
+	if objectName == imageURL || !strings.HasPrefix(objectName, "image-chat/") {
+		return fmt.Errorf("image URL is not in the image chat bucket: %s", imageURL)
+	}
+
+	_, err = s3Client.DeleteObject(context.Background(), &s3.DeleteObjectInput{
+		Bucket: aws.String(bucket),
+		Key:    aws.String(objectName),
+	})
+	if err != nil {
+		return fmt.Errorf("delete image through S3: %w", err)
+	}
+	return nil
+}
+
+// removeImageChatMessage removes every stored entry for imageURL and reports whether any existed
+func removeImageChatMessage(conn redis.Conn, imageURL string) (bool, error) {
+	rawMessages, err := redis.Strings(conn.Do("LRANGE", "typinks-image-chat-room", 0, -1))
+	if err != nil {
+		return false, err
+	}
+
+	removed := false
+	for _, rawMessage := range rawMessages {
+		var message ImageChatMessage
+		if err := json.Unmarshal([]byte(rawMessage), &message); err != nil || message.ImageURL != imageURL {
+			continue
+		}
+		// LREM matches the exact stored string, so remove by the raw entry rather than re-marshaling
+		count, err := redis.Int(conn.Do("LREM", "typinks-image-chat-room", 0, rawMessage))
+		if err != nil {
+			return removed, err
+		}
+		if count > 0 {
+			removed = true
+		}
+	}
+	return removed, nil
+}
+
+func isAdminPasscodeValid(passcode string) bool {
+	adminPasscode := os.Getenv("IMAGE_CHAT_ADMIN_PASSCODE")
+	if adminPasscode == "" || passcode == "" {
+		return false
+	}
+	return subtle.ConstantTimeCompare([]byte(passcode), []byte(adminPasscode)) == 1
+}
+
+func handleImageChatDelete(w http.ResponseWriter, r *http.Request, conn redis.Conn) {
+	var request struct {
+		ImageURL string `json:"image_url"`
+		Passcode string `json:"passcode"`
+	}
+	if err := json.NewDecoder(http.MaxBytesReader(w, r.Body, 4096)).Decode(&request); err != nil || request.ImageURL == "" {
+		sendResponse(w, "Invalid delete request", http.StatusBadRequest)
+		return
+	}
+
+	if !isAdminPasscodeValid(request.Passcode) {
+		sendResponse(w, "Wrong passcode", http.StatusUnauthorized)
+		return
+	}
+
+	removed, err := removeImageChatMessage(conn, request.ImageURL)
+	if err != nil {
+		log.Printf("Error removing image chat message: %v", err)
+		sendResponse(w, "Unable to delete image message", http.StatusInternalServerError)
+		return
+	}
+	if !removed {
+		sendResponse(w, "Image not found", http.StatusNotFound)
+		return
+	}
+
+	// The message is already gone from the room, so a storage failure only leaves an orphaned file
+	if err := deleteImageFromSupabase(request.ImageURL); err != nil {
+		log.Printf("Error deleting image chat file: %v", err)
+	}
+	sendResponse(w, "success", http.StatusOK)
 }
 
 func publicSupabaseURL(s3Endpoint string) (string, error) {
@@ -450,6 +560,14 @@ func Handler(w http.ResponseWriter, r *http.Request) {
 			return
 		}
 		handleImageChatUpload(w, r, conn)
+		return
+
+	case "/api/image-chat/delete":
+		if r.Method != http.MethodPost {
+			sendResponse(w, "Method not allowed", http.StatusMethodNotAllowed)
+			return
+		}
+		handleImageChatDelete(w, r, conn)
 		return
 
 	case "/api/count-user":
