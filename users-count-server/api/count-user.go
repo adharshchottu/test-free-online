@@ -112,7 +112,14 @@ type ImageChatMessage struct {
 	User      string `json:"user"`
 	ImageURL  string `json:"image_url"`
 	Timestamp int64  `json:"timestamp"`
+	Deleted   bool   `json:"deleted,omitempty"`
+	DeletedAt int64  `json:"deleted_at,omitempty"`
 }
+
+const imageChatFolder = "image-chat/"
+
+// Deleted images are moved here and kept until the admin removes them from the bucket by hand
+const deletedImageChatFolder = "image-chat-deleted/"
 
 const maxImageSize = 15 * 1024 * 1024
 
@@ -194,6 +201,9 @@ func getImageChatMessages(conn redis.Conn) ([]ImageChatMessage, error) {
 			log.Printf("Error unmarshaling image chat message: %v", err)
 			continue
 		}
+		if message.Deleted {
+			continue
+		}
 		messages = append(messages, message)
 	}
 	return messages, nil
@@ -242,7 +252,7 @@ func uploadImageToSupabase(image io.Reader, contentType string) (string, error) 
 	if _, err := rand.Read(randomBytes); err != nil {
 		return "", fmt.Errorf("generate image key: %w", err)
 	}
-	objectName := fmt.Sprintf("image-chat/%d-%x%s", time.Now().UnixNano(), randomBytes, imageExtensions[contentType])
+	objectName := fmt.Sprintf("%s%d-%x%s", imageChatFolder, time.Now().UnixNano(), randomBytes, imageExtensions[contentType])
 	_, err = s3Client.PutObject(context.Background(), &s3.PutObjectInput{
 		Bucket:      aws.String(bucket),
 		Key:         aws.String(objectName),
@@ -260,54 +270,89 @@ func uploadImageToSupabase(image io.Reader, contentType string) (string, error) 
 	return prefix + objectName, nil
 }
 
-func deleteImageFromSupabase(imageURL string) error {
-	s3Client, bucket, s3Endpoint, err := newSupabaseS3Client()
-	if err != nil {
-		return err
-	}
-
+// copyImageToDeletedFolder copies an image chat file into the deleted folder and returns
+// the original object name along with the public URL of the copy
+func copyImageToDeletedFolder(s3Client *s3.Client, bucket string, s3Endpoint string, imageURL string) (string, string, error) {
 	prefix, err := publicImagePrefix(s3Endpoint, bucket)
 	if err != nil {
-		return err
+		return "", "", err
 	}
 	objectName := strings.TrimPrefix(imageURL, prefix)
-	if objectName == imageURL || !strings.HasPrefix(objectName, "image-chat/") {
-		return fmt.Errorf("image URL is not in the image chat bucket: %s", imageURL)
+	if objectName == imageURL || !strings.HasPrefix(objectName, imageChatFolder) {
+		return "", "", fmt.Errorf("image URL is not in the image chat folder: %s", imageURL)
 	}
+	deletedObjectName := deletedImageChatFolder + strings.TrimPrefix(objectName, imageChatFolder)
 
-	_, err = s3Client.DeleteObject(context.Background(), &s3.DeleteObjectInput{
-		Bucket: aws.String(bucket),
-		Key:    aws.String(objectName),
+	_, err = s3Client.CopyObject(context.Background(), &s3.CopyObjectInput{
+		Bucket:     aws.String(bucket),
+		CopySource: aws.String(bucket + "/" + objectName),
+		Key:        aws.String(deletedObjectName),
 	})
 	if err != nil {
-		return fmt.Errorf("delete image through S3: %w", err)
+		return "", "", fmt.Errorf("copy image through S3: %w", err)
 	}
-	return nil
+	return objectName, prefix + deletedObjectName, nil
 }
 
-// removeImageChatMessage removes every stored entry for imageURL and reports whether any existed
-func removeImageChatMessage(conn redis.Conn, imageURL string) (bool, error) {
+func findImageChatMessage(rawMessages []string, imageURL string) int {
+	for index, rawMessage := range rawMessages {
+		var message ImageChatMessage
+		if err := json.Unmarshal([]byte(rawMessage), &message); err == nil && !message.Deleted && message.ImageURL == imageURL {
+			return index
+		}
+	}
+	return -1
+}
+
+func imageChatMessageExists(conn redis.Conn, imageURL string) (bool, error) {
 	rawMessages, err := redis.Strings(conn.Do("LRANGE", "typinks-image-chat-room", 0, -1))
 	if err != nil {
 		return false, err
 	}
+	return findImageChatMessage(rawMessages, imageURL) != -1, nil
+}
 
-	removed := false
-	for _, rawMessage := range rawMessages {
-		var message ImageChatMessage
-		if err := json.Unmarshal([]byte(rawMessage), &message); err != nil || message.ImageURL != imageURL {
-			continue
+// markImageChatMessageDeleted flags the entry for imageURL as deleted and points it at the moved file.
+// WATCH guards the list index against an upload shifting it between LRANGE and LSET.
+func markImageChatMessageDeleted(conn redis.Conn, imageURL string, movedImageURL string) (bool, error) {
+	for attempt := 0; attempt < 5; attempt++ {
+		if _, err := conn.Do("WATCH", "typinks-image-chat-room"); err != nil {
+			return false, err
 		}
-		// LREM matches the exact stored string, so remove by the raw entry rather than re-marshaling
-		count, err := redis.Int(conn.Do("LREM", "typinks-image-chat-room", 0, rawMessage))
+		rawMessages, err := redis.Strings(conn.Do("LRANGE", "typinks-image-chat-room", 0, -1))
 		if err != nil {
-			return removed, err
+			conn.Do("UNWATCH")
+			return false, err
 		}
-		if count > 0 {
-			removed = true
+		index := findImageChatMessage(rawMessages, imageURL)
+		if index == -1 {
+			conn.Do("UNWATCH")
+			return false, nil
+		}
+
+		var message ImageChatMessage
+		json.Unmarshal([]byte(rawMessages[index]), &message)
+		message.ImageURL = movedImageURL
+		message.Deleted = true
+		message.DeletedAt = time.Now().Unix()
+		messageJSON, err := json.Marshal(message)
+		if err != nil {
+			conn.Do("UNWATCH")
+			return false, err
+		}
+
+		conn.Send("MULTI")
+		conn.Send("LSET", "typinks-image-chat-room", index, messageJSON)
+		reply, err := conn.Do("EXEC")
+		if err != nil {
+			return false, err
+		}
+		// A nil reply means the list changed under us, so read it again
+		if reply != nil {
+			return true, nil
 		}
 	}
-	return removed, nil
+	return false, fmt.Errorf("image chat list kept changing while marking an image deleted")
 }
 
 func isAdminPasscodeValid(passcode string) bool {
@@ -333,20 +378,48 @@ func handleImageChatDelete(w http.ResponseWriter, r *http.Request, conn redis.Co
 		return
 	}
 
-	removed, err := removeImageChatMessage(conn, request.ImageURL)
+	exists, err := imageChatMessageExists(conn, request.ImageURL)
 	if err != nil {
-		log.Printf("Error removing image chat message: %v", err)
+		log.Printf("Error reading image chat messages: %v", err)
 		sendResponse(w, "Unable to delete image message", http.StatusInternalServerError)
 		return
 	}
-	if !removed {
+	if !exists {
 		sendResponse(w, "Image not found", http.StatusNotFound)
 		return
 	}
 
-	// The message is already gone from the room, so a storage failure only leaves an orphaned file
-	if err := deleteImageFromSupabase(request.ImageURL); err != nil {
-		log.Printf("Error deleting image chat file: %v", err)
+	s3Client, bucket, s3Endpoint, err := newSupabaseS3Client()
+	if err != nil {
+		log.Printf("Error creating S3 client: %v", err)
+		sendResponse(w, "Unable to move image", http.StatusBadGateway)
+		return
+	}
+	objectName, movedImageURL, err := copyImageToDeletedFolder(s3Client, bucket, s3Endpoint, request.ImageURL)
+	if err != nil {
+		log.Printf("Error moving image chat file: %v", err)
+		sendResponse(w, "Unable to move image", http.StatusBadGateway)
+		return
+	}
+
+	marked, err := markImageChatMessageDeleted(conn, request.ImageURL, movedImageURL)
+	if err != nil {
+		log.Printf("Error marking image chat message deleted: %v", err)
+		sendResponse(w, "Unable to delete image message", http.StatusInternalServerError)
+		return
+	}
+	if !marked {
+		sendResponse(w, "Image not found", http.StatusNotFound)
+		return
+	}
+
+	// The copy is safe in the deleted folder, so a failure here only leaves the original behind
+	_, err = s3Client.DeleteObject(context.Background(), &s3.DeleteObjectInput{
+		Bucket: aws.String(bucket),
+		Key:    aws.String(objectName),
+	})
+	if err != nil {
+		log.Printf("Error removing original image chat file %s: %v", objectName, err)
 	}
 	sendResponse(w, "success", http.StatusOK)
 }
