@@ -7,19 +7,56 @@
 	let tasks = [];
 	let newTask = '';
 	let timerInterval;
+	let loaded = false;
+
+	const TASKS_KEY = 'planner-tasks';
+	const TIMER_KEY = 'planner-timer';
 
 	// Load from localStorage
 	onMount(() => {
-		const saved = localStorage.getItem('planner-tasks');
-		if (saved) {
-			tasks = JSON.parse(saved);
+		try {
+			const saved = localStorage.getItem(TASKS_KEY);
+			if (saved) tasks = JSON.parse(saved);
+
+			const timer = localStorage.getItem(TIMER_KEY);
+			if (timer) {
+				const parsed = JSON.parse(timer);
+				if (typeof parsed.timeLeft === 'number') timeLeft = parsed.timeLeft;
+				if (typeof parsed.isBreak === 'boolean') isBreak = parsed.isBreak;
+			}
+		} catch (e) {
+			console.error('Failed to load planner data', e);
 		}
+		loaded = true;
 	});
 
-	// Save to localStorage whenever tasks change
-	$: if (typeof window !== 'undefined') {
-		localStorage.setItem('planner-tasks', JSON.stringify(tasks));
+	// Save to localStorage whenever data changes (only after initial load,
+	// otherwise the empty initial state overwrites saved data)
+	$: if (loaded) {
+		try {
+			localStorage.setItem(TASKS_KEY, JSON.stringify(tasks));
+		} catch (e) {}
 	}
+
+	$: if (loaded) {
+		try {
+			localStorage.setItem(TIMER_KEY, JSON.stringify({ timeLeft, isBreak }));
+		} catch (e) {}
+	}
+
+	const hardReset = () => {
+		if (!confirm('Clear all tasks and reset the timer? This cannot be undone.')) return;
+		clearInterval(timerInterval);
+		isRunning = false;
+		isBreak = false;
+		timeLeft = 1500;
+		tasks = [];
+		newTask = '';
+		try {
+			localStorage.removeItem(TASKS_KEY);
+			localStorage.removeItem(TIMER_KEY);
+		} catch (e) {}
+	};
 
 	// Timer logic
 	const toggleTimer = () => {
@@ -100,9 +137,18 @@
 <div class="min-h-screen bg-gradient-to-br from-bgDark1 to-bgDark2 p-4 md:p-8 pt-24 md:pt-16 lg:pt-28">
 	<div class="max-w-6xl mx-auto">
 		<!-- Header -->
-		<div class="mb-8">
-			<h1 class="text-4xl md:text-5xl font-bold text-white mb-2">Pomodoro Planner</h1>
-			<p class="text-secondaryText">25 min focus • 5 min break • Stay productive</p>
+		<div class="mb-8 flex flex-wrap items-end justify-between gap-4">
+			<div>
+				<h1 class="text-4xl md:text-5xl font-bold text-white mb-2">Pomodoro Planner</h1>
+				<p class="text-secondaryText">25 min focus • 5 min break • Stay productive</p>
+			</div>
+			<button
+				on:click={hardReset}
+				class="px-4 py-2 rounded-lg text-sm font-semibold border border-red-600 text-red-400 hover:bg-red-600 hover:text-white transition-colors"
+				title="Clear all tasks and reset the timer"
+			>
+				Hard Reset
+			</button>
 		</div>
 
 		<!-- Timer Section -->
