@@ -13,8 +13,10 @@ import (
 	"net/http"
 	"net/url"
 	"os"
+	"sort"
 	"strings"
 	"time"
+	"unicode/utf8"
 
 	"github.com/aws/aws-sdk-go-v2/aws"
 	"github.com/aws/aws-sdk-go-v2/config"
@@ -80,6 +82,7 @@ var allowedURLs = []string{
 	"https://tools.typinks.com/timestamp-converter",
 	"https://tools.typinks.com/blog/how-to-convert-unix-timestamp-online",
 	"https://tools.typinks.com/blog/comment-convertir-timestamp-unix-en-ligne",
+	"https://tools.typinks.com/suggestions",
 }
 
 var allowedUsers = []string{
@@ -115,6 +118,28 @@ type ImageChatMessage struct {
 	Deleted   bool   `json:"deleted,omitempty"`
 	DeletedAt int64  `json:"deleted_at,omitempty"`
 }
+
+// Suggestion stores one public feature request. IP is kept for moderation and never sent to the UI.
+type Suggestion struct {
+	ID          string `json:"id"`
+	Name        string `json:"name"`
+	Description string `json:"description"`
+	Timestamp   int64  `json:"timestamp"`
+	IP          string `json:"ip,omitempty"`
+	DeletedAt   int64  `json:"deleted_at,omitempty"`
+}
+
+const (
+	// Hash of suggestion ID -> JSON, so a delete is a single atomic field move
+	suggestionsKey = "typinks-suggestions"
+	// Deleted suggestions are moved here and kept until the admin clears them by hand
+	deletedSuggestionsKey = "typinks-suggestions-deleted"
+	// Redis allows values up to 512 MB, far beyond anything useful, so cap descriptions at a readable size
+	maxSuggestionNameLength        = 120
+	maxSuggestionDescriptionLength = 5000
+	maxSuggestions                 = 1000
+	suggestionCooldownSeconds      = 30
+)
 
 const imageChatFolder = "image-chat/"
 
@@ -424,6 +449,152 @@ func handleImageChatDelete(w http.ResponseWriter, r *http.Request, conn redis.Co
 	sendResponse(w, "success", http.StatusOK)
 }
 
+func getSuggestions(conn redis.Conn) ([]Suggestion, error) {
+	rawSuggestions, err := redis.Strings(conn.Do("HVALS", suggestionsKey))
+	if err != nil {
+		return nil, err
+	}
+
+	suggestions := make([]Suggestion, 0, len(rawSuggestions))
+	for _, rawSuggestion := range rawSuggestions {
+		var suggestion Suggestion
+		if err := json.Unmarshal([]byte(rawSuggestion), &suggestion); err != nil {
+			log.Printf("Error unmarshaling suggestion: %v", err)
+			continue
+		}
+		suggestion.IP = ""
+		suggestions = append(suggestions, suggestion)
+	}
+	// Newest first; hash values come back in no particular order
+	sort.Slice(suggestions, func(i, j int) bool {
+		return suggestions[i].Timestamp > suggestions[j].Timestamp
+	})
+	return suggestions, nil
+}
+
+func handleSuggestionCreate(w http.ResponseWriter, r *http.Request, conn redis.Conn, ip string) {
+	var request struct {
+		Name        string `json:"name"`
+		Description string `json:"description"`
+	}
+	// 4 bytes per character covers any UTF-8 text at the maximum lengths, plus room for the JSON wrapping
+	maxBody := int64((maxSuggestionNameLength+maxSuggestionDescriptionLength)*4 + 1024)
+	if err := json.NewDecoder(http.MaxBytesReader(w, r.Body, maxBody)).Decode(&request); err != nil {
+		sendResponse(w, "Invalid suggestion", http.StatusBadRequest)
+		return
+	}
+
+	name := strings.TrimSpace(request.Name)
+	description := strings.TrimSpace(request.Description)
+	if name == "" || description == "" {
+		sendResponse(w, "Name and description are required", http.StatusBadRequest)
+		return
+	}
+	if utf8.RuneCountInString(name) > maxSuggestionNameLength {
+		sendResponse(w, fmt.Sprintf("Name must be %d characters or fewer", maxSuggestionNameLength), http.StatusBadRequest)
+		return
+	}
+	if utf8.RuneCountInString(description) > maxSuggestionDescriptionLength {
+		sendResponse(w, fmt.Sprintf("Description must be %d characters or fewer", maxSuggestionDescriptionLength), http.StatusBadRequest)
+		return
+	}
+
+	count, err := redis.Int(conn.Do("HLEN", suggestionsKey))
+	if err != nil {
+		log.Printf("Error counting suggestions: %v", err)
+		sendResponse(w, "Unable to save suggestion", http.StatusInternalServerError)
+		return
+	}
+	if count >= maxSuggestions {
+		sendResponse(w, "The suggestion box is full. Please try again later.", http.StatusServiceUnavailable)
+		return
+	}
+
+	// One suggestion per IP every few seconds keeps casual spam out without needing accounts
+	allowed, err := conn.Do("SET", "suggestion-rate:"+ip, 1, "EX", suggestionCooldownSeconds, "NX")
+	if err != nil {
+		log.Printf("Error checking suggestion rate limit: %v", err)
+		sendResponse(w, "Unable to save suggestion", http.StatusInternalServerError)
+		return
+	}
+	if allowed == nil {
+		sendResponse(w, fmt.Sprintf("Please wait %d seconds between suggestions", suggestionCooldownSeconds), http.StatusTooManyRequests)
+		return
+	}
+
+	randomBytes := make([]byte, 8)
+	if _, err := rand.Read(randomBytes); err != nil {
+		sendResponse(w, "Unable to save suggestion", http.StatusInternalServerError)
+		return
+	}
+	suggestion := Suggestion{
+		ID:          fmt.Sprintf("%d-%x", time.Now().UnixNano(), randomBytes),
+		Name:        name,
+		Description: description,
+		Timestamp:   time.Now().Unix(),
+		IP:          ip,
+	}
+	suggestionJSON, err := json.Marshal(suggestion)
+	if err != nil {
+		sendResponse(w, "Unable to save suggestion", http.StatusInternalServerError)
+		return
+	}
+	if _, err := conn.Do("HSET", suggestionsKey, suggestion.ID, suggestionJSON); err != nil {
+		log.Printf("Error saving suggestion: %v", err)
+		sendResponse(w, "Unable to save suggestion", http.StatusInternalServerError)
+		return
+	}
+	sendResponse(w, "success", http.StatusOK)
+}
+
+func handleSuggestionDelete(w http.ResponseWriter, r *http.Request, conn redis.Conn) {
+	var request struct {
+		ID       string `json:"id"`
+		Passcode string `json:"passcode"`
+	}
+	if err := json.NewDecoder(http.MaxBytesReader(w, r.Body, 4096)).Decode(&request); err != nil || request.ID == "" {
+		sendResponse(w, "Invalid delete request", http.StatusBadRequest)
+		return
+	}
+
+	if !isAdminPasscodeValid(request.Passcode) {
+		sendResponse(w, "Wrong passcode", http.StatusUnauthorized)
+		return
+	}
+
+	rawSuggestion, err := redis.String(conn.Do("HGET", suggestionsKey, request.ID))
+	if err == redis.ErrNil {
+		sendResponse(w, "Suggestion not found", http.StatusNotFound)
+		return
+	}
+	if err != nil {
+		log.Printf("Error reading suggestion: %v", err)
+		sendResponse(w, "Unable to delete suggestion", http.StatusInternalServerError)
+		return
+	}
+
+	var suggestion Suggestion
+	if err := json.Unmarshal([]byte(rawSuggestion), &suggestion); err != nil {
+		log.Printf("Error unmarshaling suggestion %s: %v", request.ID, err)
+	}
+	suggestion.DeletedAt = time.Now().Unix()
+	archivedJSON, err := json.Marshal(suggestion)
+	if err != nil {
+		archivedJSON = []byte(rawSuggestion)
+	}
+
+	// Archive and remove in one transaction so a suggestion is never lost or left in both places
+	conn.Send("MULTI")
+	conn.Send("HSET", deletedSuggestionsKey, request.ID, archivedJSON)
+	conn.Send("HDEL", suggestionsKey, request.ID)
+	if _, err := conn.Do("EXEC"); err != nil {
+		log.Printf("Error deleting suggestion %s: %v", request.ID, err)
+		sendResponse(w, "Unable to delete suggestion", http.StatusInternalServerError)
+		return
+	}
+	sendResponse(w, "success", http.StatusOK)
+}
+
 func publicSupabaseURL(s3Endpoint string) (string, error) {
 	endpointURL, err := url.Parse(s3Endpoint)
 	if err != nil || endpointURL.Scheme != "https" || !strings.HasSuffix(endpointURL.Host, ".storage.supabase.co") {
@@ -641,6 +812,41 @@ func Handler(w http.ResponseWriter, r *http.Request) {
 			return
 		}
 		handleImageChatDelete(w, r, conn)
+		return
+
+	case "/api/suggestions":
+		if r.Method != http.MethodGet {
+			sendResponse(w, "Method not allowed", http.StatusMethodNotAllowed)
+			return
+		}
+		suggestions, err := getSuggestions(conn)
+		if err != nil {
+			log.Printf("Error reading suggestions: %v", err)
+			sendResponse(w, "Failed to retrieve suggestions", http.StatusInternalServerError)
+			return
+		}
+		suggestionsJSON, err := json.Marshal(suggestions)
+		if err != nil {
+			sendResponse(w, "Failed to process suggestions", http.StatusInternalServerError)
+			return
+		}
+		sendRawJSONResponse(w, string(suggestionsJSON), http.StatusOK)
+		return
+
+	case "/api/suggestions/new":
+		if r.Method != http.MethodPost {
+			sendResponse(w, "Method not allowed", http.StatusMethodNotAllowed)
+			return
+		}
+		handleSuggestionCreate(w, r, conn, ip)
+		return
+
+	case "/api/suggestions/delete":
+		if r.Method != http.MethodPost {
+			sendResponse(w, "Method not allowed", http.StatusMethodNotAllowed)
+			return
+		}
+		handleSuggestionDelete(w, r, conn)
 		return
 
 	case "/api/count-user":
