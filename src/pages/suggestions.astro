@@ -1,0 +1,18 @@
+---
+import Layout from "../layouts/Layout.astro";
+import { Navbar } from "../components/Navbar.jsx";
+import { ScrollUpButton } from "../components/ScrollUpButton";
+import "../styles/Theme.css";
+import Footer from "@/components/Footer.vue";
+import SuggestionBoard from "@/components/suggestions/SuggestionBoard.vue";
+---
+
+<Layout
+  title="Suggestion Box - Request New Free Online Tools & Features"
+  description="Suggest a new free online tool or feature. Read what others have asked for and add your own idea. No signup needed."
+>
+  <Navbar client:load />
+  <SuggestionBoard client:load />
+  <ScrollUpButton client:load />
+  <Footer client:only="vue" />
+</Layout>

@@ -120,4 +120,10 @@ export const tools: Tool[] = [
     description: "Share images with everyone in a public room.",
     category: "Community",
   },
+  {
+    name: "Suggestion Box",
+    href: "/suggestions",
+    description: "Request a new tool or feature, and see what others have asked for.",
+    category: "Community",
+  },
 ];
