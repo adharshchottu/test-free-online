@@ -36,6 +36,7 @@ const {
 const modifiedOgImage = ogImageCustom ? ogImage : `${Astro.url.origin}/${ogImage}`;
 const blogAlternates = getBlogAlternates(Astro.url.pathname);
 import  SpeedInsights  from "@vercel/speed-insights/astro"
+import Analytics from "@vercel/analytics/astro";
 import { getBlogAlternates } from "@/data/blogTranslations";
 ---
 
@@ -135,5 +136,6 @@ import { getBlogAlternates } from "@/data/blogTranslations";
     </style>
     <SpeedInsights />
     <GoogleAds />
+    <Analytics />
   </body>
 </html>
