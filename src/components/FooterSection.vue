@@ -1,9 +1,9 @@
 <template>
-    <div class="mb-12">
-        <h3 class="mb-6 text-2xl font-bold text-primaryText">{{ title }}</h3>
+    <div class="mb-10">
+        <h3 class="mb-4 text-lg font-bold text-primaryText">{{ title }}</h3>
         <ul>
-            <li v-for="(item, index) in items" :key="index" class="mb-4">
-                <a class="text-gray-400 hover:text-gray-300" :href=item.value :aria-label="item">
+            <li v-for="item in items" :key="item.value" class="mb-3">
+                <a class="text-sm text-gray-400 hover:text-gray-200 transition-colors" :href="item.value">
                     {{ item.label }}
                 </a>
             </li>

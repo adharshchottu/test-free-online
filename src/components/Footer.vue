@@ -1,162 +1,110 @@
 <template>
-    <footer aria-label="Site footer">
-        <div class="pt-10 lg:pt-20 lg:pb-16 bg-bgDark1 radius-for-skewed">
-            <div class="container mx-auto px-4 w-4/5 md:w-11/12 lg:w-10/12 xl:w-4/5 2xl:w-2/3">
-                <div class="flex flex-wrap">
-                    <div class="w-full lg:w-1/3 mb-16 lg:mb-0">
-                        <div class="flex justify-center lg:justify-start items-center grow basis-0">
-                            <div class="text-white mr-2 text-6xl">
-                                <Logo />
-                            </div>
-                            <div class="text-white font-['Inter'] font-bold text-xl">Free Online</div>
-                        </div>
-                        <p class="mb-10 mt-4  text-gray-400 leading-loose text-center lg:text-left mx-auto lg:mx-0">
-                            Que se vayan los que se tienen que ir. Nosotros a lo nuestro: relajarnos y disfrutar.
-                        </p>
-                        <div className="flex flex-col my-2 overflow-hidden rounded-2xl text-center">
-                            <dt className="text-sm font-semibold leading-6 text-gray-300">
-                                Live Users Count
-                            </dt>
-                            <dd className="order-first text-3xl font-semibold tracking-tight text-white">
-                                <div className="relative inline-flex">
-                                    <div className="w-3 h-3 bg-green-500 rounded-full"></div>
-                                    <div
-                                        className="w-3 h-3 bg-green-500 rounded-full absolute top-0 left-0 animate-ping">
-                                    </div>
-                                    <div
-                                        className="w-3 h-3 bg-green-500 rounded-full absolute top-0 left-0 animate-pulse">
-                                    </div>
-                                </div> {{ userCount }}
-                            </dd>
-                        </div>
-                    </div>
-                    <div class="w-full lg:w-2/3 lg:pl-16 grid grid-cols-1 sm:grid-cols-2 gap-x-8">
-                        <FooterSection v-for="(section, index) in footerData" :key="index" :title="section.title"
-                            :items="section.items" />
-                    </div>
+    <footer aria-label="Site footer" class="bg-bgDark1 radius-for-skewed">
+        <div class="container mx-auto px-4 w-11/12 lg:w-10/12 xl:w-4/5 2xl:w-2/3 pt-12 lg:pt-20">
+            <!-- Brand row -->
+            <div
+                class="flex flex-col md:flex-row md:items-center md:justify-between gap-8 pb-10 border-b border-gray-800">
+                <div class="text-center md:text-left">
+                    <a href="/" class="inline-flex items-center" aria-label="Free Online home">
+                        <span class="text-white mr-2 text-6xl">
+                            <Logo />
+                        </span>
+                        <span class="text-white font-['Inter'] font-bold text-xl">Free Online</span>
+                    </a>
+                    <p class="mt-4 max-w-md text-gray-400 leading-loose mx-auto md:mx-0">
+                        Que se vayan los que se tienen que ir. Nosotros a lo nuestro: relajarnos y disfrutar.
+                    </p>
                 </div>
+
+                <div
+                    class="flex items-center justify-center gap-3 self-center rounded-2xl border border-gray-800 px-6 py-4">
+                    <span class="relative inline-flex w-3 h-3">
+                        <span class="w-3 h-3 bg-green-500 rounded-full"></span>
+                        <span class="w-3 h-3 bg-green-500 rounded-full absolute top-0 left-0 animate-ping"></span>
+                    </span>
+                    <span class="text-3xl font-semibold tracking-tight text-white">{{ userCount }}</span>
+                    <span class="text-sm font-semibold text-gray-300">Live users</span>
+                </div>
+            </div>
+
+            <!-- Link sections -->
+            <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-x-8 pt-12">
+                <FooterSection v-for="section in footerData" :key="section.title" :title="section.title"
+                    :items="section.items" :class="section.tall ? 'row-span-2' : ''" />
+            </div>
+
+            <!-- Bottom bar -->
+            <div
+                class="flex flex-col sm:flex-row items-center justify-between gap-2 py-6 border-t border-gray-800 text-sm text-gray-500">
+                <p>&copy; {{ year }} Free Online. All tools are free to use.</p>
+                <p>{{ toolCount }} tools and counting</p>
             </div>
         </div>
     </footer>
 </template>
 
 <script>
-import MailIcon from "../assets/icons/MailIcon.vue";
 import Logo from "../assets/logos/LogoVue.vue";
 import FooterSection from "./FooterSection.vue";
+import { tools } from "../data/tools";
 import { ref, onMounted, onUnmounted } from "vue";
+
+// Footer section order; any category not listed here is appended after these.
+const CATEGORY_ORDER = ["Developer", "Design", "Productivity", "Calculators", "Games", "Community"];
+const CATEGORY_TITLES = {
+    Developer: "Developer Tools",
+    Design: "Design",
+    Productivity: "Productivity",
+    Calculators: "Calculators",
+    Games: "Games",
+    Community: "Community",
+};
+
+function buildFooterData() {
+    const groups = new Map();
+    for (const tool of tools) {
+        if (!groups.has(tool.category)) groups.set(tool.category, []);
+        groups.get(tool.category).push({ label: tool.name, value: tool.href });
+    }
+
+    const categories = [
+        ...CATEGORY_ORDER.filter((c) => groups.has(c)),
+        ...[...groups.keys()].filter((c) => !CATEGORY_ORDER.includes(c)),
+    ];
+
+    const sections = categories.map((category) => {
+        const items = groups.get(category);
+        return {
+            title: CATEGORY_TITLES[category] || category,
+            items,
+            // Long lists span two rows so the short sections pack beside them
+            tall: items.length > 5,
+        };
+    });
+
+    sections.push({
+        title: "Site",
+        items: [
+            { label: "Home", value: "/" },
+            { label: "All Tools", value: "/#tools" },
+            { label: "Blog", value: "/blog" },
+        ],
+    });
+
+    return sections;
+}
 
 export default {
     name: "Footer",
     components: {
-        MailIcon,
         Logo,
-        FooterSection
+        FooterSection,
     },
     data() {
         return {
-            footerData: [
-                {
-                    title: "Products",
-                    items: [
-                        {
-                            label: "Redis Lua Script Test",
-                            value: "/redis-lua"
-                        },
-                        {
-                            label: "Server Side Events Test",
-                            value: "/sse"
-                        },
-                        {
-                            label: "Typinks Poster Generator",
-                            value: "/typinks-poster-generator"
-                        },
-                        {
-                            label: "Kroenger Poster Generator",
-                            value: "/kroenger-poster-generator"
-                        },
-                        {
-                            label: "Prelims Marks Calculator",
-                            value: "/prelims-marks-calculator"
-                        }
-                    ],
-                },
-                {
-                    title: "Important Links",
-                    items: [
-                        {
-                            label: "Blog",
-                            value: "/blog"
-                        },
-                        {
-                            label: "Text Editor",
-                            value: "/text-editor"
-                        },
-                        {
-                            label: "Planner",
-                            value: "/planner"
-                        }
-                    ],
-                },
-                {
-                    title: "Fun Tools",
-                    items: [
-                        {
-                            label: "Chat Room",
-                            value: "/chat"
-                        },
-                        {
-                            label: "Image Chat Room",
-                            value: "/image-chat"
-                        },
-                        {
-                            label: "Slide Puzzle",
-                            value: "/slide-puzzle"
-                        },
-                        {
-                            label: "Sudoku",
-                            value: "/sudoku"
-                        },
-                        {
-                            label: "Life Time Calculator",
-                            value: "/life-time-calculator"
-                        }
-                    ],
-                },
-                {
-                    title: "Developer Tools",
-                    items: [
-                        {
-                            label: "JSON Formatter & Validator",
-                            value: "/json-formatter"
-                        },
-                        {
-                            label: "Base64 & URL Encoder",
-                            value: "/base64-url-encoder"
-                        },
-                        {
-                            label: "JWT Decoder",
-                            value: "/jwt-decoder"
-                        },
-                        {
-                            label: "Regex Tester",
-                            value: "/regex-tester"
-                        },
-                        {
-                            label: "Cron Expression Explainer",
-                            value: "/cron-explainer"
-                        },
-                        {
-                            label: "UUID & Hash Generator",
-                            value: "/uuid-hash-generator"
-                        },
-                        {
-                            label: "Unix Timestamp Converter",
-                            value: "/timestamp-converter"
-                        },
-                    ],
-                },
-            ],
+            footerData: buildFooterData(),
+            toolCount: tools.length,
+            year: new Date().getFullYear(),
         };
     },
     setup() {
@@ -179,17 +127,16 @@ export default {
             }
         };
 
+        let interval;
         onMounted(() => {
             fetchUserCount();
-
-            const interval = setInterval(fetchUserCount, 10000);
-
-            onUnmounted(() => clearInterval(interval));
+            interval = setInterval(fetchUserCount, 10000);
         });
+        onUnmounted(() => clearInterval(interval));
 
         return {
-            userCount
-        }
-    }
-}
+            userCount,
+        };
+    },
+};
 </script>
